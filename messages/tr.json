@@ -1,0 +1,1481 @@
+{
+  "meta": {
+    "homeTitle": "{store} — Uzun ömürlü havlular",
+    "defaultDescription": "Sakin renklerde yumuşak, özenle seçilmiş havlular, bornozlar ve banyo paspasları; {amount} üzeri ücretsiz teslimat ve ücretsiz iade."
+  },
+  "common": {
+    "loading": "Sizin için en iyi seçenekleri buluyoruz…",
+    "loadingProduct": "Ürün yükleniyor…",
+    "home": "Ana sayfa",
+    "viewAll": "Tümünü gör",
+    "close": "Kapat",
+    "back": "Geri",
+    "remove": "Kaldır",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "continue": "Devam et",
+    "opensInNewTab": "(yeni sekmede açılır)",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "or": "veya",
+    "closeNamed": "{name} kapat",
+    "scrollBack": "{title} geri kaydır",
+    "scrollForward": "{title} ileri kaydır",
+    "carousel": "Kaydırmalı galeri",
+    "previousSlide": "Önceki slayt",
+    "nextSlide": "Sonraki slayt",
+    "goToSlide": "{n}. slayta git",
+    "slideOf": "{current} / {total}",
+    "notifications": "Bildirimler",
+    "storeHome": "{store} ana sayfa",
+    "marketplaceSeller": "Pazaryeri satıcısı"
+  },
+  "footer": {
+    "terms": "Kullanım koşulları",
+    "privacy": "Gizlilik bildirimi",
+    "help": "Yardım",
+    "copyright": "© {year} {store}. Tüm hakları saklıdır.",
+    "tagline": "Günlük yaşam için yumuşak, özenle tasarlanmış havlular — uzun ömürlü dokunur, gezegene saygılıdır.",
+    "followUs": "Bizi takip edin",
+    "socialLabel": "{network} üzerinde {store} (yeni sekmede açılır)",
+    "legal": "Yasal",
+    "termsLong": "Şartlar ve koşullar",
+    "privacyLong": "Gizlilik politikası",
+    "cookies": "Çerez politikası",
+    "backToTop": "Başa dön",
+    "columns": {
+      "service": "Müşteri hizmetleri",
+      "about": "Hakkımızda",
+      "guides": "Rehberler"
+    },
+    "links": {
+      "contact": "Bize ulaşın",
+      "delivery": "Teslimat bilgileri",
+      "returns": "İade ve değişim",
+      "track": "Siparişinizi takip edin",
+      "account": "Hesabınız",
+      "story": "Hikâyemiz",
+      "credits": "Fotoğraf künyesi",
+      "buyingGuide": "Satın alma rehberi",
+      "careGuide": "Bakım rehberi",
+      "sizeGuide": "Ölçü rehberi",
+      "quiz": "Havlunu bul (test)"
+    }
+  },
+  "errors": {
+    "notFoundTitle": "Bu sayfayı bulamadık",
+    "notFoundBody": "Bağlantı bozuk olabilir ya da ürün artık satışta olmayabilir.",
+    "notFoundPageTitle": "Sayfa bulunamadı",
+    "backHome": "Ana sayfaya dön",
+    "seeOffers": "Havlu fırsatlarını gör",
+    "oops": "Hay aksi",
+    "genericTitle": "Bir şeyler ters gitti",
+    "genericBody": "Bu sayfa yüklenirken beklenmeyen bir hata oluştu.",
+    "tryAgain": "Tekrar dene"
+  },
+  "header": {
+    "skipToContent": "İçeriğe geç",
+    "openMenu": "Menüyü aç",
+    "search": "Ara",
+    "accountLabel": "Giriş yapın veya hesabınızı görüntüleyin",
+    "logIn": "Giriş yap",
+    "wishlistLabel": "{count, plural, =0 {Favoriler, kayıtlı ürün yok} one {Favoriler, # kayıtlı} other {Favoriler, # kayıtlı}}",
+    "bagLabel": "{count, plural, =0 {Alışveriş sepeti, boş} one {Alışveriş sepeti, # ürün} other {Alışveriş sepeti, # ürün}}",
+    "theme": {
+      "change": "Renk temasını değiştir",
+      "title": "Tema",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem"
+    },
+    "announcements": {
+      "delivery": {
+        "text": "{amount} üzeri ücretsiz standart teslimat",
+        "link": "Kolay iade"
+      },
+      "newColours": {
+        "text": "Yeni renkler geldi",
+        "link": "Yenileri keşfet"
+      },
+      "quiz": {
+        "text": "Ne seçeceğinizden emin değil misiniz?",
+        "link": "Teste katılın"
+      }
+    },
+    "menu": "Menü",
+    "mainNav": "Ana menü",
+    "loginOrRegister": "Giriş yap / Hesap oluştur",
+    "yourOrders": "Siparişleriniz",
+    "wishlist": "Favoriler",
+    "quiz": "Havlunu bul — teste katıl",
+    "home": "Ana Sayfa",
+    "viewAll": "Tümünü gör",
+    "viewAllNamed": "Tümünü gör: {item}"
+  },
+  "language": {
+    "label": "Dil",
+    "change": "Dil: {current}. Dili değiştir"
+  },
+  "megaMenu": {
+    "items": {
+      "towels": "Havlular",
+      "bundles": "Setler",
+      "bath-mats": "Banyo Paspasları",
+      "bathrobes": "Bornozlar",
+      "sale": "İndirim",
+      "gifting": "Hediyeler",
+      "about": "Hakkımızda"
+    },
+    "groups": {
+      "byCategory": "Kategoriye Göre",
+      "byCollection": "Koleksiyona Göre",
+      "bySize": "Ölçüye Göre",
+      "giftIdeas": "Hediye Fikirleri",
+      "byPrice": "Fiyata Göre"
+    },
+    "links": {
+      "allTowels": "Tüm Havlular",
+      "towelBundles": "Havlu Setleri",
+      "bathTowels": "Banyo Havluları",
+      "beachTowels": "Plaj Havluları",
+      "babyTowels": "Bebek Havluları",
+      "kitchenTowels": "Mutfak Havluları",
+      "bathMatsAndRugs": "Banyo Paspasları ve Halıları",
+      "bathRobes": "Bornozlar",
+      "towelOffers": "Havlu Fırsatları",
+      "personalisedTowels": "Kişiye Özel Havlular",
+      "luxury": "Lüks",
+      "designAndPatterned": "Desenli ve Tasarım",
+      "quickDrying": "Hızlı Kuruyan",
+      "elevatedClassics": "Yenilenen Klasikler",
+      "wellnessAndSpa": "Sağlık ve Spa",
+      "faceCloths": "Yüz Havluları",
+      "handTowels": "El Havluları",
+      "bathSheets": "Büyük Banyo Havluları",
+      "allGifts": "Tüm Hediyeler",
+      "giftBundles": "Hediye Setleri",
+      "babyGifts": "Bebek Hediyeleri",
+      "spaGifts": "Spa Hediyeleri",
+      "under": "{amount} altı"
+    }
+  },
+  "search": {
+    "title": "Ara",
+    "inputLabel": "Mağazada ara",
+    "placeholder": "Ne arıyorsunuz?",
+    "clear": "Temizle",
+    "close": "Aramayı kapat",
+    "popularTitle": "Popüler aramalar",
+    "youMayLike": "Bunları da beğenebilirsiniz",
+    "productsCount": "{count, plural, one {Ürünler (#)} other {Ürünler (#)}}",
+    "noMatches": "Hızlı eşleşme yok",
+    "suggestions": "Ürün önerileri",
+    "seeAll": "“{query}” için tüm sonuçları gör",
+    "popular": {
+      "bathTowel": "Banyo havlusu",
+      "waffle": "Petek",
+      "beach": "Plaj",
+      "baby": "Bebek",
+      "robe": "Bornoz",
+      "bundle": "Set",
+      "bathMat": "Banyo paspası",
+      "turkishCotton": "Türk pamuğu"
+    }
+  },
+  "newsletter": {
+    "done": "Listeye eklendiniz — %10 indirim için gelen kutunuzu kontrol edin.",
+    "emailLabel": "E-posta adresi",
+    "placeholder": "E-posta adresiniz",
+    "signUp": "Kaydol",
+    "consent": "Kaydolarak {store} tarafından e-posta almayı kabul edersiniz. İstediğiniz zaman abonelikten çıkabilirsiniz. Ayrıntılar:",
+    "privacy": "Gizlilik Politikası",
+    "blockTitle": "Bültenimize katılın + ilk siparişinizde %10 indirim",
+    "blockBody": "Yeni renkler, üretici hikâyeleri ve sessiz indirimler — ayda bir ya da iki kez, daha fazla değil.",
+    "close": "Kapat",
+    "popupEyebrow": "Küçük bir hoş geldin",
+    "popupTitle": "İlk siparişinizde %10 indirim",
+    "popupBody": "Yeni renkler, üretici hikâyeleri ve indirimlere erken erişim için bültene katılın.",
+    "noThanks": "Hayır, teşekkürler",
+    "errors": {
+      "empty": "Lütfen e-posta adresinizi girin.",
+      "missingAt": "Lütfen e-posta adresine “@” ekleyin. “{value}” adresinde “@” eksik.",
+      "missingUser": "Lütfen “@” işaretinden önceki kısmı girin. “{value}” eksik.",
+      "missingDomain": "Lütfen “@” işaretinden sonraki kısmı girin. “{value}” eksik.",
+      "invalid": "Lütfen ad@ornek.com gibi geçerli bir e-posta adresi girin."
+    }
+  },
+  "collection": {
+    "breadcrumb": "Sayfa yolu",
+    "shopByProduct": "Ürüne göre alışveriş",
+    "shopByFeeling": "Dokuya göre alışveriş",
+    "shopAll": "Tümünü keşfet",
+    "filter": "Filtrele",
+    "resultsSuffix": "{count, plural, one {sonuç} other {sonuç}}",
+    "gridColumns": "Izgara sütunları",
+    "columns": "{count} sütun",
+    "sortBy": "Sırala",
+    "sort": {
+      "recommended": "Önerilen",
+      "price-asc": "En düşük fiyat",
+      "price-desc": "En yüksek fiyat",
+      "newest": "En yeni",
+      "bestselling": "En çok satan"
+    },
+    "activeFilters": "Etkin filtreler",
+    "removeFilter": "Filtreyi kaldır: {label}",
+    "clearAll": "Tümünü temizle",
+    "clearFilters": "Filtreleri temizle",
+    "emptyTitle": "Henüz eşleşen ürün yok",
+    "emptyBody": "Bir filtreyi kaldırmayı deneyin ya da tüm ürünlerimize göz atın.",
+    "showing": "{total} üründen {shown} tanesi gösteriliyor",
+    "showMore": "Daha fazla göster",
+    "priceChip": "{min} – {max}",
+    "any": "herhangi",
+    "chips": {
+      "fast": "Hızlı teslimat",
+      "stock": "Stokta",
+      "sale": "İndirimde"
+    }
+  },
+  "filters": {
+    "title": "Filtrele",
+    "showingPrefix": "Gösterilen:",
+    "itemsSuffix": "{count, plural, one {ürün} other {ürün}}",
+    "clearAll": "Tümünü temizle",
+    "apply": "Uygula",
+    "fast": "Hızlı teslimat (1–2 gün)",
+    "inStockOnly": "Yalnızca stoktakiler",
+    "onSale": "İndirimde",
+    "groups": {
+      "type": "Ürün",
+      "feel": "Doku",
+      "material": "Malzeme",
+      "colour": "Renk",
+      "size": "Ölçü",
+      "gsm": "Ağırlık (GSM)",
+      "design": "Tasarım",
+      "brand": "Marka",
+      "price": "Fiyat",
+      "availability": "Stok durumu"
+    },
+    "gsm": {
+      "light": "Hafif (300 altı)",
+      "mid": "Orta ağırlık (300–500)",
+      "heavy": "Ağır (500+)"
+    },
+    "price": {
+      "min": "En düşük fiyat",
+      "max": "En yüksek fiyat",
+      "minDollars": "Dolar cinsinden en düşük fiyat",
+      "maxDollars": "Dolar cinsinden en yüksek fiyat",
+      "to": "ile"
+    },
+    "sizeGroups": {
+      "towel": "Havlu ölçüleri",
+      "robe": "Bornoz bedenleri",
+      "sets": "Setler",
+      "other": "Diğer"
+    }
+  },
+  "productTypes": {
+    "Bath Towels": "Banyo Havluları",
+    "Beach Towels": "Plaj Havluları",
+    "Baby Towels": "Bebek Havluları",
+    "Kitchen Towels": "Mutfak Havluları",
+    "Bath Mats": "Banyo Paspasları",
+    "Bathrobes": "Bornozlar",
+    "Towel Bundles": "Havlu Setleri",
+    "Hand Towels": "El Havluları",
+    "Towels": "Havlular"
+  },
+  "feels": {
+    "Light & airy": "Hafif ve havadar",
+    "Soft & cosy": "Yumuşak ve sıcak",
+    "Plush & indulgent": "Kabarık ve şımartıcı",
+    "Crisp & structured": "Diri ve dokulu",
+    "Smooth & sleek": "Pürüzsüz ve zarif"
+  },
+  "designs": {
+    "Plain": "Düz",
+    "Textured": "Dokulu",
+    "Patterned": "Desenli"
+  },
+  "colourFamilies": {
+    "White": "Beyaz",
+    "Neutral": "Nötr",
+    "Grey": "Gri",
+    "Black": "Siyah",
+    "Green": "Yeşil",
+    "Blue": "Mavi",
+    "Pink": "Pembe",
+    "Red": "Kırmızı"
+  },
+  "sizes": {
+    "Face cloth": "Yüz havlusu",
+    "Hand towel": "El havlusu",
+    "Bath towel": "Banyo havlusu",
+    "Bath sheet": "Büyük banyo havlusu",
+    "One size": "Tek ebat",
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "4-piece": "4 parça set",
+    "6-piece": "6 parça set",
+    "8-piece": "8 parça set"
+  },
+  "searchPage": {
+    "home": "Ana sayfa",
+    "saleTitle": "İndirim",
+    "resultsTitle": "“{query}”",
+    "allTitle": "Tüm Ürünler",
+    "saleIntro": "Sevdiğimiz havlularda sınırlı süreli fiyatlar. Tükenince bitti.",
+    "resultsIntro": "“{query}” için bulduğumuz her şey.",
+    "allIntro": "Mağazadaki tüm havlular, bornozlar ve banyo paspasları — günlük kullanımdaki hisleri için seçildi.",
+    "resultsPageTitle": "“{query}” için sonuçlar",
+    "saleCrumb": "İndirim",
+    "searchCrumb": "Arama"
+  },
+  "collections": {
+    "all-towels": {
+      "title": "Tüm Havlular",
+      "intro": "Tüy kadar hafif petek dokumadan otel kalitesinde kabarık havlulara kadar tüm havlularımız."
+    },
+    "towel-bundles": {
+      "title": "Havlu Setleri",
+      "intro": "Tüm banyo için uyumlu setler, tek tek almaktan daha uygun fiyata."
+    },
+    "bath-towels": {
+      "title": "Banyo Havluları",
+      "intro": "Her ağırlıkta ve her sakin renkte günlük vazgeçilmez."
+    },
+    "beach-towels": {
+      "title": "Plaj Havluları",
+      "intro": "Büyük boy, hızlı kuruyan ve güneşte uzun günler için tasarlandı."
+    },
+    "baby-towels": {
+      "title": "Bebek Havluları",
+      "intro": "Banyonun en küçük hayranları için nazik organik pamuk."
+    },
+    "kitchen-towels": {
+      "title": "Mutfak Havluları",
+      "intro": "Yoğun mutfaklar için tüy bırakmayan keten ve hızlı kuruyan petek dokuma."
+    },
+    "bath-mats-rugs": {
+      "title": "Banyo Paspasları ve Halıları",
+      "intro": "Yumuşak, emici ve çıplak ayaklara nazik."
+    },
+    "bath-robes": {
+      "title": "Bornozlar",
+      "intro": "Tüy kadar hafif petek dokumadan şal yakalı kabarık bornozlara."
+    },
+    "towel-offers": {
+      "title": "Havlu Fırsatları",
+      "intro": "Banyo favorilerinde sınırlı süreli fiyatlar."
+    },
+    "personalised-towels": {
+      "title": "Kişiye Özel Havlular",
+      "intro": "Dilediğiniz iplik rengiyle baş harfler ekleyin — seçili modellerde ücretsiz."
+    },
+    "luxury": {
+      "title": "Lüks",
+      "intro": "Evde otel hissi için en ağır ve en yumuşak dokumalarımız."
+    },
+    "design-patterned": {
+      "title": "Desenli ve Tasarım",
+      "intro": "Karakterli bir banyo için çizgiler, jakarlar ve dokular."
+    },
+    "quick-drying": {
+      "title": "Hızlı Kuruyan",
+      "intro": "Çabuk kuruyan ve az yer kaplayan hafif dokumalar."
+    },
+    "elevated-classics": {
+      "title": "Yenilenen Klasikler",
+      "intro": "Zamansız düz havlular, daha da iyi hâliyle."
+    },
+    "wellness-spa": {
+      "title": "Sağlık ve Spa",
+      "intro": "Evde spa günü için bornozlar, fitilli havlular ve yavaş ritüeller."
+    },
+    "face-cloths": {
+      "title": "Yüz Havluları",
+      "intro": "Küçük, yumuşak ve her işe yarar."
+    },
+    "hand-towels": {
+      "title": "El Havluları",
+      "intro": "Lavabo, misafir tuvaleti ve spor çantası için."
+    },
+    "bath-sheets": {
+      "title": "Büyük Banyo Havluları",
+      "intro": "En büyük ölçümüz — vücudunuzu tamamen saracak kadar geniş."
+    },
+    "gifting": {
+      "title": "Hediyeler",
+      "intro": "Setler, kişiye özel ürünler ve bebek hediyeleri; paketlenmiş ve hazır."
+    }
+  },
+  "toasts": {
+    "optionOutOfStock": "Bu seçenek stokta yok",
+    "addedToBag": "Sepetinize eklendi",
+    "goToBag": "Sepete git",
+    "continueShopping": "Alışverişe devam et"
+  },
+  "wishlist": {
+    "removeNamed": "{title} ürününü favorilerden kaldır",
+    "saveNamed": "{title} ürününü favorilere ekle",
+    "saved": "Favorilerinize kaydedildi",
+    "removed": "Favorilerinizden kaldırıldı",
+    "view": "Favorileri gör",
+    "savedShort": "Favorilere kaydedildi",
+    "added": "Favorilere eklendi",
+    "add": "Favorilere ekle",
+    "title": "Favoriler",
+    "viewAllAccount": "Tümünü hesabınızda görün",
+    "emptyTitle": "Henüz kayıtlı ürün yok",
+    "emptyBody": "Beğendiğiniz ürünlerdeki kalbe dokunun, burada sizi bekleyecekler.",
+    "continueShopping": "Alışverişe devam et",
+    "soldOut": "Tükendi",
+    "addToBag": "Sepete ekle",
+    "remove": "Kaldır"
+  },
+  "price": {
+    "from": "Başlangıç",
+    "was": "Önceki fiyat",
+    "now": "Şimdi",
+    "save": "%{pct} tasarruf"
+  },
+  "quantity": {
+    "label": "Adet",
+    "remove": "Ürünü kaldır",
+    "decrease": "Adedi azalt",
+    "increase": "Adedi artır"
+  },
+  "badges": {
+    "soldOut": "Tükendi",
+    "NEW IN": "Yeni",
+    "New Colour": "Yeni renk",
+    "Bestseller": "Çok satan"
+  },
+  "productCard": {
+    "colour": "Renk",
+    "more": "+{count} daha",
+    "soldOut": "Tükendi",
+    "quickAdd": "Hızlı ekle",
+    "chooseOptions": "{title} için seçenekleri belirleyin",
+    "selectSize": "Ölçü seçin",
+    "selectColour": "Renk seçin",
+    "closeOptions": "Seçenekleri kapat",
+    "addColourToBag": "{colour} rengini sepete ekle",
+    "hidden": "Gizli",
+    "select": "{title} seç",
+    "edit": "{title} düzenle",
+    "editShort": "Düzenle",
+    "delete": "{title} sil",
+    "deleteShort": "Sil",
+    "coloursFor": "{title} renkleri"
+  },
+  "productPage": {
+    "recentlyViewed": "Son görüntülenenler",
+    "popularNow": "Şu an popüler",
+    "completeTheLook": "Görünümü tamamlayın",
+    "addNamedToBag": "{title} ürününü sepete ekle",
+    "notifyShort": "Haber ver",
+    "selectASize": "Bir ölçü seçin",
+    "addToBag": "Sepete ekle",
+    "reviewsCount": "{count, plural, one {# değerlendirme} other {# değerlendirme}}",
+    "from": "Başlangıç",
+    "now": "Şimdi",
+    "was": "Önceki fiyat",
+    "taxIncluded": "Vergiler dahildir.",
+    "colour": "Renk",
+    "chooseColour": "Bir renk seçin",
+    "optionOutOfStock": "{name} – stokta yok",
+    "size": "Ölçü",
+    "chooseSize": "Bir ölçü seçin",
+    "outOfStockShort": "stokta yok",
+    "outOfStock": "Stokta yok",
+    "onlyLeft": "{count, plural, one {Yalnızca # adet kaldı} other {Yalnızca # adet kaldı}}",
+    "lowStock": "Az stok",
+    "inStock": "Stokta",
+    "quantity": "Adet",
+    "freeDelivery": "{amount} üzeri siparişlerde ücretsiz standart teslimat",
+    "arrives": "Tahmini teslimat: {dates}",
+    "description": "Açıklama",
+    "details": "Detaylar ve Malzemeler",
+    "material": "Malzeme",
+    "weight": "Ağırlık",
+    "weave": "Dokuma",
+    "origin": "Menşei",
+    "brand": "Marka",
+    "dimensions": "Ölçüler",
+    "careGuide": "Bakım Rehberi",
+    "deliveryReturns": "Teslimat ve İade",
+    "standardPrice": "{price} · {amount} üzeri ücretsiz",
+    "orderToday": "Bugün sipariş verin: standart teslimat {standard}, {fastName} {fast}.",
+    "returnsSummary": "Fikrinizi mi değiştirdiniz? Kullanılmamış ürünleri 30 gün içinde iade edin, ücretin tamamını geri alın — iade ücretsizdir. Kişiye özel ürünler kusurlu olmadıkça iade edilemez.",
+    "returnsLink": "İade politikamızın tamamını okuyun",
+    "selectSizeShort": "Ölçü seçin",
+    "breadcrumb": "Sayfa yolu",
+    "pairsWellWith": "Bununla iyi gider",
+    "moreLikeThis": "Benzer ürünler",
+    "youMayAlsoLike": "Bunları da beğenebilirsiniz",
+    "deliveryOption": "{name} ({days})"
+  },
+  "gallery": {
+    "images": "Ürün görselleri",
+    "showImage": "{total} görselden {n}. görseli göster",
+    "openFullScreen": "{title} görsellerini tam ekran aç",
+    "imagesOf": "{title} görselleri",
+    "openImage": "{n}. görseli tam ekran aç",
+    "viewerTitle": "{title} — görsel görüntüleyici",
+    "viewerHelp": "Görseller arasında geçiş için ok tuşlarını kullanın veya kaydırın. Kapatmak için Escape tuşuna basın.",
+    "closeViewer": "Görsel görüntüleyiciyi kapat",
+    "previous": "Önceki görsel",
+    "next": "Sonraki görsel",
+    "choose": "Görsel seçin",
+    "image": "Görsel {n}"
+  },
+  "sizeGuide": {
+    "title": "Ölçü rehberi",
+    "description": "{title} ölçüleri",
+    "caption": "Ebatlar ve ölçüler",
+    "size": "Ebat",
+    "dimensions": "Ölçüler ({unit})",
+    "details": "Detaylar",
+    "price": "Fiyat",
+    "length": "{value} uzunluk",
+    "note": "Ölçüler yıkamadan önce düz zeminde alınır ve ±%3 farklılık gösterebilir. Pamuk ilk birkaç yıkamada biraz (en fazla %3) çekebilir.",
+    "units": {
+      "label": "Birimler",
+      "centimetres": "Santimetre",
+      "inches": "İnç",
+      "cm": "cm",
+      "in": "inç"
+    }
+  },
+  "notify": {
+    "toastTitle": "Size haber vereceğiz",
+    "toastBody": "{label} tekrar stoğa girdiğinde {email} adresine e-posta göndereceğiz.",
+    "done": "Stoğa girdiğinde size e-posta göndereceğiz",
+    "button": "Stoğa girince haber ver",
+    "emailLabel": "{label} stoğa girince bana e-posta gönder",
+    "submit": "Haber ver"
+  },
+  "reviews": {
+    "title": "Değerlendirmeler",
+    "outOf5": "/ 5",
+    "basedOn": "{count, plural, one {# değerlendirmeye göre} other {# değerlendirmeye göre}}",
+    "filterByRating": "Puana göre filtrele",
+    "count": "{count, plural, one {# değerlendirme} other {# değerlendirme}}",
+    "write": "Değerlendirme yaz",
+    "starFiltered": "{count, plural, one {# adet {stars} yıldızlı değerlendirme} other {# adet {stars} yıldızlı değerlendirme}}",
+    "showing": "{total} yorumdan {shown} tanesi gösteriliyor",
+    "starOnly": "Yalnızca {stars}★",
+    "verified": "Onaylı alıcı",
+    "bought": "Satın alınan: {items}",
+    "helpful": "Faydalı ({count})",
+    "none": "Henüz değerlendirme yok.",
+    "showMore": "Daha fazla değerlendirme göster",
+    "rated": "5 üzerinden {value} puan",
+    "reviewsWord": "{count, plural, one {değerlendirme} other {değerlendirme}}",
+    "form": {
+      "title": "Yorum yaz",
+      "intro": "{product} hakkında düşüncelerinizi diğer alışverişçilerle paylaşın.",
+      "rating": "Puanınız",
+      "stars": "{count, plural, one {# yıldız} other {# yıldız}}",
+      "headline": "Başlık",
+      "text": "Yorumunuz",
+      "name": "Adınız",
+      "submit": "Yorumu gönder",
+      "cancel": "Vazgeç",
+      "localNote": "Şimdilik yorumlar yalnızca bu cihaza kaydedilir.",
+      "errors": {
+        "rating": "Bir puan seçin",
+        "headline": "Kısa bir başlık ekleyin",
+        "text": "Biraz daha anlatın (en az 10 karakter)",
+        "name": "Adınızı ekleyin"
+      },
+      "saved": "Teşekkürler — yorumunuz bu cihaza kaydedildi."
+    },
+    "yours": "Yorumunuz · yalnızca bu cihazda görünür",
+    "originalLanguage": "Yorumlar yazıldıkları dilde gösterilir."
+  },
+  "cart": {
+    "title": "Alışveriş Sepeti",
+    "discount": "İndirim",
+    "subtotal": "Ara toplam",
+    "taxNote": "Vergiler dahildir. Kargo ücreti ödeme adımında hesaplanır.",
+    "checkout": "Ödemeye geç",
+    "freeReturns": "30 gün ücretsiz iade",
+    "viewFull": "Sepetin tamamını gör",
+    "emptyTitle": "Sepetiniz boş",
+    "emptyBody": "Güzel şeyler sizi bekliyor — yumuşak bir şeyle başlayın.",
+    "continueShopping": "Alışverişe devam et",
+    "haveAccount": "Hesabınız var mı?",
+    "logIn": "Giriş yapın,",
+    "checkoutFaster": "daha hızlı ödeyin.",
+    "onlyLeft": "{count, plural, one {Yalnızca # adet kaldı} other {Yalnızca # adet kaldı}}",
+    "quantityFor": "{title} adedi",
+    "saveForLater": "Sonraya kaydet",
+    "moveToBag": "Sepete taşı",
+    "removeNamed": "{title} kaldır",
+    "remove": "Kaldır",
+    "loading": "Sepetiniz yükleniyor…",
+    "standardDelivery": "Standart teslimat",
+    "savedForLater": "Sonraya kaydedilenler",
+    "pairsWell": "Uyumlu ürünler",
+    "completeTheLook": "Görünümü tamamlayın",
+    "unavailable": "Sepetinizdeki bir ürün artık mevcut değil",
+    "unavailableMany": "Sepetinizdeki {count} ürün artık mevcut değil",
+    "pageTitle": "Sepetiniz",
+    "progress": {
+      "freeDelivery": "Ücretsiz teslimat",
+      "freeGift": "Ücretsiz hediye",
+      "awayDelivery": "Ücretsiz standart teslimata {amount} kaldı",
+      "awayGift": "Ücretsiz hediyeye {amount} kaldı",
+      "unlocked": "Ücretsiz teslimat ve ücretsiz hediye kazandınız.",
+      "label": "Ücretsiz teslimat ve hediyeye ilerleme"
+    },
+    "discountCode": {
+      "applied": "{code} kodu uygulandı — %{pct} indirim",
+      "remove": "Kaldır",
+      "empty": "Bir indirim kodu girin.",
+      "invalid": "Bu kod geçerli değil ya da süresi dolmuş.",
+      "label": "İndirim kodu",
+      "apply": "Uygula"
+    },
+    "summary": {
+      "title": "Sipariş özeti",
+      "subtotal": "{count, plural, one {Ara toplam (# ürün)} other {Ara toplam (# ürün)}}",
+      "savings": "İndirim kazancı",
+      "discount": "İndirim",
+      "shipping": "Kargo",
+      "free": "Ücretsiz",
+      "total": "Toplam",
+      "includesTax": "{tax} vergi dahildir.",
+      "reassurance": "30 gün ücretsiz iade · güvenli ödeme"
+    },
+    "total": "Toplam",
+    "each": "Tanesi {price}"
+  },
+  "credits": {
+    "title": "Fotoğraf künyesi",
+    "intro": "Bu sitedeki ürün fotoğrafları {pexels} kaynağından alınmıştır. Aşağıdaki tüm fotoğrafçılara teşekkür ederiz.",
+    "empty": "Henüz fotoğraf yok. Ürün görsellerini indirmek için {command} komutunu çalıştırın; künyeler burada otomatik olarak görünür.",
+    "onPexels": "Pexels'te (yeni sekmede açılır)",
+    "photos": "{count, plural, one {# fotoğraf} other {# fotoğraf}}"
+  },
+  "checkout": {
+    "pageTitle": "Ödeme",
+    "confirmedPageTitle": "Sipariş onaylandı",
+    "title": "Ödeme",
+    "steps": {
+      "address": "Adres",
+      "delivery": "Teslimat",
+      "payment": "Ödeme",
+      "review": "Kontrol"
+    },
+    "preparing": "Güvenli ödeme hazırlanıyor…",
+    "emptyTitle": "Henüz ödenecek bir şey yok",
+    "emptyBody": "Sepetiniz boş.",
+    "continueShopping": "Alışverişe devam et",
+    "secureItems": "{count, plural, one {Güvenli · # ürün} other {Güvenli · # ürün}}",
+    "address": {
+      "title": "Teslimat adresi",
+      "choose": "Kayıtlı bir adres seçin",
+      "addNew": "Yeni adres ekle",
+      "fullName": "Ad soyad",
+      "street": "Sokak adresi",
+      "apt": "Daire, kat (isteğe bağlı)",
+      "city": "Şehir",
+      "phone": "Telefon",
+      "next": "Bu adrese teslim et",
+      "region": "Bölge / il",
+      "postalCode": "Posta kodu",
+      "country": "Ülke",
+      "save": "Bu adresi hesabıma kaydet",
+      "makeDefault": "Varsayılan adresim yap"
+    },
+    "deliveryTitle": "Teslimat hızı",
+    "chooseDelivery": "Bir teslimat seçeneği belirleyin",
+    "delivery": {
+      "fast": {
+        "label": "Hızlı",
+        "detail": "{days}"
+      },
+      "standard": {
+        "label": "Standart",
+        "detail": "{days}"
+      },
+      "eco": {
+        "label": "Toplu gönderim",
+        "detail": "{days} · daha az koli"
+      }
+    },
+    "free": "ÜCRETSİZ",
+    "qty": "Adet {count}",
+    "back": "Geri",
+    "toPayment": "Ödemeye devam et",
+    "toReview": "Siparişi kontrol et",
+    "payment": {
+      "title": "Ödeme yöntemi",
+      "demo": "Yalnızca demo — ödeme alınmaz ve kart bilgileri saklanmaz.",
+      "choose": "Bir ödeme yöntemi seçin",
+      "cardOption": "Kredi veya banka kartı",
+      "wallet": "{store} Cüzdan (bakiye {balance})",
+      "walletShort": "Cüzdan",
+      "card": "Kart",
+      "cardEnding": "{last4} ile biten {brand}",
+      "nameOnCard": "Kart üzerindeki isim",
+      "cardNumber": "Kart numarası",
+      "expiry": "Son kullanma (AA/YY)",
+      "cvc": "CVC",
+      "billingSame": "Fatura adresi teslimat adresiyle aynı"
+    },
+    "review": {
+      "title": "Siparişinizi kontrol edin",
+      "shipTo": "Teslimat adresi",
+      "delivery": "Teslimat",
+      "payment": "Ödeme",
+      "edit": "Düzenle"
+    },
+    "placing": "Sipariş veriliyor…",
+    "placeOrder": "Siparişi ver · {total}",
+    "terms": "Sipariş vererek demo koşullarını kabul etmiş olursunuz. Herhangi bir ücret alınmayacaktır.",
+    "deliveryLine": "Teslimat ({option})",
+    "progress": "Ödeme adımları",
+    "completed": "tamamlandı",
+    "deliveryDays": "{min}–{max} iş günü",
+    "deliveryDaysOne": "{days, plural, one {# iş günü} other {# iş günü}}",
+    "errors": {
+      "required": "Bu alan zorunludur",
+      "phone": "Geçerli bir telefon numarası girin",
+      "cardNumber": "13–19 haneli bir kart numarası girin",
+      "expiry": "Gelecekteki bir tarihi AA/YY biçiminde girin",
+      "cvc": "3 veya 4 haneli kodu girin",
+      "summary": "Lütfen işaretli alanları kontrol edin."
+    },
+    "stepOf": "Adım {n}/{total} · {label}",
+    "backToBag": "Sepete dön"
+  },
+  "account": {
+    "pageTitle": "Hesabınız",
+    "addressLabels": {
+      "home": "Ev",
+      "work": "İş"
+    },
+    "memberSince": "{date} tarihinden beri üye",
+    "sections": "Hesap bölümleri",
+    "tabs": {
+      "orders": "Siparişler",
+      "wishlist": "Favoriler",
+      "addresses": "Adresler",
+      "profile": "Profil"
+    },
+    "yourOrders": "Siparişleriniz",
+    "orderPlaced": "Sipariş tarihi",
+    "total": "Toplam",
+    "shipTo": "Teslimat",
+    "orderNumber": "Sipariş no",
+    "wishlistEmpty": "Favori listeniz boş",
+    "wishlistHint": "Kaydetmek için herhangi bir üründeki kalbe dokunun.",
+    "discover": "Ürünleri keşfet",
+    "addAddress": "Adres ekle",
+    "default": "Varsayılan",
+    "edit": "Düzenle",
+    "remove": "Kaldır",
+    "setDefault": "Varsayılan yap",
+    "profile": {
+      "name": "Ad",
+      "email": "E-posta",
+      "save": "Kaydet",
+      "cancel": "Vazgeç",
+      "saved": "Profil güncellendi",
+      "editNamed": "{field} düzenle"
+    },
+    "viewOrder": "Siparişi görüntüle",
+    "viewOrderNamed": "{id} numaralı siparişi görüntüle",
+    "noOrders": "Henüz siparişiniz yok",
+    "noOrdersHint": "Sipariş verdiğinizde buradan takip edebilirsiniz.",
+    "startShopping": "Alışverişe başla",
+    "editAddress": "{name} adresini düzenle",
+    "removeAddress": "{name} adresini kaldır",
+    "addressRemoved": "Adres kaldırıldı",
+    "addressSaved": "Adres kaydedildi",
+    "defaultUpdated": "Varsayılan adres güncellendi",
+    "undo": "Geri al",
+    "addressForm": {
+      "addTitle": "Adres ekle",
+      "editTitle": "Adresi düzenle",
+      "label": "Etiket (isteğe bağlı)",
+      "labelHint": "Örneğin: Ev, İş, Annemin evi",
+      "save": "Adresi kaydet",
+      "cancel": "Vazgeç",
+      "makeDefault": "Varsayılan adresim yap"
+    }
+  },
+  "orders": {
+    "pageTitle": "Sipariş {id}",
+    "status": {
+      "placed": "Sipariş alındı",
+      "packed": "Paketlendi",
+      "shipped": "Kargoya verildi",
+      "out_for_delivery": "Dağıtımda",
+      "delivered": "Teslim edildi",
+      "cancelled": "İptal edildi"
+    },
+    "qty": "Adet {count}",
+    "tracking": "Kargo takibi",
+    "current": "Şu anki durum",
+    "completed": "tamamlandı",
+    "pending": "bekliyor",
+    "totals": {
+      "items": "Ürünler",
+      "shipping": "Kargo",
+      "tax": "Vergi",
+      "free": "ÜCRETSİZ",
+      "total": "Sipariş toplamı",
+      "discount": "İndirim",
+      "includesTax": "{tax} vergi dahildir."
+    },
+    "notFound": "Sipariş bulunamadı",
+    "backToOrders": "Siparişlere dön",
+    "loading": "Sipariş yükleniyor…",
+    "yourOrders": "Siparişleriniz",
+    "placedOn": "Sipariş tarihi: {date}",
+    "returnItems": "Ürünleri iade et",
+    "trackingTitle": "Takip",
+    "deliveredOn": "Teslim edildi: {date}",
+    "arriving": "Tahmini teslimat: {date}",
+    "items": "Ürünler",
+    "shippingAddress": "Teslimat adresi",
+    "delivery": "Teslimat",
+    "payment": "Ödeme",
+    "summary": "Sipariş özeti",
+    "printInvoice": "Faturayı yazdır",
+    "returnsOpen": "İade, siparişiniz teslim edildikten sonra açılır.",
+    "each": "Tanesi {price}"
+  },
+  "auth": {
+    "signInTitle": "Giriş yap",
+    "registerTitle": "Hesap oluştur",
+    "hidePassword": "Şifreyi gizle",
+    "showPassword": "Şifreyi göster",
+    "createdToast": "Hesap oluşturuldu (demo)",
+    "signedInToast": "Giriş yapıldı (demo)",
+    "mockedNote": "Bu sürümde kimlik doğrulama simüle edilmektedir.",
+    "socialNotWired": "Bu demoda sosyal medya ile giriş bağlı değil",
+    "registerHeading": "Hesabınızı oluşturun",
+    "registerIntro": "{store} üzerinde favorilerinizi kaydedin, siparişlerinizi takip edin ve daha hızlı ödeyin.",
+    "signInIntro": "Tekrar hoş geldiniz. Devam etmek için bilgilerinizi girin.",
+    "fullName": "Ad soyad",
+    "email": "E-posta",
+    "password": "Şifre",
+    "passwordHint": "En az 8 karakter; bir rakam ve bir sembol içermeli.",
+    "strength": {
+      "tooWeak": "Çok zayıf",
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "good": "İyi",
+      "strong": "Güçlü"
+    },
+    "agree": "Kullanım Koşulları'nı ve Gizlilik Bildirimi'ni kabul ediyorum.",
+    "keepSignedIn": "Oturumumu açık tut",
+    "createAccount": "Hesap oluştur",
+    "signIn": "Giriş yap",
+    "or": "veya",
+    "google": "Google ile devam et",
+    "apple": "Apple ile devam et",
+    "haveAccount": "Zaten hesabınız var mı?",
+    "newTo": "{store} sitesinde yeni misiniz?",
+    "createAnAccount": "Hesap oluşturun",
+    "errors": {
+      "name": "Adınızı girin",
+      "password": "En az 8 karakter kullanın",
+      "passwordEmpty": "Şifrenizi girin",
+      "agree": "Devam etmek için koşulları kabul edin"
+    }
+  },
+  "confirmation": {
+    "loading": "Siparişiniz yükleniyor…",
+    "notFoundTitle": "Sipariş bulunamadı",
+    "notFoundBody": "{id} numaralı siparişi bu tarayıcıda bulamadık.",
+    "viewOrders": "Siparişlerinizi görün",
+    "title": "Teşekkürler — siparişiniz alındı!",
+    "orderSent": "Sipariş {id} · E-posta adresinize bir onay gönderildi.",
+    "eta": "Tahmini teslimat {date}",
+    "continueShopping": "Alışverişe devam et",
+    "items": "Bu siparişteki ürünler",
+    "tracking": "Takip",
+    "shippingTo": "Teslimat adresi",
+    "payment": "Ödeme"
+  },
+  "help": {
+    "topics": {
+      "delivery": {
+        "title": "Teslimat bilgileri",
+        "intro": "{amount} üzeri siparişlerde standart teslimat ücretsizdir.",
+        "sections": [
+          {
+            "q": "Teslimat ne kadar sürer?",
+            "a": "Standart teslimat {standardDays}, hızlı teslimat {fastDays} içinde ulaşır. Toplu gönderim {ecoDays} sürer ve ücretsizdir."
+          },
+          {
+            "q": "Ücreti ne kadar?",
+            "a": "Standart teslimat {standard} olup {amount} üzeri ücretsizdir. Hızlı teslimat {fast}."
+          },
+          {
+            "q": "Yurt dışına teslimat yapıyor musunuz?",
+            "a": "Henüz değil — şu anda yalnızca Amerika Birleşik Devletleri içinde teslimat yapıyoruz."
+          }
+        ]
+      },
+      "returns": {
+        "title": "İade ve değişim",
+        "intro": "Fikrinizi mi değiştirdiniz? Kullanılmamış ürünleri 30 gün içinde iade edin, ücretin tamamını geri alın.",
+        "sections": [
+          {
+            "q": "İadeyi nasıl başlatırım?",
+            "a": "Siparişleriniz sayfasına gidin, siparişi seçin ve Ürünleri iade et'e tıklayın. Size ön ödemeli bir kargo etiketi e-postayla göndereceğiz."
+          },
+          {
+            "q": "Param ne zaman iade edilir?",
+            "a": "Ürün bize ulaştıktan sonra 5 iş günü içinde ödeme yaptığınız yönteme iade edilir."
+          },
+          {
+            "q": "Başka bir renkle değiştirebilir miyim?",
+            "a": "Evet — iadeyi başlatırken Değişim'i seçin ve yeni renk veya ölçüyü belirleyin."
+          }
+        ]
+      },
+      "size-guide": {
+        "title": "Ölçü rehberi",
+        "intro": "Havlu ve bornoz ölçülerimiz.",
+        "sections": [
+          {
+            "q": "Havlular",
+            "a": "Yüz havlusu 30 × 30 cm (12 × 12 inç) · El havlusu 50 × 90 cm (20 × 35 inç) · Banyo havlusu 70 × 130 cm (28 × 51 inç) · Büyük banyo havlusu 100 × 150 cm (39 × 59 inç)."
+          },
+          {
+            "q": "Bornozlar",
+            "a": "Göğüs: XS 76–81 cm · S 86–91 cm · M 96–101 cm · L 106–111 cm · XL 116–121 cm. İki ölçü arasında mı kaldınız? Daha rahat bir kullanım için bir büyük ölçüyü seçin."
+          },
+          {
+            "q": "Banyo paspasları ve plaj havluları",
+            "a": "Banyo paspasları 50 × 80 cm (20 × 31 inç). Plaj havluları ve peştemaller 100 × 180 cm (39 × 71 inç)."
+          }
+        ]
+      },
+      "care": {
+        "title": "Bakım rehberi",
+        "intro": "Biraz özen, doğal lifleri yıllarca yumuşak ve emici tutar.",
+        "sections": [
+          {
+            "q": "İlk kullanımdan önce",
+            "a": "İlmeklerin açılması ve gevşek liflerin atılması için yeni havluları bir kez tek başına 40°C'de yıkayın."
+          },
+          {
+            "q": "Yıkama",
+            "a": "Benzer renklerle 40°C'de yıkayın. Yumuşatıcı kullanmayın — lifleri kaplar ve emiciliği azaltır."
+          },
+          {
+            "q": "Kurutma",
+            "a": "Düşük ısıda makinede ya da askıda kurutun, ardından kabarması için silkeleyin. Keten hafif nemliyken çıkarılmayı sever."
+          },
+          {
+            "q": "Çekilmiş ilmekler",
+            "a": "Gevşek bir ilmeği asla çekmeyin — küçük bir makasla yüzeye denk gelecek şekilde kesin."
+          }
+        ]
+      },
+      "buying-guide": {
+        "title": "Satın alma rehberi",
+        "intro": "Doku, ağırlık ve malzemeye göre nasıl seçim yapılır?",
+        "sections": [
+          {
+            "q": "GSM ne demek?",
+            "a": "Metrekare başına gram — kumaşın ağırlığıdır. Yüksek GSM'li havlular daha kabarık hissettirir; düşük GSM'liler daha hızlı kurur."
+          },
+          {
+            "q": "Bana hangi doku uygun?",
+            "a": "Hafif ve havadar, sıcak iklimlere ve hızlı kurumaya uygundur. Kabarık ve şımartıcı ise spa tadında yavaş sabahlar içindir. Emin değilseniz testi deneyin."
+          },
+          {
+            "q": "Türk, Mısır ya da organik pamuk?",
+            "a": "Türk pamuğu hafiftir ve çabuk kurur, Mısır pamuğu uzun liflidir ve kabarıktır, organik pamuk ise sentetik tarım ilacı kullanılmadan yetiştirilir."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Bize ulaşın",
+        "intro": "{email} adresine yazın — bir iş günü içinde yanıt veriyoruz.",
+        "sections": [
+          {
+            "q": "Çalışma saatleri",
+            "a": "Pazartesi–Cuma, 09.00–18.00 (ABD Doğu saati)."
+          }
+        ]
+      },
+      "about": {
+        "title": "Hikâyemiz",
+        "intro": "{store} havluları acele etmeden üretir: uzun lifli pamuklar, dürüst dokumalar ve sakin renkler; her gün kullanılmak ve yıllarca sevilmek için."
+      },
+      "journal": {
+        "title": "Blog",
+        "intro": "Dokumacılarımızdan hikâyeler ve yavaş yaşam üzerine notlar. Çok yakında."
+      },
+      "terms": {
+        "title": "Şartlar ve koşullar",
+        "intro": "Demo mağaza — örnek koşullar."
+      },
+      "privacy": {
+        "title": "Gizlilik politikası",
+        "intro": "Demo mağaza — gerçek veri toplamıyoruz."
+      },
+      "cookies": {
+        "title": "Çerez politikası",
+        "intro": "Bu demo sepetinizi, favorilerinizi, dil seçiminizi ve tercihlerinizi yalnızca tarayıcınızda saklar."
+      }
+    }
+  },
+  "quiz": {
+    "eyebrow": "Havlu bulucu",
+    "steps": {
+      "useCase": "Ne için kullanacaksınız?",
+      "feel": "Nasıl hissettirmeli?",
+      "colour": "Bir renk havası seçin"
+    },
+    "back": "Geri",
+    "stepOf": "Adım {n} / {total}",
+    "yourMatches": "Eşleşmeleriniz",
+    "close": "Testi kapat",
+    "resultsTitle": "Bunları seveceğinizi düşünüyoruz",
+    "intro": "Üç kısa soru, ardından birkaç favori öneriyoruz.",
+    "resultsIntro": "Yanıtlarınıza göre seçildi. Ayrıntılar için bir havluya dokunun.",
+    "noPreference": "Fark etmez",
+    "noMatches": "Tam eşleşme yok — bir sonraki adımda buralara bakabilirsiniz.",
+    "seeAll": "Tüm eşleşmeleri gör",
+    "startAgain": "Baştan başla",
+    "bannerTitle": "Size en uygun havluyu bulun",
+    "bannerBody": "Ne için kullanacağınızı, nasıl bir doku sevdiğinizi ve hangi renklere ilgi duyduğunuzu söyleyin. Seveceğinizi düşündüğümüz birkaç havlu seçelim.",
+    "start": "Teste başla",
+    "useCases": {
+      "everyday": {
+        "label": "Günlük banyo",
+        "note": "Banyo havluları ve uyumlu setler"
+      },
+      "spa": {
+        "label": "Evde spa günleri",
+        "note": "Bornozlar ve kabarık, ağır dokumalar"
+      },
+      "beach": {
+        "label": "Plaj ve seyahat",
+        "note": "Büyük, hafif ve çabuk kuruyan"
+      },
+      "baby": {
+        "label": "Bebek için",
+        "note": "Yumuşak, nazik organik pamuk"
+      },
+      "kitchen": {
+        "label": "Mutfak",
+        "note": "Tüy bırakmayan kurulama bezleri ve petek dokuma"
+      },
+      "gift": {
+        "label": "Anlamlı bir hediye",
+        "note": "Setler ve kişiye özel ürünler"
+      }
+    },
+    "feelNotes": {
+      "Light & airy": "Çabuk kurur, nefes alır, kolay",
+      "Soft & cosy": "Nazik, tanıdık bir konfor",
+      "Plush & indulgent": "Zengin, derin ve cömert",
+      "Crisp & structured": "Formunu koruyan net çizgiler",
+      "Smooth & sleek": "Dokunuşta serin, sade"
+    }
+  },
+  "home": {
+    "promisesLabel": "Sözlerimiz",
+    "promises": {
+      "delivery": {
+        "title": "Ücretsiz teslimat",
+        "body": "{amount} üzeri siparişlerde"
+      },
+      "returns": {
+        "title": "30 gün iade",
+        "body": "Kolay ve ücretsiz"
+      },
+      "materials": {
+        "title": "Doğal lifler",
+        "body": "Pamuk, keten ve bambu"
+      },
+      "makers": {
+        "title": "Güvenilir dokuma atölyelerinde üretildi",
+        "body": "Her ürünün nerede üretildiği belirtilir"
+      }
+    },
+    "collectionsEyebrow": "Keşfedin",
+    "collectionsTitle": "Koleksiyona göre alışveriş",
+    "shopNow": "Alışverişe başla",
+    "bestEyebrow": "En çok sevilenler",
+    "bestTitle": "Çok satanlar",
+    "viewAll": "Tümünü gör",
+    "newEyebrow": "Yeni geldi",
+    "newTitle": "Yeni ürünler",
+    "dealsEyebrow": "Kısa bir süreliğine",
+    "dealsTitle": "Sınırlı süreli fiyatlar",
+    "hero": {
+      "label": "Öne çıkan koleksiyonlar",
+      "play": "Slayt gösterisini oynat",
+      "pause": "Slayt gösterisini duraklat",
+      "bath": {
+        "eyebrow": "Yeni renkler",
+        "title": "On iki sakin tonda yumuşaklık",
+        "body": "Banyo havlusu koleksiyonumuz artık tebeşir beyazından kil rengine kadar.",
+        "cta": "Banyo havlularını keşfet"
+      },
+      "beach": {
+        "eyebrow": "Hafta sonları için",
+        "title": "Uzun günler için hafif havlular",
+        "body": "Kum tutmayan, çabuk kuruyan ve küçücük katlanan dokumalar.",
+        "cta": "Plaj havlularını keşfet"
+      },
+      "spa": {
+        "eyebrow": "Yavaş sabahlar",
+        "title": "Evde bir spa günü",
+        "body": "Petek bornozlar, ağır büyük banyo havluları ve yumuşak yüz havluları.",
+        "cta": "Spa ürünlerini keşfet"
+      }
+    }
+  },
+  "dates": {
+    "months": [
+      "Ocak",
+      "Şubat",
+      "Mart",
+      "Nisan",
+      "Mayıs",
+      "Haziran",
+      "Temmuz",
+      "Ağustos",
+      "Eylül",
+      "Ekim",
+      "Kasım",
+      "Aralık"
+    ],
+    "monthsShort": [
+      "Oca",
+      "Şub",
+      "Mar",
+      "Nis",
+      "May",
+      "Haz",
+      "Tem",
+      "Ağu",
+      "Eyl",
+      "Eki",
+      "Kas",
+      "Ara"
+    ],
+    "weekdays": [
+      "Pazar",
+      "Pazartesi",
+      "Salı",
+      "Çarşamba",
+      "Perşembe",
+      "Cuma",
+      "Cumartesi"
+    ],
+    "weekdaysShort": [
+      "Paz",
+      "Pzt",
+      "Sal",
+      "Çar",
+      "Per",
+      "Cum",
+      "Cmt"
+    ]
+  },
+  "admin": {
+    "languages": {
+      "en": "İngilizce",
+      "tr": "Türkçe",
+      "tk": "Türkmence",
+      "ru": "Rusça"
+    },
+    "switcher": {
+      "label": "Yönetim paneli dili (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
+      "empty": "{count, plural, one {# boş alan} other {# boş alan}}"
+    },
+    "banner": "Yönetim modu: değişiklikler canlı kataloğa kaydedilir",
+    "topbar": {
+      "badge": "Yönetim",
+      "home": "Ana sayfa",
+      "viewStore": "Mağazayı gör",
+      "logOut": "Çıkış yap",
+      "categories": "Kategoriler",
+      "allProducts": "Tüm ürünler"
+    },
+    "login": {
+      "pageTitle": "Yönetici girişi · {store}",
+      "title": "Yönetici girişi",
+      "username": "Kullanıcı adı",
+      "password": "Şifre",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "submit": "Giriş yap",
+      "unreachable": "Sunucuya ulaşılamadı. Tekrar deneyin.",
+      "backToStore": "Mağazaya dön"
+    },
+    "catalog": {
+      "pageTitle": "{title} · Yönetim · {store}",
+      "allTitle": "Tüm ürünler",
+      "allIntro": "Gizli olanlar dahil mağazadaki tüm ürünler.",
+      "crumb": "Yönetim",
+      "searchLabel": "Ürünleri ada, SKU'ya veya renge göre ara",
+      "searchPlaceholder": "Ad, SKU veya renge göre ara…",
+      "clearSearch": "Aramayı temizle",
+      "addProduct": "Ürün ekle",
+      "emptyTitle": "Bu kategoride henüz ürün yok",
+      "emptyBody": "İlk ürünü ekleyin; burada ve mağazada görünecek.",
+      "missingLabel": "Eksik çeviriler:",
+      "missingAny": "Herhangi bir dil",
+      "bulkLabel": "Toplu işlemler",
+      "selected": "{count} seçildi",
+      "deleteSelected": "Seçilenleri sil",
+      "clearSelection": "Seçimi temizle"
+    },
+    "edit": {
+      "backToCatalog": "Kataloğa dön",
+      "editTitle": "Ürünü düzenle",
+      "addTitle": "Ürün ekle",
+      "viewOnStore": "Mağazada gör",
+      "pageEdit": "{name} düzenle · Yönetim · {store}",
+      "pageAdd": "Ürün ekle · Yönetim · {store}"
+    },
+    "status": {
+      "editing": "Düzenleniyor: {language}",
+      "enRequired": "İngilizce zorunludur. Slug, SKU, fiyatlar, görseller ve stok tüm dillerde ortaktır.",
+      "emptyCount": "{count, plural, one {# Türkçe alan boş} other {# Türkçe alan boş}}",
+      "allFilled": "Tüm Türkçe metinler dolduruldu.",
+      "fixInEnglish": "{error} — doldurmak için EN'ye geçin"
+    },
+    "sections": {
+      "basics": "Temel bilgiler",
+      "organisation": "Kategori, koleksiyon ve ölçüler",
+      "organisationHint": "Mağazanın Kategoriye / Koleksiyona / Ölçüye Göre menüleriyle aynı listeler.",
+      "price": "Fiyat ve ölçü adları",
+      "priceHint": "“−%X” rozeti indirimli fiyattan hesaplanır. İndirimli ürünler Havlu Fırsatları'nda görünür.",
+      "images": "Görseller",
+      "imagesHint": "İlk görsel ana görseldir. Sırayı değiştirmek için sürükleyin. Görseller tüm dillerde ortaktır.",
+      "colours": "Renk seçenekleri",
+      "coloursStockPerSize": "Stok, renk ve ölçüye göre tutulur.",
+      "coloursStock": "Renk başına stok miktarı.",
+      "coloursKey": "İngilizce ad rengin anahtarıdır; çevirisini üstteki dil düğmesiyle yapın.",
+      "material": "Malzeme ve doku",
+      "materialHint": "Doku, mağaza filtreleriyle aynı seçenekleri kullanır (otomatik çevrilir).",
+      "status": "Rozet, stok ve görünürlük",
+      "preview": "Canlı önizleme"
+    },
+    "fields": {
+      "name": "Ad",
+      "namePlaceholder": "ör. Organik Pamuk Banyo Havlusu",
+      "slug": "Slug",
+      "slugHint": "{paths} — tüm dillerde aynı",
+      "sku": "SKU",
+      "skuPlaceholder": "ör. LOO-2517",
+      "tagline": "Kısa slogan",
+      "taglineHint": "Kartta görünür, ör. “Hızlı kuruyan aile favorisi”",
+      "description": "Açıklama",
+      "category": "Kategori",
+      "categoryCurrent": "{type} (mevcut)",
+      "collection": "Koleksiyon",
+      "sizes": "Mevcut ölçüler",
+      "personalisable": "Kişiselleştirilebilir (Kişiye Özel Havlular'da görünür)",
+      "price": "Fiyat ($)",
+      "salePrice": "İndirimli fiyat ($)",
+      "optional": "İsteğe bağlı",
+      "discountBadge": "Rozet: −%{pct}",
+      "width": "Genişlik (cm)",
+      "length": "Uzunluk (cm)",
+      "sizeName": "Ölçü adı",
+      "sizeNameEmpty": "Boş — müşteriler İngilizce adı görür",
+      "colourName": "Ad",
+      "colour": "Renk",
+      "hexValue": "{name} hex değeri",
+      "filterGroup": "Filtre grubu",
+      "image": "Görsel",
+      "imageIllustration": "İllüstrasyon",
+      "imageMain": "Ana görsel",
+      "imageN": "Görsel {n}",
+      "imageNMain": "Görsel {n} (ana)",
+      "stock": "Stok:",
+      "stockBySize": "Ölçüye göre stok:",
+      "stockQuantity": "Stok miktarı:",
+      "stockFor": "{colour} {size} stok miktarı",
+      "stockForSize": "{size} stok miktarı",
+      "moveUp": "{name} yukarı taşı",
+      "moveDown": "{name} aşağı taşı",
+      "removeColour": "{name} kaldır",
+      "addColour": "Renk ekle",
+      "newColour": "Renk {n}",
+      "material": "Malzeme",
+      "weight": "Ağırlık (GSM)",
+      "feel": "Doku",
+      "weave": "Dokuma",
+      "weavePlaceholder": "Sıfır bükümlü havlu ilmek",
+      "origin": "Menşei",
+      "originPlaceholder": "Portekiz'de dokundu",
+      "design": "Tasarım",
+      "features": "Öne çıkan özellikler (her satıra bir tane)",
+      "featuresHint": "Simgelerle gösterilen 3–4 kısa satır, ör. “%100 Türk pamuğu”",
+      "featuresHintTranslated": "İngilizceyle aynı sırada — simgeler İngilizce satırları izler.",
+      "careGuide": "Bakım rehberi",
+      "careType": "Bakım türü",
+      "careInstruction": "Bakım talimatı",
+      "removeCare": "Bakım talimatını kaldır",
+      "addCare": "Bakım satırı ekle",
+      "badge": "Rozet",
+      "badgeHint": "Mağazada otomatik çevrilir",
+      "badgeNone": "Yok",
+      "stockStatus": "Stok durumu",
+      "stockStatusHint": "“Stokta yok”, miktar girilmiş olsa bile satışı durdurur",
+      "visible": "Sitede görünür",
+      "visibleHint": "Gizli ürünler yönetim panelinde kalır ama mağazadan kaybolur.",
+      "fastDelivery": "Hızlı teslimata uygun",
+      "emptyText": "{language} metin"
+    },
+    "careKinds": {
+      "wash": "Yıkama",
+      "bleach": "Ağartma",
+      "dry": "Kurutma",
+      "iron": "Ütüleme",
+      "dryclean": "Kuru temizleme"
+    },
+    "stockStatus": {
+      "auto": "Otomatik (miktarlara göre)",
+      "in": "Stokta",
+      "low": "Az stok",
+      "out": "Stokta yok"
+    },
+    "fieldNames": {
+      "name": "ad",
+      "tagline": "slogan",
+      "description": "açıklama",
+      "features": "özellikler",
+      "material": "malzeme",
+      "weave": "dokuma",
+      "origin": "menşei",
+      "care": "bakım rehberi",
+      "colours": "renkler",
+      "sizes": "ölçüler"
+    },
+    "actions": {
+      "save": "Kaydet",
+      "saveAnother": "Kaydet ve yeni ekle",
+      "cancel": "İptal",
+      "deleteProduct": "Ürünü sil",
+      "unsaved": "Kaydedilmemiş değişiklikler",
+      "leaveConfirm": "Kaydedilmemiş değişiklikler var. Kaydetmeden çıkılsın mı?"
+    },
+    "preview": {
+      "hidden": "Gizli — mağazada görünmez",
+      "notTranslated": "Henüz çevrilmedi (İngilizce gösteriliyor): {fields}",
+      "placeholderName": "Ürün adı",
+      "placeholderTagline": "Kısa slogan"
+    },
+    "toasts": {
+      "fixFields": "Lütfen işaretli alanları düzeltin",
+      "nameRequired": "İngilizce ad zorunludur.",
+      "saved": "Ürün kaydedildi",
+      "added": "Ürün eklendi",
+      "hiddenSuffix": "{name} (mağazada gizli)",
+      "missingTranslation": "Eksik çeviri: {language}",
+      "missingDetail": "Şu alanlarda İngilizce gösteriliyor: {fields}",
+      "saveFailed": "Ürün kaydedilemedi"
+    },
+    "delete": {
+      "deleted": "{count, plural, one {Ürün silindi} other {# ürün silindi}}",
+      "undo": "Geri al",
+      "restored": "{count, plural, one {Ürün geri yüklendi} other {Ürünler geri yüklendi}}",
+      "restoreFailed": "Geri yüklenemedi",
+      "deleteFailed": "Silinemedi",
+      "selected": "{count, plural, one {# ürün seçildi} other {# ürün seçildi}}",
+      "confirmOne": "Bu ürün silinsin mi? Bu işlem geri alınamaz.",
+      "confirmMany": "{count, plural, one {Bu ürün silinsin mi? Bu işlem geri alınamaz.} other {Bu # ürün silinsin mi? Bu işlem geri alınamaz.}}",
+      "cancel": "İptal",
+      "delete": "Sil"
+    },
+    "images": {
+      "drop": "Fotoğrafları buraya sürükleyin veya {browse}",
+      "browse": "göz atın",
+      "formats": "JPG, PNG veya WebP · her biri en fazla 5 MB · WebP olarak kaydedilir",
+      "onlyTypes": "Yalnızca JPG, PNG veya WebP",
+      "tooLarge": "5 MB'tan büyük",
+      "uploadFailed": "Yükleme başarısız",
+      "listLabel": "Ürün görselleri (ilki ana görseldir)",
+      "main": "Ana",
+      "remove": "{n}. görseli kaldır",
+      "earlier": "{n}. görseli öne al",
+      "later": "{n}. görseli arkaya al",
+      "altLabel": "{n}. görselin alternatif metni",
+      "altPlaceholder": "Alternatif metin (fotoğrafı tanımlayın)",
+      "altAuto": "{title} – görünüm {n}",
+      "dismiss": "Kapat",
+      "uploading": "Yükleniyor…",
+      "empty": "Henüz fotoğraf yok — mağazada bir çizim gösteriliyor",
+      "emptyHint": "Yerine geçmesi için yukarıdan fotoğraf yükleyin."
+    },
+    "errors": {
+      "imageTooLarge": "Görsel verisi çok büyük",
+      "invalidImage": "Geçersiz görsel",
+      "colourNameRequired": "Renk adı zorunludur",
+      "sizeNameRequired": "Ölçü adı zorunludur",
+      "enterPrice": "Bir fiyat girin",
+      "pricePositive": "Fiyat 0'dan büyük olmalı",
+      "salePositive": "İndirimli fiyat 0'dan büyük olmalı",
+      "stockNegative": "Stok negatif olamaz",
+      "saleLower": "İndirimli fiyat, fiyattan düşük olmalı",
+      "slugRequired": "Slug zorunludur",
+      "slugFormat": "Küçük harf, rakam ve tire kullanın",
+      "skuRequired": "SKU zorunludur",
+      "skuFormat": "Yalnızca harf, rakam, nokta ve tire",
+      "nameRequired": "Ad zorunludur",
+      "chooseCategory": "Bir kategori seçin",
+      "materialRequired": "Malzeme zorunludur",
+      "gsmPositive": "GSM 0'dan büyük olmalı",
+      "addSize": "En az bir ölçü ekleyin",
+      "imageMissing": "Görsel eksik",
+      "maxImages": "En fazla 12 görsel",
+      "colourUnique": "Renk adları benzersiz olmalı",
+      "sizeUnique": "Ölçü adları benzersiz olmalı",
+      "slugTaken": "Bu slug başka bir ürün tarafından kullanılıyor",
+      "skuTaken": "Bu SKU başka bir ürün tarafından kullanılıyor",
+      "idTaken": "Bu kimliğe sahip bir ürün zaten var",
+      "invalidId": "Geçersiz kimlik",
+      "notFound": "Bulunamadı",
+      "crossOrigin": "Farklı kaynaktan gelen istek engellendi",
+      "notConfigured": "Yönetici girişi sunucuda yapılandırılmamış.",
+      "tooMany": "{minutes, plural, one {Çok fazla deneme. # dakika sonra tekrar deneyin.} other {Çok fazla deneme. # dakika sonra tekrar deneyin.}}",
+      "wrongCredentials": "Kullanıcı adı veya şifre hatalı",
+      "notSignedIn": "Oturum açılmamış",
+      "noneSelected": "Ürün seçilmedi",
+      "cannotRestore": "Bu ürün artık geri yüklenemez",
+      "server": "Sunucuda bir hata oluştu",
+      "fileEmpty": "Dosya boş",
+      "fileTooLarge": "Görseller en fazla 5 MB olmalı",
+      "fileType": "Yalnızca JPG, PNG veya WebP görseller kabul edilir",
+      "fileUnreadable": "Bu dosya görsel olarak okunamadı",
+      "tooLong": "Çok uzun"
+    }
+  },
+  "countries": {
+    "US": "Amerika Birleşik Devletleri",
+    "TR": "Türkiye",
+    "TM": "Türkmenistan",
+    "RU": "Rusya"
+  },
+  "shipping": {
+    "usOnly": "Şu anda yalnızca ABD'ye teslimat yapıyoruz"
+  }
+}

@@ -1,0 +1,1481 @@
+{
+  "meta": {
+    "homeTitle": "{store} — Uzak hyzmat edýän elsüpürgiçler",
+    "defaultDescription": "Asuda reňklerde ýumşak, oýlanyşykly elsüpürgiçler, halatlar we hammam halyçalary; {amount}-dan ýokary sargytlara mugt eltip bermek we mugt yzyna gaýtarmak."
+  },
+  "common": {
+    "loading": "Siziň üçin iň gowy harytlary saýlaýarys…",
+    "loadingProduct": "Haryt ýüklenýär…",
+    "home": "Baş sahypa",
+    "viewAll": "Hemmesini gör",
+    "close": "Ýap",
+    "back": "Yza",
+    "remove": "Aýyr",
+    "save": "Ýatda sakla",
+    "cancel": "Ýatyr",
+    "continue": "Dowam et",
+    "opensInNewTab": "(täze goýmada açylýar)",
+    "previous": "Öňki",
+    "next": "Indiki",
+    "or": "ýa-da",
+    "closeNamed": "{name} ýap",
+    "scrollBack": "{title} yza aýla",
+    "scrollForward": "{title} öňe aýla",
+    "carousel": "Aýlanýan galereýa",
+    "previousSlide": "Öňki slaýd",
+    "nextSlide": "Indiki slaýd",
+    "goToSlide": "{n}-nji slaýda geç",
+    "slideOf": "{current} / {total}",
+    "notifications": "Bildirişler",
+    "storeHome": "{store} baş sahypa",
+    "marketplaceSeller": "Bazar satyjysy"
+  },
+  "footer": {
+    "terms": "Ulanyş şertleri",
+    "privacy": "Gizlinlik habarnamasy",
+    "help": "Kömek",
+    "copyright": "© {year} {store}. Ähli hukuklar goralan.",
+    "tagline": "Gündelik durmuş üçin ýumşak, oýlanyşykly elsüpürgiçler — uzak hyzmat eder ýaly dokalan we tebigata howpsuz.",
+    "followUs": "Bizi yzarlaň",
+    "socialLabel": "{network} sahypasynda {store} (täze goýmada açylýar)",
+    "legal": "Hukuk maglumatlary",
+    "termsLong": "Şertler we düzgünler",
+    "privacyLong": "Gizlinlik syýasaty",
+    "cookies": "Kuki syýasaty",
+    "backToTop": "Ýokaryk gaýt",
+    "columns": {
+      "service": "Müşderi hyzmaty",
+      "about": "Biz barada",
+      "guides": "Gollanmalar"
+    },
+    "links": {
+      "contact": "Biz bilen habarlaşyň",
+      "delivery": "Eltip bermek barada",
+      "returns": "Yzyna gaýtarmak we çalyşmak",
+      "track": "Sargydyňyzy yzarlaň",
+      "account": "Hasabyňyz",
+      "story": "Biziň taryhymyz",
+      "credits": "Surat awtorlary",
+      "buyingGuide": "Satyn almak boýunça gollanma",
+      "careGuide": "Ideg gollanmasy",
+      "sizeGuide": "Ölçeg gollanmasy",
+      "quiz": "Elsüpürgijiňizi tapyň (test)"
+    }
+  },
+  "errors": {
+    "notFoundTitle": "Bu sahypany tapyp bilmedik",
+    "notFoundBody": "Salgy nädogry bolup biler ýa-da haryt indi elýeterli däldir.",
+    "notFoundPageTitle": "Sahypa tapylmady",
+    "backHome": "Baş sahypa gaýt",
+    "seeOffers": "Elsüpürgiç arzanladyşlaryny gör",
+    "oops": "Wah",
+    "genericTitle": "Bir zat nädogry boldy",
+    "genericBody": "Bu sahypa ýüklenende garaşylmadyk ýalňyşlyk ýüze çykdy.",
+    "tryAgain": "Gaýtadan synanyş"
+  },
+  "header": {
+    "skipToContent": "Mazmuna geç",
+    "openMenu": "Menýuny aç",
+    "search": "Gözleg",
+    "accountLabel": "Giriň ýa-da hasabyňyzy görüň",
+    "logIn": "Giriş",
+    "wishlistLabel": "{count, plural, =0 {Halanlarym, hiç zat ýok} one {Halanlarym, # haryt} other {Halanlarym, # haryt}}",
+    "bagLabel": "{count, plural, =0 {Söwda sebedi, boş} one {Söwda sebedi, # haryt} other {Söwda sebedi, # haryt}}",
+    "theme": {
+      "change": "Reňk temasyny üýtget",
+      "title": "Tema",
+      "light": "Ýagty",
+      "dark": "Garaňky",
+      "system": "Ulgam"
+    },
+    "announcements": {
+      "delivery": {
+        "text": "{amount}-dan ýokary sargytlara mugt eltip bermek",
+        "link": "Aňsat yzyna gaýtarmak"
+      },
+      "newColours": {
+        "text": "Täze reňkler geldi",
+        "link": "Täzelikleri gör"
+      },
+      "quiz": {
+        "text": "Haýsyny saýlajagyňyzy bilmeýärsiňizmi?",
+        "link": "Testden geçiň"
+      }
+    },
+    "menu": "Menýu",
+    "mainNav": "Esasy menýu",
+    "loginOrRegister": "Giriş / Hasap aç",
+    "yourOrders": "Sargytlaryňyz",
+    "wishlist": "Halanlarym",
+    "quiz": "Elsüpürgijiňizi tapyň — testden geçiň",
+    "home": "Baş sahypa",
+    "viewAll": "Hemmesini gör",
+    "viewAllNamed": "Hemmesini gör: {item}"
+  },
+  "language": {
+    "label": "Dil",
+    "change": "Dil: {current}. Dili üýtget"
+  },
+  "megaMenu": {
+    "items": {
+      "towels": "Elsüpürgiçler",
+      "bundles": "Toplumlar",
+      "bath-mats": "Hammam halyçalary",
+      "bathrobes": "Halatlar",
+      "sale": "Arzanladyş",
+      "gifting": "Sowgatlar",
+      "about": "Biz barada"
+    },
+    "groups": {
+      "byCategory": "Kategoriýa boýunça",
+      "byCollection": "Kolleksiýa boýunça",
+      "bySize": "Ölçeg boýunça",
+      "giftIdeas": "Sowgat pikirleri",
+      "byPrice": "Baha boýunça"
+    },
+    "links": {
+      "allTowels": "Ähli elsüpürgiçler",
+      "towelBundles": "Elsüpürgiç toplumlary",
+      "bathTowels": "Hammam elsüpürgiçleri",
+      "beachTowels": "Plýaž elsüpürgiçleri",
+      "babyTowels": "Çaga elsüpürgiçleri",
+      "kitchenTowels": "Aşhana elsüpürgiçleri",
+      "bathMatsAndRugs": "Hammam halyçalary",
+      "bathRobes": "Halatlar",
+      "towelOffers": "Elsüpürgiç arzanladyşlary",
+      "personalisedTowels": "Şahsylaşdyrylan elsüpürgiçler",
+      "luxury": "Lýuks",
+      "designAndPatterned": "Nagyşly we dizaýnly",
+      "quickDrying": "Çalt guraýan",
+      "elevatedClassics": "Täzelenen klassika",
+      "wellnessAndSpa": "Saglyk we spa",
+      "faceCloths": "Ýüz elsüpürgiçleri",
+      "handTowels": "El elsüpürgiçleri",
+      "bathSheets": "Uly hammam elsüpürgiçleri",
+      "allGifts": "Ähli sowgatlar",
+      "giftBundles": "Sowgat toplumlary",
+      "babyGifts": "Çaga sowgatlary",
+      "spaGifts": "Spa sowgatlary",
+      "under": "{amount}-dan arzan"
+    }
+  },
+  "search": {
+    "title": "Gözleg",
+    "inputLabel": "Dükandan gözle",
+    "placeholder": "Näme gözleýärsiňiz?",
+    "clear": "Arassala",
+    "close": "Gözlegi ýap",
+    "popularTitle": "Meşhur gözlegler",
+    "youMayLike": "Bular hem halanmagy mümkin",
+    "productsCount": "{count, plural, one {Harytlar (#)} other {Harytlar (#)}}",
+    "noMatches": "Çalt gabat gelýän ýok",
+    "suggestions": "Haryt teklipleri",
+    "seeAll": "“{query}” boýunça ähli netijeleri gör",
+    "popular": {
+      "bathTowel": "Hammam elsüpürgiji",
+      "waffle": "Wafli",
+      "beach": "Plýaž",
+      "baby": "Çaga",
+      "robe": "Halat",
+      "bundle": "Toplum",
+      "bathMat": "Hammam halyçasy",
+      "turkishCotton": "Türk pagtasy"
+    }
+  },
+  "newsletter": {
+    "done": "Siz sanawa goşuldyňyz — 10% arzanladyş üçin poçtaňyzy barlaň.",
+    "emailLabel": "E-poçta salgysy",
+    "placeholder": "E-poçta salgyňyz",
+    "signUp": "Ýazyl",
+    "consent": "Ýazylmak bilen {store} tarapyndan hatlary almaga razylyk berýärsiňiz. Islän wagtyňyz ýazylmany bes edip bilersiňiz. Jikme-jiklikler:",
+    "privacy": "Gizlinlik syýasaty",
+    "blockTitle": "Habarnamamyza ýazylyň + ilkinji sargydyňyza 10% arzanladyş",
+    "blockBody": "Täze reňkler, öndürijileriň hekaýalary we arzanladyşlar — aýda bir-iki gezek, artyk däl.",
+    "close": "Ýap",
+    "popupEyebrow": "Kiçijik sowgat",
+    "popupTitle": "Ilkinji sargydyňyza 10% arzanladyş",
+    "popupBody": "Täze reňkler, öndürijileriň hekaýalary we arzanladyşlara ir girmek üçin habarnama ýazylyň.",
+    "noThanks": "Ýok, sag boluň",
+    "errors": {
+      "empty": "E-poçta salgyňyzy giriziň.",
+      "missingAt": "E-poçta salgysyna “@” goşuň. “{value}” salgysynda “@” ýok.",
+      "missingUser": "“@” belgisinden öňki bölegi giriziň. “{value}” doly däl.",
+      "missingDomain": "“@” belgisinden soňky bölegi giriziň. “{value}” doly däl.",
+      "invalid": "ady@mysal.com ýaly dogry e-poçta salgysyny giriziň."
+    }
+  },
+  "collection": {
+    "breadcrumb": "Sahypa ýoly",
+    "shopByProduct": "Haryt boýunça saýla",
+    "shopByFeeling": "Duýgy boýunça saýla",
+    "shopAll": "Hemmesini gör",
+    "filter": "Süzgüç",
+    "resultsSuffix": "{count, plural, one {netije} other {netije}}",
+    "gridColumns": "Setir sütünleri",
+    "columns": "{count} sütün",
+    "sortBy": "Tertiple",
+    "sort": {
+      "recommended": "Maslahat berilýän",
+      "price-asc": "Iň arzan baha",
+      "price-desc": "Iň gymmat baha",
+      "newest": "Iň täze",
+      "bestselling": "Iň köp satylýan"
+    },
+    "activeFilters": "Işjeň süzgüçler",
+    "removeFilter": "Süzgüji aýyr: {label}",
+    "clearAll": "Hemmesini arassala",
+    "clearFilters": "Süzgüçleri arassala",
+    "emptyTitle": "Häzirlikçe gabat gelýän ýok",
+    "emptyBody": "Bir süzgüji aýyryp görüň ýa-da ähli harytlarymyzy gözden geçiriň.",
+    "showing": "{total} harytdan {shown} sanysy görkezilýär",
+    "showMore": "Ýene görkez",
+    "priceChip": "{min} – {max}",
+    "any": "islendik",
+    "chips": {
+      "fast": "Çalt eltip bermek",
+      "stock": "Bar",
+      "sale": "Arzanladyşda"
+    }
+  },
+  "filters": {
+    "title": "Süzgüç",
+    "showingPrefix": "Görkezilýär:",
+    "itemsSuffix": "{count, plural, one {haryt} other {haryt}}",
+    "clearAll": "Hemmesini arassala",
+    "apply": "Ulan",
+    "fast": "Çalt eltip bermek (1–2 gün)",
+    "inStockOnly": "Diňe bar bolanlar",
+    "onSale": "Arzanladyşda",
+    "groups": {
+      "type": "Haryt",
+      "feel": "Duýgy",
+      "material": "Mata",
+      "colour": "Reňk",
+      "size": "Ölçeg",
+      "gsm": "Agramy (GSM)",
+      "design": "Dizaýn",
+      "brand": "Marka",
+      "price": "Baha",
+      "availability": "Barlygy"
+    },
+    "gsm": {
+      "light": "Ýeňil (300-den az)",
+      "mid": "Orta (300–500)",
+      "heavy": "Agyr (500+)"
+    },
+    "price": {
+      "min": "Iň pes baha",
+      "max": "Iň ýokary baha",
+      "minDollars": "Dollarda iň pes baha",
+      "maxDollars": "Dollarda iň ýokary baha",
+      "to": "—"
+    },
+    "sizeGroups": {
+      "towel": "Elsüpürgiç ölçegleri",
+      "robe": "Halat ölçegleri",
+      "sets": "Toplumlar",
+      "other": "Beýlekiler"
+    }
+  },
+  "productTypes": {
+    "Bath Towels": "Hammam elsüpürgiçleri",
+    "Beach Towels": "Plýaž elsüpürgiçleri",
+    "Baby Towels": "Çaga elsüpürgiçleri",
+    "Kitchen Towels": "Aşhana elsüpürgiçleri",
+    "Bath Mats": "Hammam halyçalary",
+    "Bathrobes": "Halatlar",
+    "Towel Bundles": "Elsüpürgiç toplumlary",
+    "Hand Towels": "El elsüpürgiçleri",
+    "Towels": "Elsüpürgiçler"
+  },
+  "feels": {
+    "Light & airy": "Ýeňil we howaly",
+    "Soft & cosy": "Ýumşak we mylaýym",
+    "Plush & indulgent": "Galyň we ýakymly",
+    "Crisp & structured": "Berk we dokmaly",
+    "Smooth & sleek": "Ýylmanak we owadan"
+  },
+  "designs": {
+    "Plain": "Ýönekeý",
+    "Textured": "Dokmaly",
+    "Patterned": "Nagyşly"
+  },
+  "colourFamilies": {
+    "White": "Ak",
+    "Neutral": "Bej",
+    "Grey": "Çal",
+    "Black": "Gara",
+    "Green": "Ýaşyl",
+    "Blue": "Gök",
+    "Pink": "Gülgüne",
+    "Red": "Gyzyl"
+  },
+  "sizes": {
+    "Face cloth": "Ýüz elsüpürgiji",
+    "Hand towel": "El elsüpürgiji",
+    "Bath towel": "Hammam elsüpürgiji",
+    "Bath sheet": "Uly hammam elsüpürgiji",
+    "One size": "Ýeke ölçeg",
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "4-piece": "4 bölekli toplum",
+    "6-piece": "6 bölekli toplum",
+    "8-piece": "8 bölekli toplum"
+  },
+  "searchPage": {
+    "home": "Baş sahypa",
+    "saleTitle": "Arzanladyş",
+    "resultsTitle": "“{query}”",
+    "allTitle": "Ähli harytlar",
+    "saleIntro": "Halaýan elsüpürgiçlerimize wagtlaýyn arzan bahalar. Gutarsa, gutardy.",
+    "resultsIntro": "“{query}” boýunça tapan zatlarymyz.",
+    "allIntro": "Dükandaky ähli elsüpürgiçler, halatlar we hammam halyçalary — ulananyňyzda berýän duýgusy üçin saýlandy.",
+    "resultsPageTitle": "“{query}” boýunça netijeler",
+    "saleCrumb": "Arzanladyş",
+    "searchCrumb": "Gözleg"
+  },
+  "collections": {
+    "all-towels": {
+      "title": "Ähli elsüpürgiçler",
+      "intro": "Ýelek ýaly ýeňil wafliden myhmanhana derejesindäki galyň elsüpürgiçlere çenli ähli harytlarymyz."
+    },
+    "towel-bundles": {
+      "title": "Elsüpürgiç toplumlary",
+      "intro": "Tutuş hammam üçin gabat gelýän toplumlar, aýratyn satyn alandan arzan."
+    },
+    "bath-towels": {
+      "title": "Hammam elsüpürgiçleri",
+      "intro": "Her agramda we her asuda reňkde gündelik zerur zat."
+    },
+    "beach-towels": {
+      "title": "Plýaž elsüpürgiçleri",
+      "intro": "Uly, çalt guraýan we günüň aşagyndaky uzyn günler üçin döredilen."
+    },
+    "baby-towels": {
+      "title": "Çaga elsüpürgiçleri",
+      "intro": "Iň kiçi hammam muşdaklary üçin näzik organiki pagta."
+    },
+    "kitchen-towels": {
+      "title": "Aşhana elsüpürgiçleri",
+      "intro": "Işjeň aşhanalar üçin tüý galdyrmaýan zygyr we çalt guraýan wafli."
+    },
+    "bath-mats-rugs": {
+      "title": "Hammam halyçalary",
+      "intro": "Ýumşak, suwy gowy siňdirýän we ýalaňaç aýaklara ýakymly."
+    },
+    "bath-robes": {
+      "title": "Halatlar",
+      "intro": "Ýelek ýaly ýeňil wafliden şal ýakaly galyň halatlara çenli."
+    },
+    "towel-offers": {
+      "title": "Elsüpürgiç arzanladyşlary",
+      "intro": "Hammam halanýanlaryna wagtlaýyn arzan bahalar."
+    },
+    "personalised-towels": {
+      "title": "Şahsylaşdyrylan elsüpürgiçler",
+      "intro": "Saýlan sapak reňkiňizde baş harplary goşuň — saýlanan görnüşlerde mugt."
+    },
+    "luxury": {
+      "title": "Lýuks",
+      "intro": "Öýde myhmanhana duýgusy üçin iň agyr we iň ýumşak dokmalarymyz."
+    },
+    "design-patterned": {
+      "title": "Nagyşly we dizaýnly",
+      "intro": "Häsiýetli hammam üçin zolaklar, žakkard we dokmalar."
+    },
+    "quick-drying": {
+      "title": "Çalt guraýan",
+      "intro": "Çalt guraýan we az ýer tutýan ýeňil dokmalar."
+    },
+    "elevated-classics": {
+      "title": "Täzelenen klassika",
+      "intro": "Wagtyň täsir etmeýän ýönekeý elsüpürgiçleri, has gowulandyrylan."
+    },
+    "wellness-spa": {
+      "title": "Saglyk we spa",
+      "intro": "Öýde spa güni üçin halatlar, zolakly elsüpürgiçler we haýal dessurlar."
+    },
+    "face-cloths": {
+      "title": "Ýüz elsüpürgiçleri",
+      "intro": "Kiçi, ýumşak we hemişe gerekli."
+    },
+    "hand-towels": {
+      "title": "El elsüpürgiçleri",
+      "intro": "Elýuwgyç, myhman hajathanasy we sport sumkasy üçin."
+    },
+    "bath-sheets": {
+      "title": "Uly hammam elsüpürgiçleri",
+      "intro": "Iň uly ölçegimiz — bütin bedeniňizi saraýan giňlikde."
+    },
+    "gifting": {
+      "title": "Sowgatlar",
+      "intro": "Toplumlar, şahsylaşdyrylan harytlar we çaga sowgatlary — gaplanan we taýýar."
+    }
+  },
+  "toasts": {
+    "optionOutOfStock": "Bu görnüş ammarda ýok",
+    "addedToBag": "Sebediňize goşuldy",
+    "goToBag": "Sebede geç",
+    "continueShopping": "Söwdany dowam et"
+  },
+  "wishlist": {
+    "removeNamed": "{title} harydyny halanlarymdan aýyr",
+    "saveNamed": "{title} harydyny halanlaryma goş",
+    "saved": "Halanlaryňyza goşuldy",
+    "removed": "Halanlaryňyzdan aýryldy",
+    "view": "Halanlarymy gör",
+    "savedShort": "Halanlaryma goşuldy",
+    "added": "Halanlaryma goşuldy",
+    "add": "Halanlaryma goş",
+    "title": "Halanlarym",
+    "viewAllAccount": "Hemmesini hasabyňyzda görüň",
+    "emptyTitle": "Entek hiç zat ýok",
+    "emptyBody": "Halaýan harydyňyzdaky ýüregi basyň, ol size şu ýerde garaşar.",
+    "continueShopping": "Söwdany dowam et",
+    "soldOut": "Satylyp gutardy",
+    "addToBag": "Sebede goş",
+    "remove": "Aýyr"
+  },
+  "price": {
+    "from": "Başlap",
+    "was": "Öňki baha",
+    "now": "Häzir",
+    "save": "{pct}% tygşytla"
+  },
+  "quantity": {
+    "label": "Sany",
+    "remove": "Harydy aýyr",
+    "decrease": "Sanyny azalt",
+    "increase": "Sanyny köpelt"
+  },
+  "badges": {
+    "soldOut": "Satylyp gutardy",
+    "NEW IN": "Täze",
+    "New Colour": "Täze reňk",
+    "Bestseller": "Köp satylýan"
+  },
+  "productCard": {
+    "colour": "Reňk",
+    "more": "+{count} sany",
+    "soldOut": "Satylyp gutardy",
+    "quickAdd": "Çalt goş",
+    "chooseOptions": "{title} üçin görnüşleri saýlaň",
+    "selectSize": "Ölçegi saýlaň",
+    "selectColour": "Reňki saýlaň",
+    "closeOptions": "Görnüşleri ýap",
+    "addColourToBag": "{colour} reňki sebede goş",
+    "hidden": "Gizlin",
+    "select": "{title} saýla",
+    "edit": "{title} üýtget",
+    "editShort": "Üýtget",
+    "delete": "{title} poz",
+    "deleteShort": "Poz",
+    "coloursFor": "{title} reňkleri"
+  },
+  "productPage": {
+    "recentlyViewed": "Soňky görlenler",
+    "popularNow": "Häzir meşhur",
+    "completeTheLook": "Görnüşi dolduryň",
+    "addNamedToBag": "{title} harydyny sebede goş",
+    "notifyShort": "Habar ber",
+    "selectASize": "Ölçegi saýlaň",
+    "addToBag": "Sebede goş",
+    "reviewsCount": "{count, plural, one {# syn} other {# syn}}",
+    "from": "Başlap",
+    "now": "Häzir",
+    "was": "Öňki baha",
+    "taxIncluded": "Salgyt goşulan.",
+    "colour": "Reňk",
+    "chooseColour": "Reňki saýlaň",
+    "optionOutOfStock": "{name} – ammarda ýok",
+    "size": "Ölçeg",
+    "chooseSize": "Ölçegi saýlaň",
+    "outOfStockShort": "ammarda ýok",
+    "outOfStock": "Ammarda ýok",
+    "onlyLeft": "{count, plural, one {Diňe # sany galdy} other {Diňe # sany galdy}}",
+    "lowStock": "Az galdy",
+    "inStock": "Bar",
+    "quantity": "Sany",
+    "freeDelivery": "{amount}-dan ýokary sargytlara mugt adaty eltip bermek",
+    "arrives": "Gelýän wagty: {dates}",
+    "description": "Düşündiriş",
+    "details": "Jikme-jiklikler we materiallar",
+    "material": "Matasy",
+    "weight": "Agramy",
+    "weave": "Dokma",
+    "origin": "Gelip çykyşy",
+    "brand": "Marka",
+    "dimensions": "Ölçegleri",
+    "careGuide": "Ideg gollanmasy",
+    "deliveryReturns": "Eltip bermek we yzyna gaýtarmak",
+    "standardPrice": "{price} · {amount}-dan ýokary mugt",
+    "orderToday": "Şu gün sargyt ediň: adaty eltip bermek {standard}, {fastName} {fast}.",
+    "returnsSummary": "Pikiriňizi üýtgetdiňizmi? Ulanylmadyk harytlary 30 günüň içinde yzyna gaýtaryň we pulyňyzy doly alyň — yzyna gaýtarmak mugt. Şahsylaşdyrylan harytlar kemçilikli bolmasa yzyna alynmaýar.",
+    "returnsLink": "Yzyna gaýtarmak syýasatymyzy doly okaň",
+    "selectSizeShort": "Ölçegi saýlaň",
+    "breadcrumb": "Sahypa ýoly",
+    "pairsWellWith": "Bilen gowy gabat gelýär",
+    "moreLikeThis": "Meňzeş harytlar",
+    "youMayAlsoLike": "Bular hem halanmagy mümkin",
+    "deliveryOption": "{name} ({days})"
+  },
+  "gallery": {
+    "images": "Haryt suratlary",
+    "showImage": "{total} suratdan {n}-njisini görkez",
+    "openFullScreen": "{title} suratlaryny doly ekranda aç",
+    "imagesOf": "{title} suratlary",
+    "openImage": "{n}-nji suraty doly ekranda aç",
+    "viewerTitle": "{title} — surat görüji",
+    "viewerHelp": "Suratlaryň arasynda geçmek üçin ok düwmelerini ulanyň ýa-da süýşüriň. Ýapmak üçin Escape düwmesine basyň.",
+    "closeViewer": "Surat görüjini ýap",
+    "previous": "Öňki surat",
+    "next": "Indiki surat",
+    "choose": "Surat saýlaň",
+    "image": "Surat {n}"
+  },
+  "sizeGuide": {
+    "title": "Ölçeg gollanmasy",
+    "description": "{title} ölçegleri",
+    "caption": "Ölçegler",
+    "size": "Ölçeg",
+    "dimensions": "Ölçegleri ({unit})",
+    "details": "Jikme-jiklikler",
+    "price": "Baha",
+    "length": "uzynlygy {value}",
+    "note": "Ölçegler ýuwulmazdan öň tekiz ýerde alynýar we ±3% tapawutlanyp biler. Pagta ilkinji birnäçe ýuwuşda birneme (3%-e çenli) gysylyp biler.",
+    "units": {
+      "label": "Birlikler",
+      "centimetres": "Santimetr",
+      "inches": "Dýuým",
+      "cm": "sm",
+      "in": "dýuým"
+    }
+  },
+  "notify": {
+    "toastTitle": "Size habar bereris",
+    "toastBody": "{label} ammara gelende {email} salgysyna hat ibereris.",
+    "done": "Ammara gelende size hat ibereris",
+    "button": "Ammara gelende habar ber",
+    "emailLabel": "{label} ammara gelende maňa hat iberiň",
+    "submit": "Habar ber"
+  },
+  "reviews": {
+    "title": "Synlar",
+    "outOf5": "/ 5",
+    "basedOn": "{count, plural, one {# syna esaslanýar} other {# syna esaslanýar}}",
+    "filterByRating": "Baha boýunça süz",
+    "count": "{count, plural, one {# syn} other {# syn}}",
+    "write": "Syn ýaz",
+    "starFiltered": "{count, plural, one {# sany {stars} ýyldyzly syn} other {# sany {stars} ýyldyzly syn}}",
+    "showing": "{total} syndan {shown} sanysy görkezilýär",
+    "starOnly": "Diňe {stars}★",
+    "verified": "Tassyklanan alyjy",
+    "bought": "Satyn alnan: {items}",
+    "helpful": "Peýdaly ({count})",
+    "none": "Entek syn ýok.",
+    "showMore": "Ýene syn görkez",
+    "rated": "5-den {value} baha",
+    "reviewsWord": "{count, plural, one {syn} other {syn}}",
+    "form": {
+      "title": "Syn ýaz",
+      "intro": "{product} barada pikiriňizi beýleki alyjylar bilen paýlaşyň.",
+      "rating": "Siziň bahaňyz",
+      "stars": "{count, plural, one {# ýyldyz} other {# ýyldyz}}",
+      "headline": "Sözbaşy",
+      "text": "Siziň synyňyz",
+      "name": "Adyňyz",
+      "submit": "Syny ugrat",
+      "cancel": "Ýatyr",
+      "localNote": "Häzirlikçe synlar diňe şu enjamda saklanýar.",
+      "errors": {
+        "rating": "Baha saýlaň",
+        "headline": "Gysga sözbaşy goşuň",
+        "text": "Birneme giňişleýin ýazyň (azyndan 10 harp)",
+        "name": "Adyňyzy goşuň"
+      },
+      "saved": "Sag boluň — synyňyz şu enjamda saklandy."
+    },
+    "yours": "Siziň synyňyz · diňe şu enjamda görünýär",
+    "originalLanguage": "Synlar ýazylan dilinde görkezilýär."
+  },
+  "cart": {
+    "title": "Söwda sebedi",
+    "discount": "Arzanladyş",
+    "subtotal": "Aralyk jemi",
+    "taxNote": "Salgyt goşulan. Eltip bermegiň bahasy tölegde hasaplanýar.",
+    "checkout": "Töleg etmäge geç",
+    "freeReturns": "30 günüň içinde mugt yzyna gaýtarmak",
+    "viewFull": "Sebedi doly gör",
+    "emptyTitle": "Sebediňiz boş",
+    "emptyBody": "Gowy zatlar size garaşýar — ýumşak bir zatdan başlaň.",
+    "continueShopping": "Söwdany dowam et",
+    "haveAccount": "Hasabyňyz barmy?",
+    "logIn": "Giriň",
+    "checkoutFaster": "we çalt töläň.",
+    "onlyLeft": "{count, plural, one {Diňe # sany galdy} other {Diňe # sany galdy}}",
+    "quantityFor": "{title} sany",
+    "saveForLater": "Soňa goý",
+    "moveToBag": "Sebede geçir",
+    "removeNamed": "{title} aýyr",
+    "remove": "Aýyr",
+    "loading": "Sebediňiz ýüklenýär…",
+    "standardDelivery": "Adaty eltip bermek",
+    "savedForLater": "Soňa goýlanlar",
+    "pairsWell": "Gabat gelýänler",
+    "completeTheLook": "Görnüşi dolduryň",
+    "unavailable": "Sebediňizdäki bir haryt indi elýeterli däl",
+    "unavailableMany": "Sebediňizdäki {count} haryt indi elýeterli däl",
+    "pageTitle": "Sebediňiz",
+    "progress": {
+      "freeDelivery": "Mugt eltip bermek",
+      "freeGift": "Mugt sowgat",
+      "awayDelivery": "Mugt adaty eltip bermäge {amount} galdy",
+      "awayGift": "Mugt sowgada {amount} galdy",
+      "unlocked": "Siz mugt eltip bermegi we mugt sowgady gazandyňyz.",
+      "label": "Mugt eltip bermäge we sowgada çenli ösüş"
+    },
+    "discountCode": {
+      "applied": "{code} kody ulanyldy — {pct}% arzanladyş",
+      "remove": "Aýyr",
+      "empty": "Arzanladyş koduny giriziň.",
+      "invalid": "Bu kod nädogry ýa-da möhleti geçdi.",
+      "label": "Arzanladyş kody",
+      "apply": "Ulan"
+    },
+    "summary": {
+      "title": "Sargyt jemi",
+      "subtotal": "{count, plural, one {Aralyk jemi (# haryt)} other {Aralyk jemi (# haryt)}}",
+      "savings": "Arzanladyşdan tygşytlanan",
+      "discount": "Arzanladyş",
+      "shipping": "Eltip bermek",
+      "free": "Mugt",
+      "total": "Jemi",
+      "includesTax": "{tax} salgyt goşulan.",
+      "reassurance": "30 günüň içinde mugt yzyna gaýtarmak · howpsuz töleg"
+    },
+    "total": "Jemi",
+    "each": "Her biri {price}"
+  },
+  "credits": {
+    "title": "Surat awtorlary",
+    "intro": "Bu saýtdaky haryt suratlary {pexels} saýtyndan alyndy. Aşakdaky ähli suratçylara minnetdarlyk bildirýäris.",
+    "empty": "Entek surat ýok. Haryt suratlaryny ýüklemek üçin {command} buýrugyny işlediň; awtorlar şu ýerde awtomatik görüner.",
+    "onPexels": "Pexels-de (täze goýmada açylýar)",
+    "photos": "{count, plural, one {# surat} other {# surat}}"
+  },
+  "checkout": {
+    "pageTitle": "Töleg",
+    "confirmedPageTitle": "Sargyt tassyklandy",
+    "title": "Töleg",
+    "steps": {
+      "address": "Salgy",
+      "delivery": "Eltip bermek",
+      "payment": "Töleg",
+      "review": "Barlag"
+    },
+    "preparing": "Howpsuz töleg taýýarlanýar…",
+    "emptyTitle": "Entek tölejek zat ýok",
+    "emptyBody": "Sebediňiz boş.",
+    "continueShopping": "Söwdany dowam et",
+    "secureItems": "{count, plural, one {Howpsuz · # haryt} other {Howpsuz · # haryt}}",
+    "address": {
+      "title": "Eltip bermek salgysy",
+      "choose": "Ýatda saklanan salgyny saýlaň",
+      "addNew": "Täze salgy goş",
+      "fullName": "Doly adyňyz",
+      "street": "Köçe salgysy",
+      "apt": "Öý, otag (hökman däl)",
+      "city": "Şäher",
+      "phone": "Telefon",
+      "next": "Şu salga eltip ber",
+      "region": "Welaýat / sebit",
+      "postalCode": "Poçta indeksi",
+      "country": "Ýurt",
+      "save": "Bu salgyny hasabymda sakla",
+      "makeDefault": "Esasy salgym et"
+    },
+    "deliveryTitle": "Eltip bermegiň tizligi",
+    "chooseDelivery": "Eltip bermek görnüşini saýlaň",
+    "delivery": {
+      "fast": {
+        "label": "Çalt",
+        "detail": "{days}"
+      },
+      "standard": {
+        "label": "Adaty",
+        "detail": "{days}"
+      },
+      "eco": {
+        "label": "Bilelikde ibermek",
+        "detail": "{days} · az gutular"
+      }
+    },
+    "free": "MUGT",
+    "qty": "Sany {count}",
+    "back": "Yza",
+    "toPayment": "Töleg etmäge geç",
+    "toReview": "Sargydy barla",
+    "payment": {
+      "title": "Töleg usuly",
+      "demo": "Diňe görkeziş üçin — töleg alynmaýar we kart maglumatlary saklanmaýar.",
+      "choose": "Töleg usulyny saýlaň",
+      "cardOption": "Kredit ýa-da bank karty",
+      "wallet": "{store} gapjygy (galyndy {balance})",
+      "walletShort": "Gapjyk",
+      "card": "Kart",
+      "cardEnding": "{last4} bilen gutarýan {brand}",
+      "nameOnCard": "Kartdaky at",
+      "cardNumber": "Kart belgisi",
+      "expiry": "Möhleti (AA/ÝÝ)",
+      "cvc": "CVC",
+      "billingSame": "Hasap salgysy eltip bermek salgysy bilen birmeňzeş"
+    },
+    "review": {
+      "title": "Sargydyňyzy barlaň",
+      "shipTo": "Eltip bermek salgysy",
+      "delivery": "Eltip bermek",
+      "payment": "Töleg",
+      "edit": "Üýtget"
+    },
+    "placing": "Sargyt edilýär…",
+    "placeOrder": "Sargyt et · {total}",
+    "terms": "Sargyt etmek bilen görkeziş şertlerine razylyk berýärsiňiz. Hiç hili töleg alynmaz.",
+    "deliveryLine": "Eltip bermek ({option})",
+    "progress": "Töleg tapgyrlary",
+    "completed": "tamamlandy",
+    "deliveryDays": "{min}–{max} iş güni",
+    "deliveryDaysOne": "{days, plural, one {# iş güni} other {# iş güni}}",
+    "errors": {
+      "required": "Bu meýdany dolduryň",
+      "phone": "Dogry telefon belgisini giriziň",
+      "cardNumber": "13–19 sanly kart belgisini giriziň",
+      "expiry": "Geljekdäki senäni AA/ÝÝ görnüşinde giriziň",
+      "cvc": "3 ýa-da 4 sanly kody giriziň",
+      "summary": "Belgilenen meýdanlary barlaň."
+    },
+    "stepOf": "Ädim {n}/{total} · {label}",
+    "backToBag": "Sebede gaýt"
+  },
+  "account": {
+    "pageTitle": "Hasabyňyz",
+    "addressLabels": {
+      "home": "Öý",
+      "work": "Iş"
+    },
+    "memberSince": "{date} bäri agza",
+    "sections": "Hasap bölümleri",
+    "tabs": {
+      "orders": "Sargytlar",
+      "wishlist": "Halanlarym",
+      "addresses": "Salgylar",
+      "profile": "Profil"
+    },
+    "yourOrders": "Sargytlaryňyz",
+    "orderPlaced": "Sargyt senesi",
+    "total": "Jemi",
+    "shipTo": "Eltip bermek",
+    "orderNumber": "Sargyt №",
+    "wishlistEmpty": "Halanlarym sanawyňyz boş",
+    "wishlistHint": "Ýatda saklamak üçin islendik harytdaky ýüregi basyň.",
+    "discover": "Harytlary gör",
+    "addAddress": "Salgy goş",
+    "default": "Esasy",
+    "edit": "Üýtget",
+    "remove": "Aýyr",
+    "setDefault": "Esasy et",
+    "profile": {
+      "name": "At",
+      "email": "E-poçta",
+      "save": "Sakla",
+      "cancel": "Ýatyr",
+      "saved": "Profil täzelendi",
+      "editNamed": "{field} üýtget"
+    },
+    "viewOrder": "Sargydy gör",
+    "viewOrderNamed": "{id} sargydy gör",
+    "noOrders": "Entek sargyt ýok",
+    "noOrdersHint": "Sargyt edeniňizde ony şu ýerden yzarlap bilersiňiz.",
+    "startShopping": "Söwda başla",
+    "editAddress": "{name} üçin salgyny üýtget",
+    "removeAddress": "{name} üçin salgyny aýyr",
+    "addressRemoved": "Salgy aýryldy",
+    "addressSaved": "Salgy ýatda saklandy",
+    "defaultUpdated": "Esasy salgy täzelendi",
+    "undo": "Yzyna al",
+    "addressForm": {
+      "addTitle": "Salgy goş",
+      "editTitle": "Salgyny üýtget",
+      "label": "Bellik (hökman däl)",
+      "labelHint": "Mysal üçin: Öý, Iş, Ejemiň öýi",
+      "save": "Salgyny sakla",
+      "cancel": "Ýatyr",
+      "makeDefault": "Esasy salgym et"
+    }
+  },
+  "orders": {
+    "pageTitle": "Sargyt {id}",
+    "status": {
+      "placed": "Sargyt kabul edildi",
+      "packed": "Gaplandy",
+      "shipped": "Iberildi",
+      "out_for_delivery": "Eltip berilýär",
+      "delivered": "Eltip berildi",
+      "cancelled": "Ýatyryldy"
+    },
+    "qty": "Sany {count}",
+    "tracking": "Ibermäni yzarlamak",
+    "current": "Häzirki ýagdaý",
+    "completed": "tamamlandy",
+    "pending": "garaşylýar",
+    "totals": {
+      "items": "Harytlar",
+      "shipping": "Eltip bermek",
+      "tax": "Salgyt",
+      "free": "MUGT",
+      "total": "Sargydyň jemi",
+      "discount": "Arzanladyş",
+      "includesTax": "{tax} salgyt goşulan."
+    },
+    "notFound": "Sargyt tapylmady",
+    "backToOrders": "Sargytlara gaýt",
+    "loading": "Sargyt ýüklenýär…",
+    "yourOrders": "Sargytlaryňyz",
+    "placedOn": "Sargyt senesi: {date}",
+    "returnItems": "Harytlary yzyna gaýtar",
+    "trackingTitle": "Yzarlamak",
+    "deliveredOn": "Eltip berildi: {date}",
+    "arriving": "Gelýän wagty: {date}",
+    "items": "Harytlar",
+    "shippingAddress": "Eltip bermek salgysy",
+    "delivery": "Eltip bermek",
+    "payment": "Töleg",
+    "summary": "Sargyt jemi",
+    "printInvoice": "Hasap-fakturany çap et",
+    "returnsOpen": "Sargydyňyz gowşurylandan soň yzyna gaýtarmak mümkin bolar.",
+    "each": "Her biri {price}"
+  },
+  "auth": {
+    "signInTitle": "Giriş",
+    "registerTitle": "Hasap aç",
+    "hidePassword": "Açar sözüni gizle",
+    "showPassword": "Açar sözüni görkez",
+    "createdToast": "Hasap açyldy (görkeziş)",
+    "signedInToast": "Girildi (görkeziş)",
+    "mockedNote": "Bu wersiýada giriş diňe görkeziş üçin.",
+    "socialNotWired": "Bu görkezişde sosial ulgamlar arkaly giriş birikdirilmedik",
+    "registerHeading": "Hasabyňyzy açyň",
+    "registerIntro": "{store}-da halanlaryňyzy saklaň, sargytlaryňyzy yzarlaň we çalt töläň.",
+    "signInIntro": "Gaýdyp gelmegiňiz bilen. Dowam etmek üçin maglumatlaryňyzy giriziň.",
+    "fullName": "Doly adyňyz",
+    "email": "E-poçta",
+    "password": "Açar sözi",
+    "passwordHint": "Azyndan 8 nyşan, bir san we bir belgi bilen.",
+    "strength": {
+      "tooWeak": "Örän gowşak",
+      "weak": "Gowşak",
+      "fair": "Orta",
+      "good": "Gowy",
+      "strong": "Berk"
+    },
+    "agree": "Ulanyş şertlerine we Gizlinlik habarnamasyna razy.",
+    "keepSignedIn": "Meni ulgamda galdyr",
+    "createAccount": "Hasap aç",
+    "signIn": "Giriş",
+    "or": "ýa-da",
+    "google": "Google bilen dowam et",
+    "apple": "Apple bilen dowam et",
+    "haveAccount": "Hasabyňyz barmy?",
+    "newTo": "{store}-da täzemi?",
+    "createAnAccount": "Hasap açyň",
+    "errors": {
+      "name": "Adyňyzy giriziň",
+      "password": "Azyndan 8 harp ulanyň",
+      "passwordEmpty": "Açar sözüňizi giriziň",
+      "agree": "Dowam etmek üçin şertleri kabul ediň"
+    }
+  },
+  "confirmation": {
+    "loading": "Sargydyňyz ýüklenýär…",
+    "notFoundTitle": "Sargyt tapylmady",
+    "notFoundBody": "{id} sargydyny bu brauzerde tapyp bilmedik.",
+    "viewOrders": "Sargytlaryňyzy görüň",
+    "title": "Sag boluň — sargydyňyz kabul edildi!",
+    "orderSent": "Sargyt {id} · Tassyklama e-poçtaňyza iberildi.",
+    "eta": "Çak edilýän eltip bermek {date}",
+    "continueShopping": "Söwdany dowam et",
+    "items": "Bu sargytdaky harytlar",
+    "tracking": "Yzarlamak",
+    "shippingTo": "Eltip bermek salgysy",
+    "payment": "Töleg"
+  },
+  "help": {
+    "topics": {
+      "delivery": {
+        "title": "Eltip bermek barada",
+        "intro": "{amount}-dan ýokary sargytlara adaty eltip bermek mugt.",
+        "sections": [
+          {
+            "q": "Eltip bermek näçe wagt alýar?",
+            "a": "Adaty eltip bermek {standardDays}, çalt eltip bermek {fastDays} içinde gelýär. Bilelikde ibermek {ecoDays} alýar we mugt."
+          },
+          {
+            "q": "Bahasy näçe?",
+            "a": "Adaty eltip bermek {standard}, {amount}-dan ýokary sargytlara mugt. Çalt eltip bermek {fast}."
+          },
+          {
+            "q": "Daşary ýurtlara eltip berýärsiňizmi?",
+            "a": "Entek ýok — häzirlikçe diňe Amerikanyň Birleşen Ştatlarynyň çäginde eltip berýäris."
+          }
+        ]
+      },
+      "returns": {
+        "title": "Yzyna gaýtarmak we çalyşmak",
+        "intro": "Pikiriňizi üýtgetdiňizmi? Ulanylmadyk harytlary 30 günüň içinde yzyna gaýtaryň we pulyňyzy doly alyň.",
+        "sections": [
+          {
+            "q": "Yzyna gaýtarmagy nädip başlamaly?",
+            "a": "Sargytlaryňyz sahypasyna giriň, sargydy saýlaň we Harytlary yzyna gaýtar düwmesini basyň. Size öňünden tölenen bellik ibereris."
+          },
+          {
+            "q": "Pulum haçan yzyna gaýtarylar?",
+            "a": "Haryt bize gelenden soň 5 iş gününiň içinde pul töleg eden usulyňyza gaýtarylýar."
+          },
+          {
+            "q": "Başga reňke çalşyp bolarmy?",
+            "a": "Hawa — yzyna gaýtarmagy başlanyňyzda Çalyşmak saýlaň we täze reňki ýa-da ölçegi belläň."
+          }
+        ]
+      },
+      "size-guide": {
+        "title": "Ölçeg gollanmasy",
+        "intro": "Elsüpürgiç we halat ölçeglerimiz.",
+        "sections": [
+          {
+            "q": "Elsüpürgiçler",
+            "a": "Ýüz elsüpürgiji 30 × 30 sm (12 × 12 dýuým) · El elsüpürgiji 50 × 90 sm (20 × 35 dýuým) · Hammam elsüpürgiji 70 × 130 sm (28 × 51 dýuým) · Uly hammam elsüpürgiji 100 × 150 sm (39 × 59 dýuým)."
+          },
+          {
+            "q": "Halatlar",
+            "a": "Döş: XS 76–81 sm · S 86–91 sm · M 96–101 sm · L 106–111 sm · XL 116–121 sm. Iki ölçegiň arasynda galdyňyzmy? Has giň bolar ýaly bir uly ölçegi saýlaň."
+          },
+          {
+            "q": "Hammam halyçalary we plýaž elsüpürgiçleri",
+            "a": "Hammam halyçalary 50 × 80 sm (20 × 31 dýuým). Plýaž elsüpürgiçleri we peştemallar 100 × 180 sm (39 × 71 dýuým)."
+          }
+        ]
+      },
+      "care": {
+        "title": "Ideg gollanmasy",
+        "intro": "Azajyk ideg tebigy süýümleri ýyllar boýy ýumşak we suw siňdiriji saklaýar.",
+        "sections": [
+          {
+            "q": "Ilkinji gezek ulanmazdan öň",
+            "a": "Ilmekler açylar we gowşak süýümler aýrylar ýaly täze elsüpürgiçleri bir gezek aýratyn 40°C-de ýuwuň."
+          },
+          {
+            "q": "Ýuwmak",
+            "a": "Meňzeş reňkler bilen 40°C-de ýuwuň. Ýumşadyjy ulanmaň — ol süýümleri örtýär we suw siňdirijiligini peseldýär."
+          },
+          {
+            "q": "Guratmak",
+            "a": "Pes temperaturada guradyjyda ýa-da asyp guradyň, soňra ýumşar ýaly silkäň. Zygyr birneme çygly wagty çykarylanda gowy bolýar."
+          },
+          {
+            "q": "Çekilen ilmekler",
+            "a": "Gowşan ilmegi hiç haçan çekmäň — ony kiçijik gaýçy bilen ýüzi bilen deň edip kesiň."
+          }
+        ]
+      },
+      "buying-guide": {
+        "title": "Satyn almak boýunça gollanma",
+        "intro": "Duýgy, agram we material boýunça nädip saýlamaly.",
+        "sections": [
+          {
+            "q": "GSM näme diýmek?",
+            "a": "Inedördül metrdäki gram — matanyň agramy. GSM-i ýokary elsüpürgiçler has galyň duýulýar, pes bolanlary has çalt guraýar."
+          },
+          {
+            "q": "Maňa haýsy duýgy laýyk?",
+            "a": "Ýeňil we howaly yssy howa we çalt guramak üçin amatly. Galyň we ýakymly bolsa spa ýaly haýal irdenler üçin. Ikirjiňlenýän bolsaňyz testden geçip görüň."
+          },
+          {
+            "q": "Türk, Müsür ýa-da organiki pagta?",
+            "a": "Türk pagtasy ýeňil we çalt guraýar, Müsür pagtasy uzyn süýümli we galyň, organiki pagta bolsa sintetiki dermanlarsyz ösdürilip ýetişdirilýär."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Biz bilen habarlaşyň",
+        "intro": "{email} salgysyna ýazyň — bir iş gününiň içinde jogap berýäris.",
+        "sections": [
+          {
+            "q": "Iş wagty",
+            "a": "Duşenbe–anna, 09:00–18:00 (ABŞ-nyň gündogar wagty)."
+          }
+        ]
+      },
+      "about": {
+        "title": "Biziň taryhymyz",
+        "intro": "{store} elsüpürgiçleri howlukman öndürýär: uzyn süýümli pagta, arassa dokma we asuda reňkler — her gün ulanmak we ýyllar boýy söýmek üçin."
+      },
+      "journal": {
+        "title": "Žurnal",
+        "intro": "Dokmaçylarymyzyň hekaýalary we haýal durmuş barada bellikler. Ýakyn wagtda."
+      },
+      "terms": {
+        "title": "Şertler we düzgünler",
+        "intro": "Görkeziş dükany — nusga şertler."
+      },
+      "privacy": {
+        "title": "Gizlinlik syýasaty",
+        "intro": "Görkeziş dükany — hakyky maglumat ýygnamaýarys."
+      },
+      "cookies": {
+        "title": "Kuki syýasaty",
+        "intro": "Bu görkeziş sebediňizi, halanlaryňyzy, dil saýlawyňyzy we sazlamalaryňyzy diňe brauzeriňizde saklaýar."
+      }
+    }
+  },
+  "quiz": {
+    "eyebrow": "Elsüpürgiç saýlaýjy",
+    "steps": {
+      "useCase": "Näme üçin gerek?",
+      "feel": "Nähili duýulmaly?",
+      "colour": "Reňk keýpini saýlaň"
+    },
+    "back": "Yza",
+    "stepOf": "{total} ädimden {n}-njisi",
+    "yourMatches": "Size laýyklary",
+    "close": "Testi ýap",
+    "resultsTitle": "Bulary halarsyňyz diýip pikir edýäris",
+    "intro": "Üç gysga sorag — soňra birnäçe halanýan harytlary hödürläris.",
+    "resultsIntro": "Jogaplaryňyza görä saýlandy. Jikme-jiklikler üçin elsüpürgiji basyň.",
+    "noPreference": "Tapawudy ýok",
+    "noMatches": "Doly gabat gelýän ýok — indiki gezek şu ýerlere serediň.",
+    "seeAll": "Ähli laýyklary gör",
+    "startAgain": "Täzeden başla",
+    "bannerTitle": "Özüňize laýyk elsüpürgiji tapyň",
+    "bannerBody": "Näme üçin gerekdigini, nähili duýulmagyny isleýändigiňizi we haýsy reňkleri halaýandygyňyzy aýdyň. Siziň halajak birnäçe elsüpürgijiňizi saýlarys.",
+    "start": "Testi başla",
+    "useCases": {
+      "everyday": {
+        "label": "Gündelik hammam",
+        "note": "Hammam elsüpürgiçleri we gabat gelýän toplumlar"
+      },
+      "spa": {
+        "label": "Öýde spa günleri",
+        "note": "Halatlar we galyň, agyr dokmalar"
+      },
+      "beach": {
+        "label": "Plýaž we syýahat",
+        "note": "Uly, ýeňil we çalt guraýan"
+      },
+      "baby": {
+        "label": "Çaga üçin",
+        "note": "Ýumşak, näzik organiki pagta"
+      },
+      "kitchen": {
+        "label": "Aşhana",
+        "note": "Tüý galdyrmaýan aşhana elsüpürgiçleri we wafli"
+      },
+      "gift": {
+        "label": "Oýlanyşykly sowgat",
+        "note": "Toplumlar we şahsylaşdyrylan harytlar"
+      }
+    },
+    "feelNotes": {
+      "Light & airy": "Çalt guraýar, howa geçirýär, aňsat",
+      "Soft & cosy": "Näzik, tanyş rahatlyk",
+      "Plush & indulgent": "Baý, galyň we jomart",
+      "Crisp & structured": "Görnüşini saklaýan arassa çyzyklar",
+      "Smooth & sleek": "Degeniňde salkyn, sada"
+    }
+  },
+  "home": {
+    "promisesLabel": "Wadalarymyz",
+    "promises": {
+      "delivery": {
+        "title": "Mugt eltip bermek",
+        "body": "{amount}-dan ýokary sargytlara"
+      },
+      "returns": {
+        "title": "30 günde yzyna gaýtarmak",
+        "body": "Aňsat we mugt"
+      },
+      "materials": {
+        "title": "Tebigy süýümler",
+        "body": "Pagta, zygyr we bambuk"
+      },
+      "makers": {
+        "title": "Ynamdar dokma kärhanalarynda öndürildi",
+        "body": "Her harydyň nirede öndürilendigi görkezilýär"
+      }
+    },
+    "collectionsEyebrow": "Gözden geçiriň",
+    "collectionsTitle": "Kolleksiýa boýunça saýla",
+    "shopNow": "Söwda et",
+    "bestEyebrow": "Iň köp halanýanlar",
+    "bestTitle": "Köp satylýanlar",
+    "viewAll": "Hemmesini gör",
+    "newEyebrow": "Täze geldi",
+    "newTitle": "Täzelikler",
+    "dealsEyebrow": "Gysga wagtlyk",
+    "dealsTitle": "Wagtlaýyn bahalar",
+    "hero": {
+      "label": "Saýlanan kolleksiýalar",
+      "play": "Slaýdlary görkez",
+      "pause": "Slaýdlary sakla",
+      "bath": {
+        "eyebrow": "Täze reňkler",
+        "title": "On iki asuda öwüşginde ýumşaklyk",
+        "body": "Hammam elsüpürgiç kolleksiýamyz indi hek akdan toýun reňkine çenli.",
+        "cta": "Hammam elsüpürgiçlerini gör"
+      },
+      "beach": {
+        "eyebrow": "Dynç günleri üçin",
+        "title": "Uzyn günler üçin ýeňil elsüpürgiçler",
+        "body": "Gum ýapyşmaýan, çalt guraýan we kiçijik epilýän dokmalar.",
+        "cta": "Plýaž elsüpürgiçlerini gör"
+      },
+      "spa": {
+        "eyebrow": "Haýal irdenler",
+        "title": "Öýde spa güni",
+        "body": "Wafli halatlar, agyr uly elsüpürgiçler we ýumşak ýüz elsüpürgiçleri.",
+        "cta": "Spa harytlaryny gör"
+      }
+    }
+  },
+  "dates": {
+    "months": [
+      "Ýanwar",
+      "Fewral",
+      "Mart",
+      "Aprel",
+      "Maý",
+      "Iýun",
+      "Iýul",
+      "Awgust",
+      "Sentýabr",
+      "Oktýabr",
+      "Noýabr",
+      "Dekabr"
+    ],
+    "monthsShort": [
+      "Ýan",
+      "Few",
+      "Mar",
+      "Apr",
+      "Maý",
+      "Iýun",
+      "Iýul",
+      "Awg",
+      "Sen",
+      "Okt",
+      "Noý",
+      "Dek"
+    ],
+    "weekdays": [
+      "Ýekşenbe",
+      "Duşenbe",
+      "Sişenbe",
+      "Çarşenbe",
+      "Penşenbe",
+      "Anna",
+      "Şenbe"
+    ],
+    "weekdaysShort": [
+      "Ýek",
+      "Duş",
+      "Siş",
+      "Çar",
+      "Pen",
+      "Ann",
+      "Şen"
+    ]
+  },
+  "admin": {
+    "languages": {
+      "en": "Iňlisçe",
+      "tr": "Türkçe",
+      "tk": "Türkmençe",
+      "ru": "Rusça"
+    },
+    "switcher": {
+      "label": "Dolandyryş paneliniň dili (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
+      "empty": "{count, plural, one {# boş meýdan} other {# boş meýdan}}"
+    },
+    "banner": "Dolandyryş tertibi: üýtgeşmeler göni katalogda saklanýar",
+    "topbar": {
+      "badge": "Dolandyryş",
+      "home": "Baş sahypa",
+      "viewStore": "Dükany gör",
+      "logOut": "Çykyş",
+      "categories": "Kategoriýalar",
+      "allProducts": "Ähli harytlar"
+    },
+    "login": {
+      "pageTitle": "Dolandyryja giriş · {store}",
+      "title": "Dolandyryja giriş",
+      "username": "Ulanyjy ady",
+      "password": "Açar sözi",
+      "showPassword": "Açar sözüni görkez",
+      "hidePassword": "Açar sözüni gizle",
+      "submit": "Giriş",
+      "unreachable": "Serwere birigip bolmady. Gaýtadan synanyşyň.",
+      "backToStore": "Dükana gaýt"
+    },
+    "catalog": {
+      "pageTitle": "{title} · Dolandyryş · {store}",
+      "allTitle": "Ähli harytlar",
+      "allIntro": "Gizlinleri hem goşmak bilen dükandaky ähli harytlar.",
+      "crumb": "Dolandyryş",
+      "searchLabel": "Harytlary ady, SKU ýa-da reňki boýunça gözle",
+      "searchPlaceholder": "Ady, SKU ýa-da reňki boýunça gözle…",
+      "clearSearch": "Gözlegi arassala",
+      "addProduct": "Haryt goş",
+      "emptyTitle": "Bu kategoriýada entek haryt ýok",
+      "emptyBody": "Ilkinji harydy goşuň — ol şu ýerde we dükanda görüner.",
+      "missingLabel": "Terjime edilmedikler:",
+      "missingAny": "Islendik dil",
+      "bulkLabel": "Toplumlaýyn hereketler",
+      "selected": "{count} saýlandy",
+      "deleteSelected": "Saýlananlary poz",
+      "clearSelection": "Saýlawy arassala"
+    },
+    "edit": {
+      "backToCatalog": "Kataloga gaýt",
+      "editTitle": "Harydy üýtget",
+      "addTitle": "Haryt goş",
+      "viewOnStore": "Dükanda gör",
+      "pageEdit": "{name} üýtget · Dolandyryş · {store}",
+      "pageAdd": "Haryt goş · Dolandyryş · {store}"
+    },
+    "status": {
+      "editing": "Redaktirlenýär: {language}",
+      "enRequired": "Iňlisçe hökmany. Slug, SKU, bahalar, suratlar we ammar ähli diller üçin umumy.",
+      "emptyCount": "{count, plural, one {# türkmençe meýdan boş} other {# türkmençe meýdan boş}}",
+      "allFilled": "Ähli türkmençe tekstler dolduryldy.",
+      "fixInEnglish": "{error} — doldurmak üçin EN-e geçiň"
+    },
+    "sections": {
+      "basics": "Esasy maglumatlar",
+      "organisation": "Kategoriýa, kolleksiýa we ölçegler",
+      "organisationHint": "Dükanyň Kategoriýa / Kolleksiýa / Ölçeg boýunça menýulary bilen birmeňzeş sanawlar.",
+      "price": "Baha we ölçeg atlary",
+      "priceHint": "“−X%” nyşany arzanladyş bahasyndan hasaplanýar. Arzanladyşdaky harytlar Elsüpürgiç arzanladyşlary bölüminde görünýär.",
+      "images": "Suratlar",
+      "imagesHint": "Birinji surat esasy surat. Tertibini üýtgetmek üçin süýşüriň. Suratlar ähli diller üçin umumy.",
+      "colours": "Reňk görnüşleri",
+      "coloursStockPerSize": "Ammar reňk we ölçeg boýunça saklanýar.",
+      "coloursStock": "Her reňk üçin ammardaky mukdar.",
+      "coloursKey": "Iňlisçe at reňkiň açary; ony ýokardaky dil düwmesi bilen terjime ediň.",
+      "material": "Material we duýgy",
+      "materialHint": "Duýgy dükanyň süzgüçleri bilen birmeňzeş görnüşleri ulanýar (awtomatik terjime edilýär).",
+      "status": "Nyşan, ammar we görünmegi",
+      "preview": "Göni öňünden görkeziş"
+    },
+    "fields": {
+      "name": "Ady",
+      "namePlaceholder": "mysal: Organiki pagta hammam elsüpürgiji",
+      "slug": "Slug",
+      "slugHint": "{paths} — ähli dillerde birmeňzeş",
+      "sku": "SKU",
+      "skuPlaceholder": "mysal: LOO-2517",
+      "tagline": "Gysga şygar",
+      "taglineHint": "Kartoçkada görünýär, mysal: “Çalt guraýan, maşgalanyň halanýany”",
+      "description": "Düşündiriş",
+      "category": "Kategoriýa",
+      "categoryCurrent": "{type} (häzirki)",
+      "collection": "Kolleksiýa",
+      "sizes": "Bar bolan ölçegler",
+      "personalisable": "Şahsylaşdyryp bolýar (Şahsylaşdyrylan elsüpürgiçler bölüminde görünýär)",
+      "price": "Baha ($)",
+      "salePrice": "Arzanladyş bahasy ($)",
+      "optional": "Hökmany däl",
+      "discountBadge": "Nyşan: −{pct}%",
+      "width": "Ini (sm)",
+      "length": "Uzynlygy (sm)",
+      "sizeName": "Ölçegiň ady",
+      "sizeNameEmpty": "Boş — alyjylar iňlisçe ady görýärler",
+      "colourName": "Ady",
+      "colour": "Reňk",
+      "hexValue": "{name} hex bahasy",
+      "filterGroup": "Süzgüç topary",
+      "image": "Surat",
+      "imageIllustration": "Illýustrasiýa",
+      "imageMain": "Esasy surat",
+      "imageN": "Surat {n}",
+      "imageNMain": "Surat {n} (esasy)",
+      "stock": "Ammar:",
+      "stockBySize": "Ölçeg boýunça ammar:",
+      "stockQuantity": "Ammardaky mukdar:",
+      "stockFor": "{colour} {size} ammardaky mukdary",
+      "stockForSize": "{size} ammardaky mukdary",
+      "moveUp": "{name} ýokary süýşür",
+      "moveDown": "{name} aşak süýşür",
+      "removeColour": "{name} aýyr",
+      "addColour": "Reňk goş",
+      "newColour": "Reňk {n}",
+      "material": "Material",
+      "weight": "Agramy (GSM)",
+      "feel": "Duýgy",
+      "weave": "Dokma",
+      "weavePlaceholder": "Towlanmadyk ilmekli tüýli mata",
+      "origin": "Gelip çykyşy",
+      "originPlaceholder": "Portugaliýada dokaldy",
+      "design": "Dizaýn",
+      "features": "Esasy aýratynlyklar (her setirde biri)",
+      "featuresHint": "Nyşanlar bilen görkezilýän 3–4 gysga setir, mysal: “100% türk pagtasy”",
+      "featuresHintTranslated": "Iňlisçe bilen şol bir tertipde — nyşanlar iňlisçe setirlere eýerýär.",
+      "careGuide": "Ideg gollanmasy",
+      "careType": "Idegiň görnüşi",
+      "careInstruction": "Ideg görkezmesi",
+      "removeCare": "Ideg görkezmesini aýyr",
+      "addCare": "Ideg setirini goş",
+      "badge": "Nyşan",
+      "badgeHint": "Dükanda awtomatik terjime edilýär",
+      "badgeNone": "Ýok",
+      "stockStatus": "Ammar ýagdaýy",
+      "stockStatusHint": "“Ammarda ýok” mukdar girizilen hem bolsa satuwy togtadýar",
+      "visible": "Saýtda görünýär",
+      "visibleHint": "Gizlin harytlar dolandyryş panelinde galýar, ýöne dükandan aýrylýar.",
+      "fastDelivery": "Çalt eltip bermek mümkin",
+      "emptyText": "{language} tekst"
+    },
+    "careKinds": {
+      "wash": "Ýuwmak",
+      "bleach": "Agartmak",
+      "dry": "Guratmak",
+      "iron": "Ütüklemek",
+      "dryclean": "Gury arassalamak"
+    },
+    "stockStatus": {
+      "auto": "Awtomatik (mukdara görä)",
+      "in": "Bar",
+      "low": "Az galdy",
+      "out": "Ammarda ýok"
+    },
+    "fieldNames": {
+      "name": "ady",
+      "tagline": "şygar",
+      "description": "düşündiriş",
+      "features": "aýratynlyklar",
+      "material": "material",
+      "weave": "dokma",
+      "origin": "gelip çykyşy",
+      "care": "ideg gollanmasy",
+      "colours": "reňkler",
+      "sizes": "ölçegler"
+    },
+    "actions": {
+      "save": "Ýatda sakla",
+      "saveAnother": "Ýatda sakla we täzesini goş",
+      "cancel": "Ýatyr",
+      "deleteProduct": "Harydy poz",
+      "unsaved": "Ýatda saklanmadyk üýtgeşmeler",
+      "leaveConfirm": "Ýatda saklanmadyk üýtgeşmeler bar. Ýatda saklamazdan çykmalymy?"
+    },
+    "preview": {
+      "hidden": "Gizlin — dükanda görünmeýär",
+      "notTranslated": "Entek terjime edilmedi (iňlisçe görkezilýär): {fields}",
+      "placeholderName": "Harydyň ady",
+      "placeholderTagline": "Gysga şygar"
+    },
+    "toasts": {
+      "fixFields": "Bellenen meýdanlary düzediň",
+      "nameRequired": "Iňlisçe at hökmany.",
+      "saved": "Haryt ýatda saklandy",
+      "added": "Haryt goşuldy",
+      "hiddenSuffix": "{name} (dükanda gizlin)",
+      "missingTranslation": "Terjime ýok: {language}",
+      "missingDetail": "Iňlisçe görkezilýär: {fields}",
+      "saveFailed": "Harydy ýatda saklap bolmady"
+    },
+    "delete": {
+      "deleted": "{count, plural, one {Haryt pozuldy} other {# haryt pozuldy}}",
+      "undo": "Yzyna gaýtar",
+      "restored": "{count, plural, one {Haryt dikeldildi} other {Harytlar dikeldildi}}",
+      "restoreFailed": "Dikeldip bolmady",
+      "deleteFailed": "Pozup bolmady",
+      "selected": "{count, plural, one {# haryt saýlandy} other {# haryt saýlandy}}",
+      "confirmOne": "Bu haryt pozulsynmy? Muny yzyna gaýtaryp bolmaz.",
+      "confirmMany": "{count, plural, one {Bu haryt pozulsynmy? Muny yzyna gaýtaryp bolmaz.} other {Bu # haryt pozulsynmy? Muny yzyna gaýtaryp bolmaz.}}",
+      "cancel": "Ýatyr",
+      "delete": "Poz"
+    },
+    "images": {
+      "drop": "Suratlary şu ýere süýşüriň ýa-da {browse}",
+      "browse": "saýlaň",
+      "formats": "JPG, PNG ýa-da WebP · her biri 5 MB-a çenli · WebP görnüşinde saklanýar",
+      "onlyTypes": "Diňe JPG, PNG ýa-da WebP",
+      "tooLarge": "5 MB-dan uly",
+      "uploadFailed": "Ýükläp bolmady",
+      "listLabel": "Haryt suratlary (birinjisi esasy surat)",
+      "main": "Esasy",
+      "remove": "{n}-nji suraty aýyr",
+      "earlier": "{n}-nji suraty öňe süýşür",
+      "later": "{n}-nji suraty yza süýşür",
+      "altLabel": "{n}-nji suratyň alternatiw teksti",
+      "altPlaceholder": "Alternatiw tekst (suraty beýan ediň)",
+      "altAuto": "{title} – görnüş {n}",
+      "dismiss": "Ýap",
+      "uploading": "Ýüklenýär…",
+      "empty": "Entek surat ýok — dükanda surat ýerine çyzgy görkezilýär",
+      "emptyHint": "Onuň ýerine goýmak üçin ýokarda surat ýükläň."
+    },
+    "errors": {
+      "imageTooLarge": "Suratyň maglumaty gaty uly",
+      "invalidImage": "Nädogry surat",
+      "colourNameRequired": "Reňkiň ady hökmany",
+      "sizeNameRequired": "Ölçegiň ady hökmany",
+      "enterPrice": "Bahany giriziň",
+      "pricePositive": "Baha 0-dan uly bolmaly",
+      "salePositive": "Arzanladyş bahasy 0-dan uly bolmaly",
+      "stockNegative": "Ammardaky mukdar otrisatel bolup bilmez",
+      "saleLower": "Arzanladyş bahasy esasy bahadan pes bolmaly",
+      "slugRequired": "Slug hökmany",
+      "slugFormat": "Kiçi harplary, sanlary we defisi ulanyň",
+      "skuRequired": "SKU hökmany",
+      "skuFormat": "Diňe harplar, sanlar, nokatlar we defisler",
+      "nameRequired": "At hökmany",
+      "chooseCategory": "Kategoriýa saýlaň",
+      "materialRequired": "Material hökmany",
+      "gsmPositive": "GSM 0-dan uly bolmaly",
+      "addSize": "Azyndan bir ölçeg goşuň",
+      "imageMissing": "Surat ýok",
+      "maxImages": "12 surata çenli",
+      "colourUnique": "Reňkleriň atlary gaýtalanmaly däl",
+      "sizeUnique": "Ölçegleriň atlary gaýtalanmaly däl",
+      "slugTaken": "Bu slug başga haryt tarapyndan ulanylýar",
+      "skuTaken": "Bu SKU başga haryt tarapyndan ulanylýar",
+      "idTaken": "Bu ID bilen haryt eýýäm bar",
+      "invalidId": "Nädogry ID",
+      "notFound": "Tapylmady",
+      "crossOrigin": "Başga çeşmeden gelen haýyş petiklendi",
+      "notConfigured": "Dolandyryja giriş serwerde sazlanmadyk.",
+      "tooMany": "{minutes, plural, one {Synanyşyk gaty köp. # minutdan soň gaýtadan synanyşyň.} other {Synanyşyk gaty köp. # minutdan soň gaýtadan synanyşyň.}}",
+      "wrongCredentials": "Ulanyjy ady ýa-da açar sözi nädogry",
+      "notSignedIn": "Ulgama girilmedik",
+      "noneSelected": "Haryt saýlanmady",
+      "cannotRestore": "Bu harydy indi dikeldip bolmaýar",
+      "server": "Serwerde ýalňyşlyk ýüze çykdy",
+      "fileEmpty": "Faýl boş",
+      "fileTooLarge": "Suratlar 5 MB-dan uly bolmaly däl",
+      "fileType": "Diňe JPG, PNG ýa-da WebP suratlar kabul edilýär",
+      "fileUnreadable": "Bu faýly surat hökmünde okap bolmady",
+      "tooLong": "Gaty uzyn"
+    }
+  },
+  "countries": {
+    "US": "Amerikanyň Birleşen Ştatlary",
+    "TR": "Türkiýe",
+    "TM": "Türkmenistan",
+    "RU": "Russiýa"
+  },
+  "shipping": {
+    "usOnly": "Häzirlikçe diňe ABŞ-a eltip berýäris"
+  }
+}

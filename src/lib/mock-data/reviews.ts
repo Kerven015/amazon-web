@@ -1,0 +1,19 @@
+import type { Review } from "@/types";
+
+export const reviews: Review[] = [
+  { id: "r1", productId: "p1", author: "Maya R.", rating: 5, title: "Quietest commute I've had", body: "Noise cancelling is excellent on trains and the fit stays comfortable for hours. Battery easily lasts the week.", date: "2026-09-12", verified: true, helpful: 128, variant: "Color: Midnight" },
+  { id: "r2", productId: "p1", author: "Daniel K.", rating: 4, title: "Great sound, case is bulky", body: "Rich, balanced sound and solid call quality. Only complaint is the case takes up a lot of room in my bag.", date: "2026-08-30", verified: true, helpful: 54, variant: "Color: Chalk" },
+  { id: "r3", productId: "p1", author: "Priya S.", rating: 5, title: "Worth it on sale", body: "Picked these up during a deal. App is simple and multipoint pairing with my laptop and phone works perfectly.", date: "2026-08-14", verified: true, helpful: 31 },
+  { id: "r4", productId: "p1", author: "Tom H.", rating: 3, title: "Good, not perfect", body: "Comfortable and they sound good, but the touch controls register accidental taps when adjusting them.", date: "2026-07-22", verified: false, helpful: 12 },
+  { id: "r5", productId: "p6", author: "Lena M.", rating: 5, title: "My new go-to tee", body: "Soft, holds its shape after many washes and the sizing is spot on. Bought three more colors.", date: "2026-09-02", verified: true, helpful: 77, variant: "Size: M, Color: Olive" },
+  { id: "r6", productId: "p6", author: "Chris B.", rating: 4, title: "Nice weight", body: "Not too thin, not too heavy. Slight shrink in the dryer so wash cold and hang dry.", date: "2026-08-19", verified: true, helpful: 23, variant: "Size: L, Color: Chalk" },
+  { id: "r7", productId: "p11", author: "Hana T.", rating: 5, title: "Beautiful and practical", body: "The glaze is gorgeous and the dripper brews evenly. Makes my morning feel like a small ritual.", date: "2026-09-18", verified: true, helpful: 41 },
+  { id: "r8", productId: "p11", author: "Omar F.", rating: 5, title: "Great gift", body: "Gave this to my brother and now I want one too. Arrived well packed, nothing chipped.", date: "2026-08-05", verified: true, helpful: 18 },
+  { id: "r9", productId: "p24", author: "Jess W.", rating: 5, title: "Ice lasts all day", body: "Left it in a hot car for an afternoon and still had ice. The lid doesn't leak at all.", date: "2026-09-21", verified: true, helpful: 96, variant: "Color: Lagoon" },
+  { id: "r10", productId: "p24", author: "Ravi P.", rating: 4, title: "Solid bottle", body: "Excellent insulation. A bit heavy when full but that's expected for this size.", date: "2026-07-30", verified: true, helpful: 14 },
+  { id: "r11", productId: "p31", author: "Sofia G.", rating: 5, title: "Hours of play", body: "My kids build something new every day. Magnets are strong and the tiles feel sturdy.", date: "2026-09-08", verified: true, helpful: 63 },
+  { id: "r12", productId: "p31", author: "Ben A.", rating: 4, title: "Fun but pricey", body: "Great quality and fun for all ages. Would love a few more large square pieces in the set.", date: "2026-08-11", verified: false, helpful: 9 },
+  { id: "r13", productId: "p26", author: "Nora L.", rating: 5, title: "Gentle and wise", body: "A calm, thoughtful book about craft and attention. I underlined something on almost every page.", date: "2026-09-01", verified: true, helpful: 37, variant: "Format: Hardcover" },
+  { id: "r14", productId: "p36", author: "Marco V.", rating: 5, title: "Smooth and chocolatey", body: "Low acidity with a lovely chocolate finish. Fresh roast date on the bag.", date: "2026-09-25", verified: true, helpful: 22, variant: "Grind: Whole bean" },
+  { id: "r15", productId: "p16", author: "Aisha N.", rating: 4, title: "Calmed my dry patches", body: "Absorbs quickly and doesn't feel greasy under sunscreen. Wish the jar were a little bigger.", date: "2026-08-27", verified: true, helpful: 28 },
+];

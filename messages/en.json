@@ -1,0 +1,1481 @@
+{
+  "meta": {
+    "homeTitle": "{store} — Towels made to last",
+    "defaultDescription": "Soft, considered towels, bathrobes and bath mats in calm colours, with free delivery over {amount} and free returns."
+  },
+  "common": {
+    "loading": "Finding the best picks for you…",
+    "loadingProduct": "Loading product…",
+    "home": "Home",
+    "viewAll": "View all",
+    "close": "Close",
+    "back": "Back",
+    "remove": "Remove",
+    "save": "Save",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "opensInNewTab": "(opens in a new tab)",
+    "previous": "Previous",
+    "next": "Next",
+    "or": "or",
+    "closeNamed": "Close {name}",
+    "scrollBack": "Scroll {title} back",
+    "scrollForward": "Scroll {title} forward",
+    "carousel": "Carousel",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {n}",
+    "slideOf": "{current} of {total}",
+    "notifications": "Notifications",
+    "storeHome": "{store} home",
+    "marketplaceSeller": "Marketplace seller"
+  },
+  "footer": {
+    "terms": "Conditions of use",
+    "privacy": "Privacy notice",
+    "help": "Help",
+    "copyright": "© {year} {store}. All rights reserved.",
+    "tagline": "Soft, considered towels for everyday living — woven to last and kind to the planet.",
+    "followUs": "Follow us",
+    "socialLabel": "{store} on {network} (opens in a new tab)",
+    "legal": "Legal",
+    "termsLong": "Terms & conditions",
+    "privacyLong": "Privacy policy",
+    "cookies": "Cookie policy",
+    "backToTop": "Back to top",
+    "columns": {
+      "service": "Customer service",
+      "about": "About us",
+      "guides": "Guides"
+    },
+    "links": {
+      "contact": "Contact us",
+      "delivery": "Delivery information",
+      "returns": "Returns & exchanges",
+      "track": "Track your order",
+      "account": "Your account",
+      "story": "Our story",
+      "credits": "Photo credits",
+      "buyingGuide": "Buying guide",
+      "careGuide": "Care guide",
+      "sizeGuide": "Size guide",
+      "quiz": "Find your towel (quiz)"
+    }
+  },
+  "errors": {
+    "notFoundTitle": "We couldn't find that page",
+    "notFoundBody": "The link may be broken, or the product may no longer be available.",
+    "notFoundPageTitle": "Page not found",
+    "backHome": "Back to home",
+    "seeOffers": "See towel offers",
+    "oops": "Oops",
+    "genericTitle": "Something went wrong",
+    "genericBody": "We hit an unexpected error loading this page.",
+    "tryAgain": "Try again"
+  },
+  "header": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "search": "Search",
+    "accountLabel": "Log in or view your account",
+    "logIn": "Log in",
+    "wishlistLabel": "{count, plural, =0 {Wishlist, nothing saved} one {Wishlist, # saved} other {Wishlist, # saved}}",
+    "bagLabel": "{count, plural, =0 {Shopping bag, empty} one {Shopping bag, # item} other {Shopping bag, # items}}",
+    "theme": {
+      "change": "Change colour theme",
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "announcements": {
+      "delivery": {
+        "text": "Free standard delivery over {amount}",
+        "link": "Easy returns"
+      },
+      "newColours": {
+        "text": "New colours just landed",
+        "link": "Shop new in"
+      },
+      "quiz": {
+        "text": "Not sure what to choose?",
+        "link": "Take the quiz"
+      }
+    },
+    "menu": "Menu",
+    "mainNav": "Main",
+    "loginOrRegister": "Log in / Create account",
+    "yourOrders": "Your orders",
+    "wishlist": "Wishlist",
+    "quiz": "Find your towel — take the quiz",
+    "home": "Home",
+    "viewAll": "View all",
+    "viewAllNamed": "View all: {item}"
+  },
+  "language": {
+    "label": "Language",
+    "change": "Language: {current}. Change language"
+  },
+  "megaMenu": {
+    "items": {
+      "towels": "Towels",
+      "bundles": "Bundles",
+      "bath-mats": "Bath mats",
+      "bathrobes": "Bathrobes",
+      "sale": "Sale",
+      "gifting": "Gifting",
+      "about": "About us"
+    },
+    "groups": {
+      "byCategory": "Shop by category",
+      "byCollection": "Shop by collection",
+      "bySize": "Shop by size",
+      "giftIdeas": "Gift ideas",
+      "byPrice": "Shop by price"
+    },
+    "links": {
+      "allTowels": "All towels",
+      "towelBundles": "Towel bundles",
+      "bathTowels": "Bath towels",
+      "beachTowels": "Beach towels",
+      "babyTowels": "Baby towels",
+      "kitchenTowels": "Kitchen towels",
+      "bathMatsAndRugs": "Bath mats & rugs",
+      "bathRobes": "Bath robes",
+      "towelOffers": "Towel offers",
+      "personalisedTowels": "Personalised towels",
+      "luxury": "Luxury",
+      "designAndPatterned": "Design & patterned",
+      "quickDrying": "Quick drying",
+      "elevatedClassics": "Elevated classics",
+      "wellnessAndSpa": "Wellness & spa",
+      "faceCloths": "Face cloths",
+      "handTowels": "Hand towels",
+      "bathSheets": "Bath sheets",
+      "allGifts": "All gifts",
+      "giftBundles": "Gift bundles",
+      "babyGifts": "Baby gifts",
+      "spaGifts": "Spa gifts",
+      "under": "Under {amount}"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "inputLabel": "Search the store",
+    "placeholder": "What are you looking for?",
+    "clear": "Clear",
+    "close": "Close search",
+    "popularTitle": "Popular searches",
+    "youMayLike": "You may also like",
+    "productsCount": "{count, plural, one {Products (#)} other {Products (#)}}",
+    "noMatches": "No quick matches",
+    "suggestions": "Product suggestions",
+    "seeAll": "See all results for “{query}”",
+    "popular": {
+      "bathTowel": "Bath towel",
+      "waffle": "Waffle",
+      "beach": "Beach",
+      "baby": "Baby",
+      "robe": "Robe",
+      "bundle": "Bundle",
+      "bathMat": "Bath mat",
+      "turkishCotton": "Turkish cotton"
+    }
+  },
+  "newsletter": {
+    "done": "You’re on the list — check your inbox for 10% off.",
+    "emailLabel": "Email address",
+    "placeholder": "Your email address",
+    "signUp": "Sign up",
+    "consent": "By signing up you agree to receive emails from {store}. Unsubscribe any time. See our",
+    "privacy": "Privacy Policy",
+    "blockTitle": "Join our newsletter + 10% off your first order",
+    "blockBody": "New colours, maker stories and quiet sales — once or twice a month, never more.",
+    "close": "Close",
+    "popupEyebrow": "A little welcome",
+    "popupTitle": "10% off your first order",
+    "popupBody": "Join the newsletter for new colours, maker stories and early access to sales.",
+    "noThanks": "No thanks",
+    "errors": {
+      "empty": "Please enter your email address.",
+      "missingAt": "Please include an “@” in the email address. “{value}” is missing an “@”.",
+      "missingUser": "Please enter a part before the “@”. “{value}” is incomplete.",
+      "missingDomain": "Please enter a part after the “@”. “{value}” is incomplete.",
+      "invalid": "Please enter a valid email address, like name@example.com."
+    }
+  },
+  "collection": {
+    "breadcrumb": "Breadcrumb",
+    "shopByProduct": "Shop by product",
+    "shopByFeeling": "Shop by feeling",
+    "shopAll": "Shop all",
+    "filter": "Filter",
+    "resultsSuffix": "{count, plural, one {result} other {results}}",
+    "gridColumns": "Grid columns",
+    "columns": "{count} columns",
+    "sortBy": "Sort by",
+    "sort": {
+      "recommended": "Recommended",
+      "price-asc": "Lowest price",
+      "price-desc": "Highest price",
+      "newest": "Newest",
+      "bestselling": "Bestselling"
+    },
+    "activeFilters": "Active filters",
+    "removeFilter": "Remove filter: {label}",
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters",
+    "emptyTitle": "Nothing matches just yet",
+    "emptyBody": "Try removing a filter, or explore everything we have.",
+    "showing": "Showing {shown} of {total} items",
+    "showMore": "Show more",
+    "priceChip": "{min} – {max}",
+    "any": "any",
+    "chips": {
+      "fast": "Fast delivery",
+      "stock": "In stock",
+      "sale": "On sale"
+    }
+  },
+  "filters": {
+    "title": "Filter",
+    "showingPrefix": "Showing",
+    "itemsSuffix": "{count, plural, one {item} other {items}}",
+    "clearAll": "Clear all",
+    "apply": "Apply",
+    "fast": "Fast delivery (1–2 days)",
+    "inStockOnly": "In stock only",
+    "onSale": "On sale",
+    "groups": {
+      "type": "Product",
+      "feel": "Feel",
+      "material": "Material",
+      "colour": "Colour",
+      "size": "Size",
+      "gsm": "Weight (GSM)",
+      "design": "Design",
+      "brand": "Brand",
+      "price": "Price",
+      "availability": "Availability"
+    },
+    "gsm": {
+      "light": "Lightweight (under 300)",
+      "mid": "Midweight (300–500)",
+      "heavy": "Heavyweight (500+)"
+    },
+    "price": {
+      "min": "Minimum price",
+      "max": "Maximum price",
+      "minDollars": "Minimum price in dollars",
+      "maxDollars": "Maximum price in dollars",
+      "to": "to"
+    },
+    "sizeGroups": {
+      "towel": "Towel sizes",
+      "robe": "Robe sizes",
+      "sets": "Sets",
+      "other": "Other"
+    }
+  },
+  "productTypes": {
+    "Bath Towels": "Bath towels",
+    "Beach Towels": "Beach towels",
+    "Baby Towels": "Baby towels",
+    "Kitchen Towels": "Kitchen towels",
+    "Bath Mats": "Bath mats",
+    "Bathrobes": "Bathrobes",
+    "Towel Bundles": "Towel bundles",
+    "Hand Towels": "Hand towels",
+    "Towels": "Towels"
+  },
+  "feels": {
+    "Light & airy": "Light & airy",
+    "Soft & cosy": "Soft & cosy",
+    "Plush & indulgent": "Plush & indulgent",
+    "Crisp & structured": "Crisp & structured",
+    "Smooth & sleek": "Smooth & sleek"
+  },
+  "designs": {
+    "Plain": "Plain",
+    "Textured": "Textured",
+    "Patterned": "Patterned"
+  },
+  "colourFamilies": {
+    "White": "White",
+    "Neutral": "Neutral",
+    "Grey": "Grey",
+    "Black": "Black",
+    "Green": "Green",
+    "Blue": "Blue",
+    "Pink": "Pink",
+    "Red": "Red"
+  },
+  "sizes": {
+    "Face cloth": "Face cloth",
+    "Hand towel": "Hand towel",
+    "Bath towel": "Bath towel",
+    "Bath sheet": "Bath sheet",
+    "One size": "One size",
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "4-piece": "4-piece set",
+    "6-piece": "6-piece set",
+    "8-piece": "8-piece set"
+  },
+  "searchPage": {
+    "home": "Home",
+    "saleTitle": "The Sale",
+    "resultsTitle": "“{query}”",
+    "allTitle": "Shop All",
+    "saleIntro": "Limited-time prices on towels we love. When they’re gone, they’re gone.",
+    "resultsIntro": "Everything we found for “{query}”.",
+    "allIntro": "Every towel, robe and bath mat in the store — chosen for how it feels to live with.",
+    "resultsPageTitle": "Results for “{query}”",
+    "saleCrumb": "Sale",
+    "searchCrumb": "Search"
+  },
+  "collections": {
+    "all-towels": {
+      "title": "All towels",
+      "intro": "Every towel we make, from featherlight waffle to deep hotel plush."
+    },
+    "towel-bundles": {
+      "title": "Towel bundles",
+      "intro": "Matching sets for the whole bathroom, at a better price than buying singles."
+    },
+    "bath-towels": {
+      "title": "Bath towels",
+      "intro": "The everyday essential, in every weight and every calm colour."
+    },
+    "beach-towels": {
+      "title": "Beach towels",
+      "intro": "Oversized, quick-drying and made for long days in the sun."
+    },
+    "baby-towels": {
+      "title": "Baby towels",
+      "intro": "Gentle organic cotton for the smallest bath-time fans."
+    },
+    "kitchen-towels": {
+      "title": "Kitchen towels",
+      "intro": "Lint-free linen and quick-dry waffle for busy kitchens."
+    },
+    "bath-mats-rugs": {
+      "title": "Bath mats & rugs",
+      "intro": "Soft, absorbent and kind to bare feet."
+    },
+    "bath-robes": {
+      "title": "Bath robes",
+      "intro": "From featherlight waffle to deep shawl-collar plush."
+    },
+    "towel-offers": {
+      "title": "Towel offers",
+      "intro": "Limited-time prices on bath favourites."
+    },
+    "personalised-towels": {
+      "title": "Personalised towels",
+      "intro": "Add initials in a choice of thread colours — free on selected styles."
+    },
+    "luxury": {
+      "title": "Luxury",
+      "intro": "Our heaviest, softest weaves for a hotel feeling at home."
+    },
+    "design-patterned": {
+      "title": "Design & patterned",
+      "intro": "Stripes, jacquards and texture for a bathroom with character."
+    },
+    "quick-drying": {
+      "title": "Quick drying",
+      "intro": "Lighter weaves that dry fast and pack small."
+    },
+    "elevated-classics": {
+      "title": "Elevated classics",
+      "intro": "Timeless plain towels, made better."
+    },
+    "wellness-spa": {
+      "title": "Wellness & spa",
+      "intro": "Robes, ribbed towels and slow rituals for a spa day at home."
+    },
+    "face-cloths": {
+      "title": "Face cloths",
+      "intro": "Small, soft and endlessly useful."
+    },
+    "hand-towels": {
+      "title": "Hand towels",
+      "intro": "For the basin, the guest loo and the gym bag."
+    },
+    "bath-sheets": {
+      "title": "Bath sheets",
+      "intro": "Our largest size — generous enough to wrap right round."
+    },
+    "gifting": {
+      "title": "Gifting",
+      "intro": "Bundles, personalised pieces and baby gifts, wrapped and ready."
+    }
+  },
+  "toasts": {
+    "optionOutOfStock": "That option is out of stock",
+    "addedToBag": "Added to your bag",
+    "goToBag": "Go to bag",
+    "continueShopping": "Continue shopping"
+  },
+  "wishlist": {
+    "removeNamed": "Remove {title} from wishlist",
+    "saveNamed": "Save {title} to wishlist",
+    "saved": "Saved to your wishlist",
+    "removed": "Removed from your wishlist",
+    "view": "View wishlist",
+    "savedShort": "Saved to wishlist",
+    "added": "Added to wishlist",
+    "add": "Add to wishlist",
+    "title": "Wishlist",
+    "viewAllAccount": "View all in your account",
+    "emptyTitle": "Nothing saved yet",
+    "emptyBody": "Tap the heart on anything you love and it will wait for you here.",
+    "continueShopping": "Continue shopping",
+    "soldOut": "Sold out",
+    "addToBag": "Add to bag",
+    "remove": "Remove"
+  },
+  "price": {
+    "from": "From",
+    "was": "Was",
+    "now": "Now",
+    "save": "Save {pct}%"
+  },
+  "quantity": {
+    "label": "Quantity",
+    "remove": "Remove item",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
+  },
+  "badges": {
+    "soldOut": "Sold out",
+    "NEW IN": "New in",
+    "New Colour": "New colour",
+    "Bestseller": "Bestseller"
+  },
+  "productCard": {
+    "colour": "Colour",
+    "more": "+{count} more",
+    "soldOut": "Sold out",
+    "quickAdd": "Quick add",
+    "chooseOptions": "Choose options for {title}",
+    "selectSize": "Select size",
+    "selectColour": "Select colour",
+    "closeOptions": "Close options",
+    "addColourToBag": "Add {colour} to bag",
+    "hidden": "Hidden",
+    "select": "Select {title}",
+    "edit": "Edit {title}",
+    "editShort": "Edit",
+    "delete": "Delete {title}",
+    "deleteShort": "Delete",
+    "coloursFor": "Colours for {title}"
+  },
+  "productPage": {
+    "recentlyViewed": "Recently viewed",
+    "popularNow": "Popular right now",
+    "completeTheLook": "Complete the look",
+    "addNamedToBag": "Add {title} to bag",
+    "notifyShort": "Notify me",
+    "selectASize": "Select a size",
+    "addToBag": "Add to bag",
+    "reviewsCount": "{count, plural, one {# review} other {# reviews}}",
+    "from": "From",
+    "now": "Now",
+    "was": "Was",
+    "taxIncluded": "Tax included.",
+    "colour": "Colour",
+    "chooseColour": "Choose a colour",
+    "optionOutOfStock": "{name} – out of stock",
+    "size": "Size",
+    "chooseSize": "Choose a size",
+    "outOfStockShort": "out of stock",
+    "outOfStock": "Out of stock",
+    "onlyLeft": "{count, plural, one {Only # left} other {Only # left}}",
+    "lowStock": "Low stock",
+    "inStock": "In stock",
+    "quantity": "Quantity",
+    "freeDelivery": "Free standard delivery on orders over {amount}",
+    "arrives": "Arrives {dates}",
+    "description": "Description",
+    "details": "Details & Materials",
+    "material": "Material",
+    "weight": "Weight",
+    "weave": "Weave",
+    "origin": "Origin",
+    "brand": "Brand",
+    "dimensions": "Dimensions",
+    "careGuide": "Care Guide",
+    "deliveryReturns": "Delivery & Returns",
+    "standardPrice": "{price} · free over {amount}",
+    "orderToday": "Order today: standard arrives {standard}, {fastName} {fast}.",
+    "returnsSummary": "Changed your mind? Return unused items within 30 days for a full refund — returns are free. Personalised items can't be returned unless faulty.",
+    "returnsLink": "Read our full returns policy",
+    "selectSizeShort": "Select size",
+    "breadcrumb": "Breadcrumb",
+    "pairsWellWith": "Pairs well with",
+    "moreLikeThis": "More like this",
+    "youMayAlsoLike": "You may also like",
+    "deliveryOption": "{name} ({days})"
+  },
+  "gallery": {
+    "images": "Product images",
+    "showImage": "Show image {n} of {total}",
+    "openFullScreen": "Open full-screen images of {title}",
+    "imagesOf": "{title} images",
+    "openImage": "Open image {n} full screen",
+    "viewerTitle": "{title} — image viewer",
+    "viewerHelp": "Use the arrow keys or swipe to move between images. Press Escape to close.",
+    "closeViewer": "Close image viewer",
+    "previous": "Previous image",
+    "next": "Next image",
+    "choose": "Choose image",
+    "image": "Image {n}"
+  },
+  "sizeGuide": {
+    "title": "Size guide",
+    "description": "Dimensions for {title}",
+    "caption": "Sizes and dimensions",
+    "size": "Size",
+    "dimensions": "Dimensions ({unit})",
+    "details": "Details",
+    "price": "Price",
+    "length": "{value} long",
+    "note": "Measurements are taken flat before washing and may vary by ±3%. Cotton may shrink slightly (up to 3%) after the first few washes.",
+    "units": {
+      "label": "Units",
+      "centimetres": "Centimetres",
+      "inches": "Inches",
+      "cm": "cm",
+      "in": "in"
+    }
+  },
+  "notify": {
+    "toastTitle": "We'll let you know",
+    "toastBody": "We'll email {email} when {label} is back.",
+    "done": "We'll email you when it's back",
+    "button": "Notify me when available",
+    "emailLabel": "Email me when {label} is back in stock",
+    "submit": "Notify me"
+  },
+  "reviews": {
+    "title": "Reviews",
+    "outOf5": "out of 5",
+    "basedOn": "{count, plural, one {Based on # review} other {Based on # reviews}}",
+    "filterByRating": "Filter by rating",
+    "count": "{count, plural, one {# review} other {# reviews}}",
+    "write": "Write a review",
+    "starFiltered": "{count, plural, one {# {stars}-star review} other {# {stars}-star reviews}}",
+    "showing": "Showing {shown} of {total} reviews",
+    "starOnly": "{stars}★ only",
+    "verified": "Verified buyer",
+    "bought": "Bought: {items}",
+    "helpful": "Helpful ({count})",
+    "none": "No reviews yet.",
+    "showMore": "Show more reviews",
+    "rated": "Rated {value} out of 5",
+    "reviewsWord": "{count, plural, one {review} other {reviews}}",
+    "form": {
+      "title": "Write a review",
+      "intro": "Tell other shoppers what you think of {product}.",
+      "rating": "Your rating",
+      "stars": "{count, plural, one {# star} other {# stars}}",
+      "headline": "Title",
+      "text": "Your review",
+      "name": "Your name",
+      "submit": "Post review",
+      "cancel": "Cancel",
+      "localNote": "For now, reviews are saved on this device only.",
+      "errors": {
+        "rating": "Choose a rating",
+        "headline": "Add a short title",
+        "text": "Tell us a little more (at least 10 characters)",
+        "name": "Add your name"
+      },
+      "saved": "Thanks — your review is saved on this device."
+    },
+    "yours": "Your review · only visible on this device",
+    "originalLanguage": "Reviews are shown in the language they were written in."
+  },
+  "cart": {
+    "title": "Shopping Bag",
+    "discount": "Discount",
+    "subtotal": "Subtotal",
+    "taxNote": "Tax included. Shipping calculated at checkout.",
+    "checkout": "Proceed to checkout",
+    "freeReturns": "Free 30-day returns",
+    "viewFull": "View full bag",
+    "emptyTitle": "Your bag is empty",
+    "emptyBody": "Good things are waiting — start with something soft.",
+    "continueShopping": "Continue shopping",
+    "haveAccount": "Have an account?",
+    "logIn": "Log in",
+    "checkoutFaster": "to check out faster.",
+    "onlyLeft": "{count, plural, one {Only # left} other {Only # left}}",
+    "quantityFor": "Quantity for {title}",
+    "saveForLater": "Save for later",
+    "moveToBag": "Move to bag",
+    "removeNamed": "Remove {title}",
+    "remove": "Remove",
+    "loading": "Loading your bag…",
+    "standardDelivery": "Standard delivery",
+    "savedForLater": "Saved for later",
+    "pairsWell": "Pairs well",
+    "completeTheLook": "Complete the look",
+    "unavailable": "An item in your bag is no longer available",
+    "unavailableMany": "{count} items in your bag are no longer available",
+    "pageTitle": "Your bag",
+    "progress": {
+      "freeDelivery": "Free delivery",
+      "freeGift": "Free gift",
+      "awayDelivery": "You are {amount} away from free standard delivery",
+      "awayGift": "You are {amount} away from a free gift",
+      "unlocked": "You’ve unlocked free delivery and a free gift.",
+      "label": "Progress to free delivery and free gift"
+    },
+    "discountCode": {
+      "applied": "Code {code} applied — {pct}% off",
+      "remove": "Remove",
+      "empty": "Enter a discount code.",
+      "invalid": "That code isn't valid or has expired.",
+      "label": "Discount code",
+      "apply": "Apply"
+    },
+    "summary": {
+      "title": "Order summary",
+      "subtotal": "{count, plural, one {Subtotal (# item)} other {Subtotal (# items)}}",
+      "savings": "Sale savings",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "free": "Free",
+      "total": "Total",
+      "includesTax": "Includes {tax} tax.",
+      "reassurance": "Free 30-day returns · secure checkout"
+    },
+    "total": "Total",
+    "each": "{price} each"
+  },
+  "credits": {
+    "title": "Photo credits",
+    "intro": "Product photography on this site comes from {pexels}. Thank you to every photographer below.",
+    "empty": "No photos yet. Run {command} to download product images; credits appear here automatically.",
+    "onPexels": "on Pexels (opens in a new tab)",
+    "photos": "{count, plural, one {# photo} other {# photos}}"
+  },
+  "checkout": {
+    "pageTitle": "Checkout",
+    "confirmedPageTitle": "Order confirmed",
+    "title": "Checkout",
+    "steps": {
+      "address": "Address",
+      "delivery": "Delivery",
+      "payment": "Payment",
+      "review": "Review"
+    },
+    "preparing": "Preparing secure checkout…",
+    "emptyTitle": "Nothing to check out yet",
+    "emptyBody": "Your bag is empty.",
+    "continueShopping": "Continue shopping",
+    "secureItems": "{count, plural, one {Secure · # item} other {Secure · # items}}",
+    "address": {
+      "title": "Shipping address",
+      "choose": "Choose a saved address",
+      "addNew": "Add a new address",
+      "fullName": "Full name",
+      "street": "Street address",
+      "apt": "Apt, suite (optional)",
+      "city": "City",
+      "phone": "Phone",
+      "next": "Deliver to this address",
+      "region": "Region / state",
+      "postalCode": "Postal code",
+      "country": "Country",
+      "save": "Save this address to my account",
+      "makeDefault": "Make it my default address"
+    },
+    "deliveryTitle": "Delivery speed",
+    "chooseDelivery": "Choose a delivery option",
+    "delivery": {
+      "fast": {
+        "label": "Fast",
+        "detail": "{days}"
+      },
+      "standard": {
+        "label": "Standard",
+        "detail": "{days}"
+      },
+      "eco": {
+        "label": "Consolidated",
+        "detail": "{days} · fewer boxes"
+      }
+    },
+    "free": "FREE",
+    "qty": "Qty {count}",
+    "back": "Back",
+    "toPayment": "Continue to payment",
+    "toReview": "Review order",
+    "payment": {
+      "title": "Payment method",
+      "demo": "Demo only — no payment is processed and card details are not stored.",
+      "choose": "Choose a payment method",
+      "cardOption": "Credit or debit card",
+      "wallet": "{store} Wallet (balance {balance})",
+      "walletShort": "Wallet",
+      "card": "Card",
+      "cardEnding": "{brand} ending in {last4}",
+      "nameOnCard": "Name on card",
+      "cardNumber": "Card number",
+      "expiry": "Expiry (MM/YY)",
+      "cvc": "CVC",
+      "billingSame": "Billing address same as shipping"
+    },
+    "review": {
+      "title": "Review your order",
+      "shipTo": "Ship to",
+      "delivery": "Delivery",
+      "payment": "Payment",
+      "edit": "Edit"
+    },
+    "placing": "Placing order…",
+    "placeOrder": "Place order · {total}",
+    "terms": "By placing your order you agree to the demo terms. No charge will be made.",
+    "deliveryLine": "Delivery ({option})",
+    "progress": "Checkout progress",
+    "completed": "completed",
+    "deliveryDays": "{min}–{max} business days",
+    "deliveryDaysOne": "{days, plural, one {# business day} other {# business days}}",
+    "errors": {
+      "required": "This field is required",
+      "phone": "Enter a valid phone number",
+      "cardNumber": "Enter a card number with 13–19 digits",
+      "expiry": "Enter a future date as MM/YY",
+      "cvc": "Enter the 3 or 4 digit code",
+      "summary": "Please check the highlighted fields."
+    },
+    "stepOf": "Step {n} of {total} · {label}",
+    "backToBag": "Back to bag"
+  },
+  "account": {
+    "pageTitle": "Your account",
+    "addressLabels": {
+      "home": "Home",
+      "work": "Work"
+    },
+    "memberSince": "Member since {date}",
+    "sections": "Account sections",
+    "tabs": {
+      "orders": "Orders",
+      "wishlist": "Wishlist",
+      "addresses": "Addresses",
+      "profile": "Profile"
+    },
+    "yourOrders": "Your orders",
+    "orderPlaced": "Order placed",
+    "total": "Total",
+    "shipTo": "Ship to",
+    "orderNumber": "Order #",
+    "wishlistEmpty": "Your wishlist is empty",
+    "wishlistHint": "Tap the heart on any product to save it here.",
+    "discover": "Discover products",
+    "addAddress": "Add address",
+    "default": "Default",
+    "edit": "Edit",
+    "remove": "Remove",
+    "setDefault": "Set as default",
+    "profile": {
+      "name": "Name",
+      "email": "Email",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saved": "Profile updated",
+      "editNamed": "Edit {field}"
+    },
+    "viewOrder": "View order",
+    "viewOrderNamed": "View order {id}",
+    "noOrders": "No orders yet",
+    "noOrdersHint": "When you place an order, you can follow it here.",
+    "startShopping": "Start shopping",
+    "editAddress": "Edit address for {name}",
+    "removeAddress": "Remove address for {name}",
+    "addressRemoved": "Address removed",
+    "addressSaved": "Address saved",
+    "defaultUpdated": "Default address updated",
+    "undo": "Undo",
+    "addressForm": {
+      "addTitle": "Add address",
+      "editTitle": "Edit address",
+      "label": "Label (optional)",
+      "labelHint": "For example: Home, Work, Mum's",
+      "save": "Save address",
+      "cancel": "Cancel",
+      "makeDefault": "Make it my default address"
+    }
+  },
+  "orders": {
+    "pageTitle": "Order {id}",
+    "status": {
+      "placed": "Order placed",
+      "packed": "Packed",
+      "shipped": "Shipped",
+      "out_for_delivery": "Out for delivery",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "qty": "Qty {count}",
+    "tracking": "Shipment tracking",
+    "current": "Current",
+    "completed": "completed",
+    "pending": "pending",
+    "totals": {
+      "items": "Items",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "free": "FREE",
+      "total": "Order total",
+      "discount": "Discount",
+      "includesTax": "Includes {tax} tax."
+    },
+    "notFound": "Order not found",
+    "backToOrders": "Back to orders",
+    "loading": "Loading order…",
+    "yourOrders": "Your orders",
+    "placedOn": "Placed on {date}",
+    "returnItems": "Return items",
+    "trackingTitle": "Tracking",
+    "deliveredOn": "Delivered {date}",
+    "arriving": "Arriving {date}",
+    "items": "Items",
+    "shippingAddress": "Shipping address",
+    "delivery": "Delivery",
+    "payment": "Payment",
+    "summary": "Order summary",
+    "printInvoice": "Print invoice",
+    "returnsOpen": "Returns open once your order is delivered.",
+    "each": "{price} each"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "registerTitle": "Create account",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "createdToast": "Account created (demo)",
+    "signedInToast": "Signed in (demo)",
+    "mockedNote": "Authentication is mocked in this build.",
+    "socialNotWired": "Social sign-in is not wired up in this demo",
+    "registerHeading": "Create your account",
+    "registerIntro": "Save favourites, track orders and check out faster at {store}.",
+    "signInIntro": "Welcome back. Enter your details to continue.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters, with a number and a symbol.",
+    "strength": {
+      "tooWeak": "Too weak",
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    },
+    "agree": "I agree to the Conditions of Use and Privacy Notice.",
+    "keepSignedIn": "Keep me signed in",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "or": "or",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "haveAccount": "Already have an account?",
+    "newTo": "New to {store}?",
+    "createAnAccount": "Create an account",
+    "errors": {
+      "name": "Enter your name",
+      "password": "Use at least 8 characters",
+      "passwordEmpty": "Enter your password",
+      "agree": "Please accept the terms to continue"
+    }
+  },
+  "confirmation": {
+    "loading": "Loading your order…",
+    "notFoundTitle": "Order not found",
+    "notFoundBody": "We couldn’t find order {id} in this browser.",
+    "viewOrders": "View your orders",
+    "title": "Thank you — your order is placed!",
+    "orderSent": "Order {id} · A confirmation has been sent to your email.",
+    "eta": "Estimated delivery {date}",
+    "continueShopping": "Continue shopping",
+    "items": "Items in this order",
+    "tracking": "Tracking",
+    "shippingTo": "Shipping to",
+    "payment": "Payment"
+  },
+  "help": {
+    "topics": {
+      "delivery": {
+        "title": "Delivery information",
+        "intro": "Standard delivery is free on orders over {amount}.",
+        "sections": [
+          {
+            "q": "How long does delivery take?",
+            "a": "Standard delivery arrives in {standardDays}. Fast delivery arrives in {fastDays}. Consolidated delivery takes {ecoDays} and is free."
+          },
+          {
+            "q": "How much does it cost?",
+            "a": "Standard delivery is {standard} and free over {amount}. Fast delivery is {fast}."
+          },
+          {
+            "q": "Do you deliver internationally?",
+            "a": "Not yet — we currently deliver within the United States."
+          }
+        ]
+      },
+      "returns": {
+        "title": "Returns & exchanges",
+        "intro": "Changed your mind? Return unused items within 30 days for a full refund.",
+        "sections": [
+          {
+            "q": "How do I start a return?",
+            "a": "Go to Your orders, choose the order and select Return items. We’ll email a prepaid label."
+          },
+          {
+            "q": "When will I be refunded?",
+            "a": "Refunds are issued to your original payment method within 5 business days of the item arriving back."
+          },
+          {
+            "q": "Can I exchange for another colour?",
+            "a": "Yes — choose Exchange when starting your return and pick the new colour or size."
+          }
+        ]
+      },
+      "size-guide": {
+        "title": "Size guide",
+        "intro": "Measurements for our towel sizes and robes.",
+        "sections": [
+          {
+            "q": "Towels",
+            "a": "Face cloth 30 × 30 cm (12 × 12 in) · Hand towel 50 × 90 cm (20 × 35 in) · Bath towel 70 × 130 cm (28 × 51 in) · Bath sheet 100 × 150 cm (39 × 59 in)."
+          },
+          {
+            "q": "Bathrobes",
+            "a": "Chest: XS 76–81 cm · S 86–91 cm · M 96–101 cm · L 106–111 cm · XL 116–121 cm. Between sizes? Size up for a roomier wrap."
+          },
+          {
+            "q": "Bath mats & beach towels",
+            "a": "Bath mats are 50 × 80 cm (20 × 31 in). Beach and hammam towels are 100 × 180 cm (39 × 71 in)."
+          }
+        ]
+      },
+      "care": {
+        "title": "Care guide",
+        "intro": "A little care keeps natural fibres soft and absorbent for years.",
+        "sections": [
+          {
+            "q": "Before first use",
+            "a": "Wash new towels once on their own at 40°C to open up the loops and remove any loose fibres."
+          },
+          {
+            "q": "Washing",
+            "a": "Wash at 40°C with similar colours. Skip fabric softener — it coats the fibres and reduces absorbency."
+          },
+          {
+            "q": "Drying",
+            "a": "Tumble dry on low or line dry, then shake out for extra fluff. Linen likes to come out slightly damp."
+          },
+          {
+            "q": "Pulled loops",
+            "a": "Never pull a loose loop — snip it level with the surface using small scissors."
+          }
+        ]
+      },
+      "buying-guide": {
+        "title": "Buying guide",
+        "intro": "How to choose by feel, weight and material.",
+        "sections": [
+          {
+            "q": "What does GSM mean?",
+            "a": "Grams per square metre — the weight of a fabric. Higher GSM towels feel plusher; lower GSM dries faster."
+          },
+          {
+            "q": "Which feel is right for me?",
+            "a": "Light & airy suits warm climates and quick drying. Plush & indulgent is for slow, spa-like mornings. Try the quiz if you’re unsure."
+          },
+          {
+            "q": "Turkish, Egyptian or organic cotton?",
+            "a": "Turkish cotton is light and quick to dry, Egyptian cotton is long-fibred and plush, and organic cotton is grown without synthetic pesticides."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Contact us",
+        "intro": "Email {email} — we reply within one business day.",
+        "sections": [
+          {
+            "q": "Opening hours",
+            "a": "Monday to Friday, 9am–6pm ET."
+          }
+        ]
+      },
+      "about": {
+        "title": "Our story",
+        "intro": "{store} makes towels the slow way: long-fibre cottons, honest weaves and calm colours, made to be used every day and loved for years."
+      },
+      "journal": {
+        "title": "Journal",
+        "intro": "Stories from our weavers and notes on slow living. Coming soon."
+      },
+      "terms": {
+        "title": "Terms & conditions",
+        "intro": "Demo storefront — placeholder terms."
+      },
+      "privacy": {
+        "title": "Privacy policy",
+        "intro": "Demo storefront — we don’t collect real data."
+      },
+      "cookies": {
+        "title": "Cookie policy",
+        "intro": "This demo stores your bag, wishlist, language and preferences in your browser only."
+      }
+    }
+  },
+  "quiz": {
+    "eyebrow": "Towel finder",
+    "steps": {
+      "useCase": "What’s it for?",
+      "feel": "How should it feel?",
+      "colour": "Pick a colour mood"
+    },
+    "back": "Back",
+    "stepOf": "Step {n} of {total}",
+    "yourMatches": "Your matches",
+    "close": "Close quiz",
+    "resultsTitle": "We think you’ll love these",
+    "intro": "Three quick questions and we’ll suggest a few favourites.",
+    "resultsIntro": "Chosen from your answers. Tap any towel for details.",
+    "noPreference": "No preference",
+    "noMatches": "No exact matches — here’s where to look next.",
+    "seeAll": "See all matches",
+    "startAgain": "Start again",
+    "bannerTitle": "Find the towel that feels like yours",
+    "bannerBody": "Tell us what it’s for, how you like it to feel and the colours you’re drawn to. We’ll gather a few towels we think you’ll love.",
+    "start": "Start the quiz",
+    "useCases": {
+      "everyday": {
+        "label": "Everyday bathroom",
+        "note": "Bath towels and matching sets"
+      },
+      "spa": {
+        "label": "Spa days at home",
+        "note": "Robes and plush, heavy weaves"
+      },
+      "beach": {
+        "label": "Beach & travel",
+        "note": "Big, light and quick to dry"
+      },
+      "baby": {
+        "label": "For a baby",
+        "note": "Soft, gentle organic cotton"
+      },
+      "kitchen": {
+        "label": "The kitchen",
+        "note": "Lint-free tea towels and waffle"
+      },
+      "gift": {
+        "label": "A thoughtful gift",
+        "note": "Bundles and personalised pieces"
+      }
+    },
+    "feelNotes": {
+      "Light & airy": "Quick-drying, breathable, easy",
+      "Soft & cosy": "Gentle, familiar comfort",
+      "Plush & indulgent": "Rich, deep and generous",
+      "Crisp & structured": "Clean lines that hold their shape",
+      "Smooth & sleek": "Cool to the touch, minimal"
+    }
+  },
+  "home": {
+    "promisesLabel": "Our promises",
+    "promises": {
+      "delivery": {
+        "title": "Free delivery",
+        "body": "On orders over {amount}"
+      },
+      "returns": {
+        "title": "30-day returns",
+        "body": "Easy and free"
+      },
+      "materials": {
+        "title": "Natural fibres",
+        "body": "Cotton, linen and bamboo"
+      },
+      "makers": {
+        "title": "Made by trusted mills",
+        "body": "Every product says where it's made"
+      }
+    },
+    "collectionsEyebrow": "Explore",
+    "collectionsTitle": "Shop by collection",
+    "shopNow": "Shop now",
+    "bestEyebrow": "Loved most",
+    "bestTitle": "Bestsellers",
+    "viewAll": "View all",
+    "newEyebrow": "Just landed",
+    "newTitle": "New in",
+    "dealsEyebrow": "For a little while",
+    "dealsTitle": "Limited-time prices",
+    "hero": {
+      "label": "Featured collections",
+      "play": "Play slideshow",
+      "pause": "Pause slideshow",
+      "bath": {
+        "eyebrow": "New colours",
+        "title": "Softness, in twelve calm tones",
+        "body": "Our bath towel collection, now from chalk to clay.",
+        "cta": "Shop bath towels"
+      },
+      "beach": {
+        "eyebrow": "Made for weekends",
+        "title": "Light towels for long days",
+        "body": "Sand-free weaves that dry fast and fold small.",
+        "cta": "Shop beach towels"
+      },
+      "spa": {
+        "eyebrow": "Slow mornings",
+        "title": "A spa day, at home",
+        "body": "Waffle robes, heavy bath sheets and soft face cloths.",
+        "cta": "Shop wellness"
+      }
+    }
+  },
+  "dates": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "weekdaysShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
+  },
+  "admin": {
+    "languages": {
+      "en": "English",
+      "tr": "Turkish",
+      "tk": "Turkmen",
+      "ru": "Russian"
+    },
+    "switcher": {
+      "label": "Admin language (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
+      "empty": "{count, plural, one {# empty field} other {# empty fields}}"
+    },
+    "banner": "Admin mode: changes are saved to the live catalog",
+    "topbar": {
+      "badge": "Admin",
+      "home": "Home",
+      "viewStore": "View store",
+      "logOut": "Log out",
+      "categories": "Categories",
+      "allProducts": "All products"
+    },
+    "login": {
+      "pageTitle": "Admin login · {store}",
+      "title": "Admin login",
+      "username": "Username",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submit": "Log in",
+      "unreachable": "Couldn't reach the server. Try again.",
+      "backToStore": "Back to the store"
+    },
+    "catalog": {
+      "pageTitle": "{title} · Admin · {store}",
+      "allTitle": "All products",
+      "allIntro": "Every product in the store, including hidden ones.",
+      "crumb": "Admin",
+      "searchLabel": "Search products by name, SKU or colour",
+      "searchPlaceholder": "Search by name, SKU or colour…",
+      "clearSearch": "Clear search",
+      "addProduct": "Add product",
+      "emptyTitle": "No products in this category yet",
+      "emptyBody": "Add the first one and it will appear here and in the store.",
+      "missingLabel": "Missing translations:",
+      "missingAny": "Any language",
+      "bulkLabel": "Bulk actions",
+      "selected": "{count} selected",
+      "deleteSelected": "Delete selected",
+      "clearSelection": "Clear selection"
+    },
+    "edit": {
+      "backToCatalog": "Back to catalog",
+      "editTitle": "Edit product",
+      "addTitle": "Add product",
+      "viewOnStore": "View on store",
+      "pageEdit": "Edit {name} · Admin · {store}",
+      "pageAdd": "Add product · Admin · {store}"
+    },
+    "status": {
+      "editing": "Editing: {language}",
+      "enRequired": "English is required. Slug, SKU, prices, images and stock are shared by all languages.",
+      "emptyCount": "{count, plural, one {# field in this language is empty} other {# fields in this language are empty}}",
+      "allFilled": "All text in this language is filled in.",
+      "fixInEnglish": "{error} — switch to EN to fill it in"
+    },
+    "sections": {
+      "basics": "Basics",
+      "organisation": "Category, collection & sizes",
+      "organisationHint": "The same lists as the store's Shop By Category / Collection / Size menus.",
+      "price": "Price & size names",
+      "priceHint": "The “−X%” badge is calculated from the sale price. Products on sale appear in Towel Offers.",
+      "images": "Images",
+      "imagesHint": "The first image is the main image. Drag to reorder. Images are shared by all languages.",
+      "colours": "Colour variants",
+      "coloursStockPerSize": "Stock is per colour and size.",
+      "coloursStock": "Stock quantity per colour.",
+      "coloursKey": "The English name is the colour's key; translate it with the language switch at the top.",
+      "material": "Material & feel",
+      "materialHint": "Feel uses the same options as the store's filters (translated automatically).",
+      "status": "Badge, stock & visibility",
+      "preview": "Live preview"
+    },
+    "fields": {
+      "name": "Name",
+      "namePlaceholder": "e.g. Organic Cotton Bath Towel",
+      "slug": "Slug",
+      "slugHint": "{paths} — the same in every language",
+      "sku": "SKU",
+      "skuPlaceholder": "e.g. LOO-2517",
+      "tagline": "Short tagline",
+      "taglineHint": "Shown on the card, e.g. “Quick-dry family favourite”",
+      "description": "Description",
+      "category": "Category",
+      "categoryCurrent": "{type} (current)",
+      "collection": "Collection",
+      "sizes": "Sizes available",
+      "personalisable": "Can be personalised (shows in Personalised Towels)",
+      "price": "Price ($)",
+      "salePrice": "Sale price ($)",
+      "optional": "Optional",
+      "discountBadge": "Badge: −{pct}%",
+      "width": "Width (cm)",
+      "length": "Length (cm)",
+      "sizeName": "Size name",
+      "sizeNameEmpty": "Empty — shoppers see the English name",
+      "colourName": "Name",
+      "colour": "Colour",
+      "hexValue": "{name} hex value",
+      "filterGroup": "Filter group",
+      "image": "Image",
+      "imageIllustration": "Illustration",
+      "imageMain": "Main image",
+      "imageN": "Image {n}",
+      "imageNMain": "Image {n} (main)",
+      "stock": "Stock:",
+      "stockBySize": "Stock by size:",
+      "stockQuantity": "Stock quantity:",
+      "stockFor": "{colour} {size} stock quantity",
+      "stockForSize": "{size} stock quantity",
+      "moveUp": "Move {name} up",
+      "moveDown": "Move {name} down",
+      "removeColour": "Remove {name}",
+      "addColour": "Add colour",
+      "newColour": "Colour {n}",
+      "material": "Material",
+      "weight": "Weight (GSM)",
+      "feel": "Feel",
+      "weave": "Weave",
+      "weavePlaceholder": "Zero-twist terry loop",
+      "origin": "Origin",
+      "originPlaceholder": "Woven in Portugal",
+      "design": "Design",
+      "features": "Key features (one per line)",
+      "featuresHint": "3–4 short lines shown with icons, e.g. “100% Turkish cotton”",
+      "featuresHintTranslated": "Same order as English — the icons follow the English lines.",
+      "careGuide": "Care guide",
+      "careType": "Care type",
+      "careInstruction": "Care instruction",
+      "removeCare": "Remove care instruction",
+      "addCare": "Add care line",
+      "badge": "Badge",
+      "badgeHint": "Translated automatically in the store",
+      "badgeNone": "None",
+      "stockStatus": "Stock status",
+      "stockStatusHint": "“Out of stock” stops sales even if quantities are set",
+      "visible": "Visible on site",
+      "visibleHint": "Hidden products stay here in the admin but disappear from the store.",
+      "fastDelivery": "Eligible for fast delivery",
+      "emptyText": "{language} text"
+    },
+    "careKinds": {
+      "wash": "Washing",
+      "bleach": "Bleaching",
+      "dry": "Drying",
+      "iron": "Ironing",
+      "dryclean": "Dry cleaning"
+    },
+    "stockStatus": {
+      "auto": "Automatic (from quantities)",
+      "in": "In stock",
+      "low": "Low stock",
+      "out": "Out of stock"
+    },
+    "fieldNames": {
+      "name": "name",
+      "tagline": "tagline",
+      "description": "description",
+      "features": "features",
+      "material": "material",
+      "weave": "weave",
+      "origin": "origin",
+      "care": "care guide",
+      "colours": "colours",
+      "sizes": "sizes"
+    },
+    "actions": {
+      "save": "Save",
+      "saveAnother": "Save and add another",
+      "cancel": "Cancel",
+      "deleteProduct": "Delete product",
+      "unsaved": "Unsaved changes",
+      "leaveConfirm": "You have unsaved changes. Leave without saving?"
+    },
+    "preview": {
+      "hidden": "Hidden — not visible in the store",
+      "notTranslated": "Not translated yet (shown in English): {fields}",
+      "placeholderName": "Product name",
+      "placeholderTagline": "Short tagline"
+    },
+    "toasts": {
+      "fixFields": "Please fix the highlighted fields",
+      "nameRequired": "The English name is required.",
+      "saved": "Product saved",
+      "added": "Product added",
+      "hiddenSuffix": "{name} (hidden from the store)",
+      "missingTranslation": "Missing translation: {language}",
+      "missingDetail": "English is shown for: {fields}",
+      "saveFailed": "Couldn't save the product"
+    },
+    "delete": {
+      "deleted": "{count, plural, one {Product deleted} other {# products deleted}}",
+      "undo": "Undo",
+      "restored": "{count, plural, one {Product restored} other {Products restored}}",
+      "restoreFailed": "Couldn't restore",
+      "deleteFailed": "Couldn't delete",
+      "selected": "{count, plural, one {# product selected} other {# products selected}}",
+      "confirmOne": "Delete this product? This cannot be undone.",
+      "confirmMany": "{count, plural, one {Delete this product? This cannot be undone.} other {Delete these # products? This cannot be undone.}}",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "images": {
+      "drop": "Drag photos here, or {browse}",
+      "browse": "browse",
+      "formats": "JPG, PNG or WebP · up to 5MB each · saved as WebP",
+      "onlyTypes": "Only JPG, PNG or WebP",
+      "tooLarge": "Larger than 5MB",
+      "uploadFailed": "Upload failed",
+      "listLabel": "Product images (the first is the main image)",
+      "main": "Main",
+      "remove": "Remove image {n}",
+      "earlier": "Move image {n} earlier",
+      "later": "Move image {n} later",
+      "altLabel": "Alt text for image {n}",
+      "altPlaceholder": "Alt text (describe the photo)",
+      "altAuto": "{title} – view {n}",
+      "dismiss": "Dismiss",
+      "uploading": "Uploading…",
+      "empty": "No photos yet — the store shows an illustration",
+      "emptyHint": "Upload photos above to replace it."
+    },
+    "errors": {
+      "imageTooLarge": "Image data is too large",
+      "invalidImage": "Invalid image",
+      "colourNameRequired": "Colour name is required",
+      "sizeNameRequired": "Size name is required",
+      "enterPrice": "Enter a price",
+      "pricePositive": "Price must be more than 0",
+      "salePositive": "Sale price must be more than 0",
+      "stockNegative": "Stock can't be negative",
+      "saleLower": "Sale price must be lower than the price",
+      "slugRequired": "Slug is required",
+      "slugFormat": "Use lowercase letters, numbers and hyphens",
+      "skuRequired": "SKU is required",
+      "skuFormat": "Letters, numbers, dots, dashes only",
+      "nameRequired": "Name is required",
+      "chooseCategory": "Choose a category",
+      "materialRequired": "Material is required",
+      "gsmPositive": "GSM must be more than 0",
+      "addSize": "Add at least one size",
+      "imageMissing": "Image is missing",
+      "maxImages": "Up to 12 images",
+      "colourUnique": "Colour names must be unique",
+      "sizeUnique": "Size names must be unique",
+      "slugTaken": "This slug is already used by another product",
+      "skuTaken": "This SKU is already used by another product",
+      "idTaken": "A product with this id already exists",
+      "invalidId": "Invalid id",
+      "notFound": "Not found",
+      "crossOrigin": "Cross-origin request blocked",
+      "notConfigured": "Admin login isn't configured on the server.",
+      "tooMany": "{minutes, plural, one {Too many attempts. Try again in # minute.} other {Too many attempts. Try again in # minutes.}}",
+      "wrongCredentials": "Incorrect username or password",
+      "notSignedIn": "Not signed in",
+      "noneSelected": "No products selected",
+      "cannotRestore": "This product can no longer be restored",
+      "server": "Something went wrong on the server",
+      "fileEmpty": "The file is empty",
+      "fileTooLarge": "Images must be 5MB or smaller",
+      "fileType": "Only JPG, PNG or WebP images are allowed",
+      "fileUnreadable": "That file couldn't be read as an image",
+      "tooLong": "Too long"
+    }
+  },
+  "countries": {
+    "US": "United States",
+    "TR": "Türkiye",
+    "TM": "Turkmenistan",
+    "RU": "Russia"
+  },
+  "shipping": {
+    "usOnly": "We currently deliver to the US only"
+  }
+}

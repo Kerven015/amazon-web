@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Soft, considered towels, bathrobes and bath mats in calm colours." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f0e9" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181c27" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Vendora</title>
+    <script>
+      // Apply the saved/system colour theme before first paint (no flash). Kept in sync by src/lib/theme.tsx.
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var dark = t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-dvh font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

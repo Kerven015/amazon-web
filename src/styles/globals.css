@@ -1,0 +1,417 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (toggled by src/lib/theme.tsx) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Design tokens — Vendora "editorial home"
+   One scheme for the whole site: cream ground, navy text and buttons, and one
+   muted clay accent that is used only for sale prices and sale badges.
+   Legacy token names (primary, deal, ink…) are kept so every page follows;
+   semantic aliases (surface, accent…) sit alongside.
+   Text/background pairs are chosen for WCAG AA.
+------------------------------------------------------------------- */
+:root {
+  /* Fonts are self-hosted via @fontsource (imported in src/main.tsx) */
+  --font-display: "Cormorant Garamond";
+  --font-body: "Manrope Variable", "Manrope";
+
+  --background: var(--cream);
+  --surface: #fffdf9;
+  --foreground: var(--navy);
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+
+  --muted: #ece6dc;
+  --muted-foreground: color-mix(in srgb, var(--navy) 78%, var(--cream)); /* ≈5.3:1 on cream */
+  --border: color-mix(in srgb, var(--navy) 14%, var(--cream));
+  --input: color-mix(in srgb, var(--navy) 30%, var(--cream));
+  --ring: var(--navy);
+
+  /* Primary = navy (buttons, selected states) */
+  --primary: var(--navy);
+  --primary-foreground: var(--cream);
+  --primary-soft: color-mix(in srgb, var(--navy) 8%, var(--cream));
+  --primary-hover: color-mix(in srgb, var(--navy) 88%, black);
+
+  /* Ink = deep surface (overlays) */
+  --ink: var(--navy);
+  --ink-foreground: var(--cream);
+
+  /* Accent = muted clay, used for sale / badges only */
+  --accent: #94503d; /* 5.9:1 with white */
+  --accent-foreground: #ffffff;
+  --accent-soft: #f2e5dd;
+  --deal: var(--accent);
+  --deal-foreground: var(--accent-foreground);
+  --deal-soft: var(--accent-soft);
+
+  --success: #3d6a4a;
+  --success-soft: #e4ede5;
+  --warning: #8a6114;
+  --warning-soft: #f6eedb;
+  --danger: #a13a31;
+  --danger-soft: #f6e4e1;
+
+  --star: #9a7a3c;
+
+  --radius: 0.25rem;
+  --elev-card: none;
+  --elev-pop: 0 18px 48px -18px rgb(38 35 31 / 0.22);
+
+  --ease-calm-curve: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Header / navigation / footer palette */
+  --cream: #f4f0e9;
+  --navy: #2b3b63;
+
+  /* Toasts sit above the sticky bottom bars used below lg */
+  --toast-bottom: 24px;
+
+  /* Line icons in the navigation (mega menu, drawer, chips, Home): the site navy */
+  --color-icon: #2b3b63;
+}
+
+/* Dark: the same scheme at night — deep navy ground, warm off-white text. */
+.dark {
+  --surface: #1f2433;
+
+  --muted: #262c3b;
+  --primary-hover: #ffffff;
+  --primary-soft: color-mix(in srgb, var(--navy) 10%, var(--cream));
+
+  --ink: #10131b;
+  --ink-foreground: var(--navy);
+
+  --accent: #d9a08b;
+  --accent-foreground: #2a1209;
+  --accent-soft: #3a251d;
+
+  --success: #8cc49b;
+  --success-soft: #1b2a1f;
+  --warning: #e3c27a;
+  --warning-soft: #2e2716;
+  --danger: #ec9a90;
+  --danger-soft: #36201d;
+
+  --star: #d8b878;
+
+  --elev-pop: 0 18px 48px -18px rgb(0 0 0 / 0.7);
+
+  --cream: #181c27;
+  --navy: #ebe6dc;
+
+  /* Lighter version of the navy so icons stay visible on the dark background */
+  --color-icon: #8fa8d9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-hover: var(--primary-hover);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-deal: var(--deal);
+  --color-deal-foreground: var(--deal-foreground);
+  --color-deal-soft: var(--deal-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-star: var(--star);
+  --color-cream: var(--cream);
+  --color-navy: var(--navy);
+
+  /* Small, quiet radii everywhere (overrides Tailwind's defaults) */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: var(--radius);
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+  --radius-3xl: 12px;
+
+  --shadow-card: var(--elev-card);
+  --shadow-pop: var(--elev-pop);
+
+  --ease-calm: var(--ease-calm-curve);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-display), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  /* Editorial headings: serif for page/section titles; small labels stay sans. */
+  :where(h1, h2):not([class*="text-xs"]):not([class*="text-sm"]):not([class*="text-base"]) {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+}
+
+@layer utilities {
+  .price {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+}
+
+/* Dual-handle range slider (two stacked native ranges) */
+.range-dual {
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+.range-dual::-webkit-slider-thumb {
+  pointer-events: auto;
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1.5px solid var(--foreground);
+  cursor: pointer;
+}
+.range-dual::-moz-range-thumb {
+  pointer-events: auto;
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1.5px solid var(--foreground);
+  cursor: pointer;
+}
+.range-dual:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.range-dual:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Mega menu panel — exact spec values, kept as plain CSS so the
+   measurements (column x 86 / 510 / 940 at 1189px, 26px link rows)
+   are easy to audit. @mega-menu-start
+------------------------------------------------------------------- */
+.mega-panel {
+  background: var(--cream);
+  color: var(--navy);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.mega-inner {
+  max-width: 1190px;
+  margin: 0 auto;
+  /* Top padding tuned so heading text sits at y≈39 and the first link at y≈83
+     (measured from the panel's top edge, including the 1px hairline). */
+  /* Below 1180px: three equal columns and less side padding, so long labels
+     (Russian, Turkmen) still fit on one line in the narrowest panel. */
+  padding: 37px 32px 64px 48px;
+  display: grid;
+  column-gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (min-width: 1180px) {
+  /* Exact column starts: 86 / 510 / 940px */
+  .mega-inner {
+    padding: 37px 0 64px 86px;
+    column-gap: 0;
+    grid-template-columns: 424px 430px 1fr;
+  }
+}
+.mega-heading {
+  margin: 0 0 20px; /* heading text top → first link text top = 44px */
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.mega-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Row = [icon][label]. inline-flex, every part held to the 26px line so rows never grow. */
+.mega-link {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 26px;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--navy) 90%, transparent);
+  text-decoration: none;
+  transition: color 150ms ease-out;
+}
+/* Footer columns reuse the menu link style but wrap long (Turkish/Turkmen) labels */
+.mega-link.footer-link {
+  height: auto;
+  min-height: 26px;
+  padding-block: 3px;
+  white-space: normal;
+  line-height: 1.35;
+}
+/* Icon box: fixed 22px wide + 8px gap, so every label in a column starts at the same x */
+.mega-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 26px;
+  margin-right: 8px;
+  transform-origin: 50% 55%;
+}
+/* All navigation line icons use the icon token, never the label colour */
+.nav-icon {
+  color: var(--color-icon);
+  stroke: currentColor;
+}
+/* …except on a selected chip, whose background is the navy itself */
+[aria-pressed="true"] .nav-icon,
+.bg-navy .nav-icon {
+  color: currentColor;
+}
+/* Underline lives on the label only, so it never runs under the icon */
+.mega-label {
+  line-height: 26px;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease-out;
+}
+.mega-link:hover,
+.mega-link:focus-visible {
+  color: var(--navy);
+}
+.mega-link:hover .mega-label,
+.mega-link:focus-visible .mega-label {
+  text-decoration-color: currentColor;
+}
+.mega-link:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+/* @mega-menu-end */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sheet-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: none; }
+}
+@keyframes sheet-in-right {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes sheet-in-bottom {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+@keyframes sheet-in-top {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --toast-bottom: 96px;
+  }
+}
+
+/* Respect reduced motion for CSS-driven animation and smooth scroll.
+   Motion (JS) animations are handled by <MotionConfig reducedMotion="user">. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Cream & navy scope: shop, auth and admin layouts, and dialogs.
+------------------------------------------------------------------- */
+.theme-cream {
+  /* The site-wide tokens above already are cream & navy; this scope just paints
+     its own box (used by the shop/auth layouts, admin and dialogs). */
+  background: var(--cream);
+  color: var(--navy);
+}
