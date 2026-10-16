@@ -359,3 +359,4 @@ APIs, because the CLI host was unreachable from the build environment.
 - Wire the language and currency selectors to i18n and currency conversion.
 - Show dates in the user's time zone (currently UTC).
 - The social icons use lucide's brand icons, which lucide has deprecated. Swap in your own SVGs if a future lucide version removes them.
+"# amazon-web" 
