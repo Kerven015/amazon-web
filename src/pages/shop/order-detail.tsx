@@ -4,8 +4,10 @@ import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { useT } from "@/i18n";
 import { getOrderById } from "@/lib/api";
+import { requireSignIn } from "@/lib/session";
 
-export async function orderDetailLoader({ params }: LoaderFunctionArgs) {
+export async function orderDetailLoader({ params, request }: LoaderFunctionArgs) {
+  await requireSignIn(request, params.locale ?? "en");
   const id = params.id ?? "";
   return { id, order: await getOrderById(id) };
 }
@@ -17,7 +19,7 @@ export default function OrderDetailPage() {
   return (
     <Container className="max-w-6xl py-6">
       <PageTitle title={t("orders.pageTitle", { id })} />
-      <OrderDetailView id={id} fallback={order} />
+      <OrderDetailView order={order} />
     </Container>
   );
 }

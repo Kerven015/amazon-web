@@ -254,6 +254,8 @@ export interface Order {
   status: OrderStatus;
   items: OrderItem[];
   subtotal: number;
+  /** Money off from a discount code */
+  discount?: number;
   shipping: number;
   tax: number;
   total: number;

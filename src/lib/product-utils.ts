@@ -1,4 +1,5 @@
 import { formatNumber, translate } from "@/i18n";
+import * as pricing from "@/lib/pricing";
 import type { ColorFamily, Product, ProductImage, ProductSize, SelectedVariant } from "@/types";
 
 export function findSize(product: Product, name?: string): ProductSize | undefined {
@@ -7,9 +8,7 @@ export function findSize(product: Product, name?: string): ProductSize | undefin
 
 /** Price for a specific size: { price (what you pay), listPrice (struck through when on sale) }. */
 export function sizePrice(size: Pick<ProductSize, "price" | "salePrice">) {
-  return size.salePrice != null && size.salePrice < size.price
-    ? { price: size.salePrice, listPrice: size.price }
-    : { price: size.price, listPrice: undefined };
+  return pricing.sizePrice(size);
 }
 
 /** Price for a variant; without a size it's the product's "from" price. */

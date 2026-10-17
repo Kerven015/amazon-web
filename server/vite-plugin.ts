@@ -4,6 +4,7 @@
  */
 import type { Plugin } from "vite";
 import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
+import { assertDatabaseReady } from "./db/pool";
 import { loadEnv } from "./env";
 
 export function serverPlugin(): Plugin {
@@ -11,6 +12,8 @@ export function serverPlugin(): Plugin {
     name: "vendora-server",
     configureServer(server) {
       loadEnv(server.config.root);
+      // No database → say why and stop, instead of a shop that half works
+      void assertDatabaseReady();
       server.middlewares.use(async (req, res, next) => {
         try {
           if (await handleApi(req, res)) return;
@@ -24,6 +27,7 @@ export function serverPlugin(): Plugin {
     },
     configurePreviewServer(server) {
       loadEnv();
+      void assertDatabaseReady();
       server.middlewares.use(async (req, res, next) => {
         if (await handleApi(req, res)) return;
         if (guardAdminPage(req, res)) return;

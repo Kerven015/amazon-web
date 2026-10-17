@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Fails if the admin password (or the literal "admin2026") appears anywhere in
- * the built client bundle. Run after `npm run build`:  npm run check:secrets
+ * Fails if the admin password, the admin session secret or a database password
+ * (or the literal "admin2026") appears anywhere in the built client bundle.
+ * Run after `npm run build`:  npm run check:secrets
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -16,8 +17,17 @@ const needles = new Set(["admin2026"]);
 for (const f of [".env.local", ".env"]) {
   if (!existsSync(f)) continue;
   for (const line of readFileSync(f, "utf8").split(/\r?\n/)) {
-    const m = line.match(/^\s*(ADMIN_PASSWORD|ADMIN_SESSION_SECRET)\s*=\s*(.+)\s*$/);
-    if (m && m[2].length >= 4) needles.add(m[2].replace(/^["']|["']$/g, ""));
+    const m = line.match(/^\s*(ADMIN_PASSWORD|ADMIN_SESSION_SECRET|DATABASE_URL|MIGRATION_DATABASE_URL)\s*=\s*(.+)\s*$/);
+    if (!m) continue;
+    const value = m[2].replace(/^["']|["']$/g, "");
+    if (m[1].endsWith("DATABASE_URL")) {
+      // The whole URL and the password inside it
+      needles.add(value);
+      try {
+        const pw = decodeURIComponent(new URL(value).password);
+        if (pw.length >= 4) needles.add(pw);
+      } catch {}
+    } else if (value.length >= 4) needles.add(value);
   }
 }
 
@@ -38,4 +48,4 @@ if (hits.length) {
   console.error("✗ Secrets found in the client build:\n  " + hits.join("\n  "));
   process.exit(1);
 }
-console.log(`✓ Checked dist/ — no admin password or session secret in the client bundle (${needles.size} values checked).`);
+console.log(`✓ Checked dist/ — no admin password, session secret or database password in the client bundle (${needles.size} values checked).`);

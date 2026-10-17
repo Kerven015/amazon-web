@@ -14,12 +14,16 @@
  *            POST /api/admin/products/delete    { ids: [] } bulk delete
  *            POST /api/admin/products/restore   { ids: [] } undo a delete (within 10 minutes)
  *            POST /api/admin/upload?slug=&name= raw image body → WebP
+ *            GET  /api/admin/orders             every order, newest first
+ *            PATCH /api/admin/orders/:id/status { status } → adds a tracking event
+ *   Shop     /api/auth/*, /api/account/*, /api/orders, /api/products/:id/reviews → server/shop-api.ts
  *
- * Every /api/admin/* route except login requires a valid session cookie (401 otherwise),
+ * Every /api/admin/* route except login requires a valid admin session cookie (401 otherwise),
  * and /admin pages without a session redirect to /admin/login.
+ * Every state-changing request (POST/PUT/PATCH/DELETE) must pass the same-origin check.
  */
-import type { IncomingMessage, ServerResponse } from "node:http";
 import { productSchema, fieldErrors } from "../src/lib/product-schema";
+import { orderStatusSchema } from "../src/lib/account-schema";
 import type { ProductRecord as Product } from "../src/types";
 import {
   authConfig,
@@ -34,75 +38,11 @@ import {
   signSession,
 } from "./auth";
 import * as db from "./lib/db/products";
+import { adminListOrders, adminSetStatus } from "./lib/db/orders";
+import { BodyError, parseBody, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
+import { handleShopApi } from "./shop-api";
 import { isLocale, LOCALE_COOKIE, locales, negotiateLocale, splitLocale, UNPREFIXED } from "../src/i18n/config";
 import { MAX_UPLOAD_BYTES, saveUpload, UploadError } from "./upload";
-
-type Req = IncomingMessage;
-type Res = ServerResponse;
-
-/* ------------------------------ helpers ------------------------------ */
-
-function send(res: Res, status: number, body: unknown, headers: Record<string, string> = {}) {
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Cache-Control", "no-store");
-  for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
-  res.end(JSON.stringify(body));
-}
-
-class BodyError extends Error {
-  constructor(public status: number, message: string) {
-    super(message);
-  }
-}
-
-function readBody(req: Req, limit: number, tooLarge = "Request is too large"): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const declared = Number(req.headers["content-length"] ?? 0);
-    if (declared > limit) {
-      reject(new BodyError(413, tooLarge));
-      req.resume();
-      return;
-    }
-    const chunks: Buffer[] = [];
-    let size = 0;
-    req.on("data", (c: Buffer) => {
-      size += c.length;
-      if (size > limit) {
-        reject(new BodyError(413, tooLarge));
-        req.destroy();
-        return;
-      }
-      chunks.push(c);
-    });
-    req.on("end", () => resolve(Buffer.concat(chunks)));
-    req.on("error", reject);
-  });
-}
-
-async function readJson(req: Req, limit = 2 * 1024 * 1024): Promise<unknown> {
-  const buf = await readBody(req, limit);
-  try {
-    return JSON.parse(buf.toString("utf8") || "{}");
-  } catch {
-    throw new BodyError(400, "Invalid JSON");
-  }
-}
-
-/** Same-origin check for state-changing requests (defence in depth on top of SameSite=Strict). */
-function sameOrigin(req: Req) {
-  const origin = req.headers.origin;
-  if (!origin) return true;
-  try {
-    // Behind a proxy / port forwarding (Codespaces, VS Code tunnels) the public host
-    // arrives in X-Forwarded-Host while Host may be localhost:5173
-    const host = new URL(origin).host;
-    const forwarded = String(req.headers["x-forwarded-host"] ?? "").split(",")[0].trim();
-    return host === req.headers.host || (!!forwarded && host === forwarded);
-  } catch {
-    return false;
-  }
-}
 
 /** Server-side derivations so the stored product is always consistent. */
 function finalize(input: Product): Product {
@@ -135,17 +75,6 @@ function validate(body: unknown) {
   const parsed = productSchema.safeParse(body);
   if (!parsed.success) return { ok: false as const, errors: fieldErrors(parsed.error) };
   return { ok: true as const, product: finalize(parsed.data as Product) };
-}
-
-/* ------------------------------ undo ------------------------------ */
-
-/** Recently deleted products, kept briefly so "Undo" restores them exactly. */
-const trash = new Map<string, { product: Product; at: number }>();
-const TRASH_MS = 10 * 60 * 1000;
-function toTrash(products: Product[]) {
-  const now = Date.now();
-  for (const [id, t] of trash) if (now - t.at > TRASH_MS) trash.delete(id);
-  for (const p of products) trash.set(p.id, { product: p, at: now });
 }
 
 /* ------------------------------ sitemap ------------------------------ */
@@ -259,16 +188,18 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       return true;
     }
 
+    if (method !== "GET" && method !== "HEAD" && !sameOrigin(req)) {
+      send(res, 403, { error: "Cross-origin request blocked" });
+      return true;
+    }
+
     if (!p.startsWith("/api/admin/")) {
-      send(res, 404, { error: "Not found" });
+      if (await handleShopApi(req, res, p, method)) return true;
+      send(res, 404, { error: "not_found" });
       return true;
     }
 
     res.setHeader("X-Robots-Tag", "noindex, nofollow");
-    if (method !== "GET" && !sameOrigin(req)) {
-      send(res, 403, { error: "Cross-origin request blocked" });
-      return true;
-    }
 
     /* ---- login (the only unauthenticated admin route) ---- */
     if (p === "/api/admin/login") {
@@ -333,7 +264,6 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       const ids = Array.isArray(body.ids) ? body.ids.filter((x): x is string => typeof x === "string") : [];
       if (!ids.length) return send(res, 400, { error: "No products selected" }), true;
       const deleted = await db.deleteProducts(ids);
-      toTrash(deleted);
       send(res, 200, { deleted: deleted.map((p) => p.id) });
       return true;
     }
@@ -341,14 +271,7 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
     if (p === "/api/admin/products/restore" && method === "POST") {
       const body = (await readJson(req, 100_000)) as { ids?: unknown };
       const ids = Array.isArray(body.ids) ? body.ids.filter((x): x is string => typeof x === "string") : [];
-      const restored: string[] = [];
-      for (const id of ids) {
-        const t = trash.get(id);
-        if (!t || Date.now() - t.at > TRASH_MS) continue;
-        await db.createProduct(t.product);
-        trash.delete(id);
-        restored.push(id);
-      }
+      const restored = await db.restoreProducts(ids);
       if (!restored.length) return send(res, 410, { error: "This product can no longer be restored" }), true;
       send(res, 200, { restored });
       return true;
@@ -369,9 +292,20 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       }
       if (method === "DELETE") {
         const removed = await db.deleteProduct(id);
-        if (removed) toTrash([removed]);
         return send(res, removed ? 200 : 404, removed ? { deleted: [removed.id] } : { error: "Not found" }), true;
       }
+    }
+
+    if (p === "/api/admin/orders" && method === "GET") {
+      send(res, 200, await adminListOrders());
+      return true;
+    }
+    const orderStatus = p.match(/^\/api\/admin\/orders\/(VD-\d{6})\/status$/);
+    if (orderStatus && method === "PATCH") {
+      const { status } = await parseBody(req, orderStatusSchema, 1_000);
+      const order = await adminSetStatus(orderStatus[1], status);
+      if (order === "cancelled") return send(res, 409, { error: "Cancelled orders can't be changed" }), true;
+      return send(res, order ? 200 : 404, order ?? { error: "Not found" }), true;
     }
 
     if (p === "/api/admin/upload" && method === "POST") {
@@ -385,10 +319,12 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
     return true;
   } catch (err) {
     if (err instanceof db.ConflictError) send(res, 409, { error: "Please fix the highlighted fields", fields: err.fields });
+    else if (err instanceof ValidationError) send(res, 422, { error: "validation", fields: err.fields });
     else if (err instanceof UploadError || err instanceof BodyError) send(res, err.status, { error: err.message });
     else {
       console.error("[api]", err);
-      send(res, 500, { error: "Something went wrong on the server" });
+      // Never send raw database errors to the browser
+      send(res, 500, { error: p.startsWith("/api/admin/") ? "Something went wrong on the server" : "server_error" });
     }
     return true;
   }

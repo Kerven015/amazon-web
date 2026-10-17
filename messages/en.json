@@ -110,7 +110,11 @@
     "quiz": "Find your towel — take the quiz",
     "home": "Home",
     "viewAll": "View all",
-    "viewAllNamed": "View all: {item}"
+    "viewAllNamed": "View all: {item}",
+    "accountMenu": "Account menu for {name}",
+    "yourAccount": "Your account",
+    "signOut": "Sign out",
+    "signedOut": "You're signed out"
   },
   "language": {
     "label": "Language",
@@ -589,17 +593,19 @@
       "name": "Your name",
       "submit": "Post review",
       "cancel": "Cancel",
-      "localNote": "For now, reviews are saved on this device only.",
+      "localNote": "Your review is posted on the product page under the name above.",
       "errors": {
         "rating": "Choose a rating",
         "headline": "Add a short title",
         "text": "Tell us a little more (at least 10 characters)",
         "name": "Add your name"
       },
-      "saved": "Thanks — your review is saved on this device."
+      "saved": "Thanks — your review is posted."
     },
-    "yours": "Your review · only visible on this device",
-    "originalLanguage": "Reviews are shown in the language they were written in."
+    "yours": "Your review",
+    "originalLanguage": "Reviews are shown in the language they were written in.",
+    "alreadyReviewed": "You've reviewed this",
+    "signInToReview": "Sign in to write a review."
   },
   "cart": {
     "title": "Shopping Bag",
@@ -657,7 +663,8 @@
       "reassurance": "Free 30-day returns · secure checkout"
     },
     "total": "Total",
-    "each": "{price} each"
+    "each": "{price} each",
+    "signInToCheckout": "Sign in to check out"
   },
   "credits": {
     "title": "Photo credits",
@@ -757,7 +764,13 @@
       "summary": "Please check the highlighted fields."
     },
     "stepOf": "Step {n} of {total} · {label}",
-    "backToBag": "Back to bag"
+    "backToBag": "Back to bag",
+    "orderErrors": {
+      "outOfStock": "Some items aren't available in the quantity you chose. Nothing was charged.",
+      "onlyLeft": "{item}: {count, plural, one {only # left} other {only # left}}",
+      "soldOut": "{item}: sold out",
+      "editBag": "Edit your bag"
+    }
   },
   "account": {
     "pageTitle": "Your account",
@@ -792,7 +805,19 @@
       "save": "Save",
       "cancel": "Cancel",
       "saved": "Profile updated",
-      "editNamed": "Edit {field}"
+      "editNamed": "Edit {field}",
+      "password": "Password",
+      "changePassword": "Change password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "newPasswordHint": "At least 8 characters. You'll stay signed in here; other devices are signed out.",
+      "newPasswordShort": "Use at least 8 characters for the new password",
+      "passwordNeeded": "Enter your current password",
+      "passwordChanged": "Password changed. Other devices have been signed out.",
+      "devicesTitle": "Signed-in devices",
+      "devicesBody": "Lost a phone or used a shared computer? Sign out everywhere, including here.",
+      "signOutAll": "Sign out of all devices",
+      "signedOutEverywhere": "Signed out of all devices"
     },
     "viewOrder": "View order",
     "viewOrderNamed": "View order {id}",
@@ -862,10 +887,8 @@
     "registerTitle": "Create account",
     "hidePassword": "Hide password",
     "showPassword": "Show password",
-    "createdToast": "Account created (demo)",
-    "signedInToast": "Signed in (demo)",
-    "mockedNote": "Authentication is mocked in this build.",
-    "socialNotWired": "Social sign-in is not wired up in this demo",
+    "createdToast": "Account created",
+    "signedInToast": "Welcome back, {name}",
     "registerHeading": "Create your account",
     "registerIntro": "Save favourites, track orders and check out faster at {store}.",
     "signInIntro": "Welcome back. Enter your details to continue.",
@@ -884,9 +907,6 @@
     "keepSignedIn": "Keep me signed in",
     "createAccount": "Create account",
     "signIn": "Sign in",
-    "or": "or",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
     "haveAccount": "Already have an account?",
     "newTo": "New to {store}?",
     "createAnAccount": "Create an account",
@@ -900,7 +920,7 @@
   "confirmation": {
     "loading": "Loading your order…",
     "notFoundTitle": "Order not found",
-    "notFoundBody": "We couldn’t find order {id} in this browser.",
+    "notFoundBody": "We couldn’t find order {id} in your account.",
     "viewOrders": "View your orders",
     "title": "Thank you — your order is placed!",
     "orderSent": "Order {id} · A confirmation has been sent to your email.",
@@ -1214,7 +1234,8 @@
       "viewStore": "View store",
       "logOut": "Log out",
       "categories": "Categories",
-      "allProducts": "All products"
+      "allProducts": "All products",
+      "orders": "Orders"
     },
     "login": {
       "pageTitle": "Admin login · {store}",
@@ -1467,6 +1488,22 @@
       "fileType": "Only JPG, PNG or WebP images are allowed",
       "fileUnreadable": "That file couldn't be read as an image",
       "tooLong": "Too long"
+    },
+    "orders": {
+      "title": "Orders",
+      "count": "{count, plural, one {# order} other {# orders}}",
+      "empty": "No orders yet.",
+      "order": "Order",
+      "placed": "Placed",
+      "customer": "Customer",
+      "items": "Items",
+      "total": "Total",
+      "status": "Status",
+      "statusFor": "Status of order {id}",
+      "updated": "Order {id}: now “{status}”",
+      "failed": "Couldn't change the status. Please try again.",
+      "confirmCancel": "Cancel order {id}? Its items go back in stock, and this can't be undone.",
+      "cancelledLocked": "Cancelled orders can't be changed."
     }
   },
   "countries": {
@@ -1477,5 +1514,22 @@
   },
   "shipping": {
     "usOnly": "We currently deliver to the US only"
+  },
+  "accountErrors": {
+    "validation": "Please check the details and try again.",
+    "email_taken": "An account with this email already exists. Sign in instead?",
+    "invalid_credentials": "That email and password don't match. Please try again.",
+    "too_many_attempts": "Too many attempts. Please wait 15 minutes and try again.",
+    "sign_in_required": "Please sign in to continue.",
+    "wrong_password": "Your current password isn't right.",
+    "out_of_stock": "Some items are no longer in stock.",
+    "invalid_discount": "That discount code isn't valid any more. Remove it from your bag and try again.",
+    "address_not_found": "That address is no longer in your address book. Please choose another.",
+    "already_reviewed": "You've already reviewed this product.",
+    "not_found": "We couldn't find that.",
+    "forbidden": "You can't do that.",
+    "server_error": "Something went wrong on our side. Please try again.",
+    "network": "We couldn't reach the shop. Check your connection and try again.",
+    "syncFailed": "We couldn't save that to your account. Please try again."
   }
 }

@@ -6,10 +6,9 @@ import { translate } from "@/i18n";
 import { catalogAge, ensureCatalog, listProducts, onCatalogChange } from "@/lib/catalog";
 import { Toaster } from "@/components/ui/toaster";
 import { useCart } from "@/lib/store/cart";
-import { usePlacedOrders, useUi } from "@/lib/store/orders";
+import { useUi } from "@/lib/store/orders";
 import { useAddressBook } from "@/lib/store/addresses";
-import { useProfile } from "@/lib/store/profile";
-import { useMyReviews } from "@/lib/store/my-reviews";
+import { loadSession } from "@/lib/session";
 import { useRecentlyViewed, useWishlist } from "@/lib/store/wishlist";
 
 /**
@@ -46,12 +45,11 @@ function StoreHydration() {
       useCart.persist.rehydrate(),
       useWishlist.persist.rehydrate(),
       useRecentlyViewed.persist.rehydrate(),
-      usePlacedOrders.persist.rehydrate(),
       useAddressBook.persist.rehydrate(),
-      useProfile.persist.rehydrate(),
-      useMyReviews.persist.rehydrate(),
       useUi.persist.rehydrate(),
     ]).then(() => {
+      // Signed in? Then the bag, wishlist and addresses come from the account (lib/session.ts)
+      void loadSession();
       // Once the catalogue is loaded, remove anything that no longer exists
       ensureCatalog().then(pruneUnavailable, () => {});
     });

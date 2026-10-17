@@ -29,8 +29,9 @@ const buttonVariants = cva(
   },
 );
 
+/** React 19: `ref` is a normal prop, so it's part of the button's props. */
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }

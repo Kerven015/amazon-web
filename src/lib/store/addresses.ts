@@ -1,19 +1,21 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { addresses as seed } from "@/lib/mock-data/users";
+import { persist } from "zustand/middleware";
+import { accountApi } from "@/lib/account-api";
+import { guestStorage, isSignedIn } from "@/lib/session-state";
 import type { Address } from "@/types";
 
 /**
- * The shopper's address book (kept in this browser until there's a backend).
- * Starts with the mock addresses; checkout and the account page add and edit it.
- * TODO(backend): load from and save to the user's account.
+ * The shopper's address book. Signed in, every change goes to the account
+ * (/api/account/addresses) and the store shows the list the server sends back;
+ * signed out, it's kept in this browser (and merged into the account on sign-in).
+ * Actions are async because the account needs a round trip; they throw AccountApiError.
  */
 interface AddressBookState {
   addresses: Address[];
-  add: (address: Omit<Address, "id">, makeDefault?: boolean) => Address;
-  update: (id: string, patch: Partial<Omit<Address, "id">>) => void;
-  remove: (id: string) => void;
-  setDefault: (id: string) => void;
+  add: (address: Omit<Address, "id">, makeDefault?: boolean) => Promise<Address>;
+  update: (id: string, patch: Partial<Omit<Address, "id">>) => Promise<void>;
+  remove: (id: string) => Promise<void>;
+  setDefault: (id: string) => Promise<void>;
 }
 
 const withDefault = (list: Address[], id?: string) => {
@@ -24,18 +26,32 @@ const withDefault = (list: Address[], id?: string) => {
 export const useAddressBook = create<AddressBookState>()(
   persist(
     (set, get) => ({
-      addresses: seed,
-      add: (address, makeDefault = false) => {
+      addresses: [],
+      add: async (address, makeDefault = false) => {
+        if (isSignedIn()) {
+          const { address: created, addresses } = await accountApi.addAddress({ ...address, isDefault: makeDefault });
+          set({ addresses });
+          return created;
+        }
         const created: Address = { ...address, id: `a-${Date.now().toString(36)}` };
         const list = [...get().addresses, created];
         set({ addresses: withDefault(list, makeDefault || list.length === 1 ? created.id : undefined) });
         return created;
       },
-      update: (id, patch) => set({ addresses: get().addresses.map((a) => (a.id === id ? { ...a, ...patch } : a)) }),
-      remove: (id) => set({ addresses: withDefault(get().addresses.filter((a) => a.id !== id)) }),
-      setDefault: (id) => set({ addresses: withDefault(get().addresses, id) }),
+      update: async (id, patch) => {
+        if (isSignedIn()) return void set({ addresses: (await accountApi.updateAddress(id, patch)).addresses });
+        set({ addresses: get().addresses.map((a) => (a.id === id ? { ...a, ...patch } : a)) });
+      },
+      remove: async (id) => {
+        if (isSignedIn()) return void set({ addresses: (await accountApi.removeAddress(id)).addresses });
+        set({ addresses: withDefault(get().addresses.filter((a) => a.id !== id)) });
+      },
+      setDefault: async (id) => {
+        if (isSignedIn()) return void set({ addresses: (await accountApi.setDefaultAddress(id)).addresses });
+        set({ addresses: withDefault(get().addresses, id) });
+      },
     }),
-    { name: "vendora-addresses", storage: createJSONStorage(() => localStorage), skipHydration: true },
+    { name: "vendora-addresses", storage: guestStorage, skipHydration: true },
   ),
 );
 

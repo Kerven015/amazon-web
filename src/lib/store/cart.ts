@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import type { CartItem, Product, SelectedVariant } from "@/types";
-import { siteConfig } from "@/lib/config";
+import { computeTotals, discountAmount } from "@/lib/pricing";
 import { colorImage, priceFor, stockFor } from "@/lib/product-utils";
 import { getSellerName } from "@/lib/store/helpers";
+import { isSignedIn } from "@/lib/session-state";
 
 export function lineIdFor(productId: string, variant: SelectedVariant) {
   return [productId, variant.size ?? "", variant.color ?? ""].join("|");
@@ -95,6 +96,8 @@ export const useCart = create<CartState>()(
     {
       name: "vendora-cart",
       storage: createJSONStorage(() => localStorage),
+      // Signed in, the bag lives in the account (lib/session.ts); only "saved for later" and the code stay here
+      partialize: (s) => (isSignedIn() ? { saved: s.saved, discountCode: s.discountCode } : { items: s.items, saved: s.saved, discountCode: s.discountCode }),
       // Rehydrated manually in <Providers> to avoid SSR hydration mismatches.
       skipHydration: true,
     },
@@ -108,26 +111,6 @@ export const selectSubtotal = (s: CartState) => s.items.reduce((n, i) => n + i.p
 export const selectSavings = (s: CartState) =>
   s.items.reduce((n, i) => n + Math.max(0, (i.listPrice ?? i.price) - i.price) * i.quantity, 0);
 
-/**
- * Prices are tax-inclusive. `tax` is the portion of the subtotal that is tax
- * (shown as "includes $X tax"); it is not added on top.
- */
-export const selectDiscount = (s: CartState) => {
-  const pct = s.discountCode ? (siteConfig.discountCodes[s.discountCode] ?? 0) : 0;
-  return Math.round(selectSubtotal(s) * pct) / 100;
-};
+export const selectDiscount = (s: CartState) => discountAmount(selectSubtotal(s), s.discountCode);
 
-export function computeTotals(subtotal: number, shippingOverride?: number, discount = 0) {
-  const discounted = Math.max(0, subtotal - discount);
-  const shipping =
-    shippingOverride ??
-    (subtotal === 0 || discounted >= siteConfig.freeShippingThreshold ? 0 : siteConfig.standardShipping);
-  const tax = Math.round((discounted - discounted / (1 + siteConfig.taxRate)) * 100) / 100;
-  return {
-    subtotal,
-    discount,
-    shipping,
-    tax,
-    total: Math.round((discounted + shipping) * 100) / 100,
-  };
-}
+export { computeTotals };

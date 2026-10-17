@@ -12,6 +12,7 @@ import { usePanels } from "@/lib/store/ui";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/types";
 import { CartItem } from "./cart-item";
+import { CheckoutButton } from "./checkout-button";
 import { DiscountCode } from "./discount-code";
 import { useUsOnlyNotice } from "@/components/layout/announcement-bar";
 import { FreeShippingProgress } from "./free-shipping-progress";
@@ -79,11 +80,7 @@ export function CartDrawer() {
                 </div>
               </dl>
               <p className="text-xs text-muted-foreground">{t("taxNote")}</p>
-              <Button asChild size="lg" className="w-full">
-                <Link href="/checkout" onClick={close}>
-                  {t("checkout")}
-                </Link>
-              </Button>
+              <CheckoutButton className="w-full" onClick={close} />
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <RotateCcw className="size-3.5" strokeWidth={1.5} aria-hidden="true" /> {t("freeReturns")}

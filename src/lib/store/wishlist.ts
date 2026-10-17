@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { guestStorage } from "@/lib/session-state";
 
+/** Saved products. Signed in, the list lives in the account (lib/session.ts keeps it in sync). */
 interface WishlistState {
   ids: string[];
   toggle: (id: string) => boolean; // returns true if now saved
@@ -18,7 +20,7 @@ export const useWishlist = create<WishlistState>()(
       },
       remove: (id) => set({ ids: get().ids.filter((x) => x !== id) }),
     }),
-    { name: "vendora-wishlist", storage: createJSONStorage(() => localStorage), skipHydration: true },
+    { name: "vendora-wishlist", storage: guestStorage, skipHydration: true },
   ),
 );
 

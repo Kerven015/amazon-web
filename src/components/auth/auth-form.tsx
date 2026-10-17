@@ -1,13 +1,15 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { Link } from "@/lib/router";
-import { useRouter } from "@/lib/router";
+import { Link, useRouter, useSearchParams } from "@/lib/router";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Input, Label } from "@/components/ui/input";
-import { useT } from "@/i18n";
+import { useLocale, useT } from "@/i18n";
+import { AccountApiError, accountApi, accountErrorMessage } from "@/lib/account-api";
+import { PASSWORD_MIN, safeNext } from "@/lib/account-schema";
 import { siteConfig } from "@/lib/config";
+import { signedIn } from "@/lib/session";
 import { cn } from "@/lib/utils";
 import { validateEmail } from "@/components/layout/newsletter";
 
@@ -50,16 +52,23 @@ function strength(pw: string) {
 
 const STRENGTH = ["tooWeak", "weak", "fair", "good", "strong"] as const;
 
-/** Sign in / create account (mocked — no real authentication for shoppers yet). */
+/**
+ * Sign in / create account against the customer API. After success the shopper
+ * goes back to `?next=` (only paths on this site), or to their account.
+ */
 export function AuthForm({ mode }: { mode: "login" | "register" }) {
   const id = useId();
   const router = useRouter();
+  const locale = useLocale();
   const t = useT("auth");
+  const rawNext = useSearchParams().get("next");
+  const next = safeNext(rawNext, `/${locale}/account`);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [agree, setAgree] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "password" | "agree", string>>>({});
+  const [remember, setRemember] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "password" | "agree" | "form", string>>>({});
   const [loading, setLoading] = useState(false);
   const isRegister = mode === "register";
   const score = strength(password);
@@ -71,7 +80,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     const emailError = validateEmail(email);
     if (emailError) errs.email = emailError;
     if (!password) errs.password = t("errors.passwordEmpty");
-    else if (password.length < 8) errs.password = t("errors.password");
+    else if (isRegister && password.length < PASSWORD_MIN) errs.password = t("errors.password");
     if (isRegister && !agree) errs.agree = t("errors.agree");
     return errs;
   };
@@ -85,14 +94,24 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       return;
     }
     setLoading(true);
-    // TODO(backend): call auth API (sign in / sign up) and set a session cookie.
-    await new Promise((r) => setTimeout(r, 700));
-    setLoading(false);
-    toast.success(isRegister ? t("createdToast") : t("signedInToast"), { description: t("mockedNote") });
-    router.push("/account");
+    try {
+      const { user } = isRegister
+        ? await accountApi.register({ name: name.trim(), email: email.trim(), password, locale })
+        : await accountApi.login({ email: email.trim(), password, remember });
+      // Merges this browser's bag, wishlist and addresses into the account
+      await signedIn(user);
+      toast.success(isRegister ? t("createdToast") : t("signedInToast", { name: user.name.split(" ")[0] }));
+      router.replace(next);
+    } catch (err) {
+      setLoading(false);
+      const e = err instanceof AccountApiError ? err : null;
+      if (e?.code === "validation" && e.fields.password) setErrors({ password: t("errors.password") });
+      else if (e?.code === "validation" && e.fields.email) setErrors({ email: validateEmail(email) ?? accountErrorMessage(e) });
+      else if (e?.code === "email_taken") setErrors({ email: accountErrorMessage(e) });
+      else setErrors({ form: accountErrorMessage(err) });
+      requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-form="${id}"] [aria-invalid="true"], #${CSS.escape(`${id}-form-error`)}`)?.focus());
+    }
   };
-
-  const socialToast = () => toast(t("socialNotWired"));
 
   return (
     <div className="w-full max-w-md">
@@ -101,6 +120,11 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         <p className="mt-1 text-sm text-muted-foreground">{isRegister ? t("registerIntro", { store: siteConfig.name }) : t("signInIntro")}</p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate data-form={id}>
+          {errors.form && (
+            <p id={`${id}-form-error`} role="alert" tabIndex={-1} className="rounded-sm border border-danger/30 bg-danger-soft px-3 py-2 text-sm text-danger outline-none">
+              {errors.form}
+            </p>
+          )}
           <AnimatePresence initial={false}>
             {isRegister && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-1.5">
@@ -162,7 +186,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             </div>
           ) : (
             <label className="flex items-center gap-2 text-sm">
-              <Checkbox /> {t("keepSignedIn")}
+              <Checkbox checked={remember} onChange={(e) => setRemember(e.target.checked)} /> {t("keepSignedIn")}
             </label>
           )}
 
@@ -171,23 +195,12 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             {isRegister ? t("createAccount") : t("signIn")}
           </Button>
         </form>
-
-        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="h-px flex-1 bg-border" /> {t("or")} <span className="h-px flex-1 bg-border" />
-        </div>
-        <div className="grid gap-2">
-          <Button variant="outline" onClick={socialToast}>
-            {t("google")}
-          </Button>
-          <Button variant="outline" onClick={socialToast}>
-            {t("apple")}
-          </Button>
-        </div>
       </div>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {isRegister ? t("haveAccount") : t("newTo", { store: siteConfig.name })}{" "}
-        <Link href={isRegister ? "/login" : "/register"} className="inline-flex min-h-10 items-center font-semibold text-primary hover:underline">
+        {/* Keeps ?next= so a new customer also ends up where they were going (e.g. checkout) */}
+        <Link href={`${isRegister ? "/login" : "/register"}${rawNext ? `?next=${encodeURIComponent(next)}` : ""}`} className="inline-flex min-h-10 items-center font-semibold text-primary hover:underline">
           {isRegister ? t("signIn") : t("createAnAccount")}
         </Link>
       </p>

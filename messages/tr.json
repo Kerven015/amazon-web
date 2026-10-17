@@ -110,7 +110,11 @@
     "quiz": "Havlunu bul — teste katıl",
     "home": "Ana Sayfa",
     "viewAll": "Tümünü gör",
-    "viewAllNamed": "Tümünü gör: {item}"
+    "viewAllNamed": "Tümünü gör: {item}",
+    "accountMenu": "{name} için hesap menüsü",
+    "yourAccount": "Hesabınız",
+    "signOut": "Çıkış yap",
+    "signedOut": "Oturumunuz kapatıldı"
   },
   "language": {
     "label": "Dil",
@@ -589,17 +593,19 @@
       "name": "Adınız",
       "submit": "Yorumu gönder",
       "cancel": "Vazgeç",
-      "localNote": "Şimdilik yorumlar yalnızca bu cihaza kaydedilir.",
+      "localNote": "Yorumunuz ürün sayfasında yukarıdaki adla yayınlanır.",
       "errors": {
         "rating": "Bir puan seçin",
         "headline": "Kısa bir başlık ekleyin",
         "text": "Biraz daha anlatın (en az 10 karakter)",
         "name": "Adınızı ekleyin"
       },
-      "saved": "Teşekkürler — yorumunuz bu cihaza kaydedildi."
+      "saved": "Teşekkürler — yorumunuz yayınlandı."
     },
-    "yours": "Yorumunuz · yalnızca bu cihazda görünür",
-    "originalLanguage": "Yorumlar yazıldıkları dilde gösterilir."
+    "yours": "Yorumunuz",
+    "originalLanguage": "Yorumlar yazıldıkları dilde gösterilir.",
+    "alreadyReviewed": "Bu ürünü değerlendirdiniz",
+    "signInToReview": "Yorum yazmak için giriş yapın."
   },
   "cart": {
     "title": "Alışveriş Sepeti",
@@ -657,7 +663,8 @@
       "reassurance": "30 gün ücretsiz iade · güvenli ödeme"
     },
     "total": "Toplam",
-    "each": "Tanesi {price}"
+    "each": "Tanesi {price}",
+    "signInToCheckout": "Ödeme için giriş yapın"
   },
   "credits": {
     "title": "Fotoğraf künyesi",
@@ -757,7 +764,13 @@
       "summary": "Lütfen işaretli alanları kontrol edin."
     },
     "stepOf": "Adım {n}/{total} · {label}",
-    "backToBag": "Sepete dön"
+    "backToBag": "Sepete dön",
+    "orderErrors": {
+      "outOfStock": "Bazı ürünler seçtiğiniz adette mevcut değil. Hiçbir ücret alınmadı.",
+      "onlyLeft": "{item}: {count, plural, one {yalnızca # adet kaldı} other {yalnızca # adet kaldı}}",
+      "soldOut": "{item}: tükendi",
+      "editBag": "Sepetinizi düzenleyin"
+    }
   },
   "account": {
     "pageTitle": "Hesabınız",
@@ -792,7 +805,19 @@
       "save": "Kaydet",
       "cancel": "Vazgeç",
       "saved": "Profil güncellendi",
-      "editNamed": "{field} düzenle"
+      "editNamed": "{field} düzenle",
+      "password": "Şifre",
+      "changePassword": "Şifreyi değiştir",
+      "currentPassword": "Mevcut şifre",
+      "newPassword": "Yeni şifre",
+      "newPasswordHint": "En az 8 karakter. Bu cihazda oturumunuz açık kalır; diğer cihazlardan çıkış yapılır.",
+      "newPasswordShort": "Yeni şifre için en az 8 karakter kullanın",
+      "passwordNeeded": "Mevcut şifrenizi girin",
+      "passwordChanged": "Şifre değiştirildi. Diğer cihazlardan çıkış yapıldı.",
+      "devicesTitle": "Oturum açık cihazlar",
+      "devicesBody": "Telefonunuzu mu kaybettiniz ya da ortak bir bilgisayar mı kullandınız? Buradaki dahil her yerden çıkış yapın.",
+      "signOutAll": "Tüm cihazlardan çıkış yap",
+      "signedOutEverywhere": "Tüm cihazlardan çıkış yapıldı"
     },
     "viewOrder": "Siparişi görüntüle",
     "viewOrderNamed": "{id} numaralı siparişi görüntüle",
@@ -862,10 +887,8 @@
     "registerTitle": "Hesap oluştur",
     "hidePassword": "Şifreyi gizle",
     "showPassword": "Şifreyi göster",
-    "createdToast": "Hesap oluşturuldu (demo)",
-    "signedInToast": "Giriş yapıldı (demo)",
-    "mockedNote": "Bu sürümde kimlik doğrulama simüle edilmektedir.",
-    "socialNotWired": "Bu demoda sosyal medya ile giriş bağlı değil",
+    "createdToast": "Hesap oluşturuldu",
+    "signedInToast": "Tekrar hoş geldiniz, {name}",
     "registerHeading": "Hesabınızı oluşturun",
     "registerIntro": "{store} üzerinde favorilerinizi kaydedin, siparişlerinizi takip edin ve daha hızlı ödeyin.",
     "signInIntro": "Tekrar hoş geldiniz. Devam etmek için bilgilerinizi girin.",
@@ -884,9 +907,6 @@
     "keepSignedIn": "Oturumumu açık tut",
     "createAccount": "Hesap oluştur",
     "signIn": "Giriş yap",
-    "or": "veya",
-    "google": "Google ile devam et",
-    "apple": "Apple ile devam et",
     "haveAccount": "Zaten hesabınız var mı?",
     "newTo": "{store} sitesinde yeni misiniz?",
     "createAnAccount": "Hesap oluşturun",
@@ -900,7 +920,7 @@
   "confirmation": {
     "loading": "Siparişiniz yükleniyor…",
     "notFoundTitle": "Sipariş bulunamadı",
-    "notFoundBody": "{id} numaralı siparişi bu tarayıcıda bulamadık.",
+    "notFoundBody": "{id} numaralı siparişi hesabınızda bulamadık.",
     "viewOrders": "Siparişlerinizi görün",
     "title": "Teşekkürler — siparişiniz alındı!",
     "orderSent": "Sipariş {id} · E-posta adresinize bir onay gönderildi.",
@@ -1214,7 +1234,8 @@
       "viewStore": "Mağazayı gör",
       "logOut": "Çıkış yap",
       "categories": "Kategoriler",
-      "allProducts": "Tüm ürünler"
+      "allProducts": "Tüm ürünler",
+      "orders": "Siparişler"
     },
     "login": {
       "pageTitle": "Yönetici girişi · {store}",
@@ -1467,6 +1488,22 @@
       "fileType": "Yalnızca JPG, PNG veya WebP görseller kabul edilir",
       "fileUnreadable": "Bu dosya görsel olarak okunamadı",
       "tooLong": "Çok uzun"
+    },
+    "orders": {
+      "title": "Siparişler",
+      "count": "{count, plural, one {# sipariş} other {# sipariş}}",
+      "empty": "Henüz sipariş yok.",
+      "order": "Sipariş",
+      "placed": "Tarih",
+      "customer": "Müşteri",
+      "items": "Ürünler",
+      "total": "Toplam",
+      "status": "Durum",
+      "statusFor": "{id} siparişinin durumu",
+      "updated": "{id} siparişi: artık “{status}”",
+      "failed": "Durum değiştirilemedi. Lütfen tekrar deneyin.",
+      "confirmCancel": "{id} siparişi iptal edilsin mi? Ürünler stoğa geri döner ve bu işlem geri alınamaz.",
+      "cancelledLocked": "İptal edilen siparişler değiştirilemez."
     }
   },
   "countries": {
@@ -1477,5 +1514,22 @@
   },
   "shipping": {
     "usOnly": "Şu anda yalnızca ABD'ye teslimat yapıyoruz"
+  },
+  "accountErrors": {
+    "validation": "Lütfen bilgileri kontrol edip tekrar deneyin.",
+    "email_taken": "Bu e-postayla bir hesap zaten var. Giriş yapmak ister misiniz?",
+    "invalid_credentials": "E-posta ve şifre eşleşmiyor. Lütfen tekrar deneyin.",
+    "too_many_attempts": "Çok fazla deneme yapıldı. Lütfen 15 dakika bekleyip tekrar deneyin.",
+    "sign_in_required": "Devam etmek için lütfen giriş yapın.",
+    "wrong_password": "Mevcut şifreniz doğru değil.",
+    "out_of_stock": "Bazı ürünler artık stokta yok.",
+    "invalid_discount": "Bu indirim kodu artık geçerli değil. Sepetinizden kaldırıp tekrar deneyin.",
+    "address_not_found": "Bu adres artık adres defterinizde yok. Lütfen başka bir adres seçin.",
+    "already_reviewed": "Bu ürünü zaten değerlendirdiniz.",
+    "not_found": "Bunu bulamadık.",
+    "forbidden": "Bu işlemi yapamazsınız.",
+    "server_error": "Bizim tarafımızda bir sorun oluştu. Lütfen tekrar deneyin.",
+    "network": "Mağazaya ulaşamadık. Bağlantınızı kontrol edip tekrar deneyin.",
+    "syncFailed": "Bu, hesabınıza kaydedilemedi. Lütfen tekrar deneyin."
   }
 }
