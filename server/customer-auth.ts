@@ -32,7 +32,9 @@ const ARGON = { algorithm: 2 /* Argon2id */, memoryCost: 19_456, timeCost: 2, pa
 
 export const hashPassword = (password: string) => hash(password, ARGON);
 
-export async function verifyPassword(stored: string, password: string) {
+export async function verifyPassword(stored: string | null, password: string) {
+  // Google-only accounts have no password: still spend the same time, then fail
+  if (!stored) return (await verify(await timingDummy(), password).catch(() => false), false);
   try {
     return await verify(stored, password);
   } catch {

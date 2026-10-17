@@ -1,7 +1,7 @@
 import { Heart, LoaderCircle, LogOut, MapPin, Package, Pencil, Plus, Star, Trash2, User } from "lucide-react";
 import { Link } from "@/lib/router";
 import { usePathname, useRouter, useSearchParams } from "@/lib/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatedBackground } from "@/components/motion-ui/animated-background";
 import { TransitionPanel } from "@/components/motion-ui/transition-panel";
 import { ProductGrid } from "@/components/product/product-grid";
@@ -315,6 +315,14 @@ function ProfileDetails({ user }: { user: UserType }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  // How this account signs in (Google, password, or both)
+  const [methods, setMethods] = useState<{ hasPassword: boolean; google: boolean } | null>(null);
+  useEffect(() => {
+    accountApi.profile().then(
+      (p) => setMethods({ hasPassword: p.hasPassword, google: p.google }),
+      () => {},
+    );
+  }, []);
 
   const start = (f: "name" | "email") => {
     setEditing(f);
@@ -376,7 +384,7 @@ function ProfileDetails({ user }: { user: UserType }) {
                     aria-invalid={error ? true : undefined}
                     aria-describedby={error ? `${id}-error` : undefined}
                   />
-                  {f === "email" && (
+                  {f === "email" && methods?.hasPassword !== false && (
                     <div className="space-y-1.5 pt-1">
                       <Label htmlFor={`${id}-pw`}>{t("profile.currentPassword")}</Label>
                       <Input id={`${id}-pw`} type="password" autoComplete="current-password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
@@ -413,7 +421,17 @@ function ProfileDetails({ user }: { user: UserType }) {
         })}
       </dl>
 
-      <PasswordChange />
+      {methods?.google && (
+        <section className="flex items-center gap-3 rounded-sm border bg-card p-4 text-sm">
+          <GoogleMark />
+          <div className="min-w-0">
+            <h2 className="font-semibold">{t("profile.googleTitle")}</h2>
+            <p className="text-muted-foreground">{t("profile.googleBody")}</p>
+          </div>
+        </section>
+      )}
+
+      <PasswordChange hasPassword={methods?.hasPassword ?? true} onSet={() => setMethods((m) => (m ? { ...m, hasPassword: true } : m))} />
 
       <section className="rounded-sm border bg-card p-4 text-sm">
         <h2 className="font-semibold">{t("profile.devicesTitle")}</h2>
@@ -426,8 +444,23 @@ function ProfileDetails({ user }: { user: UserType }) {
   );
 }
 
-/** Current + new password. Other devices are signed out afterwards. */
-function PasswordChange() {
+/** Google's "G" (shown next to "Signed in with Google") */
+function GoogleMark() {
+  return (
+    <svg viewBox="0 0 48 48" className="size-6 shrink-0" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+    </svg>
+  );
+}
+
+/**
+ * Current + new password (other devices are signed out afterwards).
+ * Accounts from "Continue with Google" have no password yet: they just set one.
+ */
+function PasswordChange({ hasPassword, onSet }: { hasPassword: boolean; onSet: () => void }) {
   const t = useT("account.profile");
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState("");
@@ -437,13 +470,14 @@ function PasswordChange() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!current) return setError(t("passwordNeeded"));
+    if (hasPassword && !current) return setError(t("passwordNeeded"));
     if (next.length < PASSWORD_MIN) return setError(t("newPasswordShort"));
     setSaving(true);
     setError(null);
     try {
-      await accountApi.changePassword({ currentPassword: current, newPassword: next });
-      toast.success(t("passwordChanged"));
+      await accountApi.changePassword({ currentPassword: hasPassword ? current : undefined, newPassword: next });
+      toast.success(hasPassword ? t("passwordChanged") : t("passwordSet"));
+      onSet();
       setOpen(false);
       setCurrent("");
       setNext("");
@@ -459,20 +493,22 @@ function PasswordChange() {
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
           <h2 className="font-semibold">{t("password")}</h2>
-          {!open && <p className="text-muted-foreground">••••••••</p>}
+          {!open && <p className="text-muted-foreground">{hasPassword ? "••••••••" : t("noPassword")}</p>}
         </div>
         {!open && (
           <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-            {t("changePassword")}
+            {hasPassword ? t("changePassword") : t("setPassword")}
           </Button>
         )}
       </div>
       {open && (
         <form noValidate onSubmit={submit} className="mt-3 space-y-3">
-          <div className="space-y-1.5">
-            <Label htmlFor="pw-current">{t("currentPassword")}</Label>
-            <Input id="pw-current" type="password" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} />
-          </div>
+          {hasPassword && (
+            <div className="space-y-1.5">
+              <Label htmlFor="pw-current">{t("currentPassword")}</Label>
+              <Input id="pw-current" type="password" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} />
+            </div>
+          )}
           <div className="space-y-1.5">
             <Label htmlFor="pw-new">{t("newPassword")}</Label>
             <Input id="pw-new" type="password" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} aria-describedby="pw-hint" />

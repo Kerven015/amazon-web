@@ -75,6 +75,8 @@ export async function signOut({ everywhere = false } = {}) {
   try {
     await (everywhere ? accountApi.logoutAll() : accountApi.logout());
   } finally {
+    // Otherwise Google One Tap would sign them straight back in on the next page
+    window.google?.accounts?.id?.disableAutoSelect();
     stopMirroring();
     sessionPromise = Promise.resolve(null);
     syncPromise = Promise.resolve();

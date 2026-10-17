@@ -7,6 +7,8 @@
  *             POST /api/auth/logout
  *             POST /api/auth/logout-all
  *             GET  /api/auth/me                → { id, name, email, locale } or 401
+ *             GET  /api/auth/config            → { googleClientId } (public; null = Google sign-in off)
+ *             POST /api/auth/google            { credential, locale } — "Continue with Google" / One Tap
  *   Account   GET|PATCH /api/account/profile   { name?, email?, currentPassword? }
  *             POST /api/account/password       { currentPassword, newPassword }
  *             GET|PUT   /api/account/cart      { items, mode }
@@ -25,6 +27,7 @@ import {
   cartSchema,
   loginSchema,
   orderSchema,
+  googleSignInSchema,
   passwordChangeSchema,
   profileSchema,
   registerSchema,
@@ -46,6 +49,7 @@ import {
   tooManyFailures,
   verifyPassword,
 } from "./customer-auth";
+import { GoogleTokenError, googleClientId, signInMethods, signInWithGoogle, verifyGoogleCredential } from "./google-auth";
 import { parseBody, type Req, type Res, send } from "./http";
 import * as account from "./lib/db/account";
 import { getOrder, listOrders, OrderError, placeOrder } from "./lib/db/orders";
@@ -85,6 +89,28 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
     if (user.blocked_at) return fail(res, 403, "account_blocked"), true;
     await startSession(req, res, user.id, body.remember);
     send(res, 200, { user: publicUser(user) });
+    return true;
+  }
+
+  if (p === "/api/auth/config" && method === "GET") {
+    send(res, 200, { googleClientId: googleClientId() });
+    return true;
+  }
+
+  if (p === "/api/auth/google" && method === "POST") {
+    const body = await parseBody(req, googleSignInSchema, 10_000);
+    let profile;
+    try {
+      profile = await verifyGoogleCredential(body.credential);
+    } catch (err) {
+      if (err instanceof GoogleTokenError) return fail(res, 401, "google_failed"), true;
+      throw err;
+    }
+    const result = await signInWithGoogle(profile, body.locale);
+    if (result.blocked) return fail(res, 403, "account_blocked"), true;
+    // Signing in with Google keeps you signed in on this device (30 days), like "Keep me signed in"
+    await startSession(req, res, result.userId, true);
+    send(res, result.created ? 201 : 200, { user: { id: result.userId, name: result.name, email: result.email, locale: result.locale }, created: result.created });
     return true;
   }
 
@@ -160,7 +186,7 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
   /* ---- profile ---- */
   if (p === "/profile") {
     if (method === "GET") {
-      send(res, 200, { ...publicUser(user), memberSince: user.createdAt });
+      send(res, 200, { ...publicUser(user), memberSince: user.createdAt, ...(await signInMethods(user.id)) });
       return true;
     }
     if (method === "PATCH") {
@@ -168,11 +194,12 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
       const changingEmail = body.email !== undefined && body.email !== user.email.toLowerCase();
       if (changingEmail) {
         const row = await account.findUserById(user.id);
+        if (row && !row.password_hash) return fail(res, 403, "set_password_first"), true;
         if (!row || !body.currentPassword || !(await verifyPassword(row.password_hash, body.currentPassword))) return fail(res, 403, "wrong_password"), true;
       }
       const updated = await account.updateUser(user.id, { name: body.name, email: changingEmail ? body.email : undefined, locale: body.locale });
       if (!updated) return fail(res, 409, "email_taken"), true;
-      send(res, 200, { ...publicUser(updated), memberSince: updated.created_at.toISOString() });
+      send(res, 200, { ...publicUser(updated), memberSince: updated.created_at.toISOString(), ...(await signInMethods(user.id)) });
       return true;
     }
   }
@@ -180,7 +207,8 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
   if (p === "/password" && method === "POST") {
     const body = await parseBody(req, passwordChangeSchema, 10_000);
     const row = await account.findUserById(user.id);
-    if (!row || !(await verifyPassword(row.password_hash, body.currentPassword))) return fail(res, 403, "wrong_password"), true;
+    // Accounts from "Continue with Google" can set their first password without a current one
+    if (!row || (row.password_hash && !(await verifyPassword(row.password_hash, body.currentPassword ?? "")))) return fail(res, 403, "wrong_password"), true;
     await account.setPassword(user.id, await hashPassword(body.newPassword));
     // Every other device has to sign in again with the new password
     await endAllSessions(user.id, user.sessionId);

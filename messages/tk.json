@@ -817,7 +817,12 @@
       "devicesTitle": "Ulgama girilen enjamlar",
       "devicesBody": "Telefonyňyzy ýitirdiňizmi ýa-da umumy kompýuter ulandyňyzmy? Şu ýerdäkini goşmak bilen ähli ýerden çykyň.",
       "signOutAll": "Ähli enjamlardan çyk",
-      "signedOutEverywhere": "Ähli enjamlardan çykyldy"
+      "signedOutEverywhere": "Ähli enjamlardan çykyldy",
+      "googleTitle": "Google bilen giriş",
+      "googleBody": "Bu hasaba “Google bilen dowam et” arkaly girip bilersiňiz.",
+      "noPassword": "Entek açar sözi ýok — Google bilen girýärsiňiz",
+      "setPassword": "Açar sözi belle",
+      "passwordSet": "Açar sözi bellendi. Indi e-poçtaňyz bilen hem girip bilersiňiz."
     },
     "viewOrder": "Sargydy gör",
     "viewOrderNamed": "{id} sargydy gör",
@@ -915,7 +920,8 @@
       "password": "Azyndan 8 harp ulanyň",
       "passwordEmpty": "Açar sözüňizi giriziň",
       "agree": "Dowam etmek üçin şertleri kabul ediň"
-    }
+    },
+    "or": "ýa-da"
   },
   "confirmation": {
     "loading": "Sargydyňyz ýüklenýär…",
@@ -1560,7 +1566,11 @@
       "deletedToast": "{name} hasaby pozuldy",
       "hasOrders": "Sargytly hasaplary pozup bolmaýar (sargytlar hasapda galmaly). Onuň ýerine hasaby petikläň.",
       "failed": "Başartmady. Täzeden synanyşyň.",
-      "privacyNote": "Açar sözleri hiç haçan görkezilmeýär; diňe howpsuz heş görnüşinde saklanýar."
+      "privacyNote": "Açar sözleri hiç haçan görkezilmeýär; diňe howpsuz heş görnüşinde saklanýar.",
+      "methods": {
+        "password": "Açar sözi",
+        "google": "Google"
+      }
     }
   },
   "countries": {
@@ -1588,6 +1598,8 @@
     "server_error": "Biziň tarapymyzda näsazlyk ýüze çykdy. Täzeden synanyşyň.",
     "network": "Dükana birigip bilmedik. Internet baglanyşygyňyzy barlap, täzeden synanyşyň.",
     "syncFailed": "Muny hasabyňyza ýazyp bilmedik. Täzeden synanyşyň.",
-    "account_blocked": "Bu hasap petiklendi. Ýalňyşlyk diýip pikir edýän bolsaňyz, biz bilen habarlaşyň."
+    "account_blocked": "Bu hasap petiklendi. Ýalňyşlyk diýip pikir edýän bolsaňyz, biz bilen habarlaşyň.",
+    "google_failed": "Google bilen giriş başartmady. Täzeden synanyşyň ýa-da e-poçta we açar sözüňizi ulanyň.",
+    "set_password_first": "Ilki aşakda açar sözi belläň, soňra e-poçtaňyzy üýtgedip bilersiňiz."
   }
 }

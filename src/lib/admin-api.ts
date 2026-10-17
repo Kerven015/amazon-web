@@ -16,6 +16,7 @@ export type AdminCustomer = {
   activeNow: boolean;
   orders: number;
   spent: number;
+  methods: ("password" | "google")[];
 };
 export type AdminSession = { id: string; createdAt: string; lastSeen: string; expiresAt: string; remember: boolean; userAgent: string; ip: string; activeNow: boolean };
 export type AdminCustomerDetail = AdminCustomer & {
