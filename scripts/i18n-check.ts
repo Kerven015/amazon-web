@@ -47,7 +47,7 @@ const args = (s: string) => {
 };
 
 /** Short strings that are the same in every language. */
-const SAME_OK = /^(Slug|Material|material|Türkiye|Turkmenistan|[A-Z]{1,4}|[XSML]{1,3}|\{[^}]+\}( [/–-] \{[^}]+\})?|\{[^}]+\} \(\{[^}]+\}\)|“\{query\}”|[\d\s×]+)$/;
+const SAME_OK = /^(Google|Slug|Material|material|Türkiye|Turkmenistan|[A-Z]{1,4}|[XSML]{1,3}|\{[^}]+\}( [/–-] \{[^}]+\})?|\{[^}]+\} \(\{[^}]+\}\)|“\{query\}”|[\d\s×]+)$/;
 
 function compare(lang: string, a: Json, b: Json | undefined, key: string) {
   if (b === undefined || b === null) return err(lang, key, "missing");

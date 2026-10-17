@@ -9,7 +9,8 @@ import type { ApiErrorCode } from "@/lib/account-schema";
 import type { Address, Order } from "@/types";
 
 export type SessionUser = { id: string; name: string; email: string; locale: string };
-export type Profile = SessionUser & { memberSince: string };
+/** hasPassword is false for accounts made with "Continue with Google" (until they set one) */
+export type Profile = SessionUser & { memberSince: string; hasPassword: boolean; google: boolean };
 export type CartLine = { productId: string; size?: string; colour?: string; quantity: number };
 export type OutOfStockLine = CartLine & { requested: number; available: number };
 
@@ -55,13 +56,15 @@ export const accountApi = {
   },
   register: (body: { name: string; email: string; password: string; locale: string }) => call<{ user: SessionUser }>("/api/auth/register", { method: "POST", json: body }),
   login: (body: { email: string; password: string; remember: boolean }) => call<{ user: SessionUser }>("/api/auth/login", { method: "POST", json: body }),
+  /** "Continue with Google" / One Tap: the ID token from Google Identity Services */
+  google: (credential: string, locale: string) => call<{ user: SessionUser; created: boolean }>("/api/auth/google", { method: "POST", json: { credential, locale } }),
   logout: () => call<{ ok: true }>("/api/auth/logout", { method: "POST" }),
   logoutAll: () => call<{ ok: true }>("/api/auth/logout-all", { method: "POST" }),
 
   /* profile */
   profile: () => call<Profile>("/api/account/profile"),
   updateProfile: (body: { name?: string; email?: string; locale?: string; currentPassword?: string }) => call<Profile>("/api/account/profile", { method: "PATCH", json: body }),
-  changePassword: (body: { currentPassword: string; newPassword: string }) => call<{ ok: true }>("/api/account/password", { method: "POST", json: body }),
+  changePassword: (body: { currentPassword?: string; newPassword: string }) => call<{ ok: true }>("/api/account/password", { method: "POST", json: body }),
 
   /* bag */
   cart: () => call<{ items: CartLine[] }>("/api/account/cart"),

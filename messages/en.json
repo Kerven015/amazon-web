@@ -817,7 +817,12 @@
       "devicesTitle": "Signed-in devices",
       "devicesBody": "Lost a phone or used a shared computer? Sign out everywhere, including here.",
       "signOutAll": "Sign out of all devices",
-      "signedOutEverywhere": "Signed out of all devices"
+      "signedOutEverywhere": "Signed out of all devices",
+      "googleTitle": "Signed in with Google",
+      "googleBody": "You can use “Continue with Google” to sign in to this account.",
+      "noPassword": "No password yet — you sign in with Google",
+      "setPassword": "Set a password",
+      "passwordSet": "Password set. You can now also sign in with your email."
     },
     "viewOrder": "View order",
     "viewOrderNamed": "View order {id}",
@@ -915,7 +920,8 @@
       "password": "Use at least 8 characters",
       "passwordEmpty": "Enter your password",
       "agree": "Please accept the terms to continue"
-    }
+    },
+    "or": "or"
   },
   "confirmation": {
     "loading": "Loading your order…",
@@ -1560,7 +1566,11 @@
       "deletedToast": "{name}'s account was deleted",
       "hasOrders": "Accounts with orders can't be deleted (the orders must stay on record). Block the account instead.",
       "failed": "That didn't work. Please try again.",
-      "privacyNote": "Passwords are never shown — they're stored only as secure hashes."
+      "privacyNote": "Passwords are never shown — they're stored only as secure hashes.",
+      "methods": {
+        "password": "Password",
+        "google": "Google"
+      }
     }
   },
   "countries": {
@@ -1588,6 +1598,8 @@
     "server_error": "Something went wrong on our side. Please try again.",
     "network": "We couldn't reach the shop. Check your connection and try again.",
     "syncFailed": "We couldn't save that to your account. Please try again.",
-    "account_blocked": "This account has been blocked. Please contact us if you think this is a mistake."
+    "account_blocked": "This account has been blocked. Please contact us if you think this is a mistake.",
+    "google_failed": "Google sign-in didn't work. Please try again, or use your email and password.",
+    "set_password_first": "Set a password first (below), then you can change your email."
   }
 }

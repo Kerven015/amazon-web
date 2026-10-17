@@ -21,6 +21,8 @@ export type AdminCustomer = {
   activeNow: boolean;
   orders: number;
   spent: number;
+  /** How they sign in */
+  methods: ("password" | "google")[];
 };
 
 export type AdminSession = { id: string; createdAt: string; lastSeen: string; expiresAt: string; remember: boolean; userAgent: string; ip: string; activeNow: boolean };
@@ -43,6 +45,8 @@ type Row = {
   last_seen: Date | null;
   orders: number;
   spent: number;
+  has_password: boolean;
+  google: boolean;
 };
 
 const SELECT = `
@@ -50,7 +54,9 @@ const SELECT = `
          (SELECT count(*) FROM sessions s WHERE s.user_id = u.id AND s.expires_at > now())::int AS sessions,
          (SELECT max(s.last_seen_at) FROM sessions s WHERE s.user_id = u.id AND s.expires_at > now()) AS last_seen,
          (SELECT count(*) FROM orders o WHERE o.user_id = u.id)::int AS orders,
-         (SELECT coalesce(sum(o.total), 0) FROM orders o WHERE o.user_id = u.id AND o.status <> 'cancelled') AS spent
+         (SELECT coalesce(sum(o.total), 0) FROM orders o WHERE o.user_id = u.id AND o.status <> 'cancelled') AS spent,
+         u.password_hash IS NOT NULL AS has_password,
+         EXISTS (SELECT 1 FROM user_identities i WHERE i.user_id = u.id AND i.provider = 'google') AS google
     FROM users u`;
 
 const isActive = (seen: Date | null) => !!seen && Date.now() - seen.getTime() < ACTIVE_MINUTES * 60_000;
@@ -68,6 +74,7 @@ function toCustomer(r: Row): AdminCustomer {
     activeNow: !r.blocked_at && isActive(r.last_seen),
     orders: r.orders,
     spent: r.spent,
+    methods: [...(r.has_password ? (["password"] as const) : []), ...(r.google ? (["google"] as const) : [])],
   };
 }
 

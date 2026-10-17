@@ -8,7 +8,8 @@ import { query, withTransaction } from "../../db/pool";
 
 /* ------------------------------ users ------------------------------ */
 
-export type UserRow = { id: string; email: string; name: string; locale: string; password_hash: string; created_at: Date; blocked_at: Date | null };
+/** password_hash is null for accounts created with "Continue with Google". */
+export type UserRow = { id: string; email: string; name: string; locale: string; password_hash: string | null; created_at: Date; blocked_at: Date | null };
 
 export async function findUserByEmail(email: string) {
   const { rows } = await query<UserRow>("SELECT * FROM users WHERE email = $1", [email]);
@@ -34,7 +35,9 @@ export async function createUser(u: { email: string; name: string; locale: strin
 export async function updateUser(id: string, patch: { name?: string; email?: string; locale?: string }) {
   try {
     const { rows } = await query<UserRow>(
-      `UPDATE users SET name = coalesce($2, name), email = coalesce($3, email), locale = coalesce($4, locale)
+      // A new email address isn't verified until it's confirmed (or Google signs in with it)
+      `UPDATE users SET name = coalesce($2, name), email = coalesce($3, email), locale = coalesce($4, locale),
+              email_verified_at = CASE WHEN $3::citext IS NOT NULL AND $3::citext <> email THEN NULL ELSE email_verified_at END
         WHERE id = $1 RETURNING *`,
       [id, patch.name ?? null, patch.email ?? null, patch.locale ?? null],
     );

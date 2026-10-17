@@ -10,6 +10,7 @@ import { AccountApiError, accountApi, accountErrorMessage } from "@/lib/account-
 import { PASSWORD_MIN, safeNext } from "@/lib/account-schema";
 import { siteConfig } from "@/lib/config";
 import { signedIn } from "@/lib/session";
+import { GoogleButton } from "./google-button";
 import { cn } from "@/lib/utils";
 import { validateEmail } from "@/components/layout/newsletter";
 
@@ -195,6 +196,8 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             {isRegister ? t("createAccount") : t("signIn")}
           </Button>
         </form>
+
+        <GoogleButton onSignedIn={() => router.replace(next)} />
       </div>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
