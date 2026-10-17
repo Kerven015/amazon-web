@@ -9,19 +9,19 @@ import { variantLabel } from "@/components/product/use-add-to-cart";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Input, Label, Radio, Select } from "@/components/ui/input";
 import { useStoreHydrated } from "@/lib/hooks/use-store-hydrated";
-import { buildTracking } from "@/lib/mock-data/orders";
 import { type AddressField, emptyAddress, useAddressBook, validateAddress } from "@/lib/store/addresses";
 import { computeTotals, selectCount, selectDiscount, selectSubtotal, useCart } from "@/lib/store/cart";
-import { usePlacedOrders } from "@/lib/store/orders";
 import { cn, formatPrice } from "@/lib/utils";
-import type { Address, Order } from "@/types";
+import type { Address } from "@/types";
+import { AccountApiError, accountApi, accountErrorMessage, type OutOfStockLine } from "@/lib/account-api";
+import { loginHref } from "@/lib/session";
 import { StepIndicator } from "./step-indicator";
 import { ProductImage } from "@/components/product/product-image";
 import { formatPrice as fmt, useLocale, useT } from "@/i18n";
 import { getProductById } from "@/lib/catalog";
 import { addressLabel, addressLine, countryName, deliveryLabel, paymentLabel } from "@/lib/order-format";
 import { siteConfig } from "@/lib/config";
-import { type DeliveryId, deliveryDates, deliveryDetail, deliveryName, deliveryOptions, deliveryPrice } from "@/lib/delivery";
+import { type DeliveryId, deliveryDetail, deliveryName, deliveryOptions, deliveryPrice } from "@/lib/delivery";
 import { productHref } from "@/lib/product-utils";
 
 /** Labels: messages → checkout.delivery.{id}; speeds and prices: siteConfig.deliveryOptions */
@@ -110,7 +110,7 @@ export function CheckoutFlow() {
   const subtotal = useCart(selectSubtotal);
   const discount = useCart(selectDiscount);
   const clear = useCart((s) => s.clear);
-  const addOrder = usePlacedOrders((s) => s.add);
+  const discountCode = useCart((s) => s.discountCode);
   const book = useAddressBook((s) => s.addresses);
   const saveAddress = useAddressBook((s) => s.add);
 
@@ -127,6 +127,8 @@ export function CheckoutFlow() {
   const [card, setCard] = useState<Card>({ name: "", number: "", expiry: "", cvc: "" });
   const [cardErrors, setCardErrors] = useState<Partial<Record<CardField, string>>>({});
   const [placing, setPlacing] = useState(false);
+  /** Why the server turned the order down (shown above "Place order") */
+  const [orderError, setOrderError] = useState<{ code: string; lines: OutOfStockLine[] } | null>(null);
 
   const discounted = Math.max(0, subtotal - discount);
   const shippingFor = (id: DeliveryId) => deliveryPrice(id, discounted);
@@ -170,46 +172,43 @@ export function CheckoutFlow() {
     go(3);
   };
 
+  /**
+   * POST /api/orders. The server takes only what's in the bag (product, size, colour,
+   * quantity) and works out every price, the discount, delivery and the total itself.
+   * No card details are sent — only "card" + the last 4 digits for the receipt.
+   */
   const placeOrder = async () => {
     if (!address) return go(0);
     setPlacing(true);
-    // TODO(backend): POST /orders with cart, address, delivery and payment intent.
-    await new Promise((r) => setTimeout(r, 900));
-    let shipTo: Address = address;
-    if (chosenId === "new") {
-      const clean = { ...draft, line2: draft.line2?.trim() || undefined, label: draft.label || "" };
-      shipTo = saveToBook ? saveAddress(clean, makeDefault) : { ...clean, id: `a-order-${Date.now().toString(36)}` };
+    setOrderError(null);
+    try {
+      let addressId: string | undefined = chosenId === "new" ? undefined : chosenId;
+      const typed = { ...draft, line2: draft.line2?.trim() || undefined, label: draft.label || "" };
+      if (chosenId === "new" && saveToBook) {
+        addressId = (await saveAddress(typed, makeDefault)).id;
+        setAddressId(addressId);
+      }
+      const order = await accountApi.placeOrder({
+        items: items.map((i) => ({ productId: i.productId, size: i.variant.size, colour: i.variant.color, quantity: i.quantity })),
+        ...(addressId ? { addressId } : { address: typed }),
+        deliveryOption: delivery,
+        discountCode: discountCode ?? undefined,
+        payment: payment === "card" ? { method: "card", last4: last4 || undefined } : { method: "wallet" },
+      });
+      router.push(`/order/${order.id}/confirmation`);
+      clear();
+    } catch (err) {
+      setPlacing(false);
+      const e = err instanceof AccountApiError ? err : null;
+      if (e?.code === "sign_in_required") return router.push(loginHref(window.location.pathname));
+      setOrderError({ code: e?.code ?? "server_error", lines: e?.lines ?? [] });
     }
-    const id = `VD-${Math.floor(100000 + Math.random() * 899999)}`;
-    const placedAt = new Date();
-    const now = placedAt.toISOString();
-    const order: Order = {
-      id,
-      createdAt: now,
-      status: "placed",
-      items: items.map((i) => ({
-        productId: i.productId,
-        title: i.title,
-        image: i.image,
-        price: i.price,
-        quantity: i.quantity,
-        variant: i.variant,
-        sellerName: i.sellerName,
-      })),
-      subtotal: totals.subtotal,
-      shipping: totals.shipping,
-      tax: totals.tax,
-      total: totals.total,
-      address: shipTo,
-      paymentMethod: paymentCode,
-      deliveryOption: delivery,
-      // Latest business day of the chosen option (lib/delivery.ts)
-      estimatedDelivery: deliveryDates(delivery, placedAt).latest.toISOString(),
-      tracking: buildTracking("placed", { placed: now }),
-    };
-    addOrder(order);
-    router.push(`/order/${id}/confirmation`);
-    clear();
+  };
+
+  /** "Only 2 left of Bath sheet / Sage" — names in the page language */
+  const stockProblem = (l: OutOfStockLine) => {
+    const name = [nameOf({ productId: l.productId, title: l.productId }), variantLabel({ size: l.size, color: l.colour }, l.productId)].filter(Boolean).join(" · ");
+    return l.available > 0 ? t("orderErrors.onlyLeft", { item: name, count: l.available }) : t("orderErrors.soldOut", { item: name });
   };
 
   if (!hydrated) {
@@ -490,6 +489,23 @@ export function CheckoutFlow() {
                   );
                 })}
               </ul>
+              {orderError && (
+                <div role="alert" className="mt-5 rounded-sm border border-danger/30 bg-danger-soft px-4 py-3 text-sm text-danger">
+                  <p className="font-semibold">{orderError.code === "out_of_stock" ? t("orderErrors.outOfStock") : accountErrorMessage(orderError.code)}</p>
+                  {orderError.lines.length > 0 && (
+                    <ul className="mt-1 list-disc pl-5">
+                      {orderError.lines.map((l) => (
+                        <li key={`${l.productId}|${l.size ?? ""}|${l.colour ?? ""}`}>{stockProblem(l)}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {orderError.code === "out_of_stock" && (
+                    <Link href="/cart" className="mt-2 inline-flex min-h-10 items-center font-semibold underline underline-offset-4">
+                      {t("orderErrors.editBag")}
+                    </Link>
+                  )}
+                </div>
+              )}
               <div className="mt-6 flex flex-wrap justify-between gap-2">
                 <Button variant="ghost" onClick={() => go(2)}>
                   {t("back")}

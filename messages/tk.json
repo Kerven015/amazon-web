@@ -110,7 +110,11 @@
     "quiz": "Elsüpürgijiňizi tapyň — testden geçiň",
     "home": "Baş sahypa",
     "viewAll": "Hemmesini gör",
-    "viewAllNamed": "Hemmesini gör: {item}"
+    "viewAllNamed": "Hemmesini gör: {item}",
+    "accountMenu": "{name} üçin hasap menýusy",
+    "yourAccount": "Hasabyňyz",
+    "signOut": "Çykmak",
+    "signedOut": "Siz ulgamdan çykdyňyz"
   },
   "language": {
     "label": "Dil",
@@ -589,17 +593,19 @@
       "name": "Adyňyz",
       "submit": "Syny ugrat",
       "cancel": "Ýatyr",
-      "localNote": "Häzirlikçe synlar diňe şu enjamda saklanýar.",
+      "localNote": "Synyňyz haryt sahypasynda ýokardaky at bilen çap edilýär.",
       "errors": {
         "rating": "Baha saýlaň",
         "headline": "Gysga sözbaşy goşuň",
         "text": "Birneme giňişleýin ýazyň (azyndan 10 harp)",
         "name": "Adyňyzy goşuň"
       },
-      "saved": "Sag boluň — synyňyz şu enjamda saklandy."
+      "saved": "Sag boluň — synyňyz çap edildi."
     },
-    "yours": "Siziň synyňyz · diňe şu enjamda görünýär",
-    "originalLanguage": "Synlar ýazylan dilinde görkezilýär."
+    "yours": "Siziň synyňyz",
+    "originalLanguage": "Synlar ýazylan dilinde görkezilýär.",
+    "alreadyReviewed": "Siz bu haryda syn ýazdyňyz",
+    "signInToReview": "Syn ýazmak üçin ulgama giriň."
   },
   "cart": {
     "title": "Söwda sebedi",
@@ -657,7 +663,8 @@
       "reassurance": "30 günüň içinde mugt yzyna gaýtarmak · howpsuz töleg"
     },
     "total": "Jemi",
-    "each": "Her biri {price}"
+    "each": "Her biri {price}",
+    "signInToCheckout": "Töleg etmek üçin ulgama giriň"
   },
   "credits": {
     "title": "Surat awtorlary",
@@ -757,7 +764,13 @@
       "summary": "Belgilenen meýdanlary barlaň."
     },
     "stepOf": "Ädim {n}/{total} · {label}",
-    "backToBag": "Sebede gaýt"
+    "backToBag": "Sebede gaýt",
+    "orderErrors": {
+      "outOfStock": "Käbir harytlar saýlan mukdaryňyzda ýok. Hiç hili töleg alynmady.",
+      "onlyLeft": "{item}: {count, plural, one {diňe # sany galdy} other {diňe # sany galdy}}",
+      "soldOut": "{item}: gutardy",
+      "editBag": "Sebediňizi üýtgediň"
+    }
   },
   "account": {
     "pageTitle": "Hasabyňyz",
@@ -792,7 +805,19 @@
       "save": "Sakla",
       "cancel": "Ýatyr",
       "saved": "Profil täzelendi",
-      "editNamed": "{field} üýtget"
+      "editNamed": "{field} üýtget",
+      "password": "Açar sözi",
+      "changePassword": "Açar sözüni üýtget",
+      "currentPassword": "Häzirki açar sözi",
+      "newPassword": "Täze açar sözi",
+      "newPasswordHint": "Azyndan 8 nyşan. Bu enjamda ulgamda galarsyňyz; beýleki enjamlardan çykylar.",
+      "newPasswordShort": "Täze açar sözi üçin azyndan 8 nyşan ulanyň",
+      "passwordNeeded": "Häzirki açar sözüňizi giriziň",
+      "passwordChanged": "Açar sözi üýtgedildi. Beýleki enjamlardan çykyldy.",
+      "devicesTitle": "Ulgama girilen enjamlar",
+      "devicesBody": "Telefonyňyzy ýitirdiňizmi ýa-da umumy kompýuter ulandyňyzmy? Şu ýerdäkini goşmak bilen ähli ýerden çykyň.",
+      "signOutAll": "Ähli enjamlardan çyk",
+      "signedOutEverywhere": "Ähli enjamlardan çykyldy"
     },
     "viewOrder": "Sargydy gör",
     "viewOrderNamed": "{id} sargydy gör",
@@ -862,10 +887,8 @@
     "registerTitle": "Hasap aç",
     "hidePassword": "Açar sözüni gizle",
     "showPassword": "Açar sözüni görkez",
-    "createdToast": "Hasap açyldy (görkeziş)",
-    "signedInToast": "Girildi (görkeziş)",
-    "mockedNote": "Bu wersiýada giriş diňe görkeziş üçin.",
-    "socialNotWired": "Bu görkezişde sosial ulgamlar arkaly giriş birikdirilmedik",
+    "createdToast": "Hasap açyldy",
+    "signedInToast": "Gaýdyp gelmegiňiz bilen, {name}",
     "registerHeading": "Hasabyňyzy açyň",
     "registerIntro": "{store}-da halanlaryňyzy saklaň, sargytlaryňyzy yzarlaň we çalt töläň.",
     "signInIntro": "Gaýdyp gelmegiňiz bilen. Dowam etmek üçin maglumatlaryňyzy giriziň.",
@@ -884,9 +907,6 @@
     "keepSignedIn": "Meni ulgamda galdyr",
     "createAccount": "Hasap aç",
     "signIn": "Giriş",
-    "or": "ýa-da",
-    "google": "Google bilen dowam et",
-    "apple": "Apple bilen dowam et",
     "haveAccount": "Hasabyňyz barmy?",
     "newTo": "{store}-da täzemi?",
     "createAnAccount": "Hasap açyň",
@@ -900,7 +920,7 @@
   "confirmation": {
     "loading": "Sargydyňyz ýüklenýär…",
     "notFoundTitle": "Sargyt tapylmady",
-    "notFoundBody": "{id} sargydyny bu brauzerde tapyp bilmedik.",
+    "notFoundBody": "{id} sargydyny hasabyňyzda tapyp bilmedik.",
     "viewOrders": "Sargytlaryňyzy görüň",
     "title": "Sag boluň — sargydyňyz kabul edildi!",
     "orderSent": "Sargyt {id} · Tassyklama e-poçtaňyza iberildi.",
@@ -1214,7 +1234,8 @@
       "viewStore": "Dükany gör",
       "logOut": "Çykyş",
       "categories": "Kategoriýalar",
-      "allProducts": "Ähli harytlar"
+      "allProducts": "Ähli harytlar",
+      "orders": "Sargytlar"
     },
     "login": {
       "pageTitle": "Dolandyryja giriş · {store}",
@@ -1467,6 +1488,22 @@
       "fileType": "Diňe JPG, PNG ýa-da WebP suratlar kabul edilýär",
       "fileUnreadable": "Bu faýly surat hökmünde okap bolmady",
       "tooLong": "Gaty uzyn"
+    },
+    "orders": {
+      "title": "Sargytlar",
+      "count": "{count, plural, one {# sargyt} other {# sargyt}}",
+      "empty": "Entek sargyt ýok.",
+      "order": "Sargyt",
+      "placed": "Senesi",
+      "customer": "Müşderi",
+      "items": "Harytlar",
+      "total": "Jemi",
+      "status": "Ýagdaýy",
+      "statusFor": "{id} sargydynyň ýagdaýy",
+      "updated": "{id} sargydy: indi “{status}”",
+      "failed": "Ýagdaýy üýtgedip bolmady. Täzeden synanyşyň.",
+      "confirmCancel": "{id} sargydy ýatyrylsynmy? Harytlar ammara gaýdyp geler we muny yzyna gaýtaryp bolmaz.",
+      "cancelledLocked": "Ýatyrylan sargytlary üýtgedip bolmaýar."
     }
   },
   "countries": {
@@ -1477,5 +1514,22 @@
   },
   "shipping": {
     "usOnly": "Häzirlikçe diňe ABŞ-a eltip berýäris"
+  },
+  "accountErrors": {
+    "validation": "Maglumatlary barlap, täzeden synanyşyň.",
+    "email_taken": "Bu e-poçta bilen hasap eýýäm bar. Ulgama girmek isleýärsiňizmi?",
+    "invalid_credentials": "E-poçta bilen açar sözi gabat gelmeýär. Täzeden synanyşyň.",
+    "too_many_attempts": "Synanyşyk gaty köp. 15 minut garaşyp, täzeden synanyşyň.",
+    "sign_in_required": "Dowam etmek üçin ulgama giriň.",
+    "wrong_password": "Häzirki açar sözüňiz nädogry.",
+    "out_of_stock": "Käbir harytlar indi ammarda ýok.",
+    "invalid_discount": "Bu arzanladyş kody indi hereketde däl. Ony sebediňizden aýryp, täzeden synanyşyň.",
+    "address_not_found": "Bu salgy indi salgy kitapçaňyzda ýok. Başgasyny saýlaň.",
+    "already_reviewed": "Siz bu haryda eýýäm syn ýazdyňyz.",
+    "not_found": "Muny tapyp bilmedik.",
+    "forbidden": "Muny edip bilmersiňiz.",
+    "server_error": "Biziň tarapymyzda näsazlyk ýüze çykdy. Täzeden synanyşyň.",
+    "network": "Dükana birigip bilmedik. Internet baglanyşygyňyzy barlap, täzeden synanyşyň.",
+    "syncFailed": "Muny hasabyňyza ýazyp bilmedik. Täzeden synanyşyň."
   }
 }

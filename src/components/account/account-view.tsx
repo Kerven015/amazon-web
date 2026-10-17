@@ -1,4 +1,4 @@
-import { Heart, MapPin, Package, Pencil, Plus, Star, Trash2, User } from "lucide-react";
+import { Heart, LoaderCircle, LogOut, MapPin, Package, Pencil, Plus, Star, Trash2, User } from "lucide-react";
 import { Link } from "@/lib/router";
 import { usePathname, useRouter, useSearchParams } from "@/lib/router";
 import { useRef, useState } from "react";
@@ -7,7 +7,6 @@ import { TransitionPanel } from "@/components/motion-ui/transition-panel";
 import { ProductGrid } from "@/components/product/product-grid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { usePlacedOrders } from "@/lib/store/orders";
 import { useWishlist } from "@/lib/store/wishlist";
 import { cn, formatDate, formatPrice, initials } from "@/lib/utils";
 import type { Order, OrderStatus, Product, User as UserType } from "@/types";
@@ -19,7 +18,9 @@ import { validateEmail } from "@/components/layout/newsletter";
 import { Input, Label } from "@/components/ui/input";
 import { toast } from "@/components/ui/toaster";
 import { useAddressBook } from "@/lib/store/addresses";
-import { useProfile } from "@/lib/store/profile";
+import { AccountApiError, accountApi, accountErrorMessage } from "@/lib/account-api";
+import { PASSWORD_MIN } from "@/lib/account-schema";
+import { signOut, updateSessionUser, useSession } from "@/lib/session";
 import type { Address } from "@/types";
 import { AddressSheet } from "./address-sheet";
 
@@ -54,11 +55,10 @@ export function AccountView({ user, orders, products }: { user: UserType; orders
   const index = TABS.findIndex((x) => x.id === tab);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const placed = usePlacedOrders((s) => s.orders);
-  const allOrders = [...placed, ...orders.filter((o) => !placed.some((p) => p.id === o.id))];
+  const allOrders = orders;
   const wishlistIds = useWishlist((s) => s.ids);
   const wishlist = wishlistIds.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => !!p);
-  const profileName = useProfile((s) => s.name) || user.name;
+  const profileName = useSession((s) => s.user?.name) || user.name;
 
   const setTab = (id: string) => router.replace(`${pathname}?tab=${id}`, { scroll: false });
 
@@ -198,7 +198,7 @@ export function AccountView({ user, orders, products }: { user: UserType; orders
           {/* Profile */}
           <section {...panel("profile")} className="max-w-xl">
             <h1 className="mb-4 text-4xl text-balance [overflow-wrap:anywhere]">{t("tabs.profile")}</h1>
-            <ProfileDetails />
+            <ProfileDetails user={user} />
           </section>
         </TransitionPanel>
       </div>
@@ -233,11 +233,16 @@ function AddressBook() {
     setOpen(true);
   };
 
-  const removeWithUndo = (a: Address) => {
-    const before = useAddressBook.getState().addresses;
-    remove(a.id);
+  const removeWithUndo = async (a: Address) => {
+    try {
+      await remove(a.id);
+    } catch (err) {
+      return toast.error(accountErrorMessage(err));
+    }
+    const { id: _id, isDefault, ...rest } = a;
     toast(t("addressRemoved"), {
-      action: { label: t("undo"), onClick: () => useAddressBook.setState({ addresses: before }) },
+      // Undo saves it again (as a new entry in the account)
+      action: { label: t("undo"), onClick: () => void useAddressBook.getState().add(rest, !!isDefault).catch((err) => toast.error(accountErrorMessage(err))) },
     });
   };
 
@@ -267,10 +272,12 @@ function AddressBook() {
                 <button
                   type="button"
                   className={action}
-                  onClick={() => {
-                    setDefault(a.id);
-                    toast.success(t("defaultUpdated"));
-                  }}
+                  onClick={() =>
+                    setDefault(a.id).then(
+                      () => toast.success(t("defaultUpdated")),
+                      (err) => toast.error(accountErrorMessage(err)),
+                    )
+                  }
                 >
                   <Star className="size-3.5" aria-hidden="true" /> {t("setDefault")}
                 </button>
@@ -293,83 +300,202 @@ function AddressBook() {
   );
 }
 
-/** Name and email, each editable in place. */
-function ProfileDetails() {
+/**
+ * Name and email, each editable in place (changing the email asks for the current password),
+ * a password change, and "Sign out of all devices".
+ */
+function ProfileDetails({ user }: { user: UserType }) {
   const t = useT("account");
   const tc = useT("checkout");
-  const name = useProfile((s) => s.name);
-  const email = useProfile((s) => s.email);
-  const update = useProfile((s) => s.update);
+  const router = useRouter();
+  const session = useSession((s) => s.user);
+  const values = { name: session?.name ?? user.name, email: session?.email ?? user.email };
   const [editing, setEditing] = useState<"name" | "email" | null>(null);
   const [draft, setDraft] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const start = (f: "name" | "email") => {
     setEditing(f);
-    setDraft(f === "name" ? name : email);
+    setDraft(values[f]);
+    setCurrentPassword("");
     setError(null);
   };
-  const save = (e: React.FormEvent) => {
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const v = draft.trim();
     const err = editing === "email" ? validateEmail(v) : v ? null : tc("errors.required");
     setError(err);
     if (err || !editing) return;
-    update({ [editing]: v });
-    setEditing(null);
-    toast.success(t("profile.saved"));
+    if (v === values[editing]) return setEditing(null);
+    if (editing === "email" && !currentPassword) return setError(t("profile.passwordNeeded"));
+    setSaving(true);
+    try {
+      const updated = await accountApi.updateProfile(editing === "email" ? { email: v, currentPassword } : { name: v });
+      updateSessionUser({ name: updated.name, email: updated.email });
+      setEditing(null);
+      toast.success(t("profile.saved"));
+    } catch (e) {
+      setError(accountErrorMessage(e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const signOutEverywhere = async () => {
+    try {
+      await signOut({ everywhere: true });
+      toast(t("profile.signedOutEverywhere"));
+      router.push("/");
+    } catch (e) {
+      toast.error(accountErrorMessage(e));
+    }
   };
 
   return (
-    <dl className="divide-y rounded-sm border bg-card">
-      {(["name", "email"] as const).map((f) => {
-        const label = t(`profile.${f}`);
-        const id = `profile-${f}`;
-        return (
-          <div key={f} className="p-4 text-sm">
-            {editing === f ? (
-              <form noValidate onSubmit={save} className="space-y-2">
-                <Label htmlFor={id} className="font-semibold">
-                  {label}
-                </Label>
-                <Input
-                  id={id}
-                  type={f === "email" ? "email" : "text"}
-                  autoComplete={f}
-                  autoFocus
-                  value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
-                  aria-invalid={error ? true : undefined}
-                  aria-describedby={error ? `${id}-error` : undefined}
-                />
-                {error && (
-                  <p id={`${id}-error`} className="text-xs text-danger">
-                    {error}
-                  </p>
-                )}
-                <div className="flex gap-2 pt-1">
-                  <Button type="submit" size="sm">
-                    {t("profile.save")}
-                  </Button>
-                  <Button type="button" size="sm" variant="ghost" onClick={() => setEditing(null)}>
-                    {t("profile.cancel")}
+    <div className="space-y-6">
+      <dl className="divide-y rounded-sm border bg-card">
+        {(["name", "email"] as const).map((f) => {
+          const label = t(`profile.${f}`);
+          const id = `profile-${f}`;
+          return (
+            <div key={f} className="p-4 text-sm">
+              {editing === f ? (
+                <form noValidate onSubmit={save} className="space-y-2">
+                  <Label htmlFor={id} className="font-semibold">
+                    {label}
+                  </Label>
+                  <Input
+                    id={id}
+                    type={f === "email" ? "email" : "text"}
+                    autoComplete={f}
+                    autoFocus
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? `${id}-error` : undefined}
+                  />
+                  {f === "email" && (
+                    <div className="space-y-1.5 pt-1">
+                      <Label htmlFor={`${id}-pw`}>{t("profile.currentPassword")}</Label>
+                      <Input id={`${id}-pw`} type="password" autoComplete="current-password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                    </div>
+                  )}
+                  {error && (
+                    <p id={`${id}-error`} className="text-xs text-danger">
+                      {error}
+                    </p>
+                  )}
+                  <div className="flex gap-2 pt-1">
+                    <Button type="submit" size="sm" disabled={saving}>
+                      {saving && <LoaderCircle className="animate-spin" aria-hidden="true" />}
+                      {t("profile.save")}
+                    </Button>
+                    <Button type="button" size="sm" variant="ghost" onClick={() => setEditing(null)}>
+                      {t("profile.cancel")}
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <dt className="font-semibold">{label}</dt>
+                    <dd className="truncate text-muted-foreground">{values[f]}</dd>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={() => start(f)} aria-label={t("profile.editNamed", { field: label })}>
+                    {t("edit")}
                   </Button>
                 </div>
-              </form>
-            ) : (
-              <div className="flex items-center justify-between gap-4">
-                <div className="min-w-0">
-                  <dt className="font-semibold">{label}</dt>
-                  <dd className="truncate text-muted-foreground">{f === "name" ? name : email}</dd>
-                </div>
-                <Button variant="outline" size="sm" onClick={() => start(f)} aria-label={t("profile.editNamed", { field: label })}>
-                  {t("edit")}
-                </Button>
-              </div>
-            )}
+              )}
+            </div>
+          );
+        })}
+      </dl>
+
+      <PasswordChange />
+
+      <section className="rounded-sm border bg-card p-4 text-sm">
+        <h2 className="font-semibold">{t("profile.devicesTitle")}</h2>
+        <p className="mt-1 text-muted-foreground">{t("profile.devicesBody")}</p>
+        <Button variant="outline" size="sm" className="mt-3" onClick={signOutEverywhere}>
+          <LogOut aria-hidden="true" /> {t("profile.signOutAll")}
+        </Button>
+      </section>
+    </div>
+  );
+}
+
+/** Current + new password. Other devices are signed out afterwards. */
+function PasswordChange() {
+  const t = useT("account.profile");
+  const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState("");
+  const [next, setNext] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!current) return setError(t("passwordNeeded"));
+    if (next.length < PASSWORD_MIN) return setError(t("newPasswordShort"));
+    setSaving(true);
+    setError(null);
+    try {
+      await accountApi.changePassword({ currentPassword: current, newPassword: next });
+      toast.success(t("passwordChanged"));
+      setOpen(false);
+      setCurrent("");
+      setNext("");
+    } catch (err) {
+      setError(err instanceof AccountApiError && err.code === "validation" ? t("newPasswordShort") : accountErrorMessage(err));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <section className="rounded-sm border bg-card p-4 text-sm">
+      <div className="flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <h2 className="font-semibold">{t("password")}</h2>
+          {!open && <p className="text-muted-foreground">••••••••</p>}
+        </div>
+        {!open && (
+          <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+            {t("changePassword")}
+          </Button>
+        )}
+      </div>
+      {open && (
+        <form noValidate onSubmit={submit} className="mt-3 space-y-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="pw-current">{t("currentPassword")}</Label>
+            <Input id="pw-current" type="password" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} />
           </div>
-        );
-      })}
-    </dl>
+          <div className="space-y-1.5">
+            <Label htmlFor="pw-new">{t("newPassword")}</Label>
+            <Input id="pw-new" type="password" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} aria-describedby="pw-hint" />
+            <p id="pw-hint" className="text-xs text-muted-foreground">
+              {t("newPasswordHint")}
+            </p>
+          </div>
+          {error && (
+            <p role="alert" className="text-xs text-danger">
+              {error}
+            </p>
+          )}
+          <div className="flex gap-2">
+            <Button type="submit" size="sm" disabled={saving}>
+              {saving && <LoaderCircle className="animate-spin" aria-hidden="true" />}
+              {t("save")}
+            </Button>
+            <Button type="button" size="sm" variant="ghost" onClick={() => setOpen(false)}>
+              {t("cancel")}
+            </Button>
+          </div>
+        </form>
+      )}
+    </section>
   );
 }

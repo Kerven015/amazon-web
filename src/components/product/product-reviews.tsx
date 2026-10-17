@@ -8,6 +8,8 @@ import type { Product } from "@/types";
 import { RatingStars } from "./rating-stars";
 import { formatNumber, useLocale, useT } from "@/i18n";
 import { colourLabel, sizeLabel } from "@/lib/localize";
+import { Link } from "@/lib/router";
+import { loginHref, useSession } from "@/lib/session";
 import { useMyReviews } from "@/lib/store/my-reviews";
 import { ReviewDialog } from "./review-dialog";
 
@@ -22,10 +24,14 @@ const averageRating = (list: { rating: number }[]) => Math.round((list.reduce((n
 export function ProductReviews({ product }: { product: Product }) {
   const t = useT("reviews");
   const locale = useLocale();
-  const mine = useMyReviews((s) => s.reviews);
-  const own = useMemo(() => mine.filter((r) => r.productId === product.id), [mine, product.id]);
-  // One list drives everything: the average, "Based on X", the bars and the list
-  const reviews = useMemo(() => [...own, ...(product.reviews ?? [])], [own, product.reviews]);
+  const mine = useMyReviews((s) => s.ids);
+  const signedIn = useSession((s) => s.status === "signedIn");
+  // The customer's own reviews first; one list drives the average, "Based on X", the bars and the list
+  const reviews = useMemo(() => {
+    const all = product.reviews ?? [];
+    return [...all.filter((r) => mine.includes(r.id)), ...all.filter((r) => !mine.includes(r.id))];
+  }, [mine, product.reviews]);
+  const own = useMemo(() => reviews.filter((r) => mine.includes(r.id)), [reviews, mine]);
   const average = reviews.length ? averageRating(reviews) : product.rating;
   const [writing, setWriting] = useState(false);
   const [filter, setFilter] = useState<number | null>(null);
@@ -92,10 +98,22 @@ export function ProductReviews({ product }: { product: Product }) {
               );
             })}
           </ul>
-          <Button variant="outline" className="mt-7 w-full" onClick={() => setWriting(true)}>
-            {t("write")}
-          </Button>
-          <ReviewDialog product={product} open={writing} onOpenChange={setWriting} />
+          {/* Writing a review needs an account (one review per product) */}
+          {signedIn ? (
+            <>
+              <Button variant="outline" className="mt-7 w-full" disabled={own.length > 0} onClick={() => setWriting(true)}>
+                {own.length ? t("alreadyReviewed") : t("write")}
+              </Button>
+              <ReviewDialog product={product} open={writing} onOpenChange={setWriting} />
+            </>
+          ) : (
+            <>
+              <Button asChild variant="outline" className="mt-7 w-full">
+                <Link href={loginHref(`/${locale}/products/${product.slug}#reviews`)}>{t("write")}</Link>
+              </Button>
+              <p className="mt-2 text-center text-xs text-muted-foreground">{t("signInToReview")}</p>
+            </>
+          )}
         </div>
 
         <div>

@@ -7,6 +7,7 @@ import { useStoreHydrated } from "@/lib/hooks/use-store-hydrated";
 import { computeTotals, selectCount, selectDiscount, selectSubtotal, useCart } from "@/lib/store/cart";
 import type { Product } from "@/types";
 import { CartItem } from "./cart-item";
+import { CheckoutButton } from "./checkout-button";
 import { DiscountCode } from "./discount-code";
 import { OrderSummary } from "./order-summary";
 import { useT } from "@/i18n";
@@ -83,9 +84,7 @@ export function CartView({ suggestions }: { suggestions: Product[] }) {
 
           <div ref={summaryRef} className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <OrderSummary {...totals} itemCount={count} shippingLabel={t("standardDelivery")}>
-              <Button asChild size="lg" className="w-full">
-                <Link href="/checkout">{t("checkout")}</Link>
-              </Button>
+              <CheckoutButton className="w-full" />
             </OrderSummary>
             <DiscountCode />
           </div>
@@ -104,9 +103,7 @@ export function CartView({ suggestions }: { suggestions: Product[] }) {
                 <span className="block text-xs text-muted-foreground">{t("summary.total")}</span>
                 <span className="price text-lg font-semibold">{formatPrice(totals.total)}</span>
               </p>
-              <Button asChild size="lg" className="shrink-0">
-                <Link href="/checkout">{t("checkout")}</Link>
-              </Button>
+              <CheckoutButton className="shrink-0" note={false} />
             </div>
           </div>
         </div>

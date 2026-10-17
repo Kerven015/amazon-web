@@ -1,8 +1,10 @@
 # Vendora — towel marketplace UI (React + Vite)
 
-Storefront + admin panel. Products are stored on a small Node server
-(`data/products.json`) and edited at **/admin**; orders, accounts and payments
-are still mock data. Built with **React 19 + Vite + React Router 7**, TypeScript, Tailwind CSS v4,
+Storefront + admin panel on a small Node server with a self-hosted **PostgreSQL**
+database: products (edited at **/admin**), customer accounts (register, sign in,
+sign out), bags, wishlists, address books, reviews and orders. Shoppers can browse
+and fill a bag signed out, but must sign in to check out. Payment is still a demo
+(no card data is ever sent to the server). Built with **React 19 + Vite + React Router 7**, TypeScript, Tailwind CSS v4,
 Motion-Primitives on `motion`, Zustand, lucide-react and shadcn/ui-style
 primitives. This version was converted from the earlier Next.js build; the
 URLs, design and features are the same.
@@ -11,18 +13,49 @@ URLs, design and features are the same.
 
 ```bash
 npm install
+npm run db:migrate     # create / update the tables (see "Database" below)
+npm run db:seed        # import data/products.json into the database (safe to run twice)
 npm run dev            # store + API + admin on http://localhost:5173 (admin: /admin)
 npm run build          # type-check + production build into dist/
 npm run check:secrets  # confirm the admin password isn't in the built client code
 npm run i18n:check     # fail if a key in messages/en.json is missing or broken in tr.json / tk.json / ru.json
 npm start              # production server (API + dist/) on PORT (default 3000)
 npm run images:fetch   # one-time Pexels photo download: products + editorial (needs PEXELS_API_KEY in .env.local)
-npm run data:refresh   # re-apply content rules to data/products.json (reviews, care, dates) — keeps admin edits
-npm run data:seed -- --force   # ⚠ reset data/products.json to the original catalogue
+npm run data:refresh   # re-apply content rules to the seed file data/products.json (then db:seed to load it)
+npm run data:seed -- --force   # ⚠ reset the seed file data/products.json to the original catalogue
 ```
 
 Admin login lives in `.env.local` (server-only): `ADMIN_USERNAME`, `ADMIN_PASSWORD`
 and a random `ADMIN_SESSION_SECRET` (32+ characters). See `.env.example`.
+Customer accounts are separate: they live in the database (passwords hashed with Argon2id).
+
+## Database
+
+PostgreSQL runs on your own server, next to the Node app, and is only reachable
+from that machine. **[deploy/postgres-setup.md](deploy/postgres-setup.md)** walks
+through installing it on Ubuntu/Debian, locking it down, the two roles
+(`vendora_owner` runs migrations, `vendora_app` runs the site), daily backups and
+the same setup on your own computer. Then:
+
+```bash
+npm run db:migrate     # as vendora_owner (MIGRATION_DATABASE_URL); each file in server/db/migrations runs once
+npm run db:seed        # imports data/products.json (products, stock, reviews) — upsert by id
+npm run build && npm start
+```
+
+Without `DATABASE_URL`, or when the database can't be reached, the server prints
+why and exits. `data/products.json` is only seed data now; the shop never reads it
+at runtime (re-running `db:seed` overwrites products that are also in the file).
+
+| Table | What's in it |
+| --- | --- |
+| `products` | id, slug, SKU, hidden, price, stock, type + `data` (the rest of the product, as the admin edits it) |
+| `product_stock` | units per product × size × colour — what orders decrease |
+| `users`, `sessions` | customers; sessions store only a SHA-256 of the cookie token |
+| `addresses`, `cart_items`, `wishlist_items` | each customer's address book, bag and wishlist |
+| `orders`, `order_items`, `order_events` | orders (prices worked out on the server), their lines and tracking timeline |
+| `reviews` | product reviews; rating and review count are computed from here |
+| `login_attempts` | failed sign-ins, for the rate limit (5 per IP + email in 15 minutes) |
 
 To rename the store, change `siteConfig.name` in `src/lib/config.ts`.
 
@@ -33,8 +66,9 @@ To rename the store, change `siteConfig.name` in `src/lib/config.ts`.
 | Entry point | `index.html` → `src/main.tsx`, which loads the fonts and styles and starts the router |
 | Routes | `src/router.tsx` — all URLs, each with a **loader** that calls `src/lib/api` before the page renders |
 | Pages | `src/pages/shop/*`, `src/pages/auth/*`, `src/pages/admin/*` |
-| Server (API, login, uploads) | `server/` — `app.ts` (routes), `auth.ts` (session + rate limit), `upload.ts` (sharp), `index.ts` (production), `vite-plugin.ts` (dev) |
-| Product data layer | **`server/lib/db/products.ts`** → `data/products.json`. The only file to change for Supabase/Postgres |
+| Server (API, login, uploads) | `server/` — `app.ts` (admin routes), `shop-api.ts` (customer routes), `auth.ts` (admin session), `customer-auth.ts` (customer sessions, Argon2id), `upload.ts` (sharp), `index.ts` (production), `vite-plugin.ts` (dev) |
+| Database | `server/db/pool.ts` (one `pg` pool + `withTransaction`), `server/db/migrations/*.sql`, `server/lib/db/{products,account,orders}.ts` — plain SQL, always with `$1, $2…` parameters |
+| Customer session in the browser | `src/lib/session.ts` — `useSession()`, sign in/out, merging the signed-out bag/wishlist/addresses into the account; `src/lib/account-api.ts` calls the API |
 | Products in the browser | `src/lib/catalog.ts` (loads `/api/products`), used by `src/lib/api` |
 | Layouts, 404, errors, loading | `src/pages/layouts.tsx` |
 | Links and navigation | `src/lib/router.tsx` — `Link href`, `useRouter().push/replace/back`, `usePathname`, `useSearchParams`, `notFound()` on top of React Router |
@@ -45,13 +79,10 @@ To rename the store, change `siteConfig.name` in `src/lib/config.ts`.
 
 ### Hosting
 
-The site now needs a host that runs Node **and keeps files on disk**, because
-admin saves write `data/products.json` and uploads go to `public/images/products/`
-(Render or Railway with a persistent disk, Fly.io with a volume, or any VPS).
+The site runs on your own server (any VPS): Node for the app and PostgreSQL next
+to it, plus a folder on disk for uploaded photos (`public/images/products/`).
 `npm run build && npm start` serves the API, uploaded images, the app and the
-SPA fallback. Static-only hosts (Netlify, plain Vercel) can't run the admin.
-Moving the data layer to Supabase/Postgres (and uploads to object storage)
-removes the disk requirement.
+SPA fallback. Static-only hosts (Netlify, plain Vercel) can't run it.
 
 The store sells towels only: the earlier non-towel demo products (and their
 categories, brands, sellers and orders) were removed.

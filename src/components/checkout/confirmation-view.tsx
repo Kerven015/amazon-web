@@ -3,30 +3,17 @@ import { CircleCheck, Package } from "lucide-react";
 import { Link } from "@/lib/router";
 import { OrderItemsList, OrderTotals } from "@/components/account/order-details";
 import { OrderTimeline } from "@/components/account/order-timeline";
-import { TextShimmer } from "@/components/motion-ui/text-shimmer";
 import { Button } from "@/components/ui/button";
 import { useMounted } from "@/lib/hooks/use-mounted";
-import { useStoreHydrated } from "@/lib/hooks/use-store-hydrated";
-import { usePlacedOrders } from "@/lib/store/orders";
 import type { Order } from "@/types";
 import { formatDate, useT } from "@/i18n";
 import { addressLine, countryName, deliveryLabel, paymentLabel } from "@/lib/order-format";
 import { deliveryOption, deliveryWindow } from "@/lib/delivery";
 
-export function ConfirmationView({ id, fallback }: { id: string; fallback: Order | null }) {
-  const hydrated = useStoreHydrated(usePlacedOrders);
+/** The order comes from the account (GET /api/orders/:id); someone else's order → null. */
+export function ConfirmationView({ id, order }: { id: string; order: Order | null }) {
   const mounted = useMounted();
-  const placed = usePlacedOrders((s) => s.orders.find((o) => o.id === id));
-  const order = placed ?? fallback;
   const t = useT("confirmation");
-
-  if (!hydrated && !fallback) {
-    return (
-      <p role="status" className="py-20 text-center text-lg">
-        <TextShimmer>{t("loading")}</TextShimmer>
-      </p>
-    );
-  }
 
   if (!order) {
     return (

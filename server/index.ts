@@ -1,13 +1,16 @@
 /**
  * Production server: `npm run build && npm start`.
  * Serves the API, uploaded images, the built app (dist/) and the SPA fallback.
- * Needs a host with a persistent disk (data/products.json and uploads are files).
+ * Needs PostgreSQL (DATABASE_URL, see deploy/postgres-setup.md) and a persistent disk
+ * for uploaded photos. Without a reachable database it prints why and exits.
  */
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
+import { assertDatabaseReady } from "./db/pool";
 import { env, loadEnv } from "./env";
+import { purgeDeleted } from "./lib/db/products";
 import { uploadDir } from "./upload";
 
 process.env.NODE_ENV ??= "production";
@@ -48,6 +51,9 @@ if (!existsSync(path.join(dist, "index.html"))) {
 }
 
 const indexHtml = readFileSync(path.join(dist, "index.html"), "utf8");
+
+await assertDatabaseReady();
+await purgeDeleted();
 
 createServer(async (req, res) => {
   try {

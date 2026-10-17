@@ -2,36 +2,29 @@ import { ArrowLeft, Printer, RotateCcw } from "lucide-react";
 import { Link } from "@/lib/router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useStoreHydrated } from "@/lib/hooks/use-store-hydrated";
-import { usePlacedOrders } from "@/lib/store/orders";
 import { formatDate } from "@/lib/utils";
 import type { Order } from "@/types";
 import { statusMeta } from "./account-view";
 import { OrderItemsList, OrderTotals } from "./order-details";
 import { OrderTimeline } from "./order-timeline";
-import { TextShimmer } from "@/components/motion-ui/text-shimmer";
 import { useT } from "@/i18n";
 import { addressLine, countryName, deliveryLabel, paymentLabel, statusLabel } from "@/lib/order-format";
 import { deliveryOption, deliveryWindow } from "@/lib/delivery";
 
-export function OrderDetailView({ id, fallback }: { id: string; fallback: Order | null }) {
-  const hydrated = useStoreHydrated(usePlacedOrders);
-  const placed = usePlacedOrders((s) => s.orders.find((o) => o.id === id));
-  const order = placed ?? fallback;
+/** One of the customer's orders, from the account (someone else's → "not found"). */
+export function OrderDetailView({ order }: { order: Order | null }) {
   const t = useT("orders");
   const delivered = order?.status === "delivered";
   const option = order ? deliveryOption(order.deliveryOption) : undefined;
 
   if (!order) {
-    return hydrated ? (
+    return (
       <div className="rounded-sm border bg-card p-8 text-center">
         <h1 className="text-3xl">{t("notFound")}</h1>
         <Button asChild className="mt-4">
           <Link href="/account?tab=orders">{t("backToOrders")}</Link>
         </Button>
       </div>
-    ) : (
-      <TextShimmer>{t("loading")}</TextShimmer>
     );
   }
 

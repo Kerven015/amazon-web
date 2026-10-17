@@ -1,5 +1,7 @@
-import { ArrowRight, Heart, Package, Sparkles, User } from "lucide-react";
-import { Link } from "@/lib/router";
+import { ArrowRight, Heart, LogOut, Package, Sparkles, User } from "lucide-react";
+import { toast } from "sonner";
+import { Link, useRouter } from "@/lib/router";
+import { firstName, signOut, useSession } from "@/lib/session";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/motion-ui/accordion";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { mainNav } from "@/lib/navigation";
@@ -17,6 +19,14 @@ export function MobileMenu() {
   const open = usePanels((s) => s.open === "menu");
   const close = usePanels((s) => s.close);
   const t = useT("header");
+  const user = useSession((s) => s.user);
+  const router = useRouter();
+  const leave = async () => {
+    close();
+    await signOut().catch(() => {});
+    toast(t("signedOut"));
+    router.push("/");
+  };
   const text = useNavText();
   const home = useGoHome();
 
@@ -91,9 +101,15 @@ export function MobileMenu() {
 
         <ul className="mt-6 text-[15px]">
           <li>
-            <Link href="/login" onClick={close} className={`${row} gap-3`}>
-              <User className="size-4" strokeWidth={1.5} aria-hidden="true" /> {t("loginOrRegister")}
-            </Link>
+            {user ? (
+              <Link href="/account" onClick={close} className={`${row} gap-3`}>
+                <User className="size-4" strokeWidth={1.5} aria-hidden="true" /> {t("yourAccount")} · {firstName(user.name)}
+              </Link>
+            ) : (
+              <Link href="/login" onClick={close} className={`${row} gap-3`}>
+                <User className="size-4" strokeWidth={1.5} aria-hidden="true" /> {t("loginOrRegister")}
+              </Link>
+            )}
           </li>
           <li>
             <Link href="/account?tab=orders" onClick={close} className={`${row} gap-3`}>
@@ -110,6 +126,13 @@ export function MobileMenu() {
               <Sparkles className="size-4" strokeWidth={1.5} aria-hidden="true" /> {t("quiz")}
             </button>
           </li>
+          {user && (
+            <li>
+              <button type="button" onClick={leave} className={`${row} gap-3`}>
+                <LogOut className="size-4" strokeWidth={1.5} aria-hidden="true" /> {t("signOut")}
+              </button>
+            </li>
+          )}
         </ul>
 
         <LanguageSwitcher variant="list" className="mt-8 border-t border-navy/10 pt-6" />

@@ -7,6 +7,7 @@ import { useT } from "@/i18n";
 import { siteConfig } from "@/lib/config";
 import { countryName } from "@/lib/order-format";
 import { type AddressField, emptyAddress, useAddressBook, validateAddress } from "@/lib/store/addresses";
+import { accountErrorMessage } from "@/lib/account-api";
 import type { Address } from "@/types";
 
 type Draft = Omit<Address, "id">;
@@ -38,7 +39,9 @@ export function AddressSheet({ open, onOpenChange, address }: { open: boolean; o
     if (errors[f as AddressField]) setErrors((e) => ({ ...e, [f]: undefined }));
   };
 
-  const save = (e: React.FormEvent) => {
+  const [saving, setSaving] = useState(false);
+
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validateAddress(draft);
     setErrors(errs);
@@ -47,14 +50,21 @@ export function AddressSheet({ open, onOpenChange, address }: { open: boolean; o
       return;
     }
     const clean = { ...draft, line2: draft.line2?.trim() || undefined };
-    if (address) {
-      update(address.id, clean);
-      if (makeDefault && !address.isDefault) setDefault(address.id);
-    } else {
-      add(clean, makeDefault);
+    setSaving(true);
+    try {
+      if (address) {
+        await update(address.id, clean);
+        if (makeDefault && !address.isDefault) await setDefault(address.id);
+      } else {
+        await add(clean, makeDefault);
+      }
+      toast.success(t("addressSaved"));
+      onOpenChange(false);
+    } catch (err) {
+      toast.error(accountErrorMessage(err));
+    } finally {
+      setSaving(false);
     }
-    toast.success(t("addressSaved"));
-    onOpenChange(false);
   };
 
   const field = (f: keyof Draft, label: string, props: React.ComponentProps<typeof Input> = {}) => {
@@ -122,7 +132,9 @@ export function AddressSheet({ open, onOpenChange, address }: { open: boolean; o
             <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
               {t("addressForm.cancel")}
             </Button>
-            <Button type="submit">{t("addressForm.save")}</Button>
+            <Button type="submit" disabled={saving}>
+              {t("addressForm.save")}
+            </Button>
           </div>
         </form>
       </SheetContent>

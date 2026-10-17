@@ -38,6 +38,6 @@ export function paymentLabel(code: string) {
 
 export const statusLabel = (status: OrderStatus) => translate(`orders.status.${status}`);
 
-/** "Home" / "Work" for the mock address book; other labels are shown as typed. */
+/** "Home" / "Work" are shown translated; other labels are shown as typed. */
 export const addressLabel = (a: Pick<Address, "label">) =>
   a.label === "home" || a.label === "work" ? translate(`account.addressLabels.${a.label}`) : a.label;

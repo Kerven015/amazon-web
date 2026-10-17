@@ -4,21 +4,23 @@ import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { useT } from "@/i18n";
 import { getOrderById } from "@/lib/api";
+import { requireSignIn } from "@/lib/session";
 
-export async function confirmationLoader({ params }: LoaderFunctionArgs) {
+/** Only the customer who placed the order can see it (anyone else: "Order not found"). */
+export async function confirmationLoader({ params, request }: LoaderFunctionArgs) {
+  await requireSignIn(request, params.locale ?? "en");
   const id = params.id ?? "";
-  // Mock orders resolve here; orders placed in this browser resolve from the local store.
-  return { id, fallback: await getOrderById(id) };
+  return { id, order: await getOrderById(id) };
 }
 
 /** /order/:id/confirmation */
 export default function ConfirmationPage() {
   const t = useT();
-  const { id, fallback } = useLoaderData<typeof confirmationLoader>();
+  const { id, order } = useLoaderData<typeof confirmationLoader>();
   return (
     <Container className="py-8">
       <PageTitle title={t("checkout.confirmedPageTitle")} />
-      <ConfirmationView id={id} fallback={fallback} />
+      <ConfirmationView id={id} order={order} />
     </Container>
   );
 }

@@ -2,7 +2,10 @@
  * Browser client for the protected admin API (server/app.ts).
  * The server checks the httpOnly session cookie on every call; nothing secret lives here.
  */
-import type { ProductRecord } from "@/types";
+import type { Order, OrderStatus, ProductRecord } from "@/types";
+
+/** An order as the admin sees it (with the customer's email). */
+export type AdminOrder = Order & { email: string };
 
 export class ApiError extends Error {
   constructor(
@@ -46,6 +49,10 @@ export const adminApi = {
   /** Undo a delete (the server keeps deleted products for 10 minutes). */
   restore: (ids: string[]) =>
     call<{ restored: string[] }>("/api/admin/products/restore", { method: "POST", body: JSON.stringify({ ids }) }),
+  orders: () => call<AdminOrder[]>("/api/admin/orders"),
+  /** Adds a tracking event; cancelling puts the items back in stock. */
+  setOrderStatus: (id: string, status: OrderStatus) =>
+    call<AdminOrder>(`/api/admin/orders/${encodeURIComponent(id)}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
   upload: (file: File, slug: string) =>
     call<{ src: string; blurDataURL: string }>(
       `/api/admin/upload?slug=${encodeURIComponent(slug || "untitled")}&name=${encodeURIComponent(file.name)}`,

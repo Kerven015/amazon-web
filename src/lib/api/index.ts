@@ -3,7 +3,8 @@
  *
  * Every function is async and returns plain typed data.
  * Products come from the server (see lib/catalog.ts → GET /api/products, backed by
- * server/lib/db/products.ts). Orders, users and categories are still mock data.
+ * server/lib/db/products.ts). The account and orders come from the customer API
+ * (lib/account-api.ts); categories and sellers are still static data.
  */
 import type {
   Category,
@@ -14,12 +15,8 @@ import type {
   Seller,
   User,
 } from "@/types";
-import {
-  categories,
-  currentUser,
-  orders,
-  sellers,
-} from "@/lib/mock-data";
+import { categories, sellers } from "@/lib/mock-data";
+import { accountApi } from "@/lib/account-api";
 import { collections, getCollectionDef } from "@/lib/collections";
 import * as db from "@/lib/catalog";
 import { getActiveLocale } from "@/i18n";
@@ -184,17 +181,18 @@ export async function getSellerById(id: string): Promise<Seller | null> {
 
 /* ------------------------------ Account ----------------------------- */
 
+/** The signed-in customer (pages that call this require sign-in first). */
 export async function getCurrentUser(): Promise<User> {
-  await delay();
-  return currentUser;
+  const [profile, { addresses }] = await Promise.all([accountApi.profile(), accountApi.addresses()]);
+  return { id: profile.id, name: profile.name, email: profile.email, memberSince: profile.memberSince, addresses };
 }
 
+/** The customer's orders, newest first. */
 export async function getOrders(): Promise<Order[]> {
-  await delay();
-  return [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return (await accountApi.orders()).orders;
 }
 
+/** One of the customer's orders; anyone else's (or a wrong number) → null. */
 export async function getOrderById(id: string): Promise<Order | null> {
-  await delay();
-  return orders.find((o) => o.id === id) ?? null;
+  return accountApi.order(id);
 }

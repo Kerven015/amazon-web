@@ -4,7 +4,7 @@ import { AdminI18n } from "@/components/admin/admin-i18n";
 import { getAdminLocale } from "@/lib/admin-locale";
 import AccountPage, { accountLoader } from "@/pages/shop/account";
 import CartPage, { cartLoader } from "@/pages/shop/cart";
-import CheckoutPage from "@/pages/shop/checkout";
+import CheckoutPage, { checkoutLoader } from "@/pages/shop/checkout";
 import TowelCollectionPage, { collectionLoader } from "@/pages/shop/collection";
 import ConfirmationPage, { confirmationLoader } from "@/pages/shop/confirmation";
 import CreditsPage from "@/pages/shop/credits";
@@ -13,8 +13,9 @@ import HomePage, { homeLoader } from "@/pages/shop/home";
 import OrderDetailPage, { orderDetailLoader } from "@/pages/shop/order-detail";
 import ProductPage, { legacyProductLoader, productLoader } from "@/pages/shop/product";
 import SearchPage, { searchLoader } from "@/pages/shop/search";
-import LoginPage from "@/pages/auth/login";
-import RegisterPage from "@/pages/auth/register";
+import LoginPage, { loginLoader } from "@/pages/auth/login";
+import RegisterPage, { registerLoader } from "@/pages/auth/register";
+import AdminOrdersPage, { adminOrdersLoader } from "@/pages/admin/orders";
 import AdminCatalogPage, { adminCatalogLoader } from "@/pages/admin/catalog";
 import { AdminLayout, adminLayoutLoader } from "@/pages/admin/layout";
 import AdminLoginPage, { adminLoginLoader } from "@/pages/admin/login";
@@ -52,7 +53,8 @@ const shopPages: RouteObject[] = [
   { path: "product/:id", loader: withLocale(legacyProductLoader) },
   { path: "category/*", loader: ({ params }) => redirect(`/${params.locale}/collections/all-towels`) },
   { path: "cart", element: <CartPage />, loader: withLocale(cartLoader) },
-  { path: "checkout", element: <CheckoutPage /> },
+  // Signed-in only: these loaders send signed-out shoppers to /login?next=…
+  { path: "checkout", element: <CheckoutPage />, loader: withLocale(checkoutLoader) },
   { path: "order/:id/confirmation", element: <ConfirmationPage />, loader: withLocale(confirmationLoader) },
   // Account tabs live in ?tab=, so only refetch for a new page or language
   { path: "account", element: <AccountPage />, loader: withLocale(accountLoader), shouldRevalidate: ({ currentUrl, nextUrl }) => currentUrl.pathname !== nextUrl.pathname },
@@ -106,6 +108,7 @@ export const router = createBrowserRouter([
               { path: "collections/:slug", element: <AdminCatalogPage />, loader: withAdminLocale(adminCatalogLoader) },
               { path: "products/new", element: <AdminNewProductPage />, loader: withAdminLocale(adminNewLoader) },
               { path: "products/:id/edit", element: <AdminEditProductPage />, loader: withAdminLocale(adminEditLoader) },
+              { path: "orders", element: <AdminOrdersPage />, loader: withAdminLocale(adminOrdersLoader) },
             ],
           },
         ],
@@ -126,8 +129,8 @@ export const router = createBrowserRouter([
           {
             element: <AuthLayout />,
             children: [
-              { path: "login", element: <LoginPage /> },
-              { path: "register", element: <RegisterPage /> },
+              { path: "login", element: <LoginPage />, loader: withLocale(loginLoader) },
+              { path: "register", element: <RegisterPage />, loader: withLocale(registerLoader) },
             ],
           },
         ],

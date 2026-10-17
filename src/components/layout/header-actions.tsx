@@ -1,13 +1,15 @@
-import { Heart, Monitor, Moon, Search, ShoppingBag, Sun, User } from "lucide-react";
-import { Link } from "@/lib/router";
+import { Heart, LogOut, Monitor, Moon, Package, Search, ShoppingBag, Sun, User } from "lucide-react";
+import { Link, useRouter } from "@/lib/router";
 import { useTheme } from "@/lib/theme";
 import { SlidingNumber } from "@/components/motion-ui/sliding-number";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useMounted } from "@/lib/hooks/use-mounted";
@@ -15,7 +17,9 @@ import { selectCount, useCart } from "@/lib/store/cart";
 import { openPanel } from "@/lib/store/ui";
 import { useWishlist } from "@/lib/store/wishlist";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 import { useT } from "@/i18n";
+import { firstName, signOut, useSession } from "@/lib/session";
 
 export const iconBtn =
   "relative grid size-10 place-items-center rounded-full text-navy transition-colors duration-150 hover:bg-navy/[0.06]";
@@ -31,13 +35,52 @@ export function SearchButton() {
   );
 }
 
+/** Signed out: "Log in". Signed in: the customer's first name with a menu (account, orders, sign out). */
 export function AccountLink() {
   const t = useT("header");
+  const user = useSession((s) => s.user);
+  const router = useRouter();
+  const cls = cn(iconBtn, "w-auto gap-2 px-2.5 xl:rounded-sm");
+
+  if (!user) {
+    return (
+      <Link href="/login" className={cls} aria-label={t("accountLabel")}>
+        <User className="size-5" strokeWidth={stroke} aria-hidden="true" />
+        <span className="hidden whitespace-nowrap text-[13px] font-medium xl:inline">{t("logIn")}</span>
+      </Link>
+    );
+  }
+
+  const leave = async () => {
+    await signOut().catch(() => {});
+    toast(t("signedOut"));
+    router.push("/");
+  };
+
   return (
-    <Link href="/login" className={cn(iconBtn, "w-auto gap-2 px-2.5 xl:rounded-sm")} aria-label={t("accountLabel")}>
-      <User className="size-5" strokeWidth={stroke} aria-hidden="true" />
-      <span className="hidden whitespace-nowrap text-[13px] font-medium xl:inline">{t("logIn")}</span>
-    </Link>
+    <DropdownMenu>
+      <DropdownMenuTrigger className={cls} aria-label={t("accountMenu", { name: user.name })}>
+        <User className="size-5" strokeWidth={stroke} aria-hidden="true" />
+        <span className="hidden max-w-32 truncate whitespace-nowrap text-[13px] font-medium xl:inline">{firstName(user.name)}</span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel className="max-w-64 truncate">{user.email}</DropdownMenuLabel>
+        <DropdownMenuItem asChild>
+          <Link href="/account">
+            <User aria-hidden="true" /> {t("yourAccount")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/account?tab=orders">
+            <Package aria-hidden="true" /> {t("yourOrders")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onSelect={leave}>
+          <LogOut aria-hidden="true" /> {t("signOut")}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

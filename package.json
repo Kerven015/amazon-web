@@ -9,6 +9,8 @@
     "start": "tsx server/index.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed-db.ts",
     "data:seed": "tsx scripts/export-products.ts",
     "data:refresh": "tsx scripts/refresh-product-content.ts",
     "images:fetch": "tsx scripts/fetch-product-images.ts",
@@ -18,6 +20,7 @@
   "dependencies": {
     "@fontsource-variable/manrope": "^5.1.0",
     "@fontsource/cormorant-garamond": "^5.2.8",
+    "@node-rs/argon2": "^2.2.2",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-slot": "^1.2.3",
@@ -25,6 +28,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.22",
+    "pg": "^8.23.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router": "^7.9.3",
@@ -38,6 +42,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^22.18.0",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",

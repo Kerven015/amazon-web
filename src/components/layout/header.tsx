@@ -166,7 +166,9 @@ function useStackedNav(collapsed = false) {
     const root = document.documentElement.style;
     if (on) root.setProperty("--toolbar-top-lg", collapsed ? "4.125rem" : "7.125rem");
     else root.removeProperty("--toolbar-top-lg");
-    return () => root.removeProperty("--toolbar-top-lg");
+    return () => {
+      root.removeProperty("--toolbar-top-lg");
+    };
   }, [on, collapsed]);
 
   return { rowRef, logoRef, actionsRef, navRef, on };

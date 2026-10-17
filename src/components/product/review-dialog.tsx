@@ -1,23 +1,30 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Star, X } from "lucide-react";
+import { LoaderCircle, Star, X } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
 import { toast } from "@/components/ui/toaster";
 import { useT } from "@/i18n";
+import { accountApi, accountErrorMessage } from "@/lib/account-api";
+import { refreshCatalog } from "@/lib/catalog";
+import { useSession } from "@/lib/session";
 import { useMyReviews } from "@/lib/store/my-reviews";
-import { useProfile } from "@/lib/store/profile";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
 type Errors = Partial<Record<"rating" | "headline" | "text" | "name", string>>;
 
-/** "Write a review": rating, title, text and name — saved on this device (lib/store/my-reviews.ts). */
+/**
+ * "Write a review" (signed-in customers): rating, title, text and the name to show.
+ * Saved to the account (POST /api/products/:id/reviews) — one review per product,
+ * marked "Verified buyer" when the customer has ordered it.
+ */
 export function ReviewDialog({ product, open, onOpenChange }: { product: Product; open: boolean; onOpenChange: (o: boolean) => void }) {
   const t = useT("reviews.form");
   const uid = useId();
   const add = useMyReviews((s) => s.add);
-  const profileName = useProfile((s) => s.name);
+  const profileName = useSession((s) => s.user?.name);
+  const [sending, setSending] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [headline, setHeadline] = useState("");
@@ -34,7 +41,7 @@ export function ReviewDialog({ product, open, onOpenChange }: { product: Product
     setErrors({});
   }, [open, profileName]);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs: Errors = {};
     if (!rating) errs.rating = t("errors.rating");
@@ -46,19 +53,19 @@ export function ReviewDialog({ product, open, onOpenChange }: { product: Product
       requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-form="${uid}"] [aria-invalid="true"]`)?.focus());
       return;
     }
-    add({
-      id: `mine-${Date.now().toString(36)}`,
-      productId: product.id,
-      author: name.trim(),
-      rating,
-      title: headline.trim(),
-      body: text.trim(),
-      date: new Date().toISOString().slice(0, 10),
-      verified: false,
-      helpful: 0,
-    });
-    toast.success(t("saved"));
-    onOpenChange(false);
+    setSending(true);
+    try {
+      const created = await accountApi.addReview(product.id, { rating, title: headline.trim(), body: text.trim(), author: name.trim() });
+      add(created.id);
+      // Reload the catalogue so the new review (and the new average) show straight away
+      await refreshCatalog().catch(() => {});
+      toast.success(t("saved"));
+      onOpenChange(false);
+    } catch (err) {
+      toast.error(accountErrorMessage(err));
+    } finally {
+      setSending(false);
+    }
   };
 
   const errorId = (k: keyof Errors) => (errors[k] ? `${uid}-${k}-error` : undefined);
@@ -133,7 +140,10 @@ export function ReviewDialog({ product, open, onOpenChange }: { product: Product
                   {t("cancel")}
                 </Button>
               </Dialog.Close>
-              <Button type="submit">{t("submit")}</Button>
+              <Button type="submit" disabled={sending}>
+                {sending && <LoaderCircle className="animate-spin" aria-hidden="true" />}
+                {t("submit")}
+              </Button>
             </div>
           </form>
         </Dialog.Content>
