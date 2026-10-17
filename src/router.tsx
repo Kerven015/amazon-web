@@ -16,6 +16,7 @@ import SearchPage, { searchLoader } from "@/pages/shop/search";
 import LoginPage, { loginLoader } from "@/pages/auth/login";
 import RegisterPage, { registerLoader } from "@/pages/auth/register";
 import AdminOrdersPage, { adminOrdersLoader } from "@/pages/admin/orders";
+import AdminCustomersPage, { adminCustomersLoader } from "@/pages/admin/customers";
 import AdminCatalogPage, { adminCatalogLoader } from "@/pages/admin/catalog";
 import { AdminLayout, adminLayoutLoader } from "@/pages/admin/layout";
 import AdminLoginPage, { adminLoginLoader } from "@/pages/admin/login";
@@ -109,6 +110,7 @@ export const router = createBrowserRouter([
               { path: "products/new", element: <AdminNewProductPage />, loader: withAdminLocale(adminNewLoader) },
               { path: "products/:id/edit", element: <AdminEditProductPage />, loader: withAdminLocale(adminEditLoader) },
               { path: "orders", element: <AdminOrdersPage />, loader: withAdminLocale(adminOrdersLoader) },
+              { path: "customers", element: <AdminCustomersPage />, loader: withAdminLocale(adminCustomersLoader) },
             ],
           },
         ],

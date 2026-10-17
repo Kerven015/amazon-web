@@ -8,7 +8,7 @@ import { query, withTransaction } from "../../db/pool";
 
 /* ------------------------------ users ------------------------------ */
 
-export type UserRow = { id: string; email: string; name: string; locale: string; password_hash: string; created_at: Date };
+export type UserRow = { id: string; email: string; name: string; locale: string; password_hash: string; created_at: Date; blocked_at: Date | null };
 
 export async function findUserByEmail(email: string) {
   const { rows } = await query<UserRow>("SELECT * FROM users WHERE email = $1", [email]);

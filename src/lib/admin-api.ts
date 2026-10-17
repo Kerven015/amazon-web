@@ -4,6 +4,27 @@
  */
 import type { Order, OrderStatus, ProductRecord } from "@/types";
 
+export type AdminCustomer = {
+  id: string;
+  name: string;
+  email: string;
+  locale: string;
+  createdAt: string;
+  blocked: boolean;
+  sessions: number;
+  lastSeen: string | null;
+  activeNow: boolean;
+  orders: number;
+  spent: number;
+};
+export type AdminSession = { id: string; createdAt: string; lastSeen: string; expiresAt: string; remember: boolean; userAgent: string; ip: string; activeNow: boolean };
+export type AdminCustomerDetail = AdminCustomer & {
+  addresses: number;
+  reviews: number;
+  sessionList: AdminSession[];
+  recentOrders: { id: string; status: OrderStatus; total: number; createdAt: string }[];
+};
+
 /** An order as the admin sees it (with the customer's email). */
 export type AdminOrder = Order & { email: string };
 
@@ -53,6 +74,15 @@ export const adminApi = {
   /** Adds a tracking event; cancelling puts the items back in stock. */
   setOrderStatus: (id: string, status: OrderStatus) =>
     call<AdminOrder>(`/api/admin/orders/${encodeURIComponent(id)}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
+  customers: (q = "") => call<AdminCustomer[]>(`/api/admin/customers${q ? `?q=${encodeURIComponent(q)}` : ""}`),
+  customer: (id: string) => call<AdminCustomerDetail>(`/api/admin/customers/${id}`),
+  /** Ends every session: the customer has to sign in again everywhere. */
+  signOutCustomer: (id: string) => call<{ ended: number }>(`/api/admin/customers/${id}/sign-out`, { method: "POST" }),
+  endSession: (id: string, sessionId: string) => call<AdminCustomerDetail>(`/api/admin/customers/${id}/sessions/${sessionId}`, { method: "DELETE" }),
+  /** Blocking also signs the customer out; they can't sign in until unblocked. */
+  setBlocked: (id: string, blocked: boolean) => call<AdminCustomerDetail>(`/api/admin/customers/${id}/block`, { method: "POST", body: JSON.stringify({ blocked }) }),
+  /** Only works for accounts without orders (409 "has_orders" otherwise). */
+  deleteCustomer: (id: string) => call<{ deleted: string }>(`/api/admin/customers/${id}`, { method: "DELETE" }),
   upload: (file: File, slug: string) =>
     call<{ src: string; blurDataURL: string }>(
       `/api/admin/upload?slug=${encodeURIComponent(slug || "untitled")}&name=${encodeURIComponent(file.name)}`,
