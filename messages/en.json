@@ -1235,7 +1235,8 @@
       "logOut": "Log out",
       "categories": "Categories",
       "allProducts": "All products",
-      "orders": "Orders"
+      "orders": "Orders",
+      "customers": "Customers"
     },
     "login": {
       "pageTitle": "Admin login · {store}",
@@ -1504,6 +1505,62 @@
       "failed": "Couldn't change the status. Please try again.",
       "confirmCancel": "Cancel order {id}? Its items go back in stock, and this can't be undone.",
       "cancelledLocked": "Cancelled orders can't be changed."
+    },
+    "customers": {
+      "title": "Customers",
+      "intro": "Every customer account, who's signed in right now, and on which devices.",
+      "refresh": "Refresh",
+      "filterLabel": "Show",
+      "filters": {
+        "all": "All",
+        "signedIn": "Signed in",
+        "active": "Active now",
+        "blocked": "Blocked"
+      },
+      "search": "Search name or email",
+      "empty": "No customer accounts yet.",
+      "noMatch": "No customers match.",
+      "customer": "Customer",
+      "status": "Status",
+      "lastSeen": "Last seen",
+      "joined": "Joined",
+      "orders": "Orders",
+      "spent": "Spent",
+      "actions": "Actions",
+      "manage": "Manage",
+      "manageNamed": "Manage {name}",
+      "blocked": "Blocked",
+      "signedOut": "Signed out",
+      "signedIn": "Signed in",
+      "activeNow": "Active now",
+      "devices": "{count, plural, one {# device} other {# devices}}",
+      "loading": "Loading…",
+      "language": "Language",
+      "addresses": "Saved addresses",
+      "reviews": "Reviews",
+      "devicesTitle": "Signed-in devices",
+      "noDevices": "Not signed in anywhere.",
+      "blockedNoDevices": "Blocked: can't sign in.",
+      "sessionLine": "Last active {seen} · signed in {since} · IP {ip}",
+      "remembered": "“Keep me signed in” (30 days)",
+      "browserSession": "Until the browser closes (max. 1 day)",
+      "endSessionNamed": "Sign out {device}",
+      "sessionEnded": "That device has been signed out",
+      "recentOrders": "Recent orders",
+      "allOrders": "See all orders",
+      "signOutAll": "Sign out of all devices",
+      "signedOutToast": "{name} has been signed out everywhere",
+      "block": "Block account",
+      "unblock": "Unblock account",
+      "confirmBlock": "Block {name}? They'll be signed out everywhere and can't sign in until you unblock them. Their orders stay.",
+      "blockedToast": "{name} is blocked",
+      "unblockedToast": "{name} can sign in again",
+      "delete": "Delete account",
+      "confirmDelete": "Delete the account of {name} ({email})? Their addresses, bag and wishlist are deleted too. This can't be undone.",
+      "deletedToast": "{name}'s account was deleted",
+      "hasOrders": "Accounts with orders can't be deleted (the orders must stay on record). Block the account instead.",
+      "failed": "That didn't work. Please try again.",
+      "privacyNote": "Passwords are never shown — they're stored only as secure hashes."
     }
   },
   "countries": {
@@ -1530,6 +1587,7 @@
     "forbidden": "You can't do that.",
     "server_error": "Something went wrong on our side. Please try again.",
     "network": "We couldn't reach the shop. Check your connection and try again.",
-    "syncFailed": "We couldn't save that to your account. Please try again."
+    "syncFailed": "We couldn't save that to your account. Please try again.",
+    "account_blocked": "This account has been blocked. Please contact us if you think this is a mistake."
   }
 }

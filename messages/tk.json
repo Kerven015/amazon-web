@@ -1235,7 +1235,8 @@
       "logOut": "Çykyş",
       "categories": "Kategoriýalar",
       "allProducts": "Ähli harytlar",
-      "orders": "Sargytlar"
+      "orders": "Sargytlar",
+      "customers": "Müşderiler"
     },
     "login": {
       "pageTitle": "Dolandyryja giriş · {store}",
@@ -1504,6 +1505,62 @@
       "failed": "Ýagdaýy üýtgedip bolmady. Täzeden synanyşyň.",
       "confirmCancel": "{id} sargydy ýatyrylsynmy? Harytlar ammara gaýdyp geler we muny yzyna gaýtaryp bolmaz.",
       "cancelledLocked": "Ýatyrylan sargytlary üýtgedip bolmaýar."
+    },
+    "customers": {
+      "title": "Müşderiler",
+      "intro": "Ähli müşderi hasaplary, häzir kimiň ulgamda bolandygy we haýsy enjamlarda.",
+      "refresh": "Täzele",
+      "filterLabel": "Görkez",
+      "filters": {
+        "all": "Hemmesi",
+        "signedIn": "Ulgamda",
+        "active": "Häzir işjeň",
+        "blocked": "Petiklenen"
+      },
+      "search": "At ýa-da e-poçta gözle",
+      "empty": "Entek müşderi hasaby ýok.",
+      "noMatch": "Gabat gelýän müşderi ýok.",
+      "customer": "Müşderi",
+      "status": "Ýagdaýy",
+      "lastSeen": "Soňky gezek",
+      "joined": "Goşulan senesi",
+      "orders": "Sargytlar",
+      "spent": "Sarp edilen",
+      "actions": "Hereketler",
+      "manage": "Dolandyr",
+      "manageNamed": "{name} dolandyr",
+      "blocked": "Petiklenen",
+      "signedOut": "Ulgamdan çykan",
+      "signedIn": "Ulgamda",
+      "activeNow": "Häzir işjeň",
+      "devices": "{count, plural, one {# enjam} other {# enjam}}",
+      "loading": "Ýüklenýär…",
+      "language": "Dil",
+      "addresses": "Saklanan salgylar",
+      "reviews": "Synlar",
+      "devicesTitle": "Ulgama girilen enjamlar",
+      "noDevices": "Hiç ýerde ulgamda däl.",
+      "blockedNoDevices": "Petiklenen: ulgama girip bilmeýär.",
+      "sessionLine": "Soňky işjeňlik {seen} · girilen {since} · IP {ip}",
+      "remembered": "“Meni ulgamda galdyr” (30 gün)",
+      "browserSession": "Brauzer ýapylýança (iň köp 1 gün)",
+      "endSessionNamed": "{device} enjamyndan çyk",
+      "sessionEnded": "Bu enjamdan çykyldy",
+      "recentOrders": "Soňky sargytlar",
+      "allOrders": "Ähli sargytlary gör",
+      "signOutAll": "Ähli enjamlardan çykar",
+      "signedOutToast": "{name} ähli enjamlardan çykaryldy",
+      "block": "Hasaby petikle",
+      "unblock": "Petigi aýyr",
+      "confirmBlock": "{name} petiklensinmi? Ähli enjamlardan çykarylar we petik aýrylýança ulgama girip bilmez. Sargytlary galar.",
+      "blockedToast": "{name} petiklendi",
+      "unblockedToast": "{name} täzeden ulgama girip biler",
+      "delete": "Hasaby poz",
+      "confirmDelete": "{name} ({email}) hasaby pozulsynmy? Salgylary, sebedi we halanlary hem pozular. Muny yzyna gaýtaryp bolmaz.",
+      "deletedToast": "{name} hasaby pozuldy",
+      "hasOrders": "Sargytly hasaplary pozup bolmaýar (sargytlar hasapda galmaly). Onuň ýerine hasaby petikläň.",
+      "failed": "Başartmady. Täzeden synanyşyň.",
+      "privacyNote": "Açar sözleri hiç haçan görkezilmeýär; diňe howpsuz heş görnüşinde saklanýar."
     }
   },
   "countries": {
@@ -1530,6 +1587,7 @@
     "forbidden": "Muny edip bilmersiňiz.",
     "server_error": "Biziň tarapymyzda näsazlyk ýüze çykdy. Täzeden synanyşyň.",
     "network": "Dükana birigip bilmedik. Internet baglanyşygyňyzy barlap, täzeden synanyşyň.",
-    "syncFailed": "Muny hasabyňyza ýazyp bilmedik. Täzeden synanyşyň."
+    "syncFailed": "Muny hasabyňyza ýazyp bilmedik. Täzeden synanyşyň.",
+    "account_blocked": "Bu hasap petiklendi. Ýalňyşlyk diýip pikir edýän bolsaňyz, biz bilen habarlaşyň."
   }
 }

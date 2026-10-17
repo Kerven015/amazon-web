@@ -81,6 +81,8 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
       return fail(res, 401, "invalid_credentials"), true;
     }
     await clearLoginFailures(ip, body.email);
+    // Only someone with the right password learns that the account is blocked
+    if (user.blocked_at) return fail(res, 403, "account_blocked"), true;
     await startSession(req, res, user.id, body.remember);
     send(res, 200, { user: publicUser(user) });
     return true;

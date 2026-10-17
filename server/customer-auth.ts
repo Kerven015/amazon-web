@@ -20,6 +20,8 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const REMEMBER_MS = 30 * DAY_MS;
 const SHORT_MS = DAY_MS;
 const SLIDE_EVERY_MS = 60 * 60 * 1000;
+/** How often "last seen" is refreshed (Admin → Customers shows who is active now) */
+const SEEN_EVERY_MS = 5 * 60 * 1000;
 export const MAX_LOGIN_FAILS = 5;
 const FAIL_WINDOW_MIN = 15;
 
@@ -98,20 +100,22 @@ export async function customerFrom(req: IncomingMessage, res?: ServerResponse): 
   const token = readCookie(req, SESSION_COOKIE);
   if (!token || token.length > 100) return null;
   const id = tokenHash(token);
-  const { rows } = await query<{ id: string; name: string; email: string; locale: string; created_at: Date; remember: boolean; last_seen_at: Date }>(
-    `SELECT u.id, u.name, u.email, u.locale, u.created_at, s.remember, s.last_seen_at
+  const { rows } = await query<{ id: string; name: string; email: string; locale: string; created_at: Date; remember: boolean; last_seen_at: Date; expires_at: Date }>(
+    `SELECT u.id, u.name, u.email, u.locale, u.created_at, s.remember, s.last_seen_at, s.expires_at
        FROM sessions s JOIN users u ON u.id = s.user_id
-      WHERE s.id = $1 AND s.expires_at > now()`,
+      WHERE s.id = $1 AND s.expires_at > now() AND u.blocked_at IS NULL`,
     [id],
   );
   const row = rows[0];
   if (!row) return null;
-  if (Date.now() - row.last_seen_at.getTime() > SLIDE_EVERY_MS) {
-    await query("UPDATE sessions SET last_seen_at = now(), expires_at = now() + make_interval(secs => $2) WHERE id = $1", [
-      id,
-      (row.remember ? REMEMBER_MS : SHORT_MS) / 1000,
-    ]);
+  const length = row.remember ? REMEMBER_MS : SHORT_MS;
+  // When the expiry was last moved: it's always set to "then + length"
+  const slidAt = row.expires_at.getTime() - length;
+  if (Date.now() - slidAt > SLIDE_EVERY_MS) {
+    await query("UPDATE sessions SET last_seen_at = now(), expires_at = now() + make_interval(secs => $2) WHERE id = $1", [id, length / 1000]);
     if (row.remember && res) setCookie(req, res, token, true);
+  } else if (Date.now() - row.last_seen_at.getTime() > SEEN_EVERY_MS) {
+    await query("UPDATE sessions SET last_seen_at = now() WHERE id = $1", [id]);
   }
   return { id: row.id, name: row.name, email: row.email, locale: row.locale, createdAt: row.created_at.toISOString(), sessionId: id };
 }

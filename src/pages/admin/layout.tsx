@@ -1,4 +1,4 @@
-import { ArrowUpRight, LoaderCircle, LogOut, Package } from "lucide-react";
+import { ArrowUpRight, LoaderCircle, LogOut, Package, Users } from "lucide-react";
 import { useState } from "react";
 import { Outlet, redirect, type LoaderFunctionArgs } from "react-router";
 import { Logo } from "@/components/layout/logo";
@@ -131,6 +131,14 @@ export function AdminLayout() {
             >
               <Package className="size-4" strokeWidth={1.5} aria-hidden="true" />
               <span className="max-md:sr-only">{t("orders")}</span>
+            </Link>
+            <Link
+              href="/admin/customers"
+              aria-current={pathname === "/admin/customers" ? "page" : undefined}
+              className="inline-flex h-9 items-center gap-1.5 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
+            >
+              <Users className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              <span className="max-md:sr-only">{t("customers")}</span>
             </Link>
             <a href="/" target="_blank" rel="noopener" className="inline-flex h-9 items-center gap-1 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4">
               <span className="max-md:sr-only">{t("viewStore")}</span> <ArrowUpRight className="size-4" strokeWidth={1.5} aria-hidden="true" />

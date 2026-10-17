@@ -95,6 +95,7 @@ export type ApiErrorCode =
   | "email_taken"
   | "invalid_credentials"
   | "too_many_attempts"
+  | "account_blocked"
   | "sign_in_required"
   | "wrong_password"
   | "out_of_stock"

@@ -57,6 +57,11 @@ at runtime (re-running `db:seed` overwrites products that are also in the file).
 | `reviews` | product reviews; rating and review count are computed from here |
 | `login_attempts` | failed sign-ins, for the rate limit (5 per IP + email in 15 minutes) |
 
+**Admin → Customers** (`/admin/customers`) lists every customer account: who is signed in
+and active right now, on which devices, their orders and spend. From there you can sign a
+customer out (one device or all), block / unblock the account (blocking also signs them
+out and stops them signing in), or delete an account that has no orders.
+
 To rename the store, change `siteConfig.name` in `src/lib/config.ts`.
 
 ## How it's put together

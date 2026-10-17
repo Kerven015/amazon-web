@@ -16,6 +16,12 @@
  *            POST /api/admin/upload?slug=&name= raw image body → WebP
  *            GET  /api/admin/orders             every order, newest first
  *            PATCH /api/admin/orders/:id/status { status } → adds a tracking event
+ *            GET  /api/admin/customers?q=       customer accounts (who's signed in, orders, spend)
+ *            GET  /api/admin/customers/:id      one customer, with their signed-in devices
+ *            POST /api/admin/customers/:id/sign-out           end every session
+ *            DELETE /api/admin/customers/:id/sessions/:sid    end one device's session
+ *            POST /api/admin/customers/:id/block { blocked }  block (also signs out) / unblock
+ *            DELETE /api/admin/customers/:id    delete (only accounts without orders)
  *   Shop     /api/auth/*, /api/account/*, /api/orders, /api/products/:id/reviews → server/shop-api.ts
  *
  * Every /api/admin/* route except login requires a valid admin session cookie (401 otherwise),
@@ -39,6 +45,8 @@ import {
 } from "./auth";
 import * as db from "./lib/db/products";
 import { adminListOrders, adminSetStatus } from "./lib/db/orders";
+import * as customers from "./lib/db/customers";
+import { z } from "zod";
 import { BodyError, parseBody, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
 import { handleShopApi } from "./shop-api";
 import { isLocale, LOCALE_COOKIE, locales, negotiateLocale, splitLocale, UNPREFIXED } from "../src/i18n/config";
@@ -306,6 +314,36 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       const order = await adminSetStatus(orderStatus[1], status);
       if (order === "cancelled") return send(res, 409, { error: "Cancelled orders can't be changed" }), true;
       return send(res, order ? 200 : 404, order ?? { error: "Not found" }), true;
+    }
+
+    if (p === "/api/admin/customers" && method === "GET") {
+      send(res, 200, await customers.listCustomers(url.searchParams.get("q") ?? ""));
+      return true;
+    }
+    const customer = p.match(/^\/api\/admin\/customers\/([0-9a-f-]{36})(?:\/(sign-out|block|sessions\/([0-9a-f]{64})))?$/i);
+    if (customer) {
+      const [, id, action, sessionId] = customer;
+      const notFound = () => send(res, 404, { error: "Not found" });
+      if (!action && method === "GET") {
+        const detail = await customers.getCustomer(id);
+        return detail ? send(res, 200, detail) : notFound(), true;
+      }
+      if (!action && method === "DELETE") {
+        const result = await customers.deleteCustomer(id);
+        if (result === "not_found") return notFound(), true;
+        if (result === "has_orders") return send(res, 409, { error: "has_orders" }), true;
+        return send(res, 200, { deleted: id }), true;
+      }
+      if (action === "sign-out" && method === "POST") return send(res, 200, { ended: await customers.signOutCustomer(id) }), true;
+      if (action === "block" && method === "POST") {
+        const { blocked } = await parseBody(req, z.object({ blocked: z.boolean() }), 1_000);
+        if (!(await customers.setBlocked(id, blocked))) return notFound(), true;
+        return send(res, 200, await customers.getCustomer(id)), true;
+      }
+      if (sessionId && method === "DELETE") {
+        if (!(await customers.endCustomerSession(id, sessionId))) return notFound(), true;
+        return send(res, 200, await customers.getCustomer(id)), true;
+      }
     }
 
     if (p === "/api/admin/upload" && method === "POST") {

@@ -1235,7 +1235,8 @@
       "logOut": "Çıkış yap",
       "categories": "Kategoriler",
       "allProducts": "Tüm ürünler",
-      "orders": "Siparişler"
+      "orders": "Siparişler",
+      "customers": "Müşteriler"
     },
     "login": {
       "pageTitle": "Yönetici girişi · {store}",
@@ -1504,6 +1505,62 @@
       "failed": "Durum değiştirilemedi. Lütfen tekrar deneyin.",
       "confirmCancel": "{id} siparişi iptal edilsin mi? Ürünler stoğa geri döner ve bu işlem geri alınamaz.",
       "cancelledLocked": "İptal edilen siparişler değiştirilemez."
+    },
+    "customers": {
+      "title": "Müşteriler",
+      "intro": "Tüm müşteri hesapları, şu anda kimin oturum açtığı ve hangi cihazlarda.",
+      "refresh": "Yenile",
+      "filterLabel": "Göster",
+      "filters": {
+        "all": "Tümü",
+        "signedIn": "Oturum açık",
+        "active": "Şu an aktif",
+        "blocked": "Engelli"
+      },
+      "search": "Ad veya e-posta ara",
+      "empty": "Henüz müşteri hesabı yok.",
+      "noMatch": "Eşleşen müşteri yok.",
+      "customer": "Müşteri",
+      "status": "Durum",
+      "lastSeen": "Son görülme",
+      "joined": "Katılma",
+      "orders": "Siparişler",
+      "spent": "Harcama",
+      "actions": "İşlemler",
+      "manage": "Yönet",
+      "manageNamed": "{name} yönet",
+      "blocked": "Engelli",
+      "signedOut": "Oturum kapalı",
+      "signedIn": "Oturum açık",
+      "activeNow": "Şu an aktif",
+      "devices": "{count, plural, one {# cihaz} other {# cihaz}}",
+      "loading": "Yükleniyor…",
+      "language": "Dil",
+      "addresses": "Kayıtlı adresler",
+      "reviews": "Yorumlar",
+      "devicesTitle": "Oturum açık cihazlar",
+      "noDevices": "Hiçbir yerde oturum açık değil.",
+      "blockedNoDevices": "Engelli: giriş yapamaz.",
+      "sessionLine": "Son etkinlik {seen} · giriş {since} · IP {ip}",
+      "remembered": "“Oturumumu açık tut” (30 gün)",
+      "browserSession": "Tarayıcı kapanana kadar (en çok 1 gün)",
+      "endSessionNamed": "{device} oturumunu kapat",
+      "sessionEnded": "Bu cihazda oturum kapatıldı",
+      "recentOrders": "Son siparişler",
+      "allOrders": "Tüm siparişleri gör",
+      "signOutAll": "Tüm cihazlardan çıkış yaptır",
+      "signedOutToast": "{name} için tüm cihazlarda oturum kapatıldı",
+      "block": "Hesabı engelle",
+      "unblock": "Engeli kaldır",
+      "confirmBlock": "{name} engellensin mi? Tüm cihazlardan çıkış yapılır ve engel kaldırılana kadar giriş yapamaz. Siparişleri silinmez.",
+      "blockedToast": "{name} engellendi",
+      "unblockedToast": "{name} yeniden giriş yapabilir",
+      "delete": "Hesabı sil",
+      "confirmDelete": "{name} ({email}) hesabı silinsin mi? Adresleri, sepeti ve favorileri de silinir. Bu işlem geri alınamaz.",
+      "deletedToast": "{name} hesabı silindi",
+      "hasOrders": "Siparişi olan hesaplar silinemez (siparişler kayıtta kalmalı). Bunun yerine hesabı engelleyin.",
+      "failed": "İşlem başarısız. Lütfen tekrar deneyin.",
+      "privacyNote": "Şifreler asla gösterilmez; yalnızca güvenli özet olarak saklanır."
     }
   },
   "countries": {
@@ -1530,6 +1587,7 @@
     "forbidden": "Bu işlemi yapamazsınız.",
     "server_error": "Bizim tarafımızda bir sorun oluştu. Lütfen tekrar deneyin.",
     "network": "Mağazaya ulaşamadık. Bağlantınızı kontrol edip tekrar deneyin.",
-    "syncFailed": "Bu, hesabınıza kaydedilemedi. Lütfen tekrar deneyin."
+    "syncFailed": "Bu, hesabınıza kaydedilemedi. Lütfen tekrar deneyin.",
+    "account_blocked": "Bu hesap engellendi. Bunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin."
   }
 }
