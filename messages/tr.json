@@ -817,7 +817,12 @@
       "devicesTitle": "Oturum açık cihazlar",
       "devicesBody": "Telefonunuzu mu kaybettiniz ya da ortak bir bilgisayar mı kullandınız? Buradaki dahil her yerden çıkış yapın.",
       "signOutAll": "Tüm cihazlardan çıkış yap",
-      "signedOutEverywhere": "Tüm cihazlardan çıkış yapıldı"
+      "signedOutEverywhere": "Tüm cihazlardan çıkış yapıldı",
+      "googleTitle": "Google ile giriş",
+      "googleBody": "Bu hesaba “Google ile devam et” ile giriş yapabilirsiniz.",
+      "noPassword": "Henüz şifre yok — Google ile giriş yapıyorsunuz",
+      "setPassword": "Şifre belirle",
+      "passwordSet": "Şifre belirlendi. Artık e-postanızla da giriş yapabilirsiniz."
     },
     "viewOrder": "Siparişi görüntüle",
     "viewOrderNamed": "{id} numaralı siparişi görüntüle",
@@ -915,7 +920,8 @@
       "password": "En az 8 karakter kullanın",
       "passwordEmpty": "Şifrenizi girin",
       "agree": "Devam etmek için koşulları kabul edin"
-    }
+    },
+    "or": "veya"
   },
   "confirmation": {
     "loading": "Siparişiniz yükleniyor…",
@@ -1560,7 +1566,11 @@
       "deletedToast": "{name} hesabı silindi",
       "hasOrders": "Siparişi olan hesaplar silinemez (siparişler kayıtta kalmalı). Bunun yerine hesabı engelleyin.",
       "failed": "İşlem başarısız. Lütfen tekrar deneyin.",
-      "privacyNote": "Şifreler asla gösterilmez; yalnızca güvenli özet olarak saklanır."
+      "privacyNote": "Şifreler asla gösterilmez; yalnızca güvenli özet olarak saklanır.",
+      "methods": {
+        "password": "Şifre",
+        "google": "Google"
+      }
     }
   },
   "countries": {
@@ -1588,6 +1598,8 @@
     "server_error": "Bizim tarafımızda bir sorun oluştu. Lütfen tekrar deneyin.",
     "network": "Mağazaya ulaşamadık. Bağlantınızı kontrol edip tekrar deneyin.",
     "syncFailed": "Bu, hesabınıza kaydedilemedi. Lütfen tekrar deneyin.",
-    "account_blocked": "Bu hesap engellendi. Bunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin."
+    "account_blocked": "Bu hesap engellendi. Bunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin.",
+    "google_failed": "Google ile giriş başarısız oldu. Lütfen tekrar deneyin veya e-posta ve şifrenizi kullanın.",
+    "set_password_first": "Önce aşağıdan bir şifre belirleyin, ardından e-postanızı değiştirebilirsiniz."
   }
 }

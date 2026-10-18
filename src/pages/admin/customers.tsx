@@ -56,6 +56,20 @@ function StatusCell({ c }: { c: AdminCustomer }) {
   );
 }
 
+/** "Google" / "Password" chips: how the customer signs in */
+function SignInMethods({ methods }: { methods: AdminCustomer["methods"] }) {
+  const t = useT("admin.customers.methods");
+  return (
+    <span className="mt-1 flex flex-wrap gap-1">
+      {methods.map((m) => (
+        <span key={m} className="rounded-xs border px-1.5 py-px text-[10px] uppercase tracking-wide text-muted-foreground">
+          {t(m)}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 /** /admin/customers — every customer account, who's signed in, and sign out / block / delete. */
 export default function AdminCustomersPage() {
   const t = useT("admin.customers");
@@ -163,6 +177,7 @@ export default function AdminCustomersPage() {
                   <td className="px-4 py-3">
                     <span className="block font-medium">{c.name}</span>
                     <span className="block text-xs text-muted-foreground">{c.email}</span>
+                    <SignInMethods methods={c.methods} />
                   </td>
                   <td className="whitespace-nowrap px-4 py-3"><StatusCell c={c} /></td>
                   <td className="whitespace-nowrap px-4 py-3">{c.sessions ? ago(c.lastSeen, locale) : "—"}</td>
@@ -235,6 +250,7 @@ function CustomerSheet({ id, onClose, onChange }: { id: string | null; onClose: 
           <div className="space-y-6 text-sm">
             <section>
               <p className="break-all font-medium">{d.email}</p>
+              <SignInMethods methods={d.methods} />
               <div className="mt-2"><StatusCell c={d} /></div>
               <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
                 <dt className="text-muted-foreground">{t("joined")}</dt>

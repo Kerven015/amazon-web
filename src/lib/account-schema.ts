@@ -24,7 +24,11 @@ export const profileSchema = z
   .object({ name: name.optional(), email: email.optional(), locale: locale.optional(), currentPassword: z.string().max(PASSWORD_MAX).optional() })
   .refine((v) => v.name !== undefined || v.email !== undefined || v.locale !== undefined, { message: "Nothing to change" });
 
-export const passwordChangeSchema = z.object({ currentPassword: z.string().min(1).max(PASSWORD_MAX), newPassword: password });
+/** currentPassword may be left out only by accounts that have no password yet (signed up with Google). */
+export const passwordChangeSchema = z.object({ currentPassword: z.string().max(PASSWORD_MAX).optional(), newPassword: password });
+
+/** The ID token Google Identity Services hands the browser ("Continue with Google" / One Tap). */
+export const googleSignInSchema = z.object({ credential: z.string().min(20).max(4096), locale: locale.default("en") });
 
 /** Same rules as the checkout form (lib/store/addresses.ts → validateAddress). */
 export const addressSchema = z.object({
@@ -96,6 +100,8 @@ export type ApiErrorCode =
   | "invalid_credentials"
   | "too_many_attempts"
   | "account_blocked"
+  | "google_failed"
+  | "set_password_first"
   | "sign_in_required"
   | "wrong_password"
   | "out_of_stock"
