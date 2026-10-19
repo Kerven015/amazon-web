@@ -175,7 +175,13 @@ sudo systemctl daemon-reload && sudo systemctl enable --now vendora
 ```
 
 Put a reverse proxy with HTTPS (Caddy or nginx) in front of port 3000, and set
-`TRUST_PROXY=1` in `.env.local` so the sign-in rate limit sees real visitor IPs.
+make sure the sign-in rate limits see real visitor IPs. With the proxy on the same machine
+(the usual Caddy/nginx setup) this works automatically. If the proxy runs on another machine or
+in another container, set `TRUST_PROXY=1` in `.env.local` — the server logs a warning when it
+notices a proxy it doesn't trust. Configure the proxy to *replace* `X-Forwarded-For`
+(nginx: `proxy_set_header X-Forwarded-For $remote_addr;`; Caddy does this by default).
+
+The admin password must be at least 16 characters in production, or `npm start` refuses to run.
 
 ## 5. Daily backups (kept 14 days)
 

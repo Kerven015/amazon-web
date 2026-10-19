@@ -60,6 +60,8 @@ export const adminApi = {
   login: (username: string, password: string) =>
     call<{ ok: true }>("/api/admin/login", { method: "POST", body: JSON.stringify({ username, password }) }),
   logout: () => call<{ ok: true }>("/api/admin/logout", { method: "POST" }),
+  /** Ends every admin session on every device (use if an admin cookie may have leaked). */
+  logoutAll: () => call<{ ended: number }>("/api/admin/logout-all", { method: "POST" }),
   session: async () => {
     const res = await fetch("/api/admin/session", { credentials: "same-origin", cache: "no-store" });
     return res.ok ? ((await res.json()) as { username: string; expiresAt: number }) : null;

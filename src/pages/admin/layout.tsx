@@ -1,4 +1,5 @@
-import { ArrowUpRight, LoaderCircle, LogOut, Package, Users } from "lucide-react";
+import { ArrowUpRight, ChevronDown, LoaderCircle, LogOut, MonitorX, Package, Users } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Outlet, redirect, type LoaderFunctionArgs } from "react-router";
 import { Logo } from "@/components/layout/logo";
@@ -98,10 +99,12 @@ export function AdminLayout() {
   const formPage = pathname.startsWith("/admin/products/");
   const [leaving, setLeaving] = useState(false);
 
-  const logout = async () => {
+  /** Ends the session on the server (or every admin session), then reloads the login page */
+  const logout = async (everywhere = false) => {
+    if (everywhere && !window.confirm(t("logOutAllConfirm"))) return;
     setLeaving(true);
     try {
-      await adminApi.logout();
+      await (everywhere ? adminApi.logoutAll() : adminApi.logout());
     } finally {
       // Full reload so no admin data stays in memory
       window.location.assign("/admin/login");
@@ -144,15 +147,24 @@ export function AdminLayout() {
               <span className="max-md:sr-only">{t("viewStore")}</span> <ArrowUpRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
               <span className="sr-only">{tc("opensInNewTab")}</span>
             </a>
-            <button
-              type="button"
-              onClick={logout}
-              disabled={leaving}
-              className="inline-flex h-9 items-center gap-1.5 rounded-sm border border-navy/30 px-3 text-sm transition-colors hover:border-navy hover:bg-navy hover:text-cream"
-            >
-              {leaving ? <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> : <LogOut className="size-4" strokeWidth={1.5} aria-hidden="true" />}
-              <span className="max-sm:sr-only">{t("logOut")}</span>
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                disabled={leaving}
+                className="inline-flex h-9 items-center gap-1.5 rounded-sm border border-navy/30 px-3 text-sm transition-colors hover:border-navy hover:bg-navy hover:text-cream"
+              >
+                {leaving ? <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> : <LogOut className="size-4" strokeWidth={1.5} aria-hidden="true" />}
+                <span className="max-sm:sr-only">{t("logOut")}</span>
+                <ChevronDown className="size-3.5" aria-hidden="true" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => void logout()}>
+                  <LogOut aria-hidden="true" /> {t("logOutHere")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => void logout(true)}>
+                  <MonitorX aria-hidden="true" /> {t("logOutAll")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         <div className="border-t border-navy/10">

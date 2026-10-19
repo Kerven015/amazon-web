@@ -1242,7 +1242,10 @@
       "categories": "Kategoriýalar",
       "allProducts": "Ähli harytlar",
       "orders": "Sargytlar",
-      "customers": "Müşderiler"
+      "customers": "Müşderiler",
+      "logOutHere": "Çykyş",
+      "logOutAll": "Ähli enjamlarda çyk",
+      "logOutAllConfirm": "Şu enjamy goşmak bilen ähli enjamlarda we brauzerlerde dolandyryşdan çykylsynmy? Dolandyryjy girişiňiziň başga biriniň elinde bolmagy mümkin diýip pikir edýän bolsaňyz, muny ulanyň."
     },
     "login": {
       "pageTitle": "Dolandyryja giriş · {store}",
