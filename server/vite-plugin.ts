@@ -4,6 +4,7 @@
  */
 import type { Plugin } from "vite";
 import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
+import { assertAdminConfig } from "./auth";
 import { assertDatabaseReady } from "./db/pool";
 import { loadEnv } from "./env";
 import { applySecurity } from "./security";
@@ -13,13 +14,14 @@ export function serverPlugin(): Plugin {
     name: "vendora-server",
     configureServer(server) {
       loadEnv(server.config.root);
+      assertAdminConfig();
       // No database → say why and stop, instead of a shop that half works
       void assertDatabaseReady();
       server.middlewares.use(async (req, res, next) => {
         try {
           if (await applySecurity(req, res)) return;
           if (await handleApi(req, res)) return;
-          if (guardAdminPage(req, res)) return;
+          if (await guardAdminPage(req, res)) return;
           if (localeRedirect(req, res)) return;
         } catch (err) {
           return next(err);
@@ -35,7 +37,7 @@ export function serverPlugin(): Plugin {
         try {
           if (await applySecurity(req, res)) return;
           if (await handleApi(req, res)) return;
-          if (guardAdminPage(req, res)) return;
+          if (await guardAdminPage(req, res)) return;
           if (localeRedirect(req, res)) return;
         } catch (err) {
           return next(err);

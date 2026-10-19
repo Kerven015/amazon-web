@@ -1242,7 +1242,10 @@
       "categories": "Categories",
       "allProducts": "All products",
       "orders": "Orders",
-      "customers": "Customers"
+      "customers": "Customers",
+      "logOutHere": "Log out",
+      "logOutAll": "Log out on all devices",
+      "logOutAllConfirm": "Log out of the admin on every device and browser, including this one? Use this if you think someone else may have your admin login."
     },
     "login": {
       "pageTitle": "Admin login · {store}",

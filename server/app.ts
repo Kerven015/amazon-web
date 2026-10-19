@@ -5,7 +5,8 @@
  *   Public   GET  /api/products                 visible products only
  *            GET  /sitemap.xml                  (no /admin URLs)
  *   Auth     POST /api/admin/login              { username, password }
- *            POST /api/admin/logout
+ *            POST /api/admin/logout             ends this admin session on the server
+ *            POST /api/admin/logout-all         ends every admin session (e.g. a cookie may have leaked)
  *            GET  /api/admin/session
  *   Admin    GET  /api/admin/products           incl. hidden
  *            POST /api/admin/products           create (also used by "Undo delete")
@@ -35,14 +36,14 @@ import {
   authConfig,
   checkCredentials,
   clearFailures,
-  clearSessionCookie,
   clientIp,
+  endAdminSession,
+  endAllAdminSessions,
   lockRemaining,
   readCookie,
   recordFailure,
   sessionFrom,
-  setSessionCookie,
-  signSession,
+  startAdminSession,
 } from "./auth";
 import * as db from "./lib/db/products";
 import { adminListOrders, adminSetStatus } from "./lib/db/orders";
@@ -166,11 +167,11 @@ const isAdminPage = (p: string) => p === "/admin" || p.startsWith("/admin/");
  * The middleware for /admin pages: no valid session → 302 to /admin/login.
  * Returns true when it has answered the request.
  */
-export function guardAdminPage(req: Req, res: Res): boolean {
+export async function guardAdminPage(req: Req, res: Res): Promise<boolean> {
   const url = new URL(req.url ?? "/", "http://x");
   if (!isAdminPage(url.pathname) || (req.method !== "GET" && req.method !== "HEAD")) return false;
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
-  const loggedIn = !!sessionFrom(req);
+  const loggedIn = !!(await sessionFrom(req));
   if (url.pathname === "/admin/login") {
     if (loggedIn) {
       res.statusCode = 302;
@@ -241,26 +242,31 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       const password = typeof body.password === "string" ? body.password.slice(0, 200) : "";
       if (!checkCredentials(username, password)) {
         const r = recordFailure(ip);
-        if (r.locked) send(res, 429, { error: "Too many attempts. Try again in 5 minutes.", retryAfter: 300 }, { "Retry-After": "300" });
+        const mins = Math.max(1, Math.ceil(r.retryAfterMs / 60000));
+        if (r.locked) send(res, 429, { error: `Too many attempts. Try again in ${mins} minute${mins > 1 ? "s" : ""}.`, retryAfter: Math.ceil(r.retryAfterMs / 1000) }, { "Retry-After": String(Math.ceil(r.retryAfterMs / 1000)) });
         else send(res, 401, { error: "Incorrect username or password" });
         return true;
       }
       clearFailures(ip);
-      setSessionCookie(req, res, signSession(username));
+      await startAdminSession(req, res, username);
       send(res, 200, { ok: true });
       return true;
     }
 
     /* ---- everything below requires a session ---- */
-    const session = sessionFrom(req);
+    const session = await sessionFrom(req);
     if (!session) {
       send(res, 401, { error: "Not signed in" });
       return true;
     }
 
     if (p === "/api/admin/logout" && method === "POST") {
-      clearSessionCookie(req, res);
+      await endAdminSession(req, res);
       send(res, 200, { ok: true });
+      return true;
+    }
+    if (p === "/api/admin/logout-all" && method === "POST") {
+      send(res, 200, { ended: await endAllAdminSessions(req, res) });
       return true;
     }
     if (p === "/api/admin/session" && method === "GET") {

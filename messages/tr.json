@@ -1242,7 +1242,10 @@
       "categories": "Kategoriler",
       "allProducts": "Tüm ürünler",
       "orders": "Siparişler",
-      "customers": "Müşteriler"
+      "customers": "Müşteriler",
+      "logOutHere": "Çıkış yap",
+      "logOutAll": "Tüm cihazlarda çıkış yap",
+      "logOutAllConfirm": "Bu dahil tüm cihaz ve tarayıcılarda yönetim panelinden çıkış yapılsın mı? Yönetici girişinizin başkasının elinde olabileceğini düşünüyorsanız bunu kullanın."
     },
     "login": {
       "pageTitle": "Yönetici girişi · {store}",

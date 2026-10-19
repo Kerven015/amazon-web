@@ -27,6 +27,11 @@ npm run data:seed -- --force   # ⚠ reset the seed file data/products.json to t
 
 Admin login lives in `.env.local` (server-only): `ADMIN_USERNAME`, `ADMIN_PASSWORD`
 and a random `ADMIN_SESSION_SECRET` (32+ characters). See `.env.example`.
+In production the server won't start with a weak admin password (under 16 characters or a
+placeholder). Admin sessions are kept on the server: **Log out → Log out on all devices** in the
+admin ends every admin session at once, and changing `ADMIN_PASSWORD` does the same. Admin sign-in
+locks for 5 minutes after 5 failures from one address, and for 15 minutes after 50 failures from
+any addresses together.
 Customer accounts are separate: they live in the database (passwords hashed with Argon2id).
 Customers can also use **Continue with Google** and Google **One Tap**: set `GOOGLE_CLIENT_ID`
 in `.env.local` (steps: [deploy/google-sign-in.md](deploy/google-sign-in.md)). Without it, the

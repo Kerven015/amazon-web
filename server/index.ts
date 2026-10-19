@@ -8,6 +8,7 @@ import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
+import { assertAdminConfig } from "./auth";
 import { assertDatabaseReady } from "./db/pool";
 import { env, loadEnv } from "./env";
 import { purgeDeleted } from "./lib/db/products";
@@ -54,6 +55,8 @@ if (!existsSync(path.join(dist, "index.html"))) {
 const indexHtml = readFileSync(path.join(dist, "index.html"), "utf8");
 configureSecurity(indexHtml);
 
+// A weak admin password stops the production server here (see server/auth.ts)
+assertAdminConfig();
 await assertDatabaseReady();
 await purgeDeleted();
 
@@ -61,7 +64,7 @@ const server = createServer(async (req, res) => {
   try {
     if (await applySecurity(req, res)) return;
     if (await handleApi(req, res)) return;
-    if (guardAdminPage(req, res)) return;
+    if (await guardAdminPage(req, res)) return;
     if (localeRedirect(req, res)) return;
 
     let pathname: string;
