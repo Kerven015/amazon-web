@@ -52,9 +52,19 @@ import {
 import { GoogleTokenError, googleClientId, signInMethods, signInWithGoogle, verifyGoogleCredential } from "./google-auth";
 import { parseBody, type Req, type Res, send } from "./http";
 import * as account from "./lib/db/account";
+import { rateLimit } from "./security";
 import { getOrder, listOrders, OrderError, placeOrder } from "./lib/db/orders";
 
 const fail = (res: Res, status: number, error: ApiErrorCode, extra: Record<string, unknown> = {}) => send(res, status, { error, ...extra });
+
+const MIN15 = 15 * 60 * 1000;
+
+/** Per-IP limits on the auth endpoints (each Argon2 hash costs ~20MB and real CPU time). */
+function limited(req: Req, res: Res, name: string, max: number, key = clientIp(req)) {
+  if (rateLimit(`${name}:${key}`, max, MIN15)) return false;
+  fail(res, 429, "too_many_attempts");
+  return true;
+}
 
 const publicUser = (u: { id: string; name: string; email: string; locale: string }) => ({ id: u.id, name: u.name, email: u.email, locale: u.locale });
 
@@ -63,6 +73,7 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
   /* ------------------------------ auth ------------------------------ */
 
   if (p === "/api/auth/register" && method === "POST") {
+    if (limited(req, res, "register", 10)) return true;
     const body = await parseBody(req, registerSchema, 10_000);
     // Hash first: the response takes the same time whether or not the email exists
     const passwordHash = await hashPassword(body.password);
@@ -74,6 +85,8 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
   }
 
   if (p === "/api/auth/login" && method === "POST") {
+    // Per IP across all emails (password spraying), on top of the per IP + email limit below
+    if (limited(req, res, "login", 30)) return true;
     const body = await parseBody(req, loginSchema, 10_000);
     const ip = clientIp(req);
     if (await tooManyFailures(ip, body.email)) return fail(res, 429, "too_many_attempts"), true;
@@ -98,6 +111,7 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
   }
 
   if (p === "/api/auth/google" && method === "POST") {
+    if (limited(req, res, "google", 30)) return true;
     const body = await parseBody(req, googleSignInSchema, 10_000);
     let profile;
     try {
@@ -193,6 +207,8 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
       const body = await parseBody(req, profileSchema, 10_000);
       const changingEmail = body.email !== undefined && body.email !== user.email.toLowerCase();
       if (changingEmail) {
+        // Someone with a stolen session mustn't be able to guess the password here
+        if (limited(req, res, "password-check", 10, user.id)) return true;
         const row = await account.findUserById(user.id);
         if (row && !row.password_hash) return fail(res, 403, "set_password_first"), true;
         if (!row || !body.currentPassword || !(await verifyPassword(row.password_hash, body.currentPassword))) return fail(res, 403, "wrong_password"), true;
@@ -205,6 +221,7 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
   }
 
   if (p === "/password" && method === "POST") {
+    if (limited(req, res, "password-check", 10, user.id)) return true;
     const body = await parseBody(req, passwordChangeSchema, 10_000);
     const row = await account.findUserById(user.id);
     // Accounts from "Continue with Google" can set their first password without a current one
