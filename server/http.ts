@@ -1,6 +1,7 @@
 /** Small HTTP helpers shared by the admin API (app.ts) and the shop API (shop-api.ts). */
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { z } from "zod";
+import { isAllowedOrigin } from "./security";
 
 export type Req = IncomingMessage;
 export type Res = ServerResponse;
@@ -70,9 +71,15 @@ export async function parseBody<S extends z.ZodTypeAny>(req: Req, schema: S, lim
   return parsed.data;
 }
 
-/** Same-origin check for state-changing requests (defence in depth on top of SameSite cookies). */
+/**
+ * Same-origin check for state-changing requests (defence in depth on top of SameSite cookies).
+ * Origins listed in CORS_ORIGINS also pass.
+ */
 export function sameOrigin(req: Req) {
   const origin = req.headers.origin;
+  if (isAllowedOrigin(origin)) return true;
+  // Browsers that send Fetch Metadata say outright when a request comes from another site
+  if (req.headers["sec-fetch-site"] === "cross-site") return false;
   if (!origin) return true;
   try {
     // Behind a proxy / port forwarding (Codespaces, VS Code tunnels) the public host

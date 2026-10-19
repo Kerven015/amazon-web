@@ -82,7 +82,13 @@ export function readCookie(req: IncomingMessage, name = COOKIE) {
   const header = req.headers.cookie ?? "";
   for (const part of header.split(";")) {
     const [k, ...v] = part.trim().split("=");
-    if (k === name) return decodeURIComponent(v.join("="));
+    if (k !== name) continue;
+    // A malformed value ("%E0%A4") must not turn every request into a 500
+    try {
+      return decodeURIComponent(v.join("="));
+    } catch {
+      return undefined;
+    }
   }
   return undefined;
 }
@@ -114,11 +120,13 @@ export function sessionFrom(req: IncomingMessage) {
 
 /* ------------------------------ rate limit ------------------------------ */
 
-const attempts = new Map<string, { fails: number; lockedUntil: number }>();
+const attempts = new Map<string, { fails: number; lockedUntil: number; lastFail: number }>();
 
 export function clientIp(req: IncomingMessage) {
   if (env("TRUST_PROXY") === "1") {
-    const fwd = String(req.headers["x-forwarded-for"] ?? "").split(",")[0].trim();
+    // The LAST entry is the one our proxy added; earlier ones are whatever the client sent,
+    // so trusting the first would let anyone dodge the rate limits with a fake header
+    const fwd = String(req.headers["x-forwarded-for"] ?? "").split(",").pop()?.trim();
     if (fwd) return fwd;
   }
   return req.socket.remoteAddress ?? "unknown";
@@ -132,9 +140,13 @@ export function lockRemaining(ip: string, now = Date.now()) {
 }
 
 export function recordFailure(ip: string, now = Date.now()) {
+  // Forget stale entries so the map can't grow without bound
+  if (attempts.size > 10_000) for (const [k, v] of attempts) if (v.lockedUntil <= now && now - v.lastFail > LOCK_MS) attempts.delete(k);
   const a = attempts.get(ip);
-  const fails = (a && a.lockedUntil && a.lockedUntil <= now ? 0 : (a?.fails ?? 0)) + 1;
-  attempts.set(ip, { fails, lockedUntil: fails >= MAX_FAILS ? now + LOCK_MS : 0 });
+  // A lock that ran out, or failures older than the lock window, start the count again
+  const stale = !a || (a.lockedUntil && a.lockedUntil <= now) || now - a.lastFail > LOCK_MS;
+  const fails = (stale ? 0 : a.fails) + 1;
+  attempts.set(ip, { fails, lockedUntil: fails >= MAX_FAILS ? now + LOCK_MS : 0, lastFail: now });
   return { fails, locked: fails >= MAX_FAILS, remaining: Math.max(0, MAX_FAILS - fails) };
 }
 

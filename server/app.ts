@@ -38,6 +38,7 @@ import {
   clearSessionCookie,
   clientIp,
   lockRemaining,
+  readCookie,
   recordFailure,
   sessionFrom,
   setSessionCookie,
@@ -51,6 +52,7 @@ import { BodyError, parseBody, readBody, readJson, type Req, type Res, sameOrigi
 import { handleShopApi } from "./shop-api";
 import { isLocale, LOCALE_COOKIE, locales, negotiateLocale, splitLocale, UNPREFIXED } from "../src/i18n/config";
 import { MAX_UPLOAD_BYTES, saveUpload, UploadError } from "./upload";
+import { env } from "./env";
 
 /** Server-side derivations so the stored product is always consistent. */
 function finalize(input: Product): Product {
@@ -87,8 +89,28 @@ function validate(body: unknown) {
 
 /* ------------------------------ sitemap ------------------------------ */
 
+/**
+ * The site's public origin for absolute URLs. PUBLIC_ORIGIN when set; otherwise built from the
+ * request, but only from a well-formed host — the Host header is client-controlled, and a value
+ * like `evil.com"><…` would otherwise end up inside the XML.
+ */
+function publicOrigin(req: Req) {
+  const configured = env("PUBLIC_ORIGIN");
+  if (configured) {
+    try {
+      return new URL(configured).origin;
+    } catch {
+      /* fall through */
+    }
+  }
+  const proto = String(req.headers["x-forwarded-proto"] ?? "").split(",")[0].trim() === "https" ? "https" : "http";
+  const host = String(req.headers.host ?? "");
+  return /^[a-z0-9.-]+(:\d{1,5})?$/i.test(host) ? `${proto}://${host}` : null;
+}
+
 async function sitemap(req: Req, res: Res) {
-  const origin = `${req.headers["x-forwarded-proto"] ?? "http"}://${req.headers.host}`;
+  const origin = publicOrigin(req);
+  if (!origin) return send(res, 400, { error: "Bad Host header" });
   const { collections } = await import("../src/lib/collections");
   const products = await db.getProducts();
   const paths = ["", ...collections.map((c) => `/collections/${c.slug}`), ...products.map((p) => `/products/${p.slug}`)];
@@ -104,17 +126,9 @@ async function sitemap(req: Req, res: Res) {
 
 /* ------------------------------ language ------------------------------ */
 
-function cookieValue(req: Req, name: string) {
-  for (const part of (req.headers.cookie ?? "").split(";")) {
-    const [k, ...v] = part.trim().split("=");
-    if (k === name) return decodeURIComponent(v.join("="));
-  }
-  return undefined;
-}
-
 /** Saved choice (cookie) first, then the browser's Accept-Language (tr → tr, tk → tk, else en). */
 export function requestLocale(req: Req) {
-  const saved = cookieValue(req, LOCALE_COOKIE);
+  const saved = readCookie(req, LOCALE_COOKIE);
   return isLocale(saved) ? saved : negotiateLocale(req.headers["accept-language"]);
 }
 

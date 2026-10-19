@@ -11,6 +11,7 @@ import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
 import { assertDatabaseReady } from "./db/pool";
 import { env, loadEnv } from "./env";
 import { purgeDeleted } from "./lib/db/products";
+import { applySecurity, configureSecurity } from "./security";
 import { uploadDir } from "./upload";
 
 process.env.NODE_ENV ??= "production";
@@ -51,19 +52,27 @@ if (!existsSync(path.join(dist, "index.html"))) {
 }
 
 const indexHtml = readFileSync(path.join(dist, "index.html"), "utf8");
+configureSecurity(indexHtml);
 
 await assertDatabaseReady();
 await purgeDeleted();
 
-createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   try {
-    res.setHeader("X-Content-Type-Options", "nosniff");
-    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    if (await applySecurity(req, res)) return;
     if (await handleApi(req, res)) return;
     if (guardAdminPage(req, res)) return;
     if (localeRedirect(req, res)) return;
 
-    const pathname = decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname);
+    let pathname: string;
+    try {
+      pathname = decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname);
+    } catch {
+      // Malformed %-escapes ("/%E0%A4%A") are the client's mistake, not a server error
+      res.statusCode = 400;
+      res.end("Bad request");
+      return;
+    }
     // Uploaded product photos (written after the build)
     if (pathname.startsWith("/images/products/") && serveFrom(uploadDir(), pathname.replace("/images/products", ""), res, "public, max-age=31536000, immutable")) return;
     // Built assets (hashed → cache forever) and other public files
@@ -75,7 +84,12 @@ createServer(async (req, res) => {
     res.end(withHtmlLang(indexHtml, pathname));
   } catch (err) {
     console.error(err);
+    if (res.headersSent) return void res.destroy();
     res.statusCode = 500;
     res.end("Server error");
   }
-}).listen(port, () => console.log(`Vendora running on http://localhost:${port}`));
+});
+// Don't let slow or stalled clients hold connections open
+server.headersTimeout = 20_000;
+server.requestTimeout = 120_000;
+server.listen(port, () => console.log(`Vendora running on http://localhost:${port}`));

@@ -69,10 +69,21 @@ export async function signInWithGoogle(profile: GoogleProfile, locale: string): 
     }
 
     // 2. Same email, registered with a password → link (Google has proven they own the inbox)
-    const existing = await db.query<U>("SELECT id, name, email, locale, blocked_at FROM users WHERE email = $1 FOR UPDATE", [profile.email]);
-    let user = existing.rows[0];
+    const existing = await db.query<U & { email_verified_at: Date | null }>(
+      "SELECT id, name, email, locale, blocked_at, email_verified_at FROM users WHERE email = $1 FOR UPDATE",
+      [profile.email],
+    );
+    let user: U = existing.rows[0];
     let created = false;
     if (user) {
+      if (!existing.rows[0].email_verified_at) {
+        // Nobody had proven they own this inbox, so the account may have been registered by
+        // someone else ahead of time ("pre-account takeover"). Drop that password and every
+        // session, so only the inbox owner — signing in with Google now — gets in.
+        // The customer can set a new password from their profile.
+        await db.query("UPDATE users SET password_hash = NULL WHERE id = $1", [user.id]);
+        await db.query("DELETE FROM sessions WHERE user_id = $1", [user.id]);
+      }
       await db.query("UPDATE users SET email_verified_at = coalesce(email_verified_at, now()) WHERE id = $1", [user.id]);
     } else {
       // 3. New customer

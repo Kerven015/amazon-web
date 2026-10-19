@@ -6,6 +6,7 @@ import type { Plugin } from "vite";
 import { guardAdminPage, handleApi, localeRedirect, withHtmlLang } from "./app";
 import { assertDatabaseReady } from "./db/pool";
 import { loadEnv } from "./env";
+import { applySecurity } from "./security";
 
 export function serverPlugin(): Plugin {
   return {
@@ -16,6 +17,7 @@ export function serverPlugin(): Plugin {
       void assertDatabaseReady();
       server.middlewares.use(async (req, res, next) => {
         try {
+          if (await applySecurity(req, res)) return;
           if (await handleApi(req, res)) return;
           if (guardAdminPage(req, res)) return;
           if (localeRedirect(req, res)) return;
@@ -29,9 +31,15 @@ export function serverPlugin(): Plugin {
       loadEnv();
       void assertDatabaseReady();
       server.middlewares.use(async (req, res, next) => {
-        if (await handleApi(req, res)) return;
-        if (guardAdminPage(req, res)) return;
-        if (localeRedirect(req, res)) return;
+        // Same as dev: an error must reach Vite, not become an unhandled rejection
+        try {
+          if (await applySecurity(req, res)) return;
+          if (await handleApi(req, res)) return;
+          if (guardAdminPage(req, res)) return;
+          if (localeRedirect(req, res)) return;
+        } catch (err) {
+          return next(err);
+        }
         next();
       });
     },
