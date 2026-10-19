@@ -169,7 +169,11 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
   return handleAccount(req, res, user, p.slice("/api/account".length), method);
 }
 
+const HOUR = 60 * 60 * 1000;
+
 async function createReview(req: Req, res: Res, user: SessionUser, productId: string) {
+  // Fake-review spam: 5 an hour per account, 20 an hour per address (several accounts)
+  if (!rateLimit(`review:${user.id}`, 5, HOUR) || !rateLimit(`review-ip:${clientIp(req)}`, 20, HOUR)) return fail(res, 429, "too_many_attempts");
   const body = await parseBody(req, reviewSchema, 20_000);
   try {
     send(res, 201, await account.createReview(user, productId, body));
@@ -180,12 +184,14 @@ async function createReview(req: Req, res: Res, user: SessionUser, productId: st
 }
 
 async function createOrder(req: Req, res: Res, user: SessionUser) {
+  // Many accounts from one address (the per-account caps are in placeOrder)
+  if (!rateLimit(`order-ip:${clientIp(req)}`, 20, HOUR)) return fail(res, 429, "too_many_orders");
   const body = await parseBody(req, orderSchema, 50_000);
   try {
     // The order's email is always the account's email
     send(res, 201, await placeOrder({ id: user.id, email: user.email }, body));
   } catch (err) {
-    if (err instanceof OrderError) fail(res, err.code === "out_of_stock" ? 409 : 422, err.code, err.lines.length ? { lines: err.lines } : {});
+    if (err instanceof OrderError) fail(res, err.code === "out_of_stock" ? 409 : err.code === "too_many_orders" ? 429 : 422, err.code, err.lines.length ? { lines: err.lines } : {});
     else throw err;
   }
 }
@@ -248,8 +254,13 @@ async function handleAccount(req: Req, res: Res, user: SessionUser, p: string, m
     if (method === "GET") return send(res, 200, { addresses: await account.listAddresses(user.id) }), true;
     if (method === "POST") {
       const dedupe = new URL(req.url ?? "/", "http://x").searchParams.get("dedupe") === "1";
-      const address = await account.createAddress(user.id, await parseBody(req, addressSchema, 10_000), { dedupe });
-      send(res, 201, { address, addresses: await account.listAddresses(user.id) });
+      try {
+        const address = await account.createAddress(user.id, await parseBody(req, addressSchema, 10_000), { dedupe });
+        send(res, 201, { address, addresses: await account.listAddresses(user.id) });
+      } catch (err) {
+        if (err instanceof account.AddressLimitError) return fail(res, 422, "too_many_addresses"), true;
+        throw err;
+      }
       return true;
     }
   }

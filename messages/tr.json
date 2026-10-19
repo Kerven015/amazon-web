@@ -1603,6 +1603,9 @@
     "syncFailed": "Bu, hesabınıza kaydedilemedi. Lütfen tekrar deneyin.",
     "account_blocked": "Bu hesap engellendi. Bunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin.",
     "google_failed": "Google ile giriş başarısız oldu. Lütfen tekrar deneyin veya e-posta ve şifrenizi kullanın.",
-    "set_password_first": "Önce aşağıdan bir şifre belirleyin, ardından e-postanızı değiştirebilirsiniz."
+    "set_password_first": "Önce aşağıdan bir şifre belirleyin, ardından e-postanızı değiştirebilirsiniz.",
+    "too_many_orders": "İşlenmeyi bekleyen birkaç siparişiniz zaten var. Lütfen yola çıkmalarını bekleyin veya bizimle iletişime geçin.",
+    "order_too_large": "Bu, tek siparişte alabileceğimizden fazla (her üründen en çok 10, toplam 50 ürün). Büyük siparişler için lütfen bizimle iletişime geçin.",
+    "too_many_addresses": "En fazla 20 adres kaydedebilirsiniz. Yeni bir adres eklemek için birini kaldırın."
   }
 }

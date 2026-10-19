@@ -15,7 +15,8 @@
     "data:refresh": "tsx scripts/refresh-product-content.ts",
     "images:fetch": "tsx scripts/fetch-product-images.ts",
     "check:secrets": "node scripts/check-secrets.mjs",
-    "i18n:check": "tsx scripts/i18n-check.ts"
+    "i18n:check": "tsx scripts/i18n-check.ts",
+    "test": "tsx --test --test-concurrency=1 --test-reporter=spec \"tests/*.test.ts\""
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.1.0",

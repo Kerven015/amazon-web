@@ -1603,6 +1603,9 @@
     "syncFailed": "We couldn't save that to your account. Please try again.",
     "account_blocked": "This account has been blocked. Please contact us if you think this is a mistake.",
     "google_failed": "Google sign-in didn't work. Please try again, or use your email and password.",
-    "set_password_first": "Set a password first (below), then you can change your email."
+    "set_password_first": "Set a password first (below), then you can change your email.",
+    "too_many_orders": "You already have several orders waiting to be processed. Please wait until they're on their way, or contact us.",
+    "order_too_large": "That's more than we can take in one order (up to 10 of each item, 50 items in total). Please contact us for large orders.",
+    "too_many_addresses": "You've saved the maximum of 20 addresses. Remove one to add another."
   }
 }

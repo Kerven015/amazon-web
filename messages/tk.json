@@ -1603,6 +1603,9 @@
     "syncFailed": "Muny hasabyňyza ýazyp bilmedik. Täzeden synanyşyň.",
     "account_blocked": "Bu hasap petiklendi. Ýalňyşlyk diýip pikir edýän bolsaňyz, biz bilen habarlaşyň.",
     "google_failed": "Google bilen giriş başartmady. Täzeden synanyşyň ýa-da e-poçta we açar sözüňizi ulanyň.",
-    "set_password_first": "Ilki aşakda açar sözi belläň, soňra e-poçtaňyzy üýtgedip bilersiňiz."
+    "set_password_first": "Ilki aşakda açar sözi belläň, soňra e-poçtaňyzy üýtgedip bilersiňiz.",
+    "too_many_orders": "Işlenmegine garaşýan birnäçe sargydyňyz eýýäm bar. Olar ýola çykýança garaşyň ýa-da biz bilen habarlaşyň.",
+    "order_too_large": "Bu bir sargytda kabul edip biljek mukdarymyzdan köp (her harytdan iň köp 10, jemi 50 haryt). Uly sargytlar üçin biz bilen habarlaşyň.",
+    "too_many_addresses": "Iň köp 20 salgy saklap bolýar. Täzesini goşmak üçin birini aýyryň."
   }
 }
