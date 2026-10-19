@@ -14,11 +14,25 @@ import { buildTracking } from "../../../src/lib/order-tracking";
 import { computeTotals, deliveryDates, deliveryPrice, discountAmount, discountPercent, sizePrice, type DeliveryId } from "../../../src/lib/pricing";
 import type { Address, Order, OrderStatus, ProductRecord } from "../../../src/types";
 import { type Db, query, withTransaction } from "../../db/pool";
+import { env } from "../../env";
 import { addressFromRow, type AddressRow } from "./account";
+
+/**
+ * Payment is still a demo, so an order costs nothing to place — but it does take stock.
+ * These caps stop one account from ordering out the whole shop (F-02):
+ *   ORDER_MAX_OPEN     orders still "placed" (not yet packed/cancelled) per customer, default 3
+ *   ORDER_MAX_PER_DAY  orders per customer in 24 hours, default 10
+ *   ORDER_MAX_UNITS    items in one order, default 50 (and at most 10 of one size/colour)
+ */
+const limit = (name: string, fallback: number) => {
+  const n = Number(env(name));
+  return Number.isInteger(n) && n > 0 ? n : fallback;
+};
+export const orderLimits = () => ({ open: limit("ORDER_MAX_OPEN", 3), perDay: limit("ORDER_MAX_PER_DAY", 10), units: limit("ORDER_MAX_UNITS", 50), perLine: 10 });
 
 export class OrderError extends Error {
   constructor(
-    public code: "out_of_stock" | "invalid_discount" | "address_not_found",
+    public code: "out_of_stock" | "invalid_discount" | "address_not_found" | "too_many_orders" | "order_too_large",
     public lines: OutOfStockLine[] = [],
   ) {
     super(code);
@@ -119,6 +133,19 @@ function mergeLines(items: Line[]): Line[] {
 export async function placeOrder(user: { id: string; email: string }, input: OrderInput): Promise<Order> {
   return withTransaction(async (client) => {
     const lines = mergeLines(input.items);
+    const caps = orderLimits();
+
+    // 0. Abuse limits. Locking the customer's row makes two simultaneous checkouts by the
+    //    same account wait for each other, so the counts below can't be raced.
+    if (lines.some((l) => l.quantity > caps.perLine) || lines.reduce((n, l) => n + l.quantity, 0) > caps.units) throw new OrderError("order_too_large");
+    await client.query("SELECT 1 FROM users WHERE id = $1 FOR UPDATE", [user.id]);
+    const { rows: counts } = await client.query<{ open: number; day: number }>(
+      `SELECT count(*) FILTER (WHERE status = 'placed')::int AS open,
+              count(*) FILTER (WHERE created_at > now() - interval '24 hours')::int AS day
+         FROM orders WHERE user_id = $1`,
+      [user.id],
+    );
+    if (counts[0].open >= caps.open || counts[0].day >= caps.perDay) throw new OrderError("too_many_orders");
 
     // 1. Products and prices — from the database only
     const { rows: products } = await client.query<{ id: string; data: ProductRecord }>(

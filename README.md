@@ -37,6 +37,15 @@ Customers can also use **Continue with Google** and Google **One Tap**: set `GOO
 in `.env.local` (steps: [deploy/google-sign-in.md](deploy/google-sign-in.md)). Without it, the
 Google button stays hidden.
 
+## Security tests
+
+`npm test` runs about 100 security tests against the real API: access control (admin and
+customer routes, nobody sees another customer's data), server-side prices and validation,
+password storage, sessions and rate limits, CSRF and security headers, SQL injection and XSS,
+and the order / review / address limits. They need a separate test database — see
+[tests/README.md](tests/README.md). GitHub Actions runs them, plus the type check, build,
+translation check and secret check, on every pull request.
+
 ## Database
 
 PostgreSQL runs on your own server, next to the Node app, and is only reachable

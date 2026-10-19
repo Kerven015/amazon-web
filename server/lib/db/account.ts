@@ -95,6 +95,11 @@ const addressValues = (a: Omit<AddressInput, "isDefault">) => [a.label ?? "", a.
  * Adds an address. The first one becomes the default. With `dedupe`, an identical
  * address that's already saved is reused (merging a browser's address book on sign-in).
  */
+/** Addresses one customer can save (stops scripts filling the database) */
+export const MAX_ADDRESSES = 20;
+
+export class AddressLimitError extends Error {}
+
 export async function createAddress(userId: string, input: AddressInput, { dedupe = false } = {}): Promise<Address> {
   return withTransaction(async (client) => {
     if (dedupe) {
@@ -107,7 +112,10 @@ export async function createAddress(userId: string, input: AddressInput, { dedup
       );
       if (rows[0]) return addressFromRow(rows[0]);
     }
+    // The customer's row is locked so two quick requests can't both slip under the cap
+    await client.query("SELECT 1 FROM users WHERE id = $1 FOR UPDATE", [userId]);
     const { rows: count } = await client.query<{ n: number }>("SELECT count(*)::int AS n FROM addresses WHERE user_id = $1", [userId]);
+    if (count[0].n >= MAX_ADDRESSES) throw new AddressLimitError();
     const makeDefault = !!input.isDefault || count[0].n === 0;
     if (makeDefault) await client.query("UPDATE addresses SET is_default = false WHERE user_id = $1 AND is_default", [userId]);
     const { rows } = await client.query<AddressRow>(

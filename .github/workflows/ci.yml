@@ -1,0 +1,54 @@
+# Runs on every pull request and push to main: type check, build, translations, secrets
+# and the security tests against a throw-away PostgreSQL.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ci-superuser
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGPASSWORD: ci-superuser
+      TEST_DATABASE_URL: postgres://vendora_app:ci-app@127.0.0.1:5432/vendora_test
+      TEST_MIGRATION_DATABASE_URL: postgres://vendora_owner:ci-owner@127.0.0.1:5432/vendora_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Create the test database (same roles as production)
+        run: |
+          psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE vendora_owner LOGIN PASSWORD 'ci-owner';
+          CREATE ROLE vendora_app LOGIN PASSWORD 'ci-app';
+          CREATE DATABASE vendora_test OWNER vendora_owner;
+          \c vendora_test
+          REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+          GRANT USAGE ON SCHEMA public TO vendora_app;
+          ALTER DEFAULT PRIVILEGES FOR ROLE vendora_owner IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO vendora_app;
+          ALTER DEFAULT PRIVILEGES FOR ROLE vendora_owner IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO vendora_app;
+          SQL
+      - run: npm run typecheck
+      - run: npm run i18n:check
+      - run: npm run build
+      - run: npm run check:secrets
+      - run: npm test
+      - name: Known vulnerabilities in production dependencies
+        run: npm audit --omit=dev --audit-level=high
