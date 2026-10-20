@@ -15,7 +15,7 @@ URLs, design and features are the same.
 npm install
 npm run db:migrate     # create / update the tables (see "Database" below)
 npm run db:seed        # import data/products.json into the database (safe to run twice)
-npm run dev            # store + API + admin on http://localhost:5173 (admin: /admin)
+npm run dev            # store + API + admin on http://localhost:5173 (admin: /admin) — this computer only
 npm run build          # type-check + production build into dist/
 npm run check:secrets  # confirm the admin password isn't in the built client code
 npm run i18n:check     # fail if a key in messages/en.json is missing or broken in tr.json / tk.json / ru.json
@@ -24,6 +24,11 @@ npm run images:fetch   # one-time Pexels photo download: products + editorial (n
 npm run data:refresh   # re-apply content rules to the seed file data/products.json (then db:seed to load it)
 npm run data:seed -- --force   # ⚠ reset the seed file data/products.json to the original catalogue
 ```
+
+`npm run dev` only answers on this computer. Reaching it from a phone, another computer or a
+port-forwarding tunnel (VS Code **Ports**, Codespaces, ngrok) must be switched on with
+`DEV_EXPOSE=1` (Windows: `set DEV_EXPOSE=1 && npm run dev`) — and keep such tunnels **Private**:
+the dev server runs the admin API with your local passwords.
 
 Admin login lives in `.env.local` (server-only): `ADMIN_USERNAME`, `ADMIN_PASSWORD`
 and a random `ADMIN_SESSION_SECRET` (32+ characters). See `.env.example`.
