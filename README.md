@@ -27,8 +27,8 @@ npm run data:seed -- --force   # ⚠ reset the seed file data/products.json to t
 
 `npm run dev` only answers on this computer. Reaching it from a phone, another computer or a
 port-forwarding tunnel (VS Code **Ports**, Codespaces, ngrok) must be switched on with
-`DEV_EXPOSE=1` (Windows: `set DEV_EXPOSE=1 && npm run dev`) — and keep such tunnels **Private**:
-the dev server runs the admin API with your local passwords.
+`DEV_EXPOSE=1` in `.env.local` (then restart `npm run dev`). With a **Public** tunnel anyone with the
+link can open the site — including `/admin`, so use a strong `ADMIN_PASSWORD` while it's shared.
 
 Admin login lives in `.env.local` (server-only): `ADMIN_USERNAME`, `ADMIN_PASSWORD`
 and a random `ADMIN_SESSION_SECRET` (32+ characters). See `.env.example`.
