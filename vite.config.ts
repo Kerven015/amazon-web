@@ -1,14 +1,17 @@
 import { fileURLToPath, URL } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import { serverPlugin } from "./server/vite-plugin";
 
 /**
  * DEV_EXPOSE=1 (or running inside GitHub Codespaces, whose forwarded ports are private to you
  * by default) lets other devices and port-forwarding tunnels reach the dev server.
  */
-const exposed = process.env.DEV_EXPOSE === "1" || process.env.CODESPACES === "true";
+// Read from the terminal or from .env.local / .env (Vite's loadEnv; "" = every variable, server-side only)
+const fileEnv = loadEnv("development", process.cwd(), "");
+const setting = (name: string) => (process.env[name] ?? fileEnv[name] ?? "").trim();
+const exposed = ["1", "true", "yes"].includes(setting("DEV_EXPOSE").toLowerCase()) || process.env.CODESPACES === "true";
 if (exposed) console.warn("\n! DEV_EXPOSE: the dev server accepts connections from other devices and tunnels. Keep tunnels private.\n");
 
 export default defineConfig({
@@ -31,7 +34,7 @@ export default defineConfig({
     // only allowed when exposure is switched on, so a forwarded port gets "Blocked request".
     allowedHosts: [
       ...(exposed ? [".app.github.dev", ".github.dev", ".githubpreview.dev", ".devtunnels.ms", ".gitpod.io"] : []),
-      ...(process.env.DEV_ALLOWED_HOSTS ?? "").split(",").map((h) => h.trim()).filter(Boolean),
+      ...setting("DEV_ALLOWED_HOSTS").split(",").map((h) => h.trim()).filter(Boolean),
     ],
     // Hot reload through the HTTPS forwarded address (port 443) in Codespaces
     hmr: exposed && process.env.CODESPACES ? { clientPort: 443 } : undefined,
