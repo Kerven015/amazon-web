@@ -16,6 +16,11 @@ import SearchPage, { searchLoader } from "@/pages/shop/search";
 import LoginPage, { loginLoader } from "@/pages/auth/login";
 import RegisterPage, { registerLoader } from "@/pages/auth/register";
 import AdminOrdersPage, { adminOrdersLoader } from "@/pages/admin/orders";
+import AdminDashboardPage, { adminDashboardLoader } from "@/pages/admin/dashboard";
+import AdminInventoryPage, { adminInventoryLoader } from "@/pages/admin/inventory";
+import AdminReviewsPage, { adminReviewsLoader } from "@/pages/admin/reviews";
+import AdminReportsPage, { adminReportsLoader } from "@/pages/admin/reports";
+import AdminActivityPage, { adminActivityLoader } from "@/pages/admin/activity";
 import AdminCustomersPage, { adminCustomersLoader } from "@/pages/admin/customers";
 import AdminCatalogPage, { adminCatalogLoader } from "@/pages/admin/catalog";
 import { AdminLayout, adminLayoutLoader } from "@/pages/admin/layout";
@@ -111,6 +116,11 @@ export const router = createBrowserRouter([
               { path: "products/:id/edit", element: <AdminEditProductPage />, loader: withAdminLocale(adminEditLoader) },
               { path: "orders", element: <AdminOrdersPage />, loader: withAdminLocale(adminOrdersLoader) },
               { path: "customers", element: <AdminCustomersPage />, loader: withAdminLocale(adminCustomersLoader) },
+              { path: "dashboard", element: <AdminDashboardPage />, loader: withAdminLocale(adminDashboardLoader) },
+              { path: "inventory", element: <AdminInventoryPage />, loader: withAdminLocale(adminInventoryLoader) },
+              { path: "reviews", element: <AdminReviewsPage />, loader: withAdminLocale(adminReviewsLoader) },
+              { path: "reports", element: <AdminReportsPage />, loader: withAdminLocale(adminReportsLoader) },
+              { path: "activity", element: <AdminActivityPage />, loader: withAdminLocale(adminActivityLoader) },
             ],
           },
         ],

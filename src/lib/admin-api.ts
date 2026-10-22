@@ -2,7 +2,27 @@
  * Browser client for the protected admin API (server/app.ts).
  * The server checks the httpOnly session cookie on every call; nothing secret lives here.
  */
-import type { Order, OrderStatus, ProductRecord } from "@/types";
+import type { OrderStatus, ProductRecord } from "@/types";
+// Types only (erased from the bundle): the shapes the server's admin API returns
+import type { AdminOrder, AdminOrderFilter } from "../../server/lib/db/orders";
+import type { InventoryRow, StockMovement, AdjustReason } from "../../server/lib/db/inventory";
+import type { AdminReview, ReviewFilter } from "../../server/lib/db/reviews";
+import type { AuditEntry } from "../../server/lib/db/audit";
+import type { ShopSettings } from "../../server/lib/db/settings";
+import type { dashboard, salesReport, ReportGroup } from "../../server/lib/db/reports";
+
+export type { AdminOrder, AdjustReason, AdminReview, AuditEntry, InventoryRow, ReportGroup, ShopSettings, StockMovement };
+export type Dashboard = Awaited<ReturnType<typeof dashboard>>;
+export type SalesReport = Awaited<ReturnType<typeof salesReport>>;
+export type ReportQuery = { from: string; to: string; tz: string; group?: ReportGroup };
+
+/** "?a=1&b=2" from the values that are set */
+const qs = (params: Record<string, string | number | undefined | null>) => {
+  const s = new URLSearchParams(Object.entries(params).filter((e): e is [string, string | number] => e[1] != null && e[1] !== "").map(([k, v]) => [k, String(v)])).toString();
+  return s ? `?${s}` : "";
+};
+/** The admin's time zone, so "today" and report days match their clock */
+export const adminTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
 export type AdminCustomer = {
   id: string;
@@ -25,9 +45,6 @@ export type AdminCustomerDetail = AdminCustomer & {
   sessionList: AdminSession[];
   recentOrders: { id: string; status: OrderStatus; total: number; createdAt: string }[];
 };
-
-/** An order as the admin sees it (with the customer's email). */
-export type AdminOrder = Order & { email: string };
 
 export class ApiError extends Error {
   constructor(
@@ -73,8 +90,11 @@ export const adminApi = {
   /** Undo a delete (the server keeps deleted products for 10 minutes). */
   restore: (ids: string[]) =>
     call<{ restored: string[] }>("/api/admin/products/restore", { method: "POST", body: JSON.stringify({ ids }) }),
-  orders: () => call<AdminOrder[]>("/api/admin/orders"),
-  /** Adds a tracking event; cancelling puts the items back in stock. */
+  orders: (filter: AdminOrderFilter = {}) => call<AdminOrder[]>(`/api/admin/orders${qs({ ...filter, limit: undefined })}`),
+  order: (id: string) => call<AdminOrder>(`/api/admin/orders/${encodeURIComponent(id)}`),
+  setShipment: (id: string, carrier: string, trackingNumber: string) =>
+    call<AdminOrder>(`/api/admin/orders/${encodeURIComponent(id)}/shipment`, { method: "PATCH", body: JSON.stringify({ carrier, trackingNumber }) }),
+  /** Adds a tracking event (forward only; 409 otherwise); cancelling puts the items back in stock. */
   setOrderStatus: (id: string, status: OrderStatus) =>
     call<AdminOrder>(`/api/admin/orders/${encodeURIComponent(id)}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
   customers: (q = "") => call<AdminCustomer[]>(`/api/admin/customers${q ? `?q=${encodeURIComponent(q)}` : ""}`),
@@ -86,6 +106,20 @@ export const adminApi = {
   setBlocked: (id: string, blocked: boolean) => call<AdminCustomerDetail>(`/api/admin/customers/${id}/block`, { method: "POST", body: JSON.stringify({ blocked }) }),
   /** Only works for accounts without orders (409 "has_orders" otherwise). */
   deleteCustomer: (id: string) => call<{ deleted: string }>(`/api/admin/customers/${id}`, { method: "DELETE" }),
+  dashboard: () => call<Dashboard>(`/api/admin/dashboard${qs({ tz: adminTimeZone() })}`),
+  inventory: () => call<{ threshold: number; rows: InventoryRow[] }>("/api/admin/inventory"),
+  movements: (productId?: string, before?: number) => call<StockMovement[]>(`/api/admin/inventory/movements${qs({ productId, before })}`),
+  adjustStock: (body: { productId: string; size: string; colour: string; change: number; reason: AdjustReason; note: string }) =>
+    call<{ quantity: number }>("/api/admin/inventory/adjust", { method: "POST", body: JSON.stringify(body) }),
+  settings: () => call<ShopSettings>("/api/admin/settings"),
+  saveSettings: (settings: ShopSettings) => call<ShopSettings>("/api/admin/settings", { method: "PUT", body: JSON.stringify(settings) }),
+  reviews: (filter: ReviewFilter = {}) => call<AdminReview[]>(`/api/admin/reviews${qs({ ...filter, limit: undefined })}`),
+  setReviewHidden: (id: string, hidden: boolean) => call<{ id: string; hidden: boolean }>(`/api/admin/reviews/${encodeURIComponent(id)}/hide`, { method: "POST", body: JSON.stringify({ hidden }) }),
+  deleteReview: (id: string) => call<{ deleted: string }>(`/api/admin/reviews/${encodeURIComponent(id)}`, { method: "DELETE" }),
+  salesReport: (q: ReportQuery) => call<SalesReport>(`/api/admin/reports/sales${qs(q)}`),
+  /** A link the browser downloads (the session cookie goes with it) */
+  exportUrl: (type: "orders" | "products", q: ReportQuery) => `/api/admin/reports/export${qs({ type, from: q.from, to: q.to, tz: q.tz })}`,
+  activity: (filter: { entityType?: string; entityId?: string; before?: number } = {}) => call<AuditEntry[]>(`/api/admin/activity${qs(filter)}`),
   upload: (file: File, slug: string) =>
     call<{ src: string; blurDataURL: string }>(
       `/api/admin/upload?slug=${encodeURIComponent(slug || "untitled")}&name=${encodeURIComponent(file.name)}`,

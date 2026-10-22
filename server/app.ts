@@ -15,19 +15,22 @@
  *            POST /api/admin/products/delete    { ids: [] } bulk delete
  *            POST /api/admin/products/restore   { ids: [] } undo a delete (within 10 minutes)
  *            POST /api/admin/upload?slug=&name= raw image body → WebP
- *            GET  /api/admin/orders             every order, newest first
- *            PATCH /api/admin/orders/:id/status { status } → adds a tracking event
+ *            GET  /api/admin/orders?q=&status=&from=&to=&sort=   orders (newest first by default)
+ *            PATCH /api/admin/orders/:id/status { status } → adds a tracking event (forward only; 409 otherwise)
  *            GET  /api/admin/customers?q=       customer accounts (who's signed in, orders, spend)
  *            GET  /api/admin/customers/:id      one customer, with their signed-in devices
  *            POST /api/admin/customers/:id/sign-out           end every session
  *            DELETE /api/admin/customers/:id/sessions/:sid    end one device's session
  *            POST /api/admin/customers/:id/block { blocked }  block (also signs out) / unblock
  *            DELETE /api/admin/customers/:id    delete (only accounts without orders)
+ *   Tools    dashboard, order detail & shipment, inventory, reviews, reports, settings,
+ *            activity log → server/admin-api.ts
  *   Shop     /api/auth/*, /api/account/*, /api/orders, /api/products/:id/reviews → server/shop-api.ts
  *
  * Every /api/admin/* route except login requires a valid admin session cookie (401 otherwise),
  * and /admin pages without a session redirect to /admin/login.
- * Every state-changing request (POST/PUT/PATCH/DELETE) must pass the same-origin check.
+ * Every state-changing request (POST/PUT/PATCH/DELETE) must pass the same-origin check,
+ * and every admin change is written to the activity log (admin_audit_log).
  */
 import { productSchema, fieldErrors } from "../src/lib/product-schema";
 import { orderStatusSchema } from "../src/lib/account-schema";
@@ -46,10 +49,12 @@ import {
   startAdminSession,
 } from "./auth";
 import * as db from "./lib/db/products";
-import { adminListOrders, adminSetStatus } from "./lib/db/orders";
+import { adminListOrders, adminSetStatus, StatusError } from "./lib/db/orders";
+import { logAdmin } from "./lib/db/audit";
+import { type Audit, handleAdminTools } from "./admin-api";
 import * as customers from "./lib/db/customers";
 import { z } from "zod";
-import { BodyError, parseBody, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
+import { BodyError, parseBody, parseQuery, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
 import { handleShopApi } from "./shop-api";
 import { isLocale, LOCALE_COOKIE, locales, negotiateLocale, splitLocale, UNPREFIXED } from "../src/i18n/config";
 import { MAX_UPLOAD_BYTES, saveUpload, UploadError } from "./upload";
@@ -81,6 +86,28 @@ function finalize(input: Product): Product {
       : {}),
   };
 }
+
+/** What an admin product save changed, for the activity log (field names, and prices per size). */
+function productChanges(before: Product, after: Product) {
+  const skip = new Set(["reviews", "rating", "reviewCount", "stock", "updatedAt"]);
+  const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
+  const changed = [...keys].filter((k) => !skip.has(k) && JSON.stringify(before[k as keyof Product]) !== JSON.stringify(after[k as keyof Product]));
+  const prices = after.sizes.flatMap((s) => {
+    const old = before.sizes.find((b) => b.name === s.name);
+    return old && (old.price !== s.price || (old.salePrice ?? null) !== (s.salePrice ?? null))
+      ? [{ size: s.name, price: [old.price, s.price], salePrice: [old.salePrice ?? null, s.salePrice ?? null] }]
+      : [];
+  });
+  return { slug: after.slug, changed, ...(prices.length ? { prices } : {}) };
+}
+
+const ordersQuery = z.object({
+  q: z.string().max(200).optional(),
+  status: z.enum(["open", "placed", "packed", "shipped", "out_for_delivery", "delivered", "cancelled"]).optional(),
+  from: z.string().datetime({ offset: true }).optional(),
+  to: z.string().datetime({ offset: true }).optional(),
+  sort: z.enum(["newest", "oldest", "total_desc", "total_asc"]).optional(),
+});
 
 function validate(body: unknown) {
   const parsed = productSchema.safeParse(body);
@@ -249,6 +276,7 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       }
       clearFailures(ip);
       await startAdminSession(req, res, username);
+      await logAdmin({ actor: username, action: "admin.login", entityType: "admin", entityId: username, ip });
       send(res, 200, { ok: true });
       return true;
     }
@@ -265,8 +293,12 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       send(res, 200, { ok: true });
       return true;
     }
+    const audit: Audit = (e, db) => logAdmin({ ...e, actor: session.sub, ip: clientIp(req) }, db);
+
     if (p === "/api/admin/logout-all" && method === "POST") {
-      send(res, 200, { ended: await endAllAdminSessions(req, res) });
+      const ended = await endAllAdminSessions(req, res);
+      await audit({ action: "admin.logout_all", entityType: "admin", entityId: session.sub, details: { ended } });
+      send(res, 200, { ended });
       return true;
     }
     if (p === "/api/admin/session" && method === "GET") {
@@ -282,7 +314,9 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       if (method === "POST") {
         const v = validate(await readJson(req));
         if (!v.ok) return send(res, 422, { error: "Please fix the highlighted fields", fields: v.errors }), true;
-        send(res, 201, await db.createProduct(v.product));
+        const created = await db.createProduct(v.product, session.sub);
+        await audit({ action: "product.create", entityType: "product", entityId: created.id, details: { slug: created.slug } });
+        send(res, 201, created);
         return true;
       }
     }
@@ -292,6 +326,7 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       const ids = Array.isArray(body.ids) ? body.ids.filter((x): x is string => typeof x === "string") : [];
       if (!ids.length) return send(res, 400, { error: "No products selected" }), true;
       const deleted = await db.deleteProducts(ids);
+      for (const d of deleted) await audit({ action: "product.delete", entityType: "product", entityId: d.id, details: { slug: d.slug } });
       send(res, 200, { deleted: deleted.map((p) => p.id) });
       return true;
     }
@@ -301,6 +336,7 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       const ids = Array.isArray(body.ids) ? body.ids.filter((x): x is string => typeof x === "string") : [];
       const restored = await db.restoreProducts(ids);
       if (!restored.length) return send(res, 410, { error: "This product can no longer be restored" }), true;
+      for (const id of restored) await audit({ action: "product.restore", entityType: "product", entityId: id });
       send(res, 200, { restored });
       return true;
     }
@@ -315,25 +351,34 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       if (method === "PUT") {
         const v = validate({ ...((await readJson(req)) as object), id });
         if (!v.ok) return send(res, 422, { error: "Please fix the highlighted fields", fields: v.errors }), true;
-        const saved = await db.updateProduct(id, v.product);
+        const before = await db.getProductById(id, { includeHidden: true });
+        const saved = await db.updateProduct(id, v.product, session.sub);
+        if (saved && before) await audit({ action: "product.update", entityType: "product", entityId: id, details: productChanges(before, saved) });
         return send(res, saved ? 200 : 404, saved ?? { error: "Not found" }), true;
       }
       if (method === "DELETE") {
         const removed = await db.deleteProduct(id);
+        if (removed) await audit({ action: "product.delete", entityType: "product", entityId: id, details: { slug: removed.slug } });
         return send(res, removed ? 200 : 404, removed ? { deleted: [removed.id] } : { error: "Not found" }), true;
       }
     }
 
     if (p === "/api/admin/orders" && method === "GET") {
-      send(res, 200, await adminListOrders());
+      send(res, 200, await adminListOrders(parseQuery(url, ordersQuery)));
       return true;
     }
     const orderStatus = p.match(/^\/api\/admin\/orders\/(VD-\d{6})\/status$/);
     if (orderStatus && method === "PATCH") {
       const { status } = await parseBody(req, orderStatusSchema, 1_000);
-      const order = await adminSetStatus(orderStatus[1], status);
-      if (order === "cancelled") return send(res, 409, { error: "Cancelled orders can't be changed" }), true;
-      return send(res, order ? 200 : 404, order ?? { error: "Not found" }), true;
+      try {
+        const result = await adminSetStatus(orderStatus[1], status, session.sub);
+        if (!result) return send(res, 404, { error: "Not found" }), true;
+        if (result.from !== status) await audit({ action: "order.status", entityType: "order", entityId: orderStatus[1], details: { from: result.from, to: status } });
+        return send(res, 200, result.order), true;
+      } catch (err) {
+        if (err instanceof StatusError) return send(res, 409, { error: "invalid_transition", from: err.from }), true;
+        throw err;
+      }
     }
 
     if (p === "/api/admin/customers" && method === "GET") {
@@ -352,16 +397,23 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
         const result = await customers.deleteCustomer(id);
         if (result === "not_found") return notFound(), true;
         if (result === "has_orders") return send(res, 409, { error: "has_orders" }), true;
+        await audit({ action: "customer.delete", entityType: "customer", entityId: id });
         return send(res, 200, { deleted: id }), true;
       }
-      if (action === "sign-out" && method === "POST") return send(res, 200, { ended: await customers.signOutCustomer(id) }), true;
+      if (action === "sign-out" && method === "POST") {
+        const ended = await customers.signOutCustomer(id);
+        await audit({ action: "customer.sign_out", entityType: "customer", entityId: id, details: { ended } });
+        return send(res, 200, { ended }), true;
+      }
       if (action === "block" && method === "POST") {
         const { blocked } = await parseBody(req, z.object({ blocked: z.boolean() }), 1_000);
         if (!(await customers.setBlocked(id, blocked))) return notFound(), true;
+        await audit({ action: blocked ? "customer.block" : "customer.unblock", entityType: "customer", entityId: id });
         return send(res, 200, await customers.getCustomer(id)), true;
       }
       if (sessionId && method === "DELETE") {
         if (!(await customers.endCustomerSession(id, sessionId))) return notFound(), true;
+        await audit({ action: "customer.end_session", entityType: "customer", entityId: id });
         return send(res, 200, await customers.getCustomer(id)), true;
       }
     }
@@ -372,6 +424,8 @@ export async function handleApi(req: Req, res: Res): Promise<boolean> {
       send(res, 201, saved);
       return true;
     }
+
+    if (await handleAdminTools(req, res, url, method, session.sub, audit)) return true;
 
     send(res, 404, { error: "Not found" });
     return true;

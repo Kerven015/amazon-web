@@ -1245,7 +1245,13 @@
       "customers": "Customers",
       "logOutHere": "Log out",
       "logOutAll": "Log out on all devices",
-      "logOutAllConfirm": "Log out of the admin on every device and browser, including this one? Use this if you think someone else may have your admin login."
+      "logOutAllConfirm": "Log out of the admin on every device and browser, including this one? Use this if you think someone else may have your admin login.",
+      "manage": "Manage",
+      "dashboard": "Dashboard",
+      "inventory": "Inventory",
+      "reviews": "Reviews",
+      "reports": "Reports",
+      "activity": "Activity log"
     },
     "login": {
       "pageTitle": "Admin login · {store}",
@@ -1513,7 +1519,46 @@
       "updated": "Order {id}: now “{status}”",
       "failed": "Couldn't change the status. Please try again.",
       "confirmCancel": "Cancel order {id}? Its items go back in stock, and this can't be undone.",
-      "cancelledLocked": "Cancelled orders can't be changed."
+      "cancelledLocked": "Cancelled orders can't be changed.",
+      "intro": "Search, filter and open any order. Statuses only move forward; an order can be cancelled until it ships.",
+      "loading": "Loading orders",
+      "filterLabel": "Filter by status",
+      "all": "All",
+      "open": "To pack or ship",
+      "search": "Order no., customer, email or tracking no.",
+      "from": "From",
+      "to": "To",
+      "sort": "Sort",
+      "sorts": {
+        "newest": "Newest first",
+        "oldest": "Oldest first",
+        "total_desc": "Highest total",
+        "total_asc": "Lowest total"
+      },
+      "clear": "Clear filters",
+      "noMatch": "No orders match these filters.",
+      "details": "Details",
+      "detailsFor": "Details of order {id}",
+      "notAllowed": "That status change isn't allowed for this order.",
+      "orderTitle": "Order {id}",
+      "loadFailed": "Couldn't load this order.",
+      "moveTo": "Move to",
+      "statusRule": "Statuses only move forward. Cancelling puts the items back in stock and is only possible before the order ships.",
+      "sku": "SKU",
+      "delivery": "Delivery",
+      "payment": "Payment",
+      "demoPayment": "demo checkout — no money taken",
+      "discountCode": "Discount code",
+      "shipment": "Shipment",
+      "carrier": "Carrier",
+      "trackingNumber": "Tracking number",
+      "saveShipment": "Save shipment",
+      "shipmentSaved": "Shipment details saved",
+      "trackingInvalid": "Tracking numbers can only use letters, numbers, spaces and - . /",
+      "shipmentNote": "Shown here in the admin only — customers don't see the tracking number yet.",
+      "tracking": "Tracking timeline",
+      "history": "Admin activity",
+      "noHistory": "No admin changes yet."
     },
     "customers": {
       "title": "Customers",
@@ -1573,6 +1618,262 @@
       "methods": {
         "password": "Password",
         "google": "Google"
+      }
+    },
+    "common": {
+      "loadFailed": "Couldn't load this. Check your connection and try again.",
+      "retry": "Try again",
+      "loading": "Loading…",
+      "chartMax": "Highest: {value}"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "intro": "Live figures from your orders and stock. Days follow your time zone ({tz}).",
+      "refresh": "Refresh",
+      "refreshFailed": "Couldn't refresh. Please try again.",
+      "today": "Today",
+      "ordersToday": "Orders today",
+      "salesToday": "Sales today",
+      "salesHint": "Charged incl. shipping & tax; cancelled orders excluded",
+      "toPack": "To pack",
+      "toShip": "To ship",
+      "viewOrders": "View orders →",
+      "last30": "Last 30 days",
+      "sales": "Sales",
+      "netSales": "Net sales {value}",
+      "orders": "Orders",
+      "units": "{count, plural, one {# item sold} other {# items sold}}",
+      "averageOrder": "Average order",
+      "customers": "Customer accounts",
+      "newCustomers": "{count, plural, one {# new} other {# new}}",
+      "dailySales": "Sales per day (last 14 days)",
+      "byStatus": "Orders by status",
+      "stock": "Stock",
+      "openInventory": "Open inventory",
+      "outOfStock": "Out of stock (size/colour)",
+      "lowStock": "Low stock (size/colour)",
+      "threshold": "{count, plural, one {# unit or fewer} other {# units or fewer}}",
+      "stockFine": "Nothing is low on stock.",
+      "bestSellers": "Best sellers (30 days)",
+      "noSales": "No sales in the last 30 days.",
+      "product": "Product",
+      "unitsSold": "Units",
+      "itemSales": "Item sales",
+      "recentOrders": "Latest orders",
+      "allOrders": "All orders",
+      "noOrders": "No orders yet.",
+      "reviewsNote": "New reviews (7 days): {recent} · Hidden reviews: {hidden}.",
+      "openReviews": "Manage reviews"
+    },
+    "inventory": {
+      "title": "Inventory",
+      "intro": "Stock for every size and colour. Adjust it with a reason, and see every change in the history.",
+      "tabs": {
+        "stock": "Stock",
+        "history": "History"
+      },
+      "filterLabel": "Filter by stock level",
+      "levels": {
+        "all": "All",
+        "low": "Low",
+        "out": "Out of stock"
+      },
+      "search": "Product, SKU, size or colour",
+      "noMatch": "Nothing matches.",
+      "empty": "No products with stock yet.",
+      "product": "Product",
+      "sku": "SKU",
+      "size": "Size",
+      "colour": "Colour",
+      "inStock": "In stock",
+      "adjust": "Adjust",
+      "adjustFor": "Adjust stock of {name}, {size}, {colour}",
+      "hidden": "hidden",
+      "threshold": "Low-stock alert at",
+      "save": "Save",
+      "thresholdSaved": "Low-stock alert saved",
+      "failed": "Something went wrong. Please try again.",
+      "thresholdHint": "A size/colour with this many units or fewer is flagged as low stock here and on the dashboard. The shop's own \"only a few left\" message is not affected.",
+      "when": "When",
+      "variant": "Size / colour",
+      "change": "Change",
+      "after": "After",
+      "reason": "Reason",
+      "by": "By",
+      "customer": "Customer order",
+      "loadMore": "Show more",
+      "noHistory": "No stock changes recorded yet.",
+      "reasons": {
+        "sale": "Sold",
+        "cancelled": "Order cancelled",
+        "product_edit": "Product form",
+        "received": "New stock received",
+        "returned": "Customer return",
+        "damaged": "Damaged",
+        "lost": "Lost / missing",
+        "correction": "Stock count correction"
+      },
+      "reasonHints": {
+        "received": "Adds units (a delivery from your supplier).",
+        "returned": "Adds units a customer sent back in sellable condition.",
+        "damaged": "Removes units that can't be sold.",
+        "lost": "Removes units that can't be found.",
+        "correction": "Adds or removes units after counting the shelf."
+      },
+      "adjustTitle": "Adjust stock",
+      "now": "{quantity} in stock now",
+      "direction": "Add or remove",
+      "add": "Add",
+      "remove": "Remove",
+      "units": "Units",
+      "note": "Note (optional)",
+      "notePlaceholder": "e.g. delivery reference",
+      "negative": "Stock can't go below zero.",
+      "result": "In stock: {from} → {to}",
+      "apply": "Apply",
+      "adjusted": "Stock updated: {quantity} in stock"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "intro": "Every customer review. Hiding keeps a review but takes it out of the shop and the product's rating; deleting removes it for good.",
+      "loading": "Loading reviews",
+      "count": "{count, plural, one {# review} other {# reviews}}",
+      "filterLabel": "Filter reviews",
+      "filters": {
+        "all": "All",
+        "visible": "Shown",
+        "hidden": "Hidden"
+      },
+      "rating": "Rating",
+      "anyRating": "Any rating",
+      "stars": "{count, plural, one {# star} other {# stars}}",
+      "search": "Search text, author or product",
+      "empty": "No reviews match.",
+      "verified": "Verified buyer",
+      "hiddenBadge": "Hidden",
+      "show": "Show",
+      "hide": "Hide",
+      "shown": "Review is shown in the shop again",
+      "hiddenDone": "Review hidden from the shop",
+      "confirmDelete": "Delete the review by {author} for good? This can't be undone.",
+      "deleted": "Review deleted",
+      "failed": "Something went wrong. Please try again.",
+      "deleteBy": "Delete review by {author}"
+    },
+    "reports": {
+      "title": "Reports",
+      "intro": "Sales from real orders for any date range. Cancelled orders are left out of sales and counted separately.",
+      "export": {
+        "orders": "Orders CSV",
+        "products": "Product sales CSV"
+      },
+      "range": "Date range",
+      "presets": {
+        "7": "7 days",
+        "30": "30 days",
+        "90": "90 days",
+        "month": "This month",
+        "year": "This year"
+      },
+      "from": "From",
+      "to": "To",
+      "groupBy": "Group by",
+      "groups": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      },
+      "loading": "Loading report",
+      "invalidRange": "Choose a start date that's on or before the end date.",
+      "total": "Total charged",
+      "totalHint": "Net sales + shipping + tax",
+      "orders": "Orders",
+      "units": "{count, plural, one {# item} other {# items}}",
+      "averageOrder": "Average order",
+      "cancelled": "Cancelled orders",
+      "gross": "Gross sales",
+      "discounts": "Discounts",
+      "netSales": "Net sales",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "definitions": "Gross sales = item prices × quantities. Net sales = gross − discount codes.",
+      "chart": "Total charged over time",
+      "breakdown": "Breakdown",
+      "by": {
+        "product": "Product",
+        "category": "Product type",
+        "size": "Size",
+        "colour": "Colour",
+        "code": "Discount code"
+      },
+      "none": "Not set",
+      "noSales": "No sales in this range.",
+      "unitsCol": "Units",
+      "ordersCol": "Orders",
+      "itemSales": "Item sales",
+      "itemSalesHint": "Item sales are before discount codes (a code applies to the whole order).",
+      "noProfit": "Profit isn't shown: product costs aren't recorded anywhere yet."
+    },
+    "activity": {
+      "title": "Activity log",
+      "intro": "Every change made in the admin: who, what and when. Entries can't be edited or deleted.",
+      "filterLabel": "Filter by area",
+      "kinds": {
+        "all": "All",
+        "product": "Products",
+        "order": "Orders",
+        "customer": "Customers",
+        "review": "Reviews",
+        "admin": "Sign-ins"
+      },
+      "empty": "Nothing recorded yet.",
+      "loading": "Loading…",
+      "when": "When",
+      "who": "Who",
+      "what": "What",
+      "details": "Details",
+      "loadMore": "Show more",
+      "failed": "Couldn't load the activity log.",
+      "fields": "Changed: {list}",
+      "pricesChanged": "prices changed",
+      "cleared": "cleared",
+      "threshold": "Low-stock alert: {from} → {to}",
+      "actions": {
+        "admin": {
+          "login": "Signed in",
+          "logout_all": "Logged out everywhere"
+        },
+        "product": {
+          "create": "Product created",
+          "update": "Product edited",
+          "delete": "Product deleted",
+          "restore": "Product restored"
+        },
+        "order": {
+          "status": "Order status changed",
+          "shipment": "Shipment details changed"
+        },
+        "stock": {
+          "adjust": "Stock adjusted"
+        },
+        "customer": {
+          "sign_out": "Customer signed out",
+          "block": "Customer blocked",
+          "unblock": "Customer unblocked",
+          "delete": "Customer deleted",
+          "end_session": "Customer device signed out"
+        },
+        "review": {
+          "hide": "Review hidden",
+          "show": "Review shown",
+          "delete": "Review deleted"
+        },
+        "settings": {
+          "update": "Settings changed"
+        },
+        "report": {
+          "export": "Report exported"
+        }
       }
     }
   },
