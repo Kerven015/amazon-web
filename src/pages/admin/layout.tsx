@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, LoaderCircle, LogOut, MonitorX, Package, Users } from "lucide-react";
+import { ArrowUpRight, BarChart3, Boxes, ChevronDown, History, LayoutDashboard, LoaderCircle, LogOut, MessageSquareText, MonitorX, Package, Users } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Outlet, redirect, type LoaderFunctionArgs } from "react-router";
@@ -48,6 +48,44 @@ function AdminHomeLink() {
       <NavIcon name="home" size={16} />
       <span className="max-sm:sr-only">{t("home")}</span>
     </Link>
+  );
+}
+
+/** The admin's tool pages (the "Manage" menu in the top bar) */
+const TOOLS = [
+  { href: "/admin/dashboard", key: "dashboard", Icon: LayoutDashboard },
+  { href: "/admin/orders", key: "orders", Icon: Package },
+  { href: "/admin/customers", key: "customers", Icon: Users },
+  { href: "/admin/inventory", key: "inventory", Icon: Boxes },
+  { href: "/admin/reviews", key: "reviews", Icon: MessageSquareText },
+  { href: "/admin/reports", key: "reports", Icon: BarChart3 },
+  { href: "/admin/activity", key: "activity", Icon: History },
+] as const;
+
+function ManageMenu() {
+  const t = useT("admin.topbar");
+  const pathname = usePathname();
+  const current = TOOLS.find((x) => pathname === x.href);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-current={current ? "page" : undefined}
+        className="inline-flex h-9 items-center gap-1.5 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
+      >
+        {current ? <current.Icon className="size-4" strokeWidth={1.5} aria-hidden="true" /> : <LayoutDashboard className="size-4" strokeWidth={1.5} aria-hidden="true" />}
+        <span className="max-md:sr-only">{current ? t(current.key) : t("manage")}</span>
+        <ChevronDown className="size-3.5 max-sm:hidden" aria-hidden="true" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {TOOLS.map(({ href, key, Icon }) => (
+          <DropdownMenuItem key={href} asChild>
+            <Link href={href} aria-current={pathname === href ? "page" : undefined} className="aria-[current=page]:font-semibold">
+              <Icon aria-hidden="true" /> {t(key)}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -127,22 +165,7 @@ export function AdminLayout() {
           <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-3">
             {!formPage && <AdminLanguageSwitcher />}
             <AdminHomeLink />
-            <Link
-              href="/admin/orders"
-              aria-current={pathname === "/admin/orders" ? "page" : undefined}
-              className="inline-flex h-9 items-center gap-1.5 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
-            >
-              <Package className="size-4" strokeWidth={1.5} aria-hidden="true" />
-              <span className="max-md:sr-only">{t("orders")}</span>
-            </Link>
-            <Link
-              href="/admin/customers"
-              aria-current={pathname === "/admin/customers" ? "page" : undefined}
-              className="inline-flex h-9 items-center gap-1.5 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
-            >
-              <Users className="size-4" strokeWidth={1.5} aria-hidden="true" />
-              <span className="max-md:sr-only">{t("customers")}</span>
-            </Link>
+            <ManageMenu />
             <a href="/" target="_blank" rel="noopener" className="inline-flex h-9 items-center gap-1 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4">
               <span className="max-md:sr-only">{t("viewStore")}</span> <ArrowUpRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
               <span className="sr-only">{tc("opensInNewTab")}</span>
@@ -150,11 +173,11 @@ export function AdminLayout() {
             <DropdownMenu>
               <DropdownMenuTrigger
                 disabled={leaving}
-                className="inline-flex h-9 items-center gap-1.5 rounded-sm border border-navy/30 px-3 text-sm transition-colors hover:border-navy hover:bg-navy hover:text-cream"
+                className="inline-flex h-9 items-center gap-1.5 rounded-sm border border-navy/30 px-3 text-sm transition-colors hover:border-navy hover:bg-navy hover:text-cream max-sm:px-2"
               >
                 {leaving ? <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> : <LogOut className="size-4" strokeWidth={1.5} aria-hidden="true" />}
                 <span className="max-sm:sr-only">{t("logOut")}</span>
-                <ChevronDown className="size-3.5" aria-hidden="true" />
+                <ChevronDown className="size-3.5 max-sm:hidden" aria-hidden="true" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => void logout()}>

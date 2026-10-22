@@ -4,7 +4,7 @@
  * PostgreSQL (server/db/migrations/001_init.sql):
  *   products       one row per product; `data` jsonb holds the ProductRecord as the admin edits it
  *   product_stock  units per size × colour — the stock orders decrease (source of truth)
- *   reviews        reviewCount and rating are always computed from here
+ *   reviews        reviewCount and rating are always computed from here (reviews the admin hid are left out)
  *
  * The function names and return shapes are the same as the old JSON-file version,
  * so server/app.ts and the browser didn't change.
@@ -17,6 +17,7 @@
 import type { PoolClient } from "pg";
 import type { ProductRecord as Product, Review } from "../../../src/types";
 import { type Db, query, withTransaction } from "../../db/pool";
+import { recordMovements, syncProductStock } from "./inventory";
 
 export const UNDO_MINUTES = 10;
 
@@ -57,7 +58,7 @@ const SELECT = `
                    'size_bought', r.size_bought, 'colour_bought', r.colour_bought, 'verified', r.verified,
                    'helpful', r.helpful, 'created_at', r.created_at)
                  ORDER BY r.created_at DESC, r.id)
-            FROM reviews r WHERE r.product_id = p.id) AS review_rows
+            FROM reviews r WHERE r.product_id = p.id AND r.hidden_at IS NULL) AS review_rows
     FROM products p
    WHERE p.deleted_at IS NULL`;
 
@@ -143,34 +144,34 @@ function dataFor(product: Product) {
   return rest;
 }
 
-/** Replaces the stock cells with the sizes[].stock the admin saved. */
-async function writeStock(client: PoolClient, product: Product) {
-  const sizes: string[] = [];
-  const colours: string[] = [];
-  const quantities: number[] = [];
+/** Replaces the stock cells with the sizes[].stock the admin saved; the differences go into the stock history. */
+async function writeStock(client: PoolClient, product: Product, actor: string) {
+  const next = new Map<string, { size: string; colour: string; quantity: number }>();
   for (const s of product.sizes) {
-    for (const [colour, qty] of Object.entries(s.stock)) {
-      sizes.push(s.name);
-      colours.push(colour);
-      quantities.push(Math.max(0, Math.floor(Number(qty) || 0)));
-    }
+    for (const [colour, qty] of Object.entries(s.stock)) next.set(`${s.name}|${colour}`, { size: s.name, colour, quantity: Math.max(0, Math.floor(Number(qty) || 0)) });
   }
-  await client.query("DELETE FROM product_stock WHERE product_id = $1", [product.id]);
+  const { rows: before } = await client.query<{ size: string; colour: string; quantity: number }>(
+    "DELETE FROM product_stock WHERE product_id = $1 RETURNING size, colour, quantity",
+    [product.id],
+  );
+  const cells = [...next.values()];
   await client.query(
     `INSERT INTO product_stock (product_id, size, colour, quantity)
      SELECT $1, size, colour, quantity FROM unnest($2::text[], $3::text[], $4::int[]) AS t(size, colour, quantity)`,
-    [product.id, sizes, colours, quantities],
+    [product.id, cells.map((c) => c.size), cells.map((c) => c.colour), cells.map((c) => c.quantity)],
   );
-  await client.query(
-    "UPDATE products SET stock = (SELECT coalesce(sum(quantity), 0) FROM product_stock WHERE product_id = $1) WHERE id = $1",
-    [product.id],
-  );
+  await syncProductStock(client, [product.id]);
+  const old = new Map(before.map((c) => [`${c.size}|${c.colour}`, c.quantity]));
+  const changes = cells.map((c) => ({ productId: product.id, size: c.size, colour: c.colour, change: c.quantity - (old.get(`${c.size}|${c.colour}`) ?? 0) }));
+  // Cells removed from the form (a size or colour taken away)
+  for (const c of before) if (!next.has(`${c.size}|${c.colour}`)) changes.push({ productId: product.id, size: c.size, colour: c.colour, change: -c.quantity });
+  await recordMovements(client, changes, { reason: "product_edit", actor });
 }
 
 const columns = (p: Product) => [p.id, p.slug, p.sku || null, !!p.hidden, p.productType, p.price, JSON.stringify(dataFor(p)), p.createdAt || new Date().toISOString()];
 
 /** Create a product (reviews are not taken from the request — they live in their own table). */
-export async function createProduct(product: Product): Promise<Product> {
+export async function createProduct(product: Product, actor = "admin"): Promise<Product> {
   try {
     await withTransaction(async (client) => {
       await client.query(
@@ -178,7 +179,7 @@ export async function createProduct(product: Product): Promise<Product> {
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
         columns(product),
       );
-      await writeStock(client, product);
+      await writeStock(client, product, actor);
     });
   } catch (err) {
     asConflict(err);
@@ -191,7 +192,7 @@ export async function createProduct(product: Product): Promise<Product> {
  * so the admin stays the one who sets stock (orders placed while the form was open are
  * already reflected in the numbers the form loaded, unless it was open a long time).
  */
-export async function updateProduct(id: string, product: Product): Promise<Product | null> {
+export async function updateProduct(id: string, product: Product, actor = "admin"): Promise<Product | null> {
   const next = { ...product, id };
   let found = false;
   try {
@@ -202,7 +203,7 @@ export async function updateProduct(id: string, product: Product): Promise<Produ
         columns(next),
       );
       found = res.rowCount === 1;
-      if (found) await writeStock(client, next);
+      if (found) await writeStock(client, next, actor);
     });
   } catch (err) {
     asConflict(err);

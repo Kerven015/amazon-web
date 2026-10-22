@@ -10,12 +10,13 @@ import { randomInt } from "node:crypto";
 import type { PoolClient } from "pg";
 import type { OrderInput } from "../../../src/lib/account-schema";
 import { sellers } from "../../../src/lib/mock-data/sellers";
-import { buildTracking } from "../../../src/lib/order-tracking";
+import { buildTracking, nextStatuses } from "../../../src/lib/order-tracking";
 import { computeTotals, deliveryDates, deliveryPrice, discountAmount, discountPercent, sizePrice, type DeliveryId } from "../../../src/lib/pricing";
 import type { Address, Order, OrderStatus, ProductRecord } from "../../../src/types";
 import { type Db, query, withTransaction } from "../../db/pool";
 import { env } from "../../env";
 import { addressFromRow, type AddressRow } from "./account";
+import { recordMovements, syncProductStock } from "./inventory";
 
 /**
  * Payment is still a demo, so an order costs nothing to place — but it does take stock.
@@ -60,14 +61,16 @@ type OrderRow = {
   discount_code: string | null;
   estimated_delivery: Date;
   created_at: Date;
+  carrier: string | null;
+  tracking_number: string | null;
   customer_name?: string;
-  items: { product_id: string; title: string; image: string; size: string; colour: string; quantity: number; unit_price: number; list_price: number | null }[] | null;
+  items: { product_id: string; sku: string | null; title: string; image: string; size: string; colour: string; quantity: number; unit_price: number; list_price: number | null }[] | null;
   events: { status: OrderStatus; at: string }[] | null;
 };
 
 const ORDER_SELECT = `
   SELECT o.*, u.name AS customer_name,
-         (SELECT json_agg(json_build_object('product_id', i.product_id, 'title', i.title, 'image', i.image, 'size', i.size,
+         (SELECT json_agg(json_build_object('product_id', i.product_id, 'sku', i.sku, 'title', i.title, 'image', i.image, 'size', i.size,
                    'colour', i.colour, 'quantity', i.quantity, 'unit_price', i.unit_price, 'list_price', i.list_price) ORDER BY i.id)
             FROM order_items i WHERE i.order_id = o.id) AS items,
          (SELECT json_agg(json_build_object('status', e.status, 'at', e.at) ORDER BY e.at, e.id)
@@ -148,11 +151,12 @@ export async function placeOrder(user: { id: string; email: string }, input: Ord
     if (counts[0].open >= caps.open || counts[0].day >= caps.perDay) throw new OrderError("too_many_orders");
 
     // 1. Products and prices — from the database only
-    const { rows: products } = await client.query<{ id: string; data: ProductRecord }>(
-      "SELECT id, data FROM products WHERE id = ANY($1::text[]) AND deleted_at IS NULL AND NOT hidden",
+    const { rows: products } = await client.query<{ id: string; sku: string | null; data: ProductRecord }>(
+      "SELECT id, sku, data FROM products WHERE id = ANY($1::text[]) AND deleted_at IS NULL AND NOT hidden",
       [[...new Set(lines.map((l) => l.productId))]],
     );
     const byId = new Map(products.map((p) => [p.id, p.data]));
+    const skuOf = new Map(products.map((p) => [p.id, p.sku]));
 
     const problems: OutOfStockLine[] = [];
     const priced = lines.flatMap((line) => {
@@ -214,11 +218,7 @@ export async function placeOrder(user: { id: string; email: string }, input: Ord
         WHERE s.product_id = t.product_id AND s.size = t.size AND s.colour = t.colour`,
       [priced.map((p) => p.line.productId), priced.map((p) => p.sizeName), priced.map((p) => p.stockColour), priced.map((p) => p.line.quantity)],
     );
-    await client.query(
-      `UPDATE products p SET stock = (SELECT coalesce(sum(quantity), 0) FROM product_stock s WHERE s.product_id = p.id)
-        WHERE p.id = ANY($1::text[])`,
-      [[...new Set(priced.map((p) => p.line.productId))]],
-    );
+    await syncProductStock(client, priced.map((p) => p.line.productId));
 
     // 6. The order, its lines and the first tracking event
     const id = await insertOrder(client, {
@@ -233,10 +233,10 @@ export async function placeOrder(user: { id: string; email: string }, input: Ord
       placedAt,
     });
     await client.query(
-      `INSERT INTO order_items (order_id, product_id, title, image, size, colour, quantity, unit_price, list_price)
-       SELECT $1, product_id, title, image, size, colour, quantity, unit_price, list_price
-         FROM unnest($2::text[], $3::text[], $4::text[], $5::text[], $6::text[], $7::int[], $8::numeric[], $9::numeric[])
-           AS t(product_id, title, image, size, colour, quantity, unit_price, list_price)`,
+      `INSERT INTO order_items (order_id, product_id, title, image, size, colour, quantity, unit_price, list_price, sku)
+       SELECT $1, product_id, title, image, size, colour, quantity, unit_price, list_price, sku
+         FROM unnest($2::text[], $3::text[], $4::text[], $5::text[], $6::text[], $7::int[], $8::numeric[], $9::numeric[], $10::text[])
+           AS t(product_id, title, image, size, colour, quantity, unit_price, list_price, sku)`,
       [
         id,
         priced.map((p) => p.line.productId),
@@ -247,9 +247,15 @@ export async function placeOrder(user: { id: string; email: string }, input: Ord
         priced.map((p) => p.line.quantity),
         priced.map((p) => p.price),
         priced.map((p) => p.listPrice ?? null),
+        priced.map((p) => skuOf.get(p.line.productId) ?? null),
       ],
     );
     await client.query("INSERT INTO order_events (order_id, status, at) VALUES ($1, 'placed', $2)", [id, placedAt]);
+    await recordMovements(
+      client,
+      priced.map((p) => ({ productId: p.line.productId, size: p.sizeName, colour: p.stockColour, change: -p.line.quantity })),
+      { reason: "sale", actor: "customer", orderId: id },
+    );
 
     // 7. The bag is now empty (in the account; the browser clears its copy)
     await client.query("DELETE FROM cart_items WHERE user_id = $1", [user.id]);
@@ -279,43 +285,105 @@ async function insertOrder(
 
 /* ------------------------------ admin ------------------------------ */
 
-export async function adminListOrders(limit = 500): Promise<Order[]> {
-  const { rows } = await query<OrderRow>(`${ORDER_SELECT} ORDER BY o.created_at DESC LIMIT $1`, [limit]);
-  return rows.map((r) => ({ ...toOrder(r), email: r.email }) as Order & { email: string });
+/** An order as the admin sees it: plus the customer's email and id, shipment and SKUs. */
+export type AdminOrder = Omit<Order, "items"> & {
+  email: string;
+  userId: string;
+  carrier: string | null;
+  trackingNumber: string | null;
+  discountCode: string | null;
+  items: (Order["items"][number] & { sku: string | null; listPrice: number | null })[];
+};
+
+function toAdminOrder(row: OrderRow): AdminOrder {
+  const order = toOrder(row);
+  return {
+    ...order,
+    items: order.items.map((item, i) => ({ ...item, sku: row.items?.[i]?.sku ?? null, listPrice: row.items?.[i]?.list_price ?? null })),
+    email: row.email,
+    userId: row.user_id,
+    carrier: row.carrier,
+    trackingNumber: row.tracking_number,
+    discountCode: row.discount_code,
+  };
+}
+
+export type AdminOrderFilter = { q?: string; status?: OrderStatus | "open"; from?: string; to?: string; sort?: "newest" | "oldest" | "total_desc" | "total_asc"; limit?: number };
+
+const SORTS = { newest: "o.created_at DESC", oldest: "o.created_at ASC", total_desc: "o.total DESC, o.created_at DESC", total_asc: "o.total ASC, o.created_at DESC" } as const;
+
+/**
+ * Orders for the admin list. q matches the order number, the customer's name or email, or a
+ * tracking number; status "open" = placed or packed; from/to are ISO instants (to is exclusive).
+ */
+export async function adminListOrders(f: AdminOrderFilter = {}): Promise<AdminOrder[]> {
+  const q = f.q?.trim() ? `%${f.q.trim().replace(/[\\%_]/g, (c) => `\\${c}`)}%` : null;
+  const { rows } = await query<OrderRow>(
+    `${ORDER_SELECT}
+      WHERE ($1::text IS NULL OR o.id ILIKE $1 OR o.email::text ILIKE $1 OR u.name ILIKE $1 OR o.tracking_number ILIKE $1)
+        AND ($2::text IS NULL OR ($2 = 'open' AND o.status IN ('placed', 'packed')) OR o.status = $2)
+        AND ($3::timestamptz IS NULL OR o.created_at >= $3)
+        AND ($4::timestamptz IS NULL OR o.created_at < $4)
+      ORDER BY ${SORTS[f.sort ?? "newest"]} LIMIT $5`,
+    [q, f.status ?? null, f.from ?? null, f.to ?? null, Math.min(Math.max(f.limit ?? 500, 1), 1000)],
+  );
+  return rows.map(toAdminOrder);
+}
+
+export async function adminGetOrder(id: string, db: Db = { query }): Promise<AdminOrder | null> {
+  const { rows } = await db.query<OrderRow>(`${ORDER_SELECT} WHERE o.id = $1`, [id]);
+  return rows[0] ? toAdminOrder(rows[0]) : null;
+}
+
+export class StatusError extends Error {
+  constructor(public from: OrderStatus) {
+    super("invalid_transition");
+  }
 }
 
 /**
- * Moves an order to a new status and adds a tracking event.
- * Cancelling puts the items back in stock; a cancelled order can't be reopened.
- * Returns null when the order doesn't exist.
+ * Moves an order to a new status and adds a tracking event. Only the moves in nextStatuses()
+ * are allowed (StatusError otherwise). Cancelling puts the items back in stock.
+ * Returns null when the order doesn't exist; `from` is the status before.
  */
-export async function adminSetStatus(id: string, status: OrderStatus): Promise<(Order & { email: string }) | null | "cancelled"> {
+export async function adminSetStatus(id: string, status: OrderStatus, actor = "admin"): Promise<{ order: AdminOrder; from: OrderStatus } | null> {
   return withTransaction(async (client) => {
-    const { rows } = await client.query<{ status: OrderStatus; user_id: string; email: string }>("SELECT status, user_id, email FROM orders WHERE id = $1 FOR UPDATE", [id]);
+    const { rows } = await client.query<{ status: OrderStatus }>("SELECT status FROM orders WHERE id = $1 FOR UPDATE", [id]);
     const current = rows[0];
     if (!current) return null;
-    if (current.status === "cancelled") return "cancelled";
     if (current.status !== status) {
+      if (!nextStatuses(current.status).includes(status)) throw new StatusError(current.status);
       await client.query("UPDATE orders SET status = $2 WHERE id = $1", [id, status]);
       await client.query("INSERT INTO order_events (order_id, status) VALUES ($1, $2)", [id, status]);
       if (status === "cancelled") {
         // Back in stock: the same cells the order took (cells removed by the admin since are skipped)
-        await client.query(
+        const { rows: back } = await client.query<{ product_id: string; size: string; colour: string; change: number }>(
           `UPDATE product_stock s SET quantity = s.quantity + i.quantity
              FROM order_items i JOIN products p ON p.id = i.product_id
             WHERE i.order_id = $1 AND s.product_id = i.product_id
               AND s.size = CASE WHEN i.size = '' THEN (p.data->'sizes'->0->>'name') ELSE i.size END
-              AND s.colour = CASE WHEN i.colour = '' THEN 'default' ELSE i.colour END`,
+              AND s.colour = CASE WHEN i.colour = '' THEN 'default' ELSE i.colour END
+          RETURNING s.product_id, s.size, s.colour, i.quantity AS change`,
           [id],
         );
-        await client.query(
-          `UPDATE products p SET stock = (SELECT coalesce(sum(quantity), 0) FROM product_stock s WHERE s.product_id = p.id)
-            WHERE p.id IN (SELECT product_id FROM order_items WHERE order_id = $1)`,
-          [id],
+        await syncProductStock(
+          client,
+          back.map((b) => b.product_id),
+        );
+        await recordMovements(
+          client,
+          back.map((b) => ({ productId: b.product_id, size: b.size, colour: b.colour, change: b.change })),
+          { reason: "cancelled", actor, orderId: id },
         );
       }
     }
-    const order = await getOrder(current.user_id, id, client);
-    return order ? { ...order, email: current.email } : null;
+    const order = await adminGetOrder(id, client);
+    return order ? { order, from: current.status } : null;
   });
+}
+
+/** Carrier and tracking number (empty → cleared). Returns null when the order doesn't exist. */
+export async function adminSetShipment(id: string, carrier: string, trackingNumber: string): Promise<AdminOrder | null> {
+  const { rowCount } = await query("UPDATE orders SET carrier = $2, tracking_number = $3 WHERE id = $1", [id, carrier || null, trackingNumber || null]);
+  return rowCount ? adminGetOrder(id) : null;
 }

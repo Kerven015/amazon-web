@@ -91,3 +91,15 @@ export function sameOrigin(req: Req) {
     return false;
   }
 }
+
+/** Validates the query string (?a=1&b=x) like parseBody does the body; empty values count as missing. */
+export function parseQuery<S extends z.ZodTypeAny>(url: URL, schema: S): z.infer<S> {
+  const raw = Object.fromEntries([...url.searchParams].filter(([, v]) => v !== ""));
+  const parsed = schema.safeParse(raw);
+  if (!parsed.success) {
+    const fields: Record<string, string> = {};
+    for (const issue of parsed.error.issues) fields[issue.path.join(".") || "_query"] ??= issue.message;
+    throw new ValidationError(fields);
+  }
+  return parsed.data;
+}

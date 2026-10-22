@@ -1245,7 +1245,13 @@
       "customers": "Müşteriler",
       "logOutHere": "Çıkış yap",
       "logOutAll": "Tüm cihazlarda çıkış yap",
-      "logOutAllConfirm": "Bu dahil tüm cihaz ve tarayıcılarda yönetim panelinden çıkış yapılsın mı? Yönetici girişinizin başkasının elinde olabileceğini düşünüyorsanız bunu kullanın."
+      "logOutAllConfirm": "Bu dahil tüm cihaz ve tarayıcılarda yönetim panelinden çıkış yapılsın mı? Yönetici girişinizin başkasının elinde olabileceğini düşünüyorsanız bunu kullanın.",
+      "manage": "Yönet",
+      "dashboard": "Gösterge paneli",
+      "inventory": "Stok",
+      "reviews": "Yorumlar",
+      "reports": "Raporlar",
+      "activity": "İşlem kaydı"
     },
     "login": {
       "pageTitle": "Yönetici girişi · {store}",
@@ -1513,7 +1519,46 @@
       "updated": "{id} siparişi: artık “{status}”",
       "failed": "Durum değiştirilemedi. Lütfen tekrar deneyin.",
       "confirmCancel": "{id} siparişi iptal edilsin mi? Ürünler stoğa geri döner ve bu işlem geri alınamaz.",
-      "cancelledLocked": "İptal edilen siparişler değiştirilemez."
+      "cancelledLocked": "İptal edilen siparişler değiştirilemez.",
+      "intro": "Herhangi bir siparişi arayın, filtreleyin ve açın. Durumlar yalnızca ileri gider; sipariş kargolanana kadar iptal edilebilir.",
+      "loading": "Siparişler yükleniyor",
+      "filterLabel": "Duruma göre filtrele",
+      "all": "Tümü",
+      "open": "Paketlenecek / kargolanacak",
+      "search": "Sipariş no., müşteri, e-posta veya takip no.",
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "sort": "Sırala",
+      "sorts": {
+        "newest": "En yeni",
+        "oldest": "En eski",
+        "total_desc": "En yüksek tutar",
+        "total_asc": "En düşük tutar"
+      },
+      "clear": "Filtreleri temizle",
+      "noMatch": "Bu filtrelere uyan sipariş yok.",
+      "details": "Ayrıntılar",
+      "detailsFor": "{id} siparişinin ayrıntıları",
+      "notAllowed": "Bu sipariş için bu durum değişikliğine izin verilmiyor.",
+      "orderTitle": "Sipariş {id}",
+      "loadFailed": "Sipariş yüklenemedi.",
+      "moveTo": "Şuna taşı",
+      "statusRule": "Durumlar yalnızca ileri gider. İptal, ürünleri stoğa geri koyar ve yalnızca sipariş kargolanmadan önce mümkündür.",
+      "sku": "SKU",
+      "delivery": "Teslimat",
+      "payment": "Ödeme",
+      "demoPayment": "demo ödeme — para alınmadı",
+      "discountCode": "İndirim kodu",
+      "shipment": "Kargo",
+      "carrier": "Kargo firması",
+      "trackingNumber": "Takip numarası",
+      "saveShipment": "Kargoyu kaydet",
+      "shipmentSaved": "Kargo bilgileri kaydedildi",
+      "trackingInvalid": "Takip numarası yalnızca harf, rakam, boşluk ve - . / içerebilir",
+      "shipmentNote": "Yalnızca yönetim panelinde görünür — müşteriler takip numarasını henüz görmüyor.",
+      "tracking": "Takip zaman çizelgesi",
+      "history": "Yönetici işlemleri",
+      "noHistory": "Henüz yönetici değişikliği yok."
     },
     "customers": {
       "title": "Müşteriler",
@@ -1573,6 +1618,262 @@
       "methods": {
         "password": "Şifre",
         "google": "Google"
+      }
+    },
+    "common": {
+      "loadFailed": "Yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+      "retry": "Tekrar dene",
+      "loading": "Yükleniyor…",
+      "chartMax": "En yüksek: {value}"
+    },
+    "dashboard": {
+      "title": "Gösterge paneli",
+      "intro": "Siparişlerinizden ve stoğunuzdan canlı veriler. Günler saat diliminize göre ({tz}).",
+      "refresh": "Yenile",
+      "refreshFailed": "Yenilenemedi. Lütfen tekrar deneyin.",
+      "today": "Bugün",
+      "ordersToday": "Bugünkü siparişler",
+      "salesToday": "Bugünkü satış",
+      "salesHint": "Kargo ve vergi dahil tahsil edilen; iptal edilen siparişler hariç",
+      "toPack": "Paketlenecek",
+      "toShip": "Kargolanacak",
+      "viewOrders": "Siparişleri gör →",
+      "last30": "Son 30 gün",
+      "sales": "Satış",
+      "netSales": "Net satış {value}",
+      "orders": "Siparişler",
+      "units": "{count, plural, one {# ürün satıldı} other {# ürün satıldı}}",
+      "averageOrder": "Ortalama sipariş",
+      "customers": "Müşteri hesapları",
+      "newCustomers": "{count, plural, one {# yeni} other {# yeni}}",
+      "dailySales": "Günlük satış (son 14 gün)",
+      "byStatus": "Duruma göre siparişler",
+      "stock": "Stok",
+      "openInventory": "Stoğu aç",
+      "outOfStock": "Tükenen (beden/renk)",
+      "lowStock": "Azalan stok (beden/renk)",
+      "threshold": "{count, plural, one {# adet veya daha az} other {# adet veya daha az}}",
+      "stockFine": "Azalan stok yok.",
+      "bestSellers": "En çok satanlar (30 gün)",
+      "noSales": "Son 30 günde satış yok.",
+      "product": "Ürün",
+      "unitsSold": "Adet",
+      "itemSales": "Ürün satışı",
+      "recentOrders": "Son siparişler",
+      "allOrders": "Tüm siparişler",
+      "noOrders": "Henüz sipariş yok.",
+      "reviewsNote": "Yeni yorumlar (7 gün): {recent} · Gizli yorumlar: {hidden}.",
+      "openReviews": "Yorumları yönet"
+    },
+    "inventory": {
+      "title": "Stok",
+      "intro": "Her beden ve rengin stoğu. Bir nedenle düzeltin ve her değişikliği geçmişte görün.",
+      "tabs": {
+        "stock": "Stok",
+        "history": "Geçmiş"
+      },
+      "filterLabel": "Stok düzeyine göre filtrele",
+      "levels": {
+        "all": "Tümü",
+        "low": "Azalan",
+        "out": "Tükendi"
+      },
+      "search": "Ürün, SKU, beden veya renk",
+      "noMatch": "Eşleşen yok.",
+      "empty": "Henüz stoklu ürün yok.",
+      "product": "Ürün",
+      "sku": "SKU",
+      "size": "Beden",
+      "colour": "Renk",
+      "inStock": "Stokta",
+      "adjust": "Düzelt",
+      "adjustFor": "{name}, {size}, {colour} stoğunu düzelt",
+      "hidden": "gizli",
+      "threshold": "Azalan stok uyarısı",
+      "save": "Kaydet",
+      "thresholdSaved": "Azalan stok uyarısı kaydedildi",
+      "failed": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "thresholdHint": "Bu kadar veya daha az adedi olan beden/renk burada ve gösterge panelinde azalan stok olarak işaretlenir. Mağazadaki \"son birkaç ürün\" mesajı etkilenmez.",
+      "when": "Zaman",
+      "variant": "Beden / renk",
+      "change": "Değişim",
+      "after": "Sonra",
+      "reason": "Neden",
+      "by": "Yapan",
+      "customer": "Müşteri siparişi",
+      "loadMore": "Daha fazla göster",
+      "noHistory": "Henüz kayıtlı stok değişikliği yok.",
+      "reasons": {
+        "sale": "Satıldı",
+        "cancelled": "Sipariş iptal edildi",
+        "product_edit": "Ürün formu",
+        "received": "Yeni stok geldi",
+        "returned": "Müşteri iadesi",
+        "damaged": "Hasarlı",
+        "lost": "Kayıp",
+        "correction": "Sayım düzeltmesi"
+      },
+      "reasonHints": {
+        "received": "Adet ekler (tedarikçinizden gelen teslimat).",
+        "returned": "Müşterinin satılabilir durumda geri gönderdiği adetleri ekler.",
+        "damaged": "Satılamayacak adetleri düşer.",
+        "lost": "Bulunamayan adetleri düşer.",
+        "correction": "Rafı saydıktan sonra adet ekler veya düşer."
+      },
+      "adjustTitle": "Stoğu düzelt",
+      "now": "Şu an stokta {quantity}",
+      "direction": "Ekle veya düş",
+      "add": "Ekle",
+      "remove": "Düş",
+      "units": "Adet",
+      "note": "Not (isteğe bağlı)",
+      "notePlaceholder": "ör. teslimat referansı",
+      "negative": "Stok sıfırın altına inemez.",
+      "result": "Stok: {from} → {to}",
+      "apply": "Uygula",
+      "adjusted": "Stok güncellendi: stokta {quantity}"
+    },
+    "reviews": {
+      "title": "Yorumlar",
+      "intro": "Tüm müşteri yorumları. Gizlemek yorumu saklar ama mağazadan ve ürün puanından çıkarır; silmek kalıcı olarak kaldırır.",
+      "loading": "Yorumlar yükleniyor",
+      "count": "{count, plural, one {# yorum} other {# yorum}}",
+      "filterLabel": "Yorumları filtrele",
+      "filters": {
+        "all": "Tümü",
+        "visible": "Görünen",
+        "hidden": "Gizli"
+      },
+      "rating": "Puan",
+      "anyRating": "Tüm puanlar",
+      "stars": "{count, plural, one {# yıldız} other {# yıldız}}",
+      "search": "Metin, yazar veya ürün ara",
+      "empty": "Eşleşen yorum yok.",
+      "verified": "Doğrulanmış alıcı",
+      "hiddenBadge": "Gizli",
+      "show": "Göster",
+      "hide": "Gizle",
+      "shown": "Yorum mağazada yeniden görünüyor",
+      "hiddenDone": "Yorum mağazadan gizlendi",
+      "confirmDelete": "{author} kişisinin yorumu kalıcı olarak silinsin mi? Bu geri alınamaz.",
+      "deleted": "Yorum silindi",
+      "failed": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "deleteBy": "{author} kişisinin yorumunu sil"
+    },
+    "reports": {
+      "title": "Raporlar",
+      "intro": "Herhangi bir tarih aralığı için gerçek siparişlerden satışlar. İptal edilen siparişler satışa dahil edilmez, ayrıca sayılır.",
+      "export": {
+        "orders": "Siparişler CSV",
+        "products": "Ürün satışları CSV"
+      },
+      "range": "Tarih aralığı",
+      "presets": {
+        "7": "7 gün",
+        "30": "30 gün",
+        "90": "90 gün",
+        "month": "Bu ay",
+        "year": "Bu yıl"
+      },
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "groupBy": "Grupla",
+      "groups": {
+        "day": "Gün",
+        "week": "Hafta",
+        "month": "Ay"
+      },
+      "loading": "Rapor yükleniyor",
+      "invalidRange": "Bitiş tarihinden önce veya aynı gün olan bir başlangıç tarihi seçin.",
+      "total": "Toplam tahsilat",
+      "totalHint": "Net satış + kargo + vergi",
+      "orders": "Siparişler",
+      "units": "{count, plural, one {# ürün} other {# ürün}}",
+      "averageOrder": "Ortalama sipariş",
+      "cancelled": "İptal edilen siparişler",
+      "gross": "Brüt satış",
+      "discounts": "İndirimler",
+      "netSales": "Net satış",
+      "shipping": "Kargo",
+      "tax": "Vergi",
+      "definitions": "Brüt satış = ürün fiyatı × adet. Net satış = brüt − indirim kodları.",
+      "chart": "Zamana göre toplam tahsilat",
+      "breakdown": "Dağılım",
+      "by": {
+        "product": "Ürün",
+        "category": "Ürün türü",
+        "size": "Beden",
+        "colour": "Renk",
+        "code": "İndirim kodu"
+      },
+      "none": "Belirtilmemiş",
+      "noSales": "Bu aralıkta satış yok.",
+      "unitsCol": "Adet",
+      "ordersCol": "Siparişler",
+      "itemSales": "Ürün satışı",
+      "itemSalesHint": "Ürün satışı indirim kodlarından öncedir (kod tüm siparişe uygulanır).",
+      "noProfit": "Kâr gösterilmiyor: ürün maliyetleri henüz hiçbir yerde kayıtlı değil."
+    },
+    "activity": {
+      "title": "İşlem kaydı",
+      "intro": "Yönetim panelinde yapılan her değişiklik: kim, ne ve ne zaman. Kayıtlar düzenlenemez veya silinemez.",
+      "filterLabel": "Alana göre filtrele",
+      "kinds": {
+        "all": "Tümü",
+        "product": "Ürünler",
+        "order": "Siparişler",
+        "customer": "Müşteriler",
+        "review": "Yorumlar",
+        "admin": "Girişler"
+      },
+      "empty": "Henüz kayıt yok.",
+      "loading": "Yükleniyor…",
+      "when": "Zaman",
+      "who": "Kim",
+      "what": "Ne",
+      "details": "Ayrıntılar",
+      "loadMore": "Daha fazla göster",
+      "failed": "İşlem kaydı yüklenemedi.",
+      "fields": "Değişen: {list}",
+      "pricesChanged": "fiyatlar değişti",
+      "cleared": "temizlendi",
+      "threshold": "Azalan stok uyarısı: {from} → {to}",
+      "actions": {
+        "admin": {
+          "login": "Giriş yapıldı",
+          "logout_all": "Her yerden çıkış yapıldı"
+        },
+        "product": {
+          "create": "Ürün oluşturuldu",
+          "update": "Ürün düzenlendi",
+          "delete": "Ürün silindi",
+          "restore": "Ürün geri yüklendi"
+        },
+        "order": {
+          "status": "Sipariş durumu değişti",
+          "shipment": "Kargo bilgileri değişti"
+        },
+        "stock": {
+          "adjust": "Stok düzeltildi"
+        },
+        "customer": {
+          "sign_out": "Müşterinin oturumu kapatıldı",
+          "block": "Müşteri engellendi",
+          "unblock": "Müşterinin engeli kaldırıldı",
+          "delete": "Müşteri silindi",
+          "end_session": "Müşteri cihazının oturumu kapatıldı"
+        },
+        "review": {
+          "hide": "Yorum gizlendi",
+          "show": "Yorum gösterildi",
+          "delete": "Yorum silindi"
+        },
+        "settings": {
+          "update": "Ayarlar değişti"
+        },
+        "report": {
+          "export": "Rapor dışa aktarıldı"
+        }
       }
     }
   },

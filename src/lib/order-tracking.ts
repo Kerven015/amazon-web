@@ -27,3 +27,14 @@ export function buildTracking(
     done: reached >= 0 ? i <= reached : !!dates[step.status],
   }));
 }
+
+/**
+ * Which statuses the admin can move an order to: forward along the timeline only (steps may be
+ * skipped), and cancelling only before it ships. Delivered and cancelled orders are final.
+ */
+export function nextStatuses(current: OrderStatus): OrderStatus[] {
+  if (current === "cancelled" || current === "delivered") return [];
+  const at = trackingSteps.findIndex((s) => s.status === current);
+  const forward = trackingSteps.slice(at + 1).map((s) => s.status);
+  return current === "placed" || current === "packed" ? [...forward, "cancelled"] : forward;
+}

@@ -1245,7 +1245,13 @@
       "customers": "Müşderiler",
       "logOutHere": "Çykyş",
       "logOutAll": "Ähli enjamlarda çyk",
-      "logOutAllConfirm": "Şu enjamy goşmak bilen ähli enjamlarda we brauzerlerde dolandyryşdan çykylsynmy? Dolandyryjy girişiňiziň başga biriniň elinde bolmagy mümkin diýip pikir edýän bolsaňyz, muny ulanyň."
+      "logOutAllConfirm": "Şu enjamy goşmak bilen ähli enjamlarda we brauzerlerde dolandyryşdan çykylsynmy? Dolandyryjy girişiňiziň başga biriniň elinde bolmagy mümkin diýip pikir edýän bolsaňyz, muny ulanyň.",
+      "manage": "Dolandyr",
+      "dashboard": "Gözegçilik paneli",
+      "inventory": "Ammar",
+      "reviews": "Synlar",
+      "reports": "Hasabatlar",
+      "activity": "Hereketler žurnaly"
     },
     "login": {
       "pageTitle": "Dolandyryja giriş · {store}",
@@ -1513,7 +1519,46 @@
       "updated": "{id} sargydy: indi “{status}”",
       "failed": "Ýagdaýy üýtgedip bolmady. Täzeden synanyşyň.",
       "confirmCancel": "{id} sargydy ýatyrylsynmy? Harytlar ammara gaýdyp geler we muny yzyna gaýtaryp bolmaz.",
-      "cancelledLocked": "Ýatyrylan sargytlary üýtgedip bolmaýar."
+      "cancelledLocked": "Ýatyrylan sargytlary üýtgedip bolmaýar.",
+      "intro": "Islendik sargydy gözläň, süzgüçläň we açyň. Ýagdaýlar diňe öňe gidýär; sargyt ugradylýança ýatyrylyp bilner.",
+      "loading": "Sargytlar ýüklenýär",
+      "filterLabel": "Ýagdaýy boýunça süzgüçle",
+      "all": "Ählisi",
+      "open": "Gaplanmaly ýa-da ugradylmaly",
+      "search": "Sargyt №, müşderi, e-poçta ýa-da yzarlaýyş №",
+      "from": "Başy",
+      "to": "Soňy",
+      "sort": "Tertiple",
+      "sorts": {
+        "newest": "Iň täzeler",
+        "oldest": "Iň köneler",
+        "total_desc": "Iň uly jemi",
+        "total_asc": "Iň kiçi jemi"
+      },
+      "clear": "Süzgüçleri arassala",
+      "noMatch": "Bu süzgüçlere laýyk sargyt ýok.",
+      "details": "Jikme-jiklikler",
+      "detailsFor": "{id} sargydyň jikme-jiklikleri",
+      "notAllowed": "Bu sargyt üçin bu ýagdaý üýtgetmesine rugsat berilmeýär.",
+      "orderTitle": "Sargyt {id}",
+      "loadFailed": "Sargyt ýüklenip bilmedi.",
+      "moveTo": "Geçir",
+      "statusRule": "Ýagdaýlar diňe öňe gidýär. Ýatyrmak harytlary ammara gaýtarýar we diňe sargyt ugradylmanka mümkin.",
+      "sku": "SKU",
+      "delivery": "Eltip bermek",
+      "payment": "Töleg",
+      "demoPayment": "demo töleg — pul alynmady",
+      "discountCode": "Arzanladyş kody",
+      "shipment": "Ugratma",
+      "carrier": "Daşaýjy",
+      "trackingNumber": "Yzarlaýyş belgisi",
+      "saveShipment": "Ugratmany ýatda sakla",
+      "shipmentSaved": "Ugratma maglumatlary ýatda saklandy",
+      "trackingInvalid": "Yzarlaýyş belgisinde diňe harplar, sanlar, boşluk we - . / bolup biler",
+      "shipmentNote": "Diňe dolandyryş panelinde görünýär — müşderiler yzarlaýyş belgisini entek görmeýär.",
+      "tracking": "Yzarlaýyş tertibi",
+      "history": "Dolandyryjy hereketleri",
+      "noHistory": "Entek dolandyryjy üýtgetmesi ýok."
     },
     "customers": {
       "title": "Müşderiler",
@@ -1573,6 +1618,262 @@
       "methods": {
         "password": "Açar sözi",
         "google": "Google"
+      }
+    },
+    "common": {
+      "loadFailed": "Ýüklenip bilmedi. Baglanyşygy barlap, gaýtadan synanyşyň.",
+      "retry": "Gaýtadan synanyş",
+      "loading": "Ýüklenýär…",
+      "chartMax": "Iň ýokary: {value}"
+    },
+    "dashboard": {
+      "title": "Gözegçilik paneli",
+      "intro": "Sargytlaryňyzdan we ammaryňyzdan göni maglumatlar. Günler siziň sagat guşagyňyza görä ({tz}).",
+      "refresh": "Täzele",
+      "refreshFailed": "Täzelenip bilmedi. Gaýtadan synanyşyň.",
+      "today": "Şu gün",
+      "ordersToday": "Şu günki sargytlar",
+      "salesToday": "Şu günki satuw",
+      "salesHint": "Eltip bermek we salgyt bilen alnan; ýatyrylan sargytlar girmeýär",
+      "toPack": "Gaplanmaly",
+      "toShip": "Ugradylmaly",
+      "viewOrders": "Sargytlary gör →",
+      "last30": "Soňky 30 gün",
+      "sales": "Satuw",
+      "netSales": "Arassa satuw {value}",
+      "orders": "Sargytlar",
+      "units": "{count, plural, one {# haryt satyldy} other {# haryt satyldy}}",
+      "averageOrder": "Ortaça sargyt",
+      "customers": "Müşderi hasaplary",
+      "newCustomers": "{count, plural, one {# täze} other {# täze}}",
+      "dailySales": "Gündelik satuw (soňky 14 gün)",
+      "byStatus": "Ýagdaýy boýunça sargytlar",
+      "stock": "Ammar",
+      "openInventory": "Ammary aç",
+      "outOfStock": "Gutaran (ölçeg/reňk)",
+      "lowStock": "Az galan (ölçeg/reňk)",
+      "threshold": "{count, plural, one {# sany ýa-da az} other {# sany ýa-da az}}",
+      "stockFine": "Az galan haryt ýok.",
+      "bestSellers": "Iň köp satylanlar (30 gün)",
+      "noSales": "Soňky 30 günde satuw ýok.",
+      "product": "Haryt",
+      "unitsSold": "Sany",
+      "itemSales": "Haryt satuwy",
+      "recentOrders": "Soňky sargytlar",
+      "allOrders": "Ähli sargytlar",
+      "noOrders": "Entek sargyt ýok.",
+      "reviewsNote": "Täze synlar (7 gün): {recent} · Gizlenen synlar: {hidden}.",
+      "openReviews": "Synlary dolandyr"
+    },
+    "inventory": {
+      "title": "Ammar",
+      "intro": "Her ölçegiň we reňkiň ammary. Sebäbi bilen düzediň we her üýtgetmäni taryhda görüň.",
+      "tabs": {
+        "stock": "Ammar",
+        "history": "Taryh"
+      },
+      "filterLabel": "Ammar derejesi boýunça süzgüçle",
+      "levels": {
+        "all": "Ählisi",
+        "low": "Az galan",
+        "out": "Gutaran"
+      },
+      "search": "Haryt, SKU, ölçeg ýa-da reňk",
+      "noMatch": "Laýyk gelýän ýok.",
+      "empty": "Entek ammarly haryt ýok.",
+      "product": "Haryt",
+      "sku": "SKU",
+      "size": "Ölçeg",
+      "colour": "Reňk",
+      "inStock": "Ammarda",
+      "adjust": "Düzet",
+      "adjustFor": "{name}, {size}, {colour} ammaryny düzet",
+      "hidden": "gizlin",
+      "threshold": "Az galan ammar duýduryşy",
+      "save": "Ýatda sakla",
+      "thresholdSaved": "Az galan ammar duýduryşy ýatda saklandy",
+      "failed": "Bir zat ýalňyş gitdi. Gaýtadan synanyşyň.",
+      "thresholdHint": "Şu mukdarda ýa-da azrak sany galan ölçeg/reňk bu ýerde we gözegçilik panelinde az galan diýip bellenýär. Dükandaky \"birnäçesi galdy\" habary üýtgemeýär.",
+      "when": "Haçan",
+      "variant": "Ölçeg / reňk",
+      "change": "Üýtgeme",
+      "after": "Soň",
+      "reason": "Sebäp",
+      "by": "Kim",
+      "customer": "Müşderi sargydy",
+      "loadMore": "Ýene görkez",
+      "noHistory": "Entek ammar üýtgetmesi ýazylmady.",
+      "reasons": {
+        "sale": "Satyldy",
+        "cancelled": "Sargyt ýatyryldy",
+        "product_edit": "Haryt formy",
+        "received": "Täze haryt geldi",
+        "returned": "Müşderi yzyna gaýtardy",
+        "damaged": "Zaýalanan",
+        "lost": "Ýitirilen",
+        "correction": "Sanaw düzedişi"
+      },
+      "reasonHints": {
+        "received": "Sany goşýar (üpjünçiňizden gelen haryt).",
+        "returned": "Müşderiniň satuwa ýaramly ýagdaýda gaýtaran harytlaryny goşýar.",
+        "damaged": "Satyp bolmaýan harytlary aýyrýar.",
+        "lost": "Tapylmaýan harytlary aýyrýar.",
+        "correction": "Tekjäni sanandan soň sany goşýar ýa-da aýyrýar."
+      },
+      "adjustTitle": "Ammary düzet",
+      "now": "Häzir ammarda {quantity}",
+      "direction": "Goş ýa-da aýyr",
+      "add": "Goş",
+      "remove": "Aýyr",
+      "units": "Sany",
+      "note": "Bellik (hökmany däl)",
+      "notePlaceholder": "mysal üçin, eltip bermegiň belgisi",
+      "negative": "Ammar noldan aşak düşüp bilmeýär.",
+      "result": "Ammarda: {from} → {to}",
+      "apply": "Ulan",
+      "adjusted": "Ammar täzelendi: ammarda {quantity}"
+    },
+    "reviews": {
+      "title": "Synlar",
+      "intro": "Müşderileriň ähli synlary. Gizlemek syny saklaýar, ýöne ony dükandan we harydyň bahasyndan aýyrýar; pozmak hemişelik aýyrýar.",
+      "loading": "Synlar ýüklenýär",
+      "count": "{count, plural, one {# syn} other {# syn}}",
+      "filterLabel": "Synlary süzgüçle",
+      "filters": {
+        "all": "Ählisi",
+        "visible": "Görünýän",
+        "hidden": "Gizlin"
+      },
+      "rating": "Baha",
+      "anyRating": "Islendik baha",
+      "stars": "{count, plural, one {# ýyldyz} other {# ýyldyz}}",
+      "search": "Tekst, awtor ýa-da haryt gözle",
+      "empty": "Laýyk syn ýok.",
+      "verified": "Tassyklanan alyjy",
+      "hiddenBadge": "Gizlin",
+      "show": "Görkez",
+      "hide": "Gizle",
+      "shown": "Syn dükanda ýene görünýär",
+      "hiddenDone": "Syn dükandan gizlendi",
+      "confirmDelete": "{author} ýazan syny hemişelik pozmalymy? Muny yzyna gaýtaryp bolmaz.",
+      "deleted": "Syn pozuldy",
+      "failed": "Bir zat ýalňyş gitdi. Gaýtadan synanyşyň.",
+      "deleteBy": "{author} ýazan syny poz"
+    },
+    "reports": {
+      "title": "Hasabatlar",
+      "intro": "Islendik sene aralygy üçin hakyky sargytlardan satuw. Ýatyrylan sargytlar satuwa girmeýär we aýratyn sanalýar.",
+      "export": {
+        "orders": "Sargytlar CSV",
+        "products": "Haryt satuwy CSV"
+      },
+      "range": "Sene aralygy",
+      "presets": {
+        "7": "7 gün",
+        "30": "30 gün",
+        "90": "90 gün",
+        "month": "Şu aý",
+        "year": "Şu ýyl"
+      },
+      "from": "Başy",
+      "to": "Soňy",
+      "groupBy": "Toparla",
+      "groups": {
+        "day": "Gün",
+        "week": "Hepde",
+        "month": "Aý"
+      },
+      "loading": "Hasabat ýüklenýär",
+      "invalidRange": "Soňky seneden öň ýa-da şol gün bolan başlangyç senäni saýlaň.",
+      "total": "Jemi alnan",
+      "totalHint": "Arassa satuw + eltip bermek + salgyt",
+      "orders": "Sargytlar",
+      "units": "{count, plural, one {# haryt} other {# haryt}}",
+      "averageOrder": "Ortaça sargyt",
+      "cancelled": "Ýatyrylan sargytlar",
+      "gross": "Umumy satuw",
+      "discounts": "Arzanladyşlar",
+      "netSales": "Arassa satuw",
+      "shipping": "Eltip bermek",
+      "tax": "Salgyt",
+      "definitions": "Umumy satuw = haryt bahasy × sany. Arassa satuw = umumy − arzanladyş kodlary.",
+      "chart": "Wagt boýunça jemi alnan",
+      "breakdown": "Bölüniş",
+      "by": {
+        "product": "Haryt",
+        "category": "Haryt görnüşi",
+        "size": "Ölçeg",
+        "colour": "Reňk",
+        "code": "Arzanladyş kody"
+      },
+      "none": "Görkezilmedik",
+      "noSales": "Bu aralykda satuw ýok.",
+      "unitsCol": "Sany",
+      "ordersCol": "Sargytlar",
+      "itemSales": "Haryt satuwy",
+      "itemSalesHint": "Haryt satuwy arzanladyş kodlaryndan öňküdir (kod tutuş sargyda ulanylýar).",
+      "noProfit": "Girdeji görkezilmeýär: harytlaryň özüne düşýän bahasy entek hiç ýerde ýazylmaýar."
+    },
+    "activity": {
+      "title": "Hereketler žurnaly",
+      "intro": "Dolandyryş panelinde edilen her üýtgetme: kim, näme we haçan. Ýazgylary üýtgedip ýa-da pozup bolmaýar.",
+      "filterLabel": "Bölüm boýunça süzgüçle",
+      "kinds": {
+        "all": "Ählisi",
+        "product": "Harytlar",
+        "order": "Sargytlar",
+        "customer": "Müşderiler",
+        "review": "Synlar",
+        "admin": "Girişler"
+      },
+      "empty": "Entek ýazgy ýok.",
+      "loading": "Ýüklenýär…",
+      "when": "Haçan",
+      "who": "Kim",
+      "what": "Näme",
+      "details": "Jikme-jiklikler",
+      "loadMore": "Ýene görkez",
+      "failed": "Hereketler žurnaly ýüklenip bilmedi.",
+      "fields": "Üýtgedilen: {list}",
+      "pricesChanged": "bahalar üýtgedi",
+      "cleared": "arassalandy",
+      "threshold": "Az galan ammar duýduryşy: {from} → {to}",
+      "actions": {
+        "admin": {
+          "login": "Girdi",
+          "logout_all": "Ähli ýerden çykdy"
+        },
+        "product": {
+          "create": "Haryt döredildi",
+          "update": "Haryt üýtgedildi",
+          "delete": "Haryt pozuldy",
+          "restore": "Haryt dikeldildi"
+        },
+        "order": {
+          "status": "Sargyt ýagdaýy üýtgedi",
+          "shipment": "Ugratma maglumatlary üýtgedi"
+        },
+        "stock": {
+          "adjust": "Ammar düzedildi"
+        },
+        "customer": {
+          "sign_out": "Müşderi çykaryldy",
+          "block": "Müşderi petiklendi",
+          "unblock": "Müşderiniň petigi aýryldy",
+          "delete": "Müşderi pozuldy",
+          "end_session": "Müşderiniň enjamy çykaryldy"
+        },
+        "review": {
+          "hide": "Syn gizlendi",
+          "show": "Syn görkezildi",
+          "delete": "Syn pozuldy"
+        },
+        "settings": {
+          "update": "Sazlamalar üýtgedi"
+        },
+        "report": {
+          "export": "Hasabat göçürildi"
+        }
       }
     }
   },
