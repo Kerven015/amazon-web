@@ -1,7 +1,7 @@
 import { LoaderCircle, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useLoaderData } from "react-router";
-import { AdminPageHeader, AdminTable, EmptyState, FilterChips, Th, pick } from "@/components/admin/admin-ui";
+import { AdminPageHeader, AdminTable, ClearHistoryButton, EmptyState, FilterChips, Th, pick } from "@/components/admin/admin-ui";
 import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { Badge } from "@/components/ui/badge";
@@ -58,7 +58,9 @@ export default function AdminInventoryPage() {
   return (
     <Container className="py-8">
       <PageTitle title={t("title")} />
-      <AdminPageHeader title={t("title")} intro={t("intro")} />
+      <AdminPageHeader title={t("title")} intro={t("intro")}>
+        <ClearHistoryButton what="inventory" onCleared={reload} />
+      </AdminPageHeader>
 
       <ThresholdForm value={threshold} onSaved={async (n) => (setThreshold(n), await reload())} />
 

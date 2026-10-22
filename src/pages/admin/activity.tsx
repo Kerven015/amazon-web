@@ -1,7 +1,7 @@
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
-import { AdminPageHeader, AdminTable, EmptyState, FilterChips, Th } from "@/components/admin/admin-ui";
+import { AdminPageHeader, AdminTable, ClearHistoryButton, EmptyState, FilterChips, Th } from "@/components/admin/admin-ui";
 import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,7 @@ export default function AdminActivityPage() {
   const ta = useT("admin.activity.actions");
   const ts = useT("orders.status");
   const tr = useT("admin.inventory.reasons");
+  const tk = useT("admin.clearHistory.sections");
   const locale = useLocale();
   const initial = useLoaderData<typeof adminActivityLoader>().entries;
   const [entries, setEntries] = useState<AuditEntry[]>(initial as AuditEntry[]);
@@ -75,6 +76,8 @@ export default function AdminActivityPage() {
       return l ? t("threshold", { from: l.from, to: l.to }) : "";
     }
     if (e.action === "report.export") return `${d.from} – ${d.to}`;
+    if (e.action === "history.clear") return `${tk(e.entityId)} · ${t("removed", { count: Number(d.removed) })}`;
+    if (e.action === "activity.clear") return t("removed", { count: Number(d.removed) });
     if (typeof d.slug === "string") return d.slug;
     return "";
   };
@@ -82,7 +85,9 @@ export default function AdminActivityPage() {
   return (
     <Container className="py-8">
       <PageTitle title={t("title")} />
-      <AdminPageHeader title={t("title")} intro={t("intro")} />
+      <AdminPageHeader title={t("title")} intro={t("intro")}>
+        <ClearHistoryButton what="activity" onCleared={() => choose(kind)} />
+      </AdminPageHeader>
       <div className="mb-4">
         <FilterChips label={t("filterLabel")} value={kind} onChange={choose} options={(["all", "product", "order", "customer", "review", "admin"] as Kind[]).map((k) => ({ value: k, label: t(`kinds.${k}`) }))} />
       </div>

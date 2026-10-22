@@ -1,12 +1,13 @@
 import { ArrowUpRight, BarChart3, Boxes, ChevronDown, History, LayoutDashboard, LoaderCircle, LogOut, MessageSquareText, MonitorX, Package, Users } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-import { Outlet, redirect, type LoaderFunctionArgs } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Outlet, redirect, useNavigate, type LoaderFunctionArgs } from "react-router";
+import { toast } from "@/components/ui/toaster";
 import { Logo } from "@/components/layout/logo";
 import { MegaMenu, NavHrefProvider, useNavText } from "@/components/layout/mega-menu";
 import { AdminLanguageSwitcher } from "@/components/admin/admin-i18n";
 import { useT } from "@/i18n";
-import { adminApi } from "@/lib/admin-api";
+import { adminApi, type Notifications, type Section } from "@/lib/admin-api";
 import { ensureCatalog } from "@/lib/catalog";
 import { mainNav } from "@/lib/navigation";
 import { Link, usePathname } from "@/lib/router";
@@ -51,21 +52,76 @@ function AdminHomeLink() {
   );
 }
 
-/** The admin's tool pages (the "Manage" menu in the top bar) */
-const TOOLS = [
+/** The admin's tool pages (the "Manage" menu in the top bar); `section` = has "new" notifications */
+const TOOLS: { href: string; key: string; Icon: typeof Package; section?: Section }[] = [
   { href: "/admin/dashboard", key: "dashboard", Icon: LayoutDashboard },
-  { href: "/admin/orders", key: "orders", Icon: Package },
-  { href: "/admin/customers", key: "customers", Icon: Users },
-  { href: "/admin/inventory", key: "inventory", Icon: Boxes },
-  { href: "/admin/reviews", key: "reviews", Icon: MessageSquareText },
+  { href: "/admin/orders", key: "orders", Icon: Package, section: "orders" },
+  { href: "/admin/customers", key: "customers", Icon: Users, section: "customers" },
+  { href: "/admin/inventory", key: "inventory", Icon: Boxes, section: "inventory" },
+  { href: "/admin/reviews", key: "reviews", Icon: MessageSquareText, section: "reviews" },
   { href: "/admin/reports", key: "reports", Icon: BarChart3 },
   { href: "/admin/activity", key: "activity", Icon: History },
-] as const;
+];
+
+/** How often the menu checks for news (only while the tab is visible) */
+const POLL_MS = 30_000;
+
+/**
+ * What's new in each section since the admin last opened it. Opening a section resets its
+ * count; when a count goes up while the admin is working, a message pops up with a link.
+ */
+function useNotifications() {
+  const t = useT("admin.notifications");
+  const pathname = usePathname();
+  const navigate = useNavigate();
+  const [counts, setCounts] = useState<Notifications | null>(null);
+  const previous = useRef<Notifications | null>(null);
+  const here = TOOLS.find((x) => x.href === pathname)?.section;
+  // The polling effect outlives renders: read the current language through a ref
+  const tRef = useRef(t);
+  tRef.current = t;
+
+  const update = (next: Notifications) => {
+    const before = previous.current;
+    if (before) {
+      for (const tool of TOOLS) {
+        const s = tool.section;
+        if (!s || s === here) continue;
+        const added = next[s] - before[s];
+        if (added > 0) toast.info(tRef.current(s, { count: added }), { action: { label: tRef.current("open"), onClick: () => navigate(tool.href) } });
+      }
+    }
+    previous.current = next;
+    setCounts(next);
+  };
+
+  useEffect(() => {
+    let live = true;
+    const load = () => (here ? adminApi.markSeen(here) : adminApi.notifications()).then((n) => live && update(n), () => {});
+    void load();
+    const id = setInterval(() => document.visibilityState === "visible" && void load(), POLL_MS);
+    return () => {
+      live = false;
+      clearInterval(id);
+    };
+  }, [here]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return counts;
+}
+
+/** Small count bubble ("9+" above 9) */
+function CountBadge({ count, className }: { count: number; className?: string }) {
+  if (!count) return null;
+  return <span className={cn("inline-flex min-w-[18px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-semibold leading-[18px] text-accent-foreground", className)}>{count > 9 ? "9+" : count}</span>;
+}
 
 function ManageMenu() {
   const t = useT("admin.topbar");
+  const tn = useT("admin.notifications");
   const pathname = usePathname();
   const current = TOOLS.find((x) => pathname === x.href);
+  const counts = useNotifications();
+  const total = counts ? TOOLS.reduce((n, x) => n + (x.section ? counts[x.section] : 0), 0) : 0;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -74,13 +130,21 @@ function ManageMenu() {
       >
         {current ? <current.Icon className="size-4" strokeWidth={1.5} aria-hidden="true" /> : <LayoutDashboard className="size-4" strokeWidth={1.5} aria-hidden="true" />}
         <span className="max-md:sr-only">{current ? t(current.key) : t("manage")}</span>
+        <CountBadge count={total} />
+        {total > 0 && <span className="sr-only">{tn("total", { count: total })}</span>}
         <ChevronDown className="size-3.5 max-sm:hidden" aria-hidden="true" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {TOOLS.map(({ href, key, Icon }) => (
+        {TOOLS.map(({ href, key, Icon, section }) => (
           <DropdownMenuItem key={href} asChild>
             <Link href={href} aria-current={pathname === href ? "page" : undefined} className="aria-[current=page]:font-semibold">
               <Icon aria-hidden="true" /> {t(key)}
+              {section && counts?.[section] ? (
+                <span className="ml-auto pl-4">
+                  <CountBadge count={counts[section]} />
+                  <span className="sr-only">{tn(section, { count: counts[section] })}</span>
+                </span>
+              ) : null}
             </Link>
           </DropdownMenuItem>
         ))}

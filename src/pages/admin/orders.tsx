@@ -1,7 +1,7 @@
 import { LoaderCircle, Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { type LoaderFunctionArgs, useLoaderData, useNavigation, useSearchParams } from "react-router";
-import { AdminPageHeader, AdminTable, EmptyState, FilterChips, Th } from "@/components/admin/admin-ui";
+import { type LoaderFunctionArgs, useLoaderData, useNavigation, useRevalidator, useSearchParams } from "react-router";
+import { AdminPageHeader, AdminTable, ClearHistoryButton, EmptyState, FilterChips, Th } from "@/components/admin/admin-ui";
 import { OrderTotals } from "@/components/account/order-details";
 import { OrderTimeline } from "@/components/account/order-timeline";
 import { statusMeta } from "@/components/account/account-view";
@@ -69,6 +69,7 @@ export default function AdminOrdersPage() {
   const [query, setQuery] = useState(f.q);
   const [busy, setBusy] = useState<string | null>(null);
   const loading = useNavigation().state === "loading";
+  const revalidator = useRevalidator();
   const openId = params.get("open");
 
   const update = (next: Partial<Record<"status" | "q" | "from" | "to" | "sort" | "open", string>>) =>
@@ -113,6 +114,7 @@ export default function AdminOrdersPage() {
         <p className="text-sm text-muted-foreground" aria-live="polite">
           {loading ? <LoaderCircle className="inline size-4 animate-spin" aria-label={t("loading")} /> : t("count", { count: orders.length })}
         </p>
+        <ClearHistoryButton what="orders" onCleared={() => revalidator.revalidate()} />
       </AdminPageHeader>
 
       <div className="mb-4 space-y-3">

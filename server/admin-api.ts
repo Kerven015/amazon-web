@@ -14,6 +14,10 @@
  *   GET   /api/admin/reports/sales?from=&to=&tz=&group=day|week|month
  *   GET   /api/admin/reports/export?type=orders|products&from=&to=&tz=   → CSV
  *   GET   /api/admin/activity?entityType=&entityId=&before=
+ *   GET   /api/admin/notifications                    what's new per section since the admin last looked
+ *   POST  /api/admin/notifications/seen               { section } → that count starts again from 0
+ *   GET   /api/admin/history/:section                 how many rows "Clear history" would delete
+ *   POST  /api/admin/history/:section/clear           { confirm: true } → deletes them (clear-history.ts)
  *
  * Every change is written to the activity log (audit.ts).
  */
@@ -24,6 +28,9 @@ import { adminGetOrder, adminSetShipment } from "./lib/db/orders";
 import { dashboard, ordersCsv, productsCsv, salesReport } from "./lib/db/reports";
 import { deleteReview, listReviews, setReviewHidden } from "./lib/db/reviews";
 import { getSettings, saveSettings } from "./lib/db/settings";
+import { getNotifications, markSeen, SECTIONS } from "./lib/db/notifications";
+import { CLEARABLE, type Clearable, clearHistory, clearPreview } from "./lib/db/clear-history";
+import { clientIp } from "./auth";
 import type { Db } from "./db/pool";
 import { parseBody, parseQuery, type Req, type Res, send } from "./http";
 
@@ -143,6 +150,29 @@ export async function handleAdminTools(req: Req, res: Res, url: URL, method: str
     res.end("﻿" + csv);
     await audit({ action: "report.export", entityType: "report", entityId: q.type, details: { from: q.from, to: q.to } });
     return true;
+  }
+
+  /* ---- notifications ---- */
+  if (p === "/api/admin/notifications" && method === "GET") return send(res, 200, await getNotifications(actor)), true;
+  if (p === "/api/admin/notifications/seen" && method === "POST") {
+    const { section } = await parseBody(req, z.object({ section: z.enum(SECTIONS) }), 1_000);
+    await markSeen(actor, section);
+    return send(res, 200, await getNotifications(actor)), true;
+  }
+
+  /* ---- clear history ---- */
+  const history = p.match(/^\/api\/admin\/history\/([a-z]+)(\/clear)?$/);
+  if (history && (CLEARABLE as readonly string[]).includes(history[1])) {
+    const what = history[1] as Clearable;
+    if (!history[2] && method === "GET") return send(res, 200, { count: await clearPreview(what) }), true;
+    if (history[2] && method === "POST") {
+      // An explicit confirmation in the body, so a stray request can't wipe anything
+      await parseBody(req, z.object({ confirm: z.literal(true) }), 1_000);
+      const removed = await clearHistory(what, actor, clientIp(req));
+      // Clearing the activity log writes its own entry (clear_admin_audit_log)
+      if (what !== "activity") await audit({ action: "history.clear", entityType: "admin", entityId: what, details: { removed } });
+      return send(res, 200, { removed }), true;
+    }
   }
 
   /* ---- activity log ---- */

@@ -1,7 +1,7 @@
 import { Eye, EyeOff, LoaderCircle, Search, Star, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
-import { AdminPageHeader, EmptyState, ErrorState, FilterChips, pick } from "@/components/admin/admin-ui";
+import { AdminPageHeader, ClearHistoryButton, EmptyState, ErrorState, FilterChips, pick } from "@/components/admin/admin-ui";
 import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { Badge } from "@/components/ui/badge";
@@ -85,6 +85,7 @@ export default function AdminReviewsPage() {
         <p className="text-sm text-muted-foreground" aria-live="polite">
           {loading ? <LoaderCircle className="inline size-4 animate-spin" aria-label={t("loading")} /> : t("count", { count: reviews.length })}
         </p>
+        <ClearHistoryButton what="reviews" onCleared={load} />
       </AdminPageHeader>
 
       <div className="mb-4 flex flex-wrap items-center gap-3">

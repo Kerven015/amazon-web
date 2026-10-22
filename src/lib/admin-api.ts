@@ -10,7 +10,10 @@ import type { AdminReview, ReviewFilter } from "../../server/lib/db/reviews";
 import type { AuditEntry } from "../../server/lib/db/audit";
 import type { ShopSettings } from "../../server/lib/db/settings";
 import type { dashboard, salesReport, ReportGroup } from "../../server/lib/db/reports";
+import type { Notifications, Section } from "../../server/lib/db/notifications";
+import type { Clearable } from "../../server/lib/db/clear-history";
 
+export type { Clearable, Notifications, Section };
 export type { AdminOrder, AdjustReason, AdminReview, AuditEntry, InventoryRow, ReportGroup, ShopSettings, StockMovement };
 export type Dashboard = Awaited<ReturnType<typeof dashboard>>;
 export type SalesReport = Awaited<ReturnType<typeof salesReport>>;
@@ -120,6 +123,12 @@ export const adminApi = {
   /** A link the browser downloads (the session cookie goes with it) */
   exportUrl: (type: "orders" | "products", q: ReportQuery) => `/api/admin/reports/export${qs({ type, from: q.from, to: q.to, tz: q.tz })}`,
   activity: (filter: { entityType?: string; entityId?: string; before?: number } = {}) => call<AuditEntry[]>(`/api/admin/activity${qs(filter)}`),
+  notifications: () => call<Notifications>("/api/admin/notifications"),
+  /** The admin opened this section: its "new" count goes back to 0. */
+  markSeen: (section: Section) => call<Notifications>("/api/admin/notifications/seen", { method: "POST", body: JSON.stringify({ section }) }),
+  /** How many rows "Clear history" would delete in a section */
+  historyCount: (what: Clearable) => call<{ count: number }>(`/api/admin/history/${what}`),
+  clearHistory: (what: Clearable) => call<{ removed: number }>(`/api/admin/history/${what}/clear`, { method: "POST", body: JSON.stringify({ confirm: true }) }),
   upload: (file: File, slug: string) =>
     call<{ src: string; blurDataURL: string }>(
       `/api/admin/upload?slug=${encodeURIComponent(slug || "untitled")}&name=${encodeURIComponent(file.name)}`,

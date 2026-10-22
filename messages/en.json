@@ -1873,7 +1873,49 @@
         },
         "report": {
           "export": "Report exported"
+        },
+        "history": {
+          "clear": "History cleared"
+        },
+        "activity": {
+          "clear": "Activity log cleared"
         }
+      },
+      "removed": "{count, plural, one {# record deleted} other {# records deleted}}"
+    },
+    "notifications": {
+      "orders": "{count, plural, one {# new order} other {# new orders}}",
+      "reviews": "{count, plural, one {# new review} other {# new reviews}}",
+      "customers": "{count, plural, one {# new customer} other {# new customers}}",
+      "inventory": "{count, plural, one {# size/colour is running out} other {# sizes/colours are running out}}",
+      "open": "Open",
+      "total": "{count, plural, one {# new update} other {# new updates}}"
+    },
+    "clearHistory": {
+      "button": "Clear history",
+      "nothing": "There's nothing to clear.",
+      "done": "{count, plural, one {Deleted # record} other {Deleted # records}}",
+      "failed": "Couldn't clear the history. Please try again.",
+      "confirm": {
+        "orders": "{count, plural, one {Delete # finished order} other {Delete # finished orders}} (delivered or cancelled) from the database for good? They also disappear from the dashboard, reports and the customers' order history. Orders still in progress are kept.",
+        "inventory": "{count, plural, one {Delete # stock history entry} other {Delete # stock history entries}} for good? Current stock levels don't change.",
+        "reviews": "{count, plural, one {Delete # hidden review} other {Delete # hidden reviews}} for good? Reviews shown in the shop are kept.",
+        "customers": "{count, plural, one {Delete # old sign-in record} other {Delete # old sign-in records}} (expired sessions and failed sign-ins older than a day) for good? Customer accounts are kept.",
+        "activity": "{count, plural, one {Delete # activity log entry} other {Delete # activity log entries}} for good? One entry saying you cleared the log will be kept."
+      },
+      "hint": {
+        "orders": "Deletes delivered and cancelled orders",
+        "inventory": "Deletes the stock history",
+        "reviews": "Deletes hidden reviews",
+        "customers": "Deletes expired sessions and old failed sign-ins",
+        "activity": "Deletes the activity log (keeps a note that it was cleared)"
+      },
+      "sections": {
+        "orders": "Finished orders",
+        "inventory": "Stock history",
+        "reviews": "Hidden reviews",
+        "customers": "Old sign-in records",
+        "activity": "Activity log"
       }
     }
   },

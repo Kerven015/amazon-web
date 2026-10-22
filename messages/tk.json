@@ -1873,7 +1873,49 @@
         },
         "report": {
           "export": "Hasabat göçürildi"
+        },
+        "history": {
+          "clear": "Taryh arassalandy"
+        },
+        "activity": {
+          "clear": "Hereketler žurnaly arassalandy"
         }
+      },
+      "removed": "{count, plural, one {# ýazgy pozuldy} other {# ýazgy pozuldy}}"
+    },
+    "notifications": {
+      "orders": "{count, plural, one {# täze sargyt} other {# täze sargyt}}",
+      "reviews": "{count, plural, one {# täze syn} other {# täze syn}}",
+      "customers": "{count, plural, one {# täze müşderi} other {# täze müşderi}}",
+      "inventory": "{count, plural, one {# ölçeg/reňk gutarýar} other {# ölçeg/reňk gutarýar}}",
+      "open": "Aç",
+      "total": "{count, plural, one {# täze habar} other {# täze habar}}"
+    },
+    "clearHistory": {
+      "button": "Taryhy arassala",
+      "nothing": "Arassalara zat ýok.",
+      "done": "{count, plural, one {# ýazgy pozuldy} other {# ýazgy pozuldy}}",
+      "failed": "Taryh arassalanyp bilmedi. Gaýtadan synanyşyň.",
+      "confirm": {
+        "orders": "{count, plural, one {# tamamlanan sargyt} other {# tamamlanan sargyt}} (gowşurylan ýa-da ýatyrylan) maglumat bazasyndan hemişelik pozulsynmy? Olar gözegçilik panelinden, hasabatlardan we müşderileriň sargyt taryhyndan hem aýrylar. Dowam edýän sargytlar galýar.",
+        "inventory": "{count, plural, one {# ammar taryhy ýazgysy} other {# ammar taryhy ýazgysy}} hemişelik pozulsynmy? Häzirki ammar üýtgemeýär.",
+        "reviews": "{count, plural, one {# gizlin syn} other {# gizlin syn}} hemişelik pozulsynmy? Dükanda görünýän synlar galýar.",
+        "customers": "{count, plural, one {# köne giriş ýazgysy} other {# köne giriş ýazgysy}} (möhleti geçen sessiýalar we bir günden köne şowsuz girişler) hemişelik pozulsynmy? Müşderi hasaplary galýar.",
+        "activity": "{count, plural, one {# hereket ýazgysy} other {# hereket ýazgysy}} hemişelik pozulsynmy? Žurnaly arassalandygyňyz barada bir ýazgy galar."
+      },
+      "hint": {
+        "orders": "Gowşurylan we ýatyrylan sargytlary pozýar",
+        "inventory": "Ammar taryhyny pozýar",
+        "reviews": "Gizlin synlary pozýar",
+        "customers": "Möhleti geçen sessiýalary we köne şowsuz girişleri pozýar",
+        "activity": "Hereketler žurnalyny pozýar (arassalanandygy barada bellik galýar)"
+      },
+      "sections": {
+        "orders": "Tamamlanan sargytlar",
+        "inventory": "Ammar taryhy",
+        "reviews": "Gizlin synlar",
+        "customers": "Köne giriş ýazgylary",
+        "activity": "Hereketler žurnaly"
       }
     }
   },
