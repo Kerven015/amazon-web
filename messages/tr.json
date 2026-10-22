@@ -1873,7 +1873,49 @@
         },
         "report": {
           "export": "Rapor dışa aktarıldı"
+        },
+        "history": {
+          "clear": "Geçmiş temizlendi"
+        },
+        "activity": {
+          "clear": "İşlem kaydı temizlendi"
         }
+      },
+      "removed": "{count, plural, one {# kayıt silindi} other {# kayıt silindi}}"
+    },
+    "notifications": {
+      "orders": "{count, plural, one {# yeni sipariş} other {# yeni sipariş}}",
+      "reviews": "{count, plural, one {# yeni yorum} other {# yeni yorum}}",
+      "customers": "{count, plural, one {# yeni müşteri} other {# yeni müşteri}}",
+      "inventory": "{count, plural, one {# beden/renk tükeniyor} other {# beden/renk tükeniyor}}",
+      "open": "Aç",
+      "total": "{count, plural, one {# yeni güncelleme} other {# yeni güncelleme}}"
+    },
+    "clearHistory": {
+      "button": "Geçmişi temizle",
+      "nothing": "Temizlenecek bir şey yok.",
+      "done": "{count, plural, one {# kayıt silindi} other {# kayıt silindi}}",
+      "failed": "Geçmiş temizlenemedi. Lütfen tekrar deneyin.",
+      "confirm": {
+        "orders": "{count, plural, one {# tamamlanmış sipariş} other {# tamamlanmış sipariş}} (teslim edilmiş veya iptal edilmiş) veritabanından kalıcı olarak silinsin mi? Gösterge panelinden, raporlardan ve müşterilerin sipariş geçmişinden de kaybolurlar. Devam eden siparişler korunur.",
+        "inventory": "{count, plural, one {# stok geçmişi kaydı} other {# stok geçmişi kaydı}} kalıcı olarak silinsin mi? Mevcut stok değişmez.",
+        "reviews": "{count, plural, one {# gizli yorum} other {# gizli yorum}} kalıcı olarak silinsin mi? Mağazada görünen yorumlar korunur.",
+        "customers": "{count, plural, one {# eski giriş kaydı} other {# eski giriş kaydı}} (süresi dolmuş oturumlar ve bir günden eski başarısız girişler) kalıcı olarak silinsin mi? Müşteri hesapları korunur.",
+        "activity": "{count, plural, one {# işlem kaydı} other {# işlem kaydı}} kalıcı olarak silinsin mi? Kaydı temizlediğinizi belirten bir kayıt saklanır."
+      },
+      "hint": {
+        "orders": "Teslim edilmiş ve iptal edilmiş siparişleri siler",
+        "inventory": "Stok geçmişini siler",
+        "reviews": "Gizli yorumları siler",
+        "customers": "Süresi dolmuş oturumları ve eski başarısız girişleri siler",
+        "activity": "İşlem kaydını siler (temizlendiğine dair bir not kalır)"
+      },
+      "sections": {
+        "orders": "Tamamlanmış siparişler",
+        "inventory": "Stok geçmişi",
+        "reviews": "Gizli yorumlar",
+        "customers": "Eski giriş kayıtları",
+        "activity": "İşlem kaydı"
       }
     }
   },

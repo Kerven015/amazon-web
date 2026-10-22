@@ -3,9 +3,11 @@
  * reviews, reports, activity): page header, filter chips, stat tiles, empty / error states
  * and a one-series bar chart.
  */
-import { AlertTriangle, LoaderCircle } from "lucide-react";
+import { AlertTriangle, Eraser, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toaster";
+import { adminApi, type Clearable } from "@/lib/admin-api";
 import { useT, type Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { L10n } from "@/types";
@@ -160,3 +162,32 @@ export const Th = ({ children, right }: { children?: React.ReactNode; right?: bo
     {children}
   </th>
 );
+
+/**
+ * "Clear history" for one admin section: shows how many rows will be deleted from the
+ * database, asks for confirmation, deletes them and reports the result.
+ */
+export function ClearHistoryButton({ what, onCleared }: { what: Clearable; onCleared?: () => void | Promise<void> }) {
+  const t = useT("admin.clearHistory");
+  const [busy, setBusy] = useState(false);
+  const run = async () => {
+    setBusy(true);
+    try {
+      const { count } = await adminApi.historyCount(what);
+      if (!count) return void toast.info(t("nothing"));
+      if (!window.confirm(t(`confirm.${what}`, { count }))) return;
+      const { removed } = await adminApi.clearHistory(what);
+      toast.success(t("done", { count: removed }));
+      await onCleared?.();
+    } catch {
+      toast.error(t("failed"));
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Button variant="outline" size="sm" onClick={run} disabled={busy} title={t(`hint.${what}`)} className="hover:!border-danger hover:!bg-danger hover:!text-white">
+      {busy ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <Eraser aria-hidden="true" />} {t("button")}
+    </Button>
+  );
+}

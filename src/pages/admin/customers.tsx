@@ -1,6 +1,7 @@
 import { Ban, LoaderCircle, LogOut, Monitor, RefreshCw, Search, Smartphone, Trash2, UserCheck, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLoaderData } from "react-router";
+import { ClearHistoryButton } from "@/components/admin/admin-ui";
 import { Container } from "@/components/layout/container";
 import { PageTitle } from "@/components/layout/page-title";
 import { Badge } from "@/components/ui/badge";
@@ -126,9 +127,12 @@ export default function AdminCustomersPage() {
           <h1 className="text-4xl">{t("title")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{t("intro")}</p>
         </div>
-        <Button variant="outline" size="sm" onClick={refresh} disabled={refreshing}>
-          <RefreshCw className={cn(refreshing && "animate-spin")} aria-hidden="true" /> {t("refresh")}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <ClearHistoryButton what="customers" onCleared={refresh} />
+          <Button variant="outline" size="sm" onClick={refresh} disabled={refreshing}>
+            <RefreshCw className={cn(refreshing && "animate-spin")} aria-hidden="true" /> {t("refresh")}
+          </Button>
+        </div>
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
