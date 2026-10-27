@@ -921,7 +921,13 @@
       "passwordEmpty": "Açar sözüňizi giriziň",
       "agree": "Dowam etmek üçin şertleri kabul ediň"
     },
-    "or": "ýa-da"
+    "or": "ýa-da",
+    "google": {
+      "continue": "Google bilen dowam et",
+      "note": "Google diňe şu düwmä basanyňyzda ýüklenýär.",
+      "ready": "Indi Google hasabyňyzy saýlaň:",
+      "failed": "Google bilen baglanyşyp bolmady. Gaýtadan synanyşyň ýa-da e-poçtaňyz bilen giriň."
+    }
   },
   "confirmation": {
     "loading": "Sargydyňyz ýüklenýär…",
@@ -1060,8 +1066,34 @@
         "intro": "Görkeziş dükany — hakyky maglumat ýygnamaýarys."
       },
       "cookies": {
-        "title": "Kuki syýasaty",
-        "intro": "Bu görkeziş sebediňizi, halanlaryňyzy, dil saýlawyňyzy we sazlamalaryňyzy diňe brauzeriňizde saklaýar."
+        "title": "Kukiler syýasaty",
+        "intro": "{store} diňe dükanyň işlemegi üçin zerur bolan kukileri we brauzer ammaryny ulanýar. Mahabat, analitika ýa-da yzarlamak ýok, şonuň üçin kukiler üçin razylyk soramaýarys.",
+        "sections": [
+          {
+            "q": "Haýsy kukileri ulanýarsyňyz?",
+            "a": "vendora_session hasabyňyza girişiňizi saklaýar. Brauzeri ýapanyňyzda pozulýar; “Meni ulgamda galdyr” saýlanan bolsa 30 gün saklanýar.\nvendora_locale saýlan diliňizi bir ýyllap ýatda saklaýar.\nIkisini hem diňe şu dükan goýýar we hiç kim bilen paýlaşylmaýar."
+          },
+          {
+            "q": "Brauzerimde başga näme saklanýar?",
+            "a": "Sebediňiz, halanlaryňyz, soňky gören harytlaryňyz, ýatda saklanan salgylaryňyz, harydyň gelmegi barada haýyşlaryňyz, açyk/garaňky tema we gören maslahatlaryňyz brauzeriň ýerli ammarynda saklanýar, şonuň üçin sahypa täzelense-de galýar. Hasabyňyza girseňiz, sebediňiz, halanlaryňyz we salgylaryňyz onuň ýerine hasabyňyzda saklanýar."
+          },
+          {
+            "q": "Google ulanýarsyňyzmy?",
+            "a": "Diňe girişde “Google bilen dowam et” saýlasaňyz. Google girişi şol düwmä basan pursadyňyz ýüklenýär, öň däl, şonuň üçin Google dükana girişleriňizi görmeýär. Mundan soň giriş üçin Google-yň öz kukileri we gizlinlik syýasaty ulanylýar."
+          },
+          {
+            "q": "Analitika ýa-da mahabat kukilerini ulanýarsyňyzmy?",
+            "a": "Ýok. Google Analytics, mahabat pikselleri ýa-da başga yzarlamalary ulanmaýarys. Bu üýtgese, ilki razylygyňyzy sorarys we şu sahypany täzeläris."
+          },
+          {
+            "q": "Dükanyň işgärleri üçin kukiler",
+            "a": "Dükany dolandyrýanlar mundan başga dolandyryş paneline 8 sagada çenli girişi saklaýan vendora_admin we paneliň dilini ýatda saklaýan admin_locale kukilerini alýarlar. Müşderiler bulary hiç haçan almaýarlar."
+          },
+          {
+            "q": "Olary nädip aýyryp bilerin?",
+            "a": "Çykmak giriş kukiňizi pozýar we serwerimizdäki sessiýany tamamlaýar. {store} üçin ähli kukileri we saýt maglumatlaryny islän wagtyňyz brauzer sazlamalaryndan hem pozup bilersiňiz; şonda hasabyňyzdan çykarsyňyz we şol brauzerde saklanan sebet boşar."
+          }
+        ]
       }
     }
   },

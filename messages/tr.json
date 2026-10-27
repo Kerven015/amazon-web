@@ -921,7 +921,13 @@
       "passwordEmpty": "Şifrenizi girin",
       "agree": "Devam etmek için koşulları kabul edin"
     },
-    "or": "veya"
+    "or": "veya",
+    "google": {
+      "continue": "Google ile devam et",
+      "note": "Google yalnızca bu düğmeye tıkladığınızda yüklenir.",
+      "ready": "Şimdi Google hesabınızı seçin:",
+      "failed": "Google'a ulaşılamadı. Tekrar deneyin veya e-postanızla giriş yapın."
+    }
   },
   "confirmation": {
     "loading": "Siparişiniz yükleniyor…",
@@ -1061,7 +1067,33 @@
       },
       "cookies": {
         "title": "Çerez politikası",
-        "intro": "Bu demo sepetinizi, favorilerinizi, dil seçiminizi ve tercihlerinizi yalnızca tarayıcınızda saklar."
+        "intro": "{store} yalnızca mağazanın çalışması için gereken çerezleri ve tarayıcı depolamasını kullanır. Reklam, analiz veya izleme yoktur; bu yüzden çerez onayı istemiyoruz.",
+        "sections": [
+          {
+            "q": "Hangi çerezleri kullanıyorsunuz?",
+            "a": "vendora_session hesabınızda oturumunuzu açık tutar. Tarayıcınızı kapattığınızda silinir; “Oturumumu açık tut” seçiliyse 30 gün saklanır.\nvendora_locale seçtiğiniz dili bir yıl boyunca hatırlar.\nİkisi de yalnızca bu mağaza tarafından oluşturulur ve kimseyle paylaşılmaz."
+          },
+          {
+            "q": "Tarayıcımda başka neler saklanıyor?",
+            "a": "Sepetiniz, favorileriniz, son baktığınız ürünler, kayıtlı adresleriniz, stok bildirimi istekleriniz, açık/koyu tema ve gördüğünüz ipuçları tarayıcınızın yerel depolamasında tutulur; böylece sayfa yenilense de kaybolmaz. Giriş yaptığınızda sepetiniz, favorileriniz ve adresleriniz bunun yerine hesabınıza kaydedilir."
+          },
+          {
+            "q": "Google kullanıyor musunuz?",
+            "a": "Yalnızca giriş yaparken “Google ile devam et”i seçerseniz. Google girişi bu düğmeye tıkladığınız anda yüklenir, öncesinde değil; bu sayede Google mağaza ziyaretlerinizi görmez. Bundan sonra giriş için Google'ın kendi çerezleri ve gizlilik politikası geçerlidir."
+          },
+          {
+            "q": "Analiz veya reklam çerezi kullanıyor musunuz?",
+            "a": "Hayır. Google Analytics, reklam pikselleri veya başka bir izleme kullanmıyoruz. Bu değişirse önce onayınızı isteyeceğiz ve bu sayfayı güncelleyeceğiz."
+          },
+          {
+            "q": "Mağaza çalışanları için çerezler",
+            "a": "Mağazayı yönetenler ayrıca yönetim panelinde en fazla 8 saat oturum açık tutan vendora_admin ve panelin dilini hatırlayan admin_locale çerezlerini alır. Müşteriler bunları hiç almaz."
+          },
+          {
+            "q": "Bunları nasıl silebilirim?",
+            "a": "Çıkış yapmak giriş çerezinizi siler ve sunucumuzdaki oturumu sonlandırır. {store} için tüm çerezleri ve site verilerini istediğiniz zaman tarayıcı ayarlarınızdan da silebilirsiniz; bu durumda oturumunuz kapanır ve o tarayıcıda kayıtlı sepet boşalır."
+          }
+        ]
       }
     }
   },

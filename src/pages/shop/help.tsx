@@ -55,7 +55,7 @@ export default function HelpPage() {
                 {f(s.q)}
                 <span aria-hidden="true" className="text-lg font-light transition-transform duration-300 group-data-[state=open]:rotate-45">+</span>
               </AccordionTrigger>
-              <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">{f(s.a)}</AccordionContent>
+              <AccordionContent className="whitespace-pre-line pb-5 text-sm leading-relaxed text-muted-foreground">{f(s.a)}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -921,7 +921,13 @@
       "passwordEmpty": "Enter your password",
       "agree": "Please accept the terms to continue"
     },
-    "or": "or"
+    "or": "or",
+    "google": {
+      "continue": "Continue with Google",
+      "note": "Google is loaded only when you click this button.",
+      "ready": "Now choose your Google account:",
+      "failed": "Couldn't reach Google. Please try again, or sign in with your email."
+    }
   },
   "confirmation": {
     "loading": "Loading your order…",
@@ -1061,7 +1067,33 @@
       },
       "cookies": {
         "title": "Cookie policy",
-        "intro": "This demo stores your bag, wishlist, language and preferences in your browser only."
+        "intro": "{store} uses only the cookies and browser storage the shop needs to work. There's no advertising, analytics or tracking, so we don't ask for cookie consent.",
+        "sections": [
+          {
+            "q": "Which cookies do you use?",
+            "a": "vendora_session keeps you signed in to your account. It's deleted when you close your browser, or kept for 30 days if you tick “Keep me signed in”.\nvendora_locale remembers the language you chose, for one year.\nBoth are set only by this shop and are never shared with anyone."
+          },
+          {
+            "q": "What else is stored in my browser?",
+            "a": "Your bag, wishlist, recently viewed products, saved addresses, back-in-stock requests, light/dark theme and which tips you've already seen are kept in your browser's local storage, so they're still there after a reload. Once you sign in, your bag, wishlist and addresses are saved to your account instead."
+          },
+          {
+            "q": "Do you use Google?",
+            "a": "Only if you choose “Continue with Google” when signing in. Google's sign-in is loaded the moment you click that button, not before, so Google doesn't see your visits to the shop. From then on, Google's own cookies and privacy policy apply to the sign-in."
+          },
+          {
+            "q": "Do you use analytics or advertising cookies?",
+            "a": "No. We don't use Google Analytics, advertising pixels or any other tracking. If that ever changes, we'll ask for your consent first and update this page."
+          },
+          {
+            "q": "Cookies for shop staff",
+            "a": "People who manage the shop also get vendora_admin, which keeps them signed in to the admin for up to 8 hours, and admin_locale, the admin's language. Customers never get these."
+          },
+          {
+            "q": "How can I remove them?",
+            "a": "Signing out deletes your sign-in cookie and ends the session on our server. You can also delete all cookies and site data for {store} in your browser settings at any time; you'll be signed out and the bag saved in that browser will be emptied."
+          }
+        ]
       }
     }
   },
