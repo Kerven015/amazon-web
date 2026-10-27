@@ -12,7 +12,11 @@ import { serverPlugin } from "./server/vite-plugin";
 const fileEnv = loadEnv("development", process.cwd(), "");
 const setting = (name: string) => (process.env[name] ?? fileEnv[name] ?? "").trim();
 const exposed = ["1", "true", "yes"].includes(setting("DEV_EXPOSE").toLowerCase()) || process.env.CODESPACES === "true";
-if (exposed) console.warn("\n! DEV_EXPOSE: the dev server accepts connections from other devices and tunnels. Keep tunnels private.\n");
+if (exposed) {
+  console.warn("\n! DEV_EXPOSE: the dev server accepts connections from other devices and tunnels. Keep tunnels private.\n");
+  // Tells the admin login (server/auth.ts) to use the production password rules
+  process.env.VENDORA_EXPOSED = "1";
+}
 
 export default defineConfig({
   // API routes + /admin guard run inside the dev server (see server/)

@@ -6,7 +6,9 @@
  *   keeps only its SHA-256 hash, so a leaked sessions table can't be used to sign in.
  *   "Keep me signed in" → 30 days; otherwise a browser-session cookie that the server
  *   also expires after 1 day. The expiry slides forward on use, at most once an hour.
- * - Sign-in rate limit: 5 failures per IP + email in 15 minutes (login_attempts table).
+ * - Sign-in rate limit: 5 failures per IP + email in 15 minutes, and 20 failures per email from
+ *   all IPs together in an hour (login_attempts table) — so many IPs can't keep guessing one
+ *   account. Continue with Google isn't affected.
  */
 import { createHash, randomBytes } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
@@ -24,6 +26,9 @@ const SLIDE_EVERY_MS = 60 * 60 * 1000;
 const SEEN_EVERY_MS = 5 * 60 * 1000;
 export const MAX_LOGIN_FAILS = 5;
 const FAIL_WINDOW_MIN = 15;
+/** Failures for one account from every IP together */
+export const MAX_ACCOUNT_FAILS = 20;
+const ACCOUNT_WINDOW_MIN = 60;
 
 /* ------------------------------ passwords ------------------------------ */
 
@@ -137,11 +142,13 @@ export async function endAllSessions(userId: string, keepSessionId?: string, db:
 /* ------------------------------ rate limit ------------------------------ */
 
 export async function tooManyFailures(ip: string, email: string) {
-  const { rows } = await query<{ n: number }>(
-    `SELECT count(*)::int AS n FROM login_attempts WHERE ip = $1 AND email = $2 AND at > now() - make_interval(mins => $3)`,
-    [ip, email, FAIL_WINDOW_MIN],
+  const { rows } = await query<{ here: number; account: number }>(
+    `SELECT count(*) FILTER (WHERE ip = $1 AND at > now() - make_interval(mins => $3))::int AS here,
+            count(*)::int AS account
+       FROM login_attempts WHERE email = $2 AND at > now() - make_interval(mins => $4)`,
+    [ip, email, FAIL_WINDOW_MIN, ACCOUNT_WINDOW_MIN],
   );
-  return rows[0].n >= MAX_LOGIN_FAILS;
+  return rows[0].here >= MAX_LOGIN_FAILS || rows[0].account >= MAX_ACCOUNT_FAILS;
 }
 
 export async function recordLoginFailure(ip: string, email: string) {

@@ -25,13 +25,20 @@ export const MIN_ADMIN_PASSWORD = 16;
 
 /* ------------------------------ config ------------------------------ */
 
+/**
+ * The strict admin rules apply in production, and also to a dev server opened to other
+ * devices or tunnels (DEV_EXPOSE / Codespaces — vite.config.ts sets VENDORA_EXPOSED),
+ * because anyone with the link can reach its admin login.
+ */
+export const strictAdmin = () => isProduction() || env("VENDORA_EXPOSED") === "1";
+
 export function authConfig() {
   const username = env("ADMIN_USERNAME");
   const password = env("ADMIN_PASSWORD");
   const secret = env("ADMIN_SESSION_SECRET");
   if (!username || !password || !secret || secret.length < 32) return null;
-  // Production never runs with a weak admin password (the server also refuses to start)
-  if (isProduction() && adminConfigProblems().length) return null;
+  // Production (or an exposed dev server) never runs with a weak admin password; the server also refuses to start
+  if (strictAdmin() && adminConfigProblems().length) return null;
   return { username, password, secret };
 }
 
@@ -56,8 +63,9 @@ export function adminConfigProblems(): string[] {
 }
 
 /**
- * Start-up check. Production: a weak or missing-but-half-set admin login stops the server.
- * Development: a warning only, so `npm run dev` still works with a simple local password.
+ * Start-up check. Production, or a dev server exposed with DEV_EXPOSE: a weak or half-set admin
+ * login stops the server. Local development: a warning only, so `npm run dev` still works with a
+ * simple local password.
  * (No admin variables at all = admin login switched off, which is allowed.)
  */
 export function assertAdminConfig() {
@@ -69,8 +77,9 @@ export function assertAdminConfig() {
   const problems = adminConfigProblems();
   if (!problems.length) return;
   const list = problems.map((p) => `  - ${p}`).join("\n");
-  if (isProduction()) {
-    console.error(`\n✗ Can't start Vendora: the admin login isn't safe for production.\n${list}\n  Fix it in .env.local (a long random password: node -e "console.log(require('crypto').randomBytes(24).toString('base64url'))").\n`);
+  if (strictAdmin()) {
+    const where = isProduction() ? "for production" : "while the dev server is open to other devices (DEV_EXPOSE)";
+    console.error(`\n✗ Can't start Vendora: the admin login isn't safe ${where}.\n${list}\n  Fix it in .env.local (a long random password: node -e "console.log(require('crypto').randomBytes(24).toString('base64url'))").\n`);
     process.exit(1);
   }
   console.warn(`\n! Admin login: fine for development, but production would refuse to start:\n${list}\n`);

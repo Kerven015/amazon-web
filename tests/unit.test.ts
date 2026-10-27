@@ -9,7 +9,7 @@ import { computeTotals, discountAmount } from "../src/lib/pricing";
 
 process.env.ADMIN_USERNAME = "admin";
 process.env.ADMIN_SESSION_SECRET = "unit-test-secret-0123456789-abcdefghijklmnop";
-const { adminConfigProblems, clientIp } = await import("../server/auth");
+const { adminConfigProblems, authConfig, clientIp } = await import("../server/auth");
 
 describe("open redirects", () => {
   test("only paths on this site are accepted after sign-in", () => {
@@ -64,5 +64,18 @@ describe("totals", () => {
     const t = computeTotals(100, 0, 10);
     assert.equal(t.total, 90);
     assert.ok(t.tax > 0 && t.tax < t.total);
+  });
+});
+
+describe("dev server opened to other devices (DEV_EXPOSE)", () => {
+  test("a weak admin password works locally but not when the dev server is exposed", () => {
+    process.env.ADMIN_PASSWORD = "change-me";
+    delete process.env.VENDORA_EXPOSED;
+    assert.ok(authConfig(), "local development: allowed (with a warning)");
+    process.env.VENDORA_EXPOSED = "1";
+    assert.equal(authConfig(), null, "exposed: admin login switched off");
+    process.env.ADMIN_PASSWORD = "Kx8pQ2vN7rLm4tWz9bYc";
+    assert.ok(authConfig(), "exposed with a strong password: allowed");
+    delete process.env.VENDORA_EXPOSED;
   });
 });
