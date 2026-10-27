@@ -78,7 +78,15 @@ function finalize(input: Product): Product {
     listPrice: cheapest.list,
     stock,
     tags: [...tags],
-    variants: { ...input.variants, sizes: oneSize ? undefined : input.sizes.map((s) => s.name) },
+    variants: {
+      ...input.variants,
+      sizes: oneSize ? undefined : input.sizes.map((s) => s.name),
+      // A colour's own photos (uploaded per colour): the first one is also its swatch photo
+      colors: input.variants.colors?.map((c) => {
+        const own = (c.images ?? []).filter((i) => real(i.src));
+        return own.length ? { ...c, images: own, image: own[0].src, imageBlur: own[0].blurDataURL } : { ...c, images: undefined };
+      }),
+    },
     reviews: (input.reviews ?? []).map((r) => ({ ...r, productId: input.id })),
     // The count and average always describe the reviews that exist
     ...(input.reviews?.length

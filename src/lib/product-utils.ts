@@ -70,6 +70,8 @@ export function productHref(product: Pick<Product, "slug">, colour?: string) {
 export function colorImage(product: Product, colorName?: string): ProductImage {
   const main = product.images[0];
   const colour = product.variants.colors?.find((c) => c.name === colorName);
+  // A colour with its own photos is always shown with its first photo
+  if (colour?.images?.length) return colour.images[0];
   if (!colour || colour === product.variants.colors?.[0]) return main;
   return {
     src: colour.image,
@@ -78,7 +80,10 @@ export function colorImage(product: Product, colorName?: string): ProductImage {
   };
 }
 
-/** Gallery for the selected colour: its own images, or its photo + the product gallery. */
+/**
+ * Gallery for the selected colour: only that colour's own photos when it has some (uploaded
+ * per colour in the admin); otherwise its swatch photo + the general product gallery.
+ */
 export function colorGallery(product: Product, colorName?: string): ProductImage[] {
   const colour = product.variants.colors?.find((c) => c.name === colorName);
   if (colour?.images?.length) return colour.images;

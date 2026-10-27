@@ -1373,11 +1373,6 @@
       "colour": "Colour",
       "hexValue": "{name} hex value",
       "filterGroup": "Filter group",
-      "image": "Image",
-      "imageIllustration": "Illustration",
-      "imageMain": "Main image",
-      "imageN": "Image {n}",
-      "imageNMain": "Image {n} (main)",
       "stock": "Stock:",
       "stockBySize": "Stock by size:",
       "stockQuantity": "Stock quantity:",
@@ -1412,7 +1407,9 @@
       "visible": "Visible on site",
       "visibleHint": "Hidden products stay here in the admin but disappear from the store.",
       "fastDelivery": "Eligible for fast delivery",
-      "emptyText": "{language} text"
+      "emptyText": "{language} text",
+      "colourPhotos": "Photos of {colour}",
+      "colourPhotosHint": "Shown on the product page when a shopper picks this colour, and only these. Without photos, the main product photos are shown. The first photo is also the colour's swatch picture."
     },
     "careKinds": {
       "wash": "Washing",

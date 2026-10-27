@@ -202,6 +202,36 @@ describe("inventory", () => {
   });
 });
 
+describe("photos per colour", () => {
+  test("each colour keeps its own photos; the first is its swatch photo", async () => {
+    const product = (await t.api("/api/admin/products/p14", { cookie: admin })).json;
+    const colours = product.variants.colors;
+    colours[1] = {
+      ...colours[1],
+      image: "/images/products/old-pick.webp",
+      images: [
+        { src: "/images/products/test/colour-a.webp", alt: "A" },
+        { src: "/images/products/test/colour-b.webp", alt: "B" },
+      ],
+    };
+    colours[2] = { ...colours[2], images: [] };
+    const r = await t.api("/api/admin/products/p14", { method: "PUT", cookie: admin, body: product });
+    assert.equal(r.status, 200, r.text);
+    const saved = (await t.api("/api/products")).json.find((p: { id: string }) => p.id === "p14").variants.colors;
+    assert.deepEqual(saved[1].images.map((i: { src: string }) => i.src), ["/images/products/test/colour-a.webp", "/images/products/test/colour-b.webp"]);
+    assert.equal(saved[1].image, "/images/products/test/colour-a.webp");
+    assert.equal(saved[2].images, undefined);
+  });
+
+  test("at most 8 photos per colour", async () => {
+    const product = (await t.api("/api/admin/products/p14", { cookie: admin })).json;
+    product.variants.colors[0].images = Array.from({ length: 9 }, (_, n) => ({ src: `/images/products/test/${n}.webp`, alt: "" }));
+    const r = await t.api("/api/admin/products/p14", { method: "PUT", cookie: admin, body: product });
+    assert.equal(r.status, 422);
+    assert.ok(Object.keys(r.json.fields).some((k) => k.startsWith("variants.colors.0.images")), r.text);
+  });
+});
+
 describe("reviews", () => {
   test("a hidden review leaves the shop and the rating; showing it brings it back", async () => {
     const c = await registerCustomer(t);
