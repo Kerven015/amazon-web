@@ -1373,11 +1373,6 @@
       "colour": "Reňk",
       "hexValue": "{name} hex bahasy",
       "filterGroup": "Süzgüç topary",
-      "image": "Surat",
-      "imageIllustration": "Illýustrasiýa",
-      "imageMain": "Esasy surat",
-      "imageN": "Surat {n}",
-      "imageNMain": "Surat {n} (esasy)",
       "stock": "Ammar:",
       "stockBySize": "Ölçeg boýunça ammar:",
       "stockQuantity": "Ammardaky mukdar:",
@@ -1412,7 +1407,9 @@
       "visible": "Saýtda görünýär",
       "visibleHint": "Gizlin harytlar dolandyryş panelinde galýar, ýöne dükandan aýrylýar.",
       "fastDelivery": "Çalt eltip bermek mümkin",
-      "emptyText": "{language} tekst"
+      "emptyText": "{language} tekst",
+      "colourPhotos": "{colour} suratlary",
+      "colourPhotosHint": "Müşderi şu reňki saýlanda haryt sahypasynda diňe şular görkezilýär. Surat ýok bolsa, harydyň esasy suratlary görkezilýär. Birinji surat reňkiň kiçi suraty hökmünde hem ulanylýar."
     },
     "careKinds": {
       "wash": "Ýuwmak",

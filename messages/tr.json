@@ -1373,11 +1373,6 @@
       "colour": "Renk",
       "hexValue": "{name} hex değeri",
       "filterGroup": "Filtre grubu",
-      "image": "Görsel",
-      "imageIllustration": "İllüstrasyon",
-      "imageMain": "Ana görsel",
-      "imageN": "Görsel {n}",
-      "imageNMain": "Görsel {n} (ana)",
       "stock": "Stok:",
       "stockBySize": "Ölçüye göre stok:",
       "stockQuantity": "Stok miktarı:",
@@ -1412,7 +1407,9 @@
       "visible": "Sitede görünür",
       "visibleHint": "Gizli ürünler yönetim panelinde kalır ama mağazadan kaybolur.",
       "fastDelivery": "Hızlı teslimata uygun",
-      "emptyText": "{language} metin"
+      "emptyText": "{language} metin",
+      "colourPhotos": "{colour} fotoğrafları",
+      "colourPhotosHint": "Müşteri bu rengi seçtiğinde ürün sayfasında yalnızca bunlar gösterilir. Fotoğraf yoksa ana ürün fotoğrafları gösterilir. İlk fotoğraf rengin küçük resmi olarak da kullanılır."
     },
     "careKinds": {
       "wash": "Yıkama",

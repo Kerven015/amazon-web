@@ -156,6 +156,33 @@ const cleanNames = (v?: NameL10n): NameL10n | undefined => {
 
 const isPhoto = (src?: string) => !!src && !src.startsWith("data:");
 
+/**
+ * Colours used to pick one of the product photos as their image. They now have their own
+ * photos: a colour that pointed at a product photo (other than the main one, which belongs to
+ * the general gallery) starts with that photo as its own, so nothing changes until it's edited.
+ */
+function withOwnColourPhotos(p: ProductRecord): ProductRecord {
+  const colors = p.variants.colors;
+  if (!colors?.length) return p;
+  const main = p.images[0]?.src;
+  return {
+    ...p,
+    variants: {
+      ...p.variants,
+      colors: colors.map((c) =>
+        c.images?.length || !isPhoto(c.image) || c.image === main ? c : { ...c, images: [{ src: c.image, alt: "", blurDataURL: c.imageBlur }] },
+      ),
+    },
+  };
+}
+
+/** A colour's own photos; the first one is also its swatch photo. Without own photos it keeps an older single image. */
+function colourPhotos(c: ColorRecord): Pick<ColorRecord, "image" | "imageBlur" | "images"> {
+  const own = (c.images ?? []).filter((i) => isPhoto(i.src));
+  if (own.length) return { images: own, image: own[0].src, imageBlur: own[0].blurDataURL };
+  return { images: undefined, image: isPhoto(c.image) ? c.image : "", imageBlur: isPhoto(c.image) ? c.imageBlur : undefined };
+}
+
 /** What gets sent to the server (the server also derives price, stock and tags). */
 function toPayload(d: ProductRecord): ProductRecord {
   const colourKeys = d.variants.colors?.length ? d.variants.colors.map((c) => c.name) : ["default"];
@@ -192,9 +219,7 @@ function toPayload(d: ProductRecord): ProductRecord {
         ...c,
         name: c.name.trim(),
         labels: cleanNames(c.labels),
-        image: isPhoto(c.image) ? c.image : "",
-        imageBlur: isPhoto(c.image) ? c.imageBlur : undefined,
-        images: c.images?.filter((i) => isPhoto(i.src)),
+        ...colourPhotos(c),
       })),
     },
     images: d.images.filter((i) => isPhoto(i.src)),
@@ -363,7 +388,7 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
   const id = useId();
   const navigate = useNavigate();
   const editing = !!product;
-  const [initial] = useState<ProductRecord>(() => product ?? blankProduct(collection));
+  const [initial] = useState<ProductRecord>(() => (product ? withOwnColourPhotos(product) : blankProduct(collection)));
   const [d, setD] = useState<ProductRecord>(initial);
   // One language for the whole admin: interface, the product text being edited and the preview
   // (the admin's language — cookie admin_locale; the switcher sits in the status bar below)
@@ -557,7 +582,6 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
       ...p,
       title: p.title.en ? p.title : { en: t("preview.placeholderName") },
       tagline: p.tagline.en ? p.tagline : { en: t("preview.placeholderTagline") },
-      variants: { ...p.variants, colors: p.variants.colors?.map((c) => ({ ...c, images: undefined })) },
     });
     return localizeProduct(record, lang);
   }, [d, lang, t]);
@@ -884,32 +908,23 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
                         ))}
                       </Select>
                     </Field>
-                    <Field label={tf("image")} htmlFor={f(`c${i}i`)}>
-                      <div className="flex items-center gap-2">
-                        <span className="relative h-10 w-8 shrink-0 overflow-hidden rounded-xs border bg-cream" style={{ background: c.hex }}>
-                          {c.image && <img src={c.image} alt="" className="absolute inset-0 size-full object-cover" />}
-                        </span>
-                        <Select
-                          id={f(`c${i}i`)}
-                          value={d.images.findIndex((im) => im.src === c.image) >= 0 ? String(d.images.findIndex((im) => im.src === c.image)) : ""}
-                          onChange={(ev) => {
-                            const img = d.images[Number(ev.target.value)];
-                            updateColor(i, ev.target.value === "" || !img ? { image: "", imageBlur: undefined, images: undefined } : { image: img.src, imageBlur: img.blurDataURL, images: undefined });
-                          }}
-                          wrapperClassName="w-40"
-                        >
-                          <option value="">{c.image && !d.images.some((im) => im.src === c.image) ? tf("imageIllustration") : tf("imageMain")}</option>
-                          {d.images.map((im, n) => (
-                            <option key={n} value={n}>
-                              {n === 0 ? tf("imageNMain", { n: n + 1 }) : tf("imageN", { n: n + 1 })}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    </Field>
+                    <span className="relative mb-0.5 h-10 w-8 shrink-0 overflow-hidden rounded-xs border" style={{ background: c.hex }} aria-hidden="true">
+                      {isPhoto(c.images?.[0]?.src) && <img src={c.images![0].src} alt="" className="absolute inset-0 size-full object-cover" />}
+                    </span>
                     <button type="button" aria-label={tf("removeColour", { name: colourName(c) })} onClick={() => setColors(colors.filter((_, n) => n !== i), undefined, undefined, c.name)} className={cn(iconBtn, "mb-1 hover:text-danger")}>
                       <Trash2 className="size-4" aria-hidden="true" />
                     </button>
+                  </div>
+                  <div className="mt-3">
+                    <p className="text-sm font-medium">{tf("colourPhotos", { colour: colourName(c) })}</p>
+                    <p className="mb-2 text-xs text-muted-foreground">{tf("colourPhotosHint")}</p>
+                    <ImageManager
+                      images={c.images ?? []}
+                      onChange={(images) => updateColor(i, { images })}
+                      slug={d.slug}
+                      title={d.title.en ? `${d.title.en} – ${c.name}` : ""}
+                      error={e(`variants.colors.${i}.images`)}
+                    />
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     <span className="text-xs text-muted-foreground">{d.sizes.length > 1 ? tf("stockBySize") : tf("stock")}</span>

@@ -6,6 +6,8 @@ import type { IncomingMessage } from "node:http";
 import { describe, test } from "node:test";
 import { safeNext } from "../src/lib/account-schema";
 import { computeTotals, discountAmount } from "../src/lib/pricing";
+import { colorGallery, colorImage } from "../src/lib/product-utils";
+import type { Product } from "../src/types";
 
 process.env.ADMIN_USERNAME = "admin";
 process.env.ADMIN_SESSION_SECRET = "unit-test-secret-0123456789-abcdefghijklmnop";
@@ -77,5 +79,29 @@ describe("dev server opened to other devices (DEV_EXPOSE)", () => {
     process.env.ADMIN_PASSWORD = "Kx8pQ2vN7rLm4tWz9bYc";
     assert.ok(authConfig(), "exposed with a strong password: allowed");
     delete process.env.VENDORA_EXPOSED;
+  });
+});
+
+describe("photos per colour", () => {
+  const img = (src: string) => ({ src, alt: "" });
+  const product = {
+    title: "Towel",
+    productType: "Bath towel",
+    images: [img("/main.webp"), img("/general-2.webp")],
+    variants: {
+      colors: [
+        { name: "Chalk", hex: "#f1ede4", family: "White", image: "" },
+        { name: "Sand", hex: "#c8b18e", family: "Neutral", image: "/sand-1.webp", images: [img("/sand-1.webp"), img("/sand-2.webp")] },
+      ],
+    },
+  } as unknown as Product;
+
+  test("a colour with its own photos shows only those", () => {
+    assert.deepEqual(colorGallery(product, "Sand").map((i) => i.src), ["/sand-1.webp", "/sand-2.webp"]);
+    assert.equal(colorImage(product, "Sand").src, "/sand-1.webp");
+  });
+  test("a colour without photos falls back to the general product photos", () => {
+    assert.deepEqual(colorGallery(product, "Chalk").map((i) => i.src), ["/main.webp", "/general-2.webp"]);
+    assert.deepEqual(colorGallery(product).map((i) => i.src), ["/main.webp", "/general-2.webp"]);
   });
 });
