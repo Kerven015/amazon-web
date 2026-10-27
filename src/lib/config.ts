@@ -28,6 +28,8 @@ export const siteConfig = {
   social: { instagram: "", facebook: "", youtube: "" } as Record<"instagram" | "facebook" | "youtube", string>,
   /** Mock discount codes accepted in the bag (code → percent off) */
   discountCodes: { WELCOME10: 10, VENDORA15: 15 } as Record<string, number>,
+  /** Shown after signing up for the newsletter ("10% off your first order") */
+  welcomeCode: "WELCOME10",
 } as const;
 
 /** Announcement bar: texts are in messages/*.json → header.announcements.{key} */

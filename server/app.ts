@@ -54,11 +54,10 @@ import { logAdmin } from "./lib/db/audit";
 import { type Audit, handleAdminTools } from "./admin-api";
 import * as customers from "./lib/db/customers";
 import { z } from "zod";
-import { BodyError, parseBody, parseQuery, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
+import { BodyError, parseBody, parseQuery, publicOrigin, readBody, readJson, type Req, type Res, sameOrigin, send, ValidationError } from "./http";
 import { handleShopApi } from "./shop-api";
 import { isLocale, LOCALE_COOKIE, locales, negotiateLocale, splitLocale, UNPREFIXED } from "../src/i18n/config";
 import { MAX_UPLOAD_BYTES, saveUpload, UploadError } from "./upload";
-import { env } from "./env";
 
 /** Server-side derivations so the stored product is always consistent. */
 function finalize(input: Product): Product {
@@ -124,25 +123,6 @@ function validate(body: unknown) {
 }
 
 /* ------------------------------ sitemap ------------------------------ */
-
-/**
- * The site's public origin for absolute URLs. PUBLIC_ORIGIN when set; otherwise built from the
- * request, but only from a well-formed host — the Host header is client-controlled, and a value
- * like `evil.com"><…` would otherwise end up inside the XML.
- */
-function publicOrigin(req: Req) {
-  const configured = env("PUBLIC_ORIGIN");
-  if (configured) {
-    try {
-      return new URL(configured).origin;
-    } catch {
-      /* fall through */
-    }
-  }
-  const proto = String(req.headers["x-forwarded-proto"] ?? "").split(",")[0].trim() === "https" ? "https" : "http";
-  const host = String(req.headers.host ?? "");
-  return /^[a-z0-9.-]+(:\d{1,5})?$/i.test(host) ? `${proto}://${host}` : null;
-}
 
 async function sitemap(req: Req, res: Res) {
   const origin = publicOrigin(req);

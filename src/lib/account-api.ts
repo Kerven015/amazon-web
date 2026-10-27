@@ -59,6 +59,8 @@ export const accountApi = {
   /** "Continue with Google" / One Tap: the ID token from Google Identity Services */
   google: (credential: string, locale: string) => call<{ user: SessionUser; created: boolean }>("/api/auth/google", { method: "POST", json: { credential, locale } }),
   logout: () => call<{ ok: true }>("/api/auth/logout", { method: "POST" }),
+  subscribeNewsletter: (email: string, locale: string) => call<{ ok: true }>("/api/newsletter", { method: "POST", json: { email, locale } }),
+  unsubscribeNewsletter: (token: string) => call<{ ok: true }>("/api/newsletter/unsubscribe", { method: "POST", json: { token } }),
   logoutAll: () => call<{ ok: true }>("/api/auth/logout-all", { method: "POST" }),
 
   /* profile */

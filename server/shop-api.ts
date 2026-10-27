@@ -20,13 +20,17 @@
  *   Shop      POST /api/products/:id/reviews   { rating, title, body, author? }
  *             POST /api/orders                 (signed in only)
  *             GET  /api/orders/:id             only the customer who placed it; anyone else → 404
+ *   Newsletter POST /api/newsletter              { email, locale } (anyone; same answer if already subscribed)
+ *             POST /api/newsletter/unsubscribe  { token } from the link in a newsletter email
  */
 import {
   addressPatchSchema,
   addressSchema,
   cartSchema,
   loginSchema,
+  newsletterSchema,
   orderSchema,
+  unsubscribeSchema,
   googleSignInSchema,
   passwordChangeSchema,
   profileSchema,
@@ -54,6 +58,7 @@ import { parseBody, type Req, type Res, send } from "./http";
 import * as account from "./lib/db/account";
 import { rateLimit } from "./security";
 import { getOrder, listOrders, OrderError, placeOrder } from "./lib/db/orders";
+import * as newsletter from "./lib/db/newsletter";
 
 const fail = (res: Res, status: number, error: ApiErrorCode, extra: Record<string, unknown> = {}) => send(res, status, { error, ...extra });
 
@@ -138,6 +143,23 @@ export async function handleShopApi(req: Req, res: Res, p: string, method: strin
     const user = await customerFrom(req, res);
     if (!user) return fail(res, 401, "sign_in_required"), true;
     send(res, 200, publicUser(user));
+    return true;
+  }
+
+  if (p === "/api/newsletter" && method === "POST") {
+    // Stops scripts from filling the list: 10 sign-ups an hour per address
+    if (!rateLimit(`newsletter:${clientIp(req)}`, 10, HOUR)) return fail(res, 429, "too_many_attempts"), true;
+    const body = await parseBody(req, newsletterSchema, 2_000);
+    const user = await customerFrom(req, res);
+    await newsletter.subscribe({ email: body.email, locale: body.locale, userId: user?.id ?? null, ip: clientIp(req) });
+    send(res, 200, { ok: true });
+    return true;
+  }
+  if (p === "/api/newsletter/unsubscribe" && method === "POST") {
+    if (!rateLimit(`unsubscribe:${clientIp(req)}`, 30, HOUR)) return fail(res, 429, "too_many_attempts"), true;
+    const { token } = await parseBody(req, unsubscribeSchema, 1_000);
+    if (!(await newsletter.unsubscribe(token))) return fail(res, 404, "invalid_link"), true;
+    send(res, 200, { ok: true });
     return true;
   }
 

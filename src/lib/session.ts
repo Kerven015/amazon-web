@@ -18,7 +18,7 @@ import { isSignedIn, useSession } from "@/lib/session-state";
 import { toCartItem, useCart } from "@/lib/store/cart";
 import { useAddressBook } from "@/lib/store/addresses";
 import { useMyReviews } from "@/lib/store/my-reviews";
-import { useWishlist } from "@/lib/store/wishlist";
+import { takePendingSave, useWishlist } from "@/lib/store/wishlist";
 
 export type { SessionUser };
 export { isSignedIn, useSession };
@@ -178,6 +178,12 @@ async function syncAccount() {
       useCart.subscribe((s, prev) => !applying && s.items !== prev.items && pushCart()),
       useWishlist.subscribe((s, prev) => !applying && s.ids !== prev.ids && pushWishlist()),
     ];
+
+    // 4. The product they tried to save before signing in
+    const pending = takePendingSave();
+    if (pending && getProductById(pending) && !useWishlist.getState().ids.includes(pending)) {
+      useWishlist.setState({ ids: [pending, ...useWishlist.getState().ids] });
+    }
   } catch {
     applying = false;
     syncFailed();

@@ -1,6 +1,7 @@
 /** Small HTTP helpers shared by the admin API (app.ts) and the shop API (shop-api.ts). */
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { z } from "zod";
+import { env } from "./env";
 import { isAllowedOrigin } from "./security";
 
 export type Req = IncomingMessage;
@@ -102,4 +103,23 @@ export function parseQuery<S extends z.ZodTypeAny>(url: URL, schema: S): z.infer
     throw new ValidationError(fields);
   }
   return parsed.data;
+}
+
+/**
+ * The site's public origin for absolute URLs. PUBLIC_ORIGIN when set; otherwise built from the
+ * request, but only from a well-formed host — the Host header is client-controlled, and a value
+ * like `evil.com"><…` would otherwise end up inside the XML.
+ */
+export function publicOrigin(req: Req) {
+  const configured = env("PUBLIC_ORIGIN");
+  if (configured) {
+    try {
+      return new URL(configured).origin;
+    } catch {
+      /* fall through */
+    }
+  }
+  const proto = String(req.headers["x-forwarded-proto"] ?? "").split(",")[0].trim() === "https" ? "https" : "http";
+  const host = String(req.headers.host ?? "");
+  return /^[a-z0-9.-]+(:\d{1,5})?$/i.test(host) ? `${proto}://${host}` : null;
 }

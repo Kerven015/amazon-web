@@ -94,8 +94,13 @@ export type OrderInput = z.infer<typeof orderSchema>;
 export const orderStatusSchema = z.object({ status: z.enum(["placed", "packed", "shipped", "out_for_delivery", "delivered", "cancelled"]) });
 
 /** Error codes the API returns; the browser shows messages → accountErrors.{code}. */
+/** Newsletter sign-up (footer form) and unsubscribe link */
+export const newsletterSchema = z.object({ email, locale: locale.default("en") });
+export const unsubscribeSchema = z.object({ token: z.string().max(200) });
+
 export type ApiErrorCode =
   | "validation"
+  | "invalid_link"
   | "email_taken"
   | "invalid_credentials"
   | "too_many_attempts"

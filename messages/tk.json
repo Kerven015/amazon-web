@@ -187,7 +187,7 @@
     }
   },
   "newsletter": {
-    "done": "Siz sanawa goşuldyňyz — 10% arzanladyş üçin poçtaňyzy barlaň.",
+    "done": "Siz sanawa goşuldyňyz. Ilkinji sargydyňyz üçin 10% arzanladyş kodyňyz: {code}",
     "emailLabel": "E-poçta salgysy",
     "placeholder": "E-poçta salgyňyz",
     "signUp": "Ýazyl",
@@ -206,6 +206,14 @@
       "missingUser": "“@” belgisinden öňki bölegi giriziň. “{value}” doly däl.",
       "missingDomain": "“@” belgisinden soňky bölegi giriziň. “{value}” doly däl.",
       "invalid": "ady@mysal.com ýaly dogry e-poçta salgysyny giriziň."
+    },
+    "unsubscribe": {
+      "title": "Habarnama",
+      "working": "Ýazylyşykdan çykylýar…",
+      "done": "Siz ýazylyşykdan çykdyňyz. Indi bizden habarnama almarsyňyz.",
+      "invalid": "Bu ýazylyşykdan çykmak salgysy dogry däl. Iň soňky e-poçtadaky salgyny ulanyň ýa-da biziň bilen habarlaşyň.",
+      "failed": "Bir zat ýalňyş gitdi. Biraz soňrak gaýtadan synanyşyň.",
+      "backToShop": "Dükana gaýt"
     }
   },
   "collection": {
@@ -441,7 +449,12 @@
     "continueShopping": "Söwdany dowam et",
     "soldOut": "Satylyp gutardy",
     "addToBag": "Sebede goş",
-    "remove": "Aýyr"
+    "remove": "Aýyr",
+    "signInToSave": "Halanlaryňyza goşmak üçin giriň",
+    "signIn": "Gir",
+    "signedOutTitle": "Halanlaryňyzy görmek üçin giriň",
+    "signedOutBody": "Halanlaryňyz hasabyňyzda saklanýar, şonuň üçin her enjamda görünýär. Saklap başlamak üçin giriň ýa-da mugt hasap dörediň.",
+    "createAccount": "Hasap döret"
   },
   "price": {
     "from": "Başlap",
@@ -1075,7 +1088,7 @@
           },
           {
             "q": "Brauzerimde başga näme saklanýar?",
-            "a": "Sebediňiz, halanlaryňyz, soňky gören harytlaryňyz, ýatda saklanan salgylaryňyz, harydyň gelmegi barada haýyşlaryňyz, açyk/garaňky tema we gören maslahatlaryňyz brauzeriň ýerli ammarynda saklanýar, şonuň üçin sahypa täzelense-de galýar. Hasabyňyza girseňiz, sebediňiz, halanlaryňyz we salgylaryňyz onuň ýerine hasabyňyzda saklanýar."
+            "a": "Sebediňiz, soňky gören harytlaryňyz, ýatda saklanan salgylaryňyz, harydyň gelmegi barada haýyşlaryňyz, açyk/garaňky tema we gören maslahatlaryňyz brauzeriň ýerli ammarynda saklanýar, şonuň üçin sahypa täzelense-de galýar. Hasabyňyza girseňiz, sebediňiz, halanlaryňyz we salgylaryňyz onuň ýerine hasabyňyzda saklanýar."
           },
           {
             "q": "Google ulanýarsyňyzmy?",
@@ -1283,7 +1296,8 @@
       "inventory": "Ammar",
       "reviews": "Synlar",
       "reports": "Hasabatlar",
-      "activity": "Hereketler žurnaly"
+      "activity": "Hereketler žurnaly",
+      "newsletter": "Habarnama"
     },
     "login": {
       "pageTitle": "Dolandyryja giriş · {store}",
@@ -1908,6 +1922,10 @@
         },
         "activity": {
           "clear": "Hereketler žurnaly arassalandy"
+        },
+        "newsletter": {
+          "export": "Habarnama sanawy göçürildi",
+          "delete": "Habarnama ýazylany pozuldy"
         }
       },
       "removed": "{count, plural, one {# ýazgy pozuldy} other {# ýazgy pozuldy}}"
@@ -1946,6 +1964,33 @@
         "customers": "Köne giriş ýazgylary",
         "activity": "Hereketler žurnaly"
       }
+    },
+    "newsletter": {
+      "title": "Habarnama",
+      "intro": "Dükanda ýazylan adamlar. Sanawy e-poçta hyzmatyňyza geçiriň; her setirde adamyň öz ýazylyşykdan çykmak salgysy bar, ony her e-poçta goşmaly.",
+      "export": "CSV göçür ({count})",
+      "filterLabel": "Ýazylanlary süzgüçle",
+      "filters": {
+        "subscribed": "Ýazylan",
+        "unsubscribed": "Çykan",
+        "all": "Ählisi"
+      },
+      "loading": "Ýüklenýär",
+      "search": "E-poçta gözle",
+      "empty": "Bu ýerde entek ýazylan ýok.",
+      "email": "E-poçta",
+      "language": "Dil",
+      "since": "Ýazylan senesi",
+      "status": "Ýagdaýy",
+      "subscribed": "Ýazylan",
+      "unsubscribedOn": "{date} çykdy",
+      "customer": "Müşderi",
+      "delete": "Poz",
+      "deleteNamed": "{email} poz",
+      "confirmDelete": "{email} sanawdan hemişelik pozulsynmy? Muny kimdir biri maglumatlarynyň pozulmagyny haýyş edende ulanyň; diňe e-poçtalary togtatmak üçin ol ýazylyşykdan çykyp biler.",
+      "deleted": "Ýazylan pozuldy",
+      "failed": "Bir zat ýalňyş gitdi. Gaýtadan synanyşyň.",
+      "howTo": "Dükan özi e-poçta ibermeýär. CSV-ni göçüriň we e-poçta hyzmatyna (mysal üçin Mailchimp ýa-da Brevo) geçiriň. Göçürme diňe häzirem ýazylanlary öz içine alýar."
     }
   },
   "countries": {
@@ -1978,6 +2023,7 @@
     "set_password_first": "Ilki aşakda açar sözi belläň, soňra e-poçtaňyzy üýtgedip bilersiňiz.",
     "too_many_orders": "Işlenmegine garaşýan birnäçe sargydyňyz eýýäm bar. Olar ýola çykýança garaşyň ýa-da biz bilen habarlaşyň.",
     "order_too_large": "Bu bir sargytda kabul edip biljek mukdarymyzdan köp (her harytdan iň köp 10, jemi 50 haryt). Uly sargytlar üçin biz bilen habarlaşyň.",
-    "too_many_addresses": "Iň köp 20 salgy saklap bolýar. Täzesini goşmak üçin birini aýyryň."
+    "too_many_addresses": "Iň köp 20 salgy saklap bolýar. Täzesini goşmak üçin birini aýyryň.",
+    "invalid_link": "Bu salgy dogry däl."
   }
 }

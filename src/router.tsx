@@ -9,6 +9,7 @@ import TowelCollectionPage, { collectionLoader } from "@/pages/shop/collection";
 import ConfirmationPage, { confirmationLoader } from "@/pages/shop/confirmation";
 import CreditsPage from "@/pages/shop/credits";
 import HelpPage, { helpLoader } from "@/pages/shop/help";
+import NewsletterUnsubscribePage from "@/pages/shop/newsletter-unsubscribe";
 import HomePage, { homeLoader } from "@/pages/shop/home";
 import OrderDetailPage, { orderDetailLoader } from "@/pages/shop/order-detail";
 import ProductPage, { legacyProductLoader, productLoader } from "@/pages/shop/product";
@@ -21,6 +22,7 @@ import AdminInventoryPage, { adminInventoryLoader } from "@/pages/admin/inventor
 import AdminReviewsPage, { adminReviewsLoader } from "@/pages/admin/reviews";
 import AdminReportsPage, { adminReportsLoader } from "@/pages/admin/reports";
 import AdminActivityPage, { adminActivityLoader } from "@/pages/admin/activity";
+import AdminNewsletterPage, { adminNewsletterLoader } from "@/pages/admin/newsletter";
 import AdminCustomersPage, { adminCustomersLoader } from "@/pages/admin/customers";
 import AdminCatalogPage, { adminCatalogLoader } from "@/pages/admin/catalog";
 import { AdminLayout, adminLayoutLoader } from "@/pages/admin/layout";
@@ -66,6 +68,7 @@ const shopPages: RouteObject[] = [
   { path: "account", element: <AccountPage />, loader: withLocale(accountLoader), shouldRevalidate: ({ currentUrl, nextUrl }) => currentUrl.pathname !== nextUrl.pathname },
   { path: "account/orders/:id", element: <OrderDetailPage />, loader: withLocale(orderDetailLoader) },
   { path: "help/:topic", element: <HelpPage />, loader: withLocale(helpLoader) },
+  { path: "newsletter/unsubscribe", element: <NewsletterUnsubscribePage /> },
   { path: "credits", element: <CreditsPage /> },
   { path: "*", element: <NotFoundPage /> },
 ];
@@ -121,6 +124,7 @@ export const router = createBrowserRouter([
               { path: "reviews", element: <AdminReviewsPage />, loader: withAdminLocale(adminReviewsLoader) },
               { path: "reports", element: <AdminReportsPage />, loader: withAdminLocale(adminReportsLoader) },
               { path: "activity", element: <AdminActivityPage />, loader: withAdminLocale(adminActivityLoader) },
+              { path: "newsletter", element: <AdminNewsletterPage />, loader: withAdminLocale(adminNewsletterLoader) },
             ],
           },
         ],

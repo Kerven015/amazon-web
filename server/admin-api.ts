@@ -14,6 +14,9 @@
  *   GET   /api/admin/reports/sales?from=&to=&tz=&group=day|week|month
  *   GET   /api/admin/reports/export?type=orders|products&from=&to=&tz=   → CSV
  *   GET   /api/admin/activity?entityType=&entityId=&before=
+ *   GET   /api/admin/newsletter?q=&status=           newsletter subscribers + counts
+ *   GET   /api/admin/newsletter/export               CSV of everyone subscribed, with unsubscribe links
+ *   DELETE /api/admin/newsletter/:id                 delete a subscriber for good
  *   GET   /api/admin/notifications                    what's new per section since the admin last looked
  *   POST  /api/admin/notifications/seen               { section } → that count starts again from 0
  *   GET   /api/admin/history/:section                 how many rows "Clear history" would delete
@@ -25,14 +28,15 @@ import { z } from "zod";
 import { type AuditInput, listAudit } from "./lib/db/audit";
 import { adjustStock, ADJUST_REASONS, listInventory, listMovements, StockError } from "./lib/db/inventory";
 import { adminGetOrder, adminSetShipment } from "./lib/db/orders";
-import { dashboard, ordersCsv, productsCsv, salesReport } from "./lib/db/reports";
+import { dashboard, ordersCsv, productsCsv, salesReport, toCsv } from "./lib/db/reports";
 import { deleteReview, listReviews, setReviewHidden } from "./lib/db/reviews";
 import { getSettings, saveSettings } from "./lib/db/settings";
 import { getNotifications, markSeen, SECTIONS } from "./lib/db/notifications";
 import { CLEARABLE, type Clearable, clearHistory, clearPreview } from "./lib/db/clear-history";
 import { clientIp } from "./auth";
+import { deleteSubscriber, exportSubscribers, listSubscribers } from "./lib/db/newsletter";
 import type { Db } from "./db/pool";
-import { parseBody, parseQuery, type Req, type Res, send } from "./http";
+import { parseBody, parseQuery, publicOrigin, type Req, type Res, send } from "./http";
 
 /** Writes an activity-log entry for the signed-in admin (pass `db` to write it inside a transaction). */
 export type Audit = (e: Omit<AuditInput, "actor" | "ip">, db?: Db) => Promise<void>;
@@ -150,6 +154,31 @@ export async function handleAdminTools(req: Req, res: Res, url: URL, method: str
     res.end("﻿" + csv);
     await audit({ action: "report.export", entityType: "report", entityId: q.type, details: { from: q.from, to: q.to } });
     return true;
+  }
+
+  /* ---- newsletter ---- */
+  if (p === "/api/admin/newsletter" && method === "GET") {
+    const q = parseQuery(url, z.object({ q: z.string().max(200).optional(), status: z.enum(["subscribed", "unsubscribed", "all"]).optional() }));
+    return send(res, 200, await listSubscribers(q)), true;
+  }
+  if (p === "/api/admin/newsletter/export" && method === "GET") {
+    const origin = publicOrigin(req);
+    if (!origin) return send(res, 400, { error: "Bad Host header" }), true;
+    const rows = await exportSubscribers(origin);
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Disposition", `attachment; filename="vendora-newsletter-${new Date().toISOString().slice(0, 10)}.csv"`);
+    res.end("\uFEFF" + toCsv([["email", "language", "subscribed_at", "unsubscribe_url"], ...rows.map((r) => [r.email, r.locale, r.subscribedAt, r.unsubscribeUrl])]));
+    await audit({ action: "newsletter.export", entityType: "newsletter", entityId: "subscribers", details: { count: rows.length } });
+    return true;
+  }
+  const subscriber = p.match(/^\/api\/admin\/newsletter\/([0-9a-f-]{36})$/i);
+  if (subscriber && method === "DELETE") {
+    if (!(await deleteSubscriber(subscriber[1]))) return send(res, 404, { error: "Not found" }), true;
+    // No email in the log: the point of deleting is that it's gone
+    await audit({ action: "newsletter.delete", entityType: "newsletter", entityId: subscriber[1] });
+    return send(res, 200, { deleted: subscriber[1] }), true;
   }
 
   /* ---- notifications ---- */
