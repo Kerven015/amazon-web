@@ -53,7 +53,8 @@ export function adminError(message: string): string {
   const many = message.match(/^Too many attempts\. Try again in (\d+) minutes?\.$/);
   if (many) return translate("admin.errors.tooMany", { minutes: Number(many[1]) });
   if (message.startsWith("Admin login isn't configured")) return translate("admin.errors.notConfigured");
-  if (/at most \d+ character/.test(message)) return translate("admin.errors.tooLong");
+  // zod's built-in "too long" text (zod 3: "…at most 80 character(s)", zod 4: "…to have <=80 characters")
+  if (/at most \d+ character|have <=\d+ character/.test(message)) return translate("admin.errors.tooLong");
   return message;
 }
 

@@ -61,6 +61,26 @@ describe("orders", () => {
   });
 });
 
+describe("sign-in", () => {
+  test("many addresses together can't keep guessing one account's password", async () => {
+    const c = await registerCustomer(t);
+    const login = (password: string, ip: string) => t.api("/api/auth/login", { ip, body: { email: c.email, password } });
+    // 4 addresses × 5 wrong passwords = 20 failures for this account in the hour
+    for (let a = 0; a < 4; a++) {
+      const ip = newIp();
+      for (let i = 0; i < 5; i++) assert.equal((await login(`wrong-password-${i}`, ip)).status, 401);
+    }
+    // A fifth address is refused before the password is even checked, right password or not
+    const blocked = await login("customer-pass-123", newIp());
+    assert.equal(blocked.status, 429);
+    assert.equal(blocked.json.error, "too_many_attempts");
+    assert.equal(blocked.cookie, null);
+    // Other accounts are not affected
+    const other = await registerCustomer(t);
+    assert.equal((await t.api("/api/auth/login", { ip: newIp(), body: { email: other.email, password: "customer-pass-123" } })).status, 200);
+  });
+});
+
 describe("reviews", () => {
   test("one review per product, and at most 5 an hour per account", async () => {
     const c = await registerCustomer(t);
