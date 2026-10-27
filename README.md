@@ -38,9 +38,10 @@ admin ends every admin session at once, and changing `ADMIN_PASSWORD` does the s
 locks for 5 minutes after 5 failures from one address, and for 15 minutes after 50 failures from
 any addresses together.
 Customer accounts are separate: they live in the database (passwords hashed with Argon2id).
-Customers can also use **Continue with Google** and Google **One Tap**: set `GOOGLE_CLIENT_ID`
-in `.env.local` (steps: [deploy/google-sign-in.md](deploy/google-sign-in.md)). Without it, the
-Google button stays hidden.
+Customers can also use **Continue with Google**: set `GOOGLE_CLIENT_ID` in `.env.local`
+(steps: [deploy/google-sign-in.md](deploy/google-sign-in.md)). Without it, the Google button stays
+hidden. Google's script loads only when a customer clicks that button, so the shop sets no
+tracking cookies and needs no cookie banner (see /help/cookies).
 
 ## Security tests
 

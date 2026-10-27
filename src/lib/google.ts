@@ -1,5 +1,9 @@
 /**
- * Google Identity Services in the browser: the "Continue with Google" button and One Tap.
+ * Google Identity Services in the browser: the "Continue with Google" button.
+ *
+ * Privacy: Google's script is loaded only after the visitor clicks "Continue with Google"
+ * (components/auth/google-button.tsx). Until then no request goes to Google, so Google can't
+ * see or set cookies on visits to the shop. (That's also why there's no One Tap.)
  *
  * Google gives the browser an ID token; we send it to POST /api/auth/google, where the
  * server checks it with Google's keys and signs the customer in. Nothing from Google is
@@ -17,8 +21,6 @@ type CredentialResponse = { credential: string };
 type GoogleId = {
   initialize: (config: Record<string, unknown>) => void;
   renderButton: (el: HTMLElement, options: Record<string, unknown>) => void;
-  prompt: () => void;
-  cancel: () => void;
   disableAutoSelect: () => void;
 };
 declare global {
@@ -35,7 +37,8 @@ let initialized = false;
 /** What to do after a successful Google sign-in (the sign-in page sends the shopper on to ?next=) */
 let afterSignIn: ((user: SessionUser) => void) | null = null;
 
-function clientId() {
+/** Our own server's setting (no request to Google): is Google sign-in switched on? */
+export function clientId() {
   configPromise ??= fetch("/api/auth/config", { credentials: "same-origin" })
     .then((r) => (r.ok ? r.json() : { googleClientId: null }))
     .then((c: { googleClientId: string | null }) => c.googleClientId)
@@ -80,16 +83,7 @@ export async function getGoogle(): Promise<GoogleId | null> {
   try {
     const g = await loadScript();
     if (!initialized) {
-      g.initialize({
-        client_id: id,
-        callback: onCredential,
-        // One Tap signs a returning customer in by itself when they've used it before
-        auto_select: true,
-        cancel_on_tap_outside: true,
-        context: "signin",
-        itp_support: true,
-        use_fedcm_for_prompt: true,
-      });
+      g.initialize({ client_id: id, callback: onCredential, context: "signin" });
       initialized = true;
     }
     return g;
@@ -115,19 +109,4 @@ export async function renderGoogleButton(el: HTMLElement, onSignedIn: (user: Ses
     locale: getActiveLocale(),
   });
   return true;
-}
-
-/** One Tap: Google's small "Continue as …" box. Shown at most once per page load. */
-let prompted = false;
-export async function showOneTap() {
-  if (prompted) return;
-  const g = await getGoogle();
-  if (!g) return;
-  prompted = true;
-  afterSignIn = null; // stay on the page; the header and bag update by themselves
-  g.prompt();
-}
-
-export function cancelOneTap() {
-  window.google?.accounts?.id?.cancel();
 }

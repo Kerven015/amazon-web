@@ -1,8 +1,13 @@
-# "Continue with Google" and One Tap — setup
+# "Continue with Google" — setup
 
 The shop's Google sign-in needs one value: a **Google OAuth Client ID**. It's free and
-takes about 10 minutes. Until it's set, the Google button and One Tap stay hidden and
+takes about 10 minutes. Until it's set, the Google button stays hidden and
 everything else works as before.
+
+**Privacy:** Google's script is loaded only after a customer clicks **Continue with Google**, never
+on page load. So Google can't see visits to the shop or set cookies there until someone chooses to
+sign in with Google, and the shop needs no cookie-consent banner. (That's why there's no One Tap
+"Continue as …" pop-up: it would have to load Google on every page.)
 
 ## 1. Create a Google Cloud project
 
@@ -48,10 +53,9 @@ Run `npm run db:migrate` once if you haven't since updating.
 ## 5. Try it
 
 1. Open `http://localhost:5173/en/login` — under the form you'll see **Continue with Google**.
-2. Click it, pick your Google account → you're signed in (a new account is created the first time).
-3. Sign out, then open the home page: Google's **One Tap** box ("Continue as …") appears in the corner.
-   Once you've used it, it can sign you in by itself next time.
-4. In **Admin → Customers** your account shows a **Google** tag.
+2. Click it: Google's own button appears in its place. Click that, pick your Google account →
+   you're signed in (a new account is created the first time).
+3. In **Admin → Customers** your account shows a **Google** tag.
 
 ## How it behaves
 
@@ -61,7 +65,6 @@ Run `npm run db:migrate` once if you haven't since updating.
   so it opens that same account (orders, bag, addresses). Their password keeps working too.
 - **Changed Gmail address** → still the same account (Google's permanent id is stored, not just the email).
 - **Blocked accounts** can't sign in with Google either.
-- **Signing out** turns off One Tap's automatic sign-in for that browser, so it doesn't sign them straight back in.
 - The server checks every Google token itself (signature, expiry, that it's for *your* Client ID,
   that Google verified the email) — a browser can't pretend to be someone else.
 
@@ -72,4 +75,4 @@ Run `npm run db:migrate` once if you haven't since updating.
 | No Google button at all | `GOOGLE_CLIENT_ID` missing in `.env.local`, or the site wasn't restarted |
 | "The given origin is not allowed for the given client ID" (browser console) | Add the exact address (with `http`/`https` and port) to **Authorized JavaScript origins**, then wait a few minutes |
 | "Access blocked: app has not completed verification" / only some people can sign in | The app is still in *Testing* — add test users, or **Publish app** |
-| One Tap never appears | Normal if you're not signed into Google in that browser, recently closed it, or blocked third-party sign-in prompts in the browser |
+| The button spins, then says it couldn't reach Google | Google is blocked by the network, a browser extension or the browser's tracking protection — sign in with email instead |

@@ -15,7 +15,6 @@ import { I18nProvider, isLocale, type Locale, locales, localizePath, negotiateLo
 import { onCatalogChange } from "@/lib/catalog";
 import { ProductSkeleton } from "@/components/product/product-skeleton";
 import { DrawerHost } from "@/components/layout/drawer-host";
-import { OneTap } from "@/components/auth/one-tap";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Logo } from "@/components/layout/logo";
@@ -164,7 +163,6 @@ export function ShopLayout() {
       </main>
       <Footer />
       <DrawerHost />
-      <OneTap />
     </div>
   );
 }
