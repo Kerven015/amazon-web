@@ -71,7 +71,7 @@ export const sizeSchema = z
     lengthCm: optNum,
     note: optL10n(120),
     labels: nameL10n,
-    price: z.number({ invalid_type_error: "Enter a price" }).finite().positive("Price must be more than 0"),
+    price: z.number({ error: "Enter a price" }).finite().positive("Price must be more than 0"),
     salePrice: z.number().finite().positive("Sale price must be more than 0").optional(),
     stock: z.record(z.string(), z.number().int().min(0, "Stock can't be negative")),
   })
