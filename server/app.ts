@@ -34,6 +34,7 @@
  */
 import { productSchema, fieldErrors } from "../src/lib/product-schema";
 import { orderStatusSchema } from "../src/lib/account-schema";
+import { ADMIN_BASE, adminPath, isAdminPath } from "../src/lib/admin-path";
 import type { ProductRecord as Product } from "../src/types";
 import {
   authConfig,
@@ -176,10 +177,18 @@ export function withHtmlLang(html: string, pathname: string) {
 
 /* ------------------------------ page guard ------------------------------ */
 
-const isAdminPage = (p: string) => p === "/admin" || p.startsWith("/admin/");
+/** The admin's pages (src/lib/admin-path.ts). "%40" is the same as "@", so it's decoded first. */
+function isAdminPage(p: string) {
+  try {
+    return isAdminPath(decodeURIComponent(p));
+  } catch {
+    return false;
+  }
+}
 
 /**
- * The middleware for /admin pages: no valid session → 302 to /admin/login.
+ * The middleware for admin pages (/manager@…): no valid session → 302 to /manager@/login.
+ * The old /admin address is just an unknown page now (nothing points to the new one).
  * Returns true when it has answered the request.
  */
 export async function guardAdminPage(req: Req, res: Res): Promise<boolean> {
@@ -187,10 +196,10 @@ export async function guardAdminPage(req: Req, res: Res): Promise<boolean> {
   if (!isAdminPage(url.pathname) || (req.method !== "GET" && req.method !== "HEAD")) return false;
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
   const loggedIn = !!(await sessionFrom(req));
-  if (url.pathname === "/admin/login") {
+  if (decodeURIComponent(url.pathname) === adminPath("/login")) {
     if (loggedIn) {
       res.statusCode = 302;
-      res.setHeader("Location", "/admin");
+      res.setHeader("Location", ADMIN_BASE);
       res.end();
       return true;
     }
@@ -198,7 +207,7 @@ export async function guardAdminPage(req: Req, res: Res): Promise<boolean> {
   }
   if (!loggedIn) {
     res.statusCode = 302;
-    res.setHeader("Location", `/admin/login?next=${encodeURIComponent(url.pathname + url.search)}`);
+    res.setHeader("Location", `${adminPath("/login")}?next=${encodeURIComponent(url.pathname + url.search)}`);
     res.end();
     return true;
   }

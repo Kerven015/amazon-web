@@ -13,29 +13,30 @@ import { mainNav } from "@/lib/navigation";
 import { Link, usePathname } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { NavIcon, type NavIconName } from "@/components/ui/nav-icon";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 /** Every /admin page: needs a valid session (the server checks the cookie). */
 export async function adminLayoutLoader({ request }: LoaderFunctionArgs) {
   const session = await adminApi.session();
   if (!session) {
     const url = new URL(request.url);
-    throw redirect(`/admin/login?next=${encodeURIComponent(url.pathname + url.search)}`);
+    throw redirect(`${ADMIN_BASE}/login?next=${encodeURIComponent(url.pathname + url.search)}`);
   }
   await ensureCatalog("admin");
   return { username: session.username };
 }
 
 /** Public category links → the same category inside the admin. Non-catalog links are hidden. */
-export const adminHref = (href: string) => (href.startsWith("/collections/") ? `/admin${href}` : null);
+export const adminHref = (href: string) => (href.startsWith("/collections/") ? `${ADMIN_BASE}${href}` : null);
 
 /** "Home" in the admin top bar → the catalog (/admin). Already there: scroll to the top. */
 function AdminHomeLink() {
   const t = useT("admin.topbar");
   const pathname = usePathname();
-  const here = pathname === "/admin";
+  const here = pathname === ADMIN_BASE;
   return (
     <Link
-      href="/admin"
+      href={ADMIN_BASE}
       aria-current={here ? "page" : undefined}
       onClick={(e) => {
         if (here && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
@@ -54,14 +55,14 @@ function AdminHomeLink() {
 
 /** The admin's tool pages (the "Manage" menu in the top bar); `section` = has "new" notifications */
 const TOOLS: { href: string; key: string; Icon: typeof Package; section?: Section }[] = [
-  { href: "/admin/dashboard", key: "dashboard", Icon: LayoutDashboard },
-  { href: "/admin/orders", key: "orders", Icon: Package, section: "orders" },
-  { href: "/admin/customers", key: "customers", Icon: Users, section: "customers" },
-  { href: "/admin/inventory", key: "inventory", Icon: Boxes, section: "inventory" },
-  { href: "/admin/reviews", key: "reviews", Icon: MessageSquareText, section: "reviews" },
-  { href: "/admin/newsletter", key: "newsletter", Icon: Mail },
-  { href: "/admin/reports", key: "reports", Icon: BarChart3 },
-  { href: "/admin/activity", key: "activity", Icon: History },
+  { href: `${ADMIN_BASE}/dashboard`, key: "dashboard", Icon: LayoutDashboard },
+  { href: `${ADMIN_BASE}/orders`, key: "orders", Icon: Package, section: "orders" },
+  { href: `${ADMIN_BASE}/customers`, key: "customers", Icon: Users, section: "customers" },
+  { href: `${ADMIN_BASE}/inventory`, key: "inventory", Icon: Boxes, section: "inventory" },
+  { href: `${ADMIN_BASE}/reviews`, key: "reviews", Icon: MessageSquareText, section: "reviews" },
+  { href: `${ADMIN_BASE}/newsletter`, key: "newsletter", Icon: Mail },
+  { href: `${ADMIN_BASE}/reports`, key: "reports", Icon: BarChart3 },
+  { href: `${ADMIN_BASE}/activity`, key: "activity", Icon: History },
 ];
 
 /** How often the menu checks for news (only while the tab is visible) */
@@ -160,10 +161,10 @@ function MobileCategoryNav() {
   const text = useNavText();
   const pathname = usePathname();
   const links = [
-    { label: t("allProducts"), href: "/admin", icon: "allProducts" as NavIconName },
+    { label: t("allProducts"), href: ADMIN_BASE, icon: "allProducts" as NavIconName },
     ...mainNav.flatMap((item) => (item.groups ? item.groups.flatMap((g) => g.links.map((l) => ({ ...l, label: text.link(l) }))) : [{ label: text.item(item), href: item.href }])),
   ]
-    .map((l) => ({ ...l, href: l.href === "/admin" ? l.href : adminHref(l.href) }))
+    .map((l) => ({ ...l, href: l.href === ADMIN_BASE ? l.href : adminHref(l.href) }))
     .filter((l, i, all): l is typeof l & { href: string } => !!l.href && !l.href.includes("?") && all.findIndex((x) => x.href === l.href) === i);
 
   return (
@@ -199,7 +200,7 @@ export function AdminLayout() {
   const banner = useT("admin");
   const pathname = usePathname();
   // The product form has the switcher in its sticky status bar; every other admin page gets it here
-  const formPage = pathname.startsWith("/admin/products/");
+  const formPage = pathname.startsWith(`${ADMIN_BASE}/products/`);
   const [leaving, setLeaving] = useState(false);
 
   /** Ends the session on the server (or every admin session), then reloads the login page */
@@ -210,7 +211,7 @@ export function AdminLayout() {
       await (everywhere ? adminApi.logoutAll() : adminApi.logout());
     } finally {
       // Full reload so no admin data stays in memory
-      window.location.assign("/admin/login");
+      window.location.assign(`${ADMIN_BASE}/login`);
     }
   };
 
@@ -225,7 +226,7 @@ export function AdminLayout() {
 
       <header className="sticky top-0 z-40 border-b border-navy/10 bg-cream/95 text-navy backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-3 px-4 sm:px-5 lg:px-8">
-          <Logo href="/admin" size="sm" />
+          <Logo href={ADMIN_BASE} size="sm" />
           <span className="rounded-xs bg-navy px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cream max-sm:hidden">{t("badge")}</span>
           <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-3">
             {!formPage && <AdminLanguageSwitcher />}

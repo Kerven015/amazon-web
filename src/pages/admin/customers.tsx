@@ -15,6 +15,7 @@ import { type AdminCustomer, type AdminCustomerDetail, adminApi, ApiError } from
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import type { OrderStatus } from "@/types";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 export async function adminCustomersLoader() {
   return { customers: await adminApi.customers() };
@@ -324,7 +325,7 @@ function CustomerSheet({ id, onClose, onChange }: { id: string | null; onClose: 
                     </li>
                   ))}
                 </ul>
-                <Link href="/admin/orders" className="mt-2 inline-flex min-h-10 items-center text-xs font-semibold text-navy hover:underline">
+                <Link href={`${ADMIN_BASE}/orders`} className="mt-2 inline-flex min-h-10 items-center text-xs font-semibold text-navy hover:underline">
                   {t("allOrders")}
                 </Link>
               </section>

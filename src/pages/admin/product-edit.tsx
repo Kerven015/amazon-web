@@ -8,12 +8,13 @@ import { productHref } from "@/lib/product-utils";
 import { Link, notFound } from "@/lib/router";
 import { LAST_CATALOG_KEY } from "./catalog";
 import { useLocale, useT } from "@/i18n";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 function lastCatalog() {
   try {
-    return sessionStorage.getItem(LAST_CATALOG_KEY) || "/admin";
+    return sessionStorage.getItem(LAST_CATALOG_KEY) || ADMIN_BASE;
   } catch {
-    return "/admin";
+    return ADMIN_BASE;
   }
 }
 

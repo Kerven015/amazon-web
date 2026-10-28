@@ -40,6 +40,7 @@ import {
   ShopLayout,
   withLocale,
 } from "@/pages/layouts";
+import { ADMIN_BASE, isAdminPath } from "@/lib/admin-path";
 
 /**
  * Collection pages filter/sort/paginate in the browser via the query string,
@@ -97,9 +98,9 @@ export const router = createBrowserRouter([
       { index: true, loader: rootRedirectLoader },
 
       // Admin (the server also redirects /admin/* to the login page without a session)
-      { path: "admin/login", element: <AdminI18n><AdminLoginPage /></AdminI18n>, loader: withAdminLocale(adminLoginLoader) },
+      { path: `${ADMIN_BASE.slice(1)}/login`, element: <AdminI18n><AdminLoginPage /></AdminI18n>, loader: withAdminLocale(adminLoginLoader) },
       {
-        path: "admin",
+        path: ADMIN_BASE.slice(1),
         element: (
           <AdminI18n>
             <AdminLayout />
@@ -107,7 +108,7 @@ export const router = createBrowserRouter([
         ),
         loader: withAdminLocale(adminLayoutLoader),
         // Session is checked on entry; API calls re-check it on every request
-        shouldRevalidate: ({ currentUrl, nextUrl }) => !currentUrl.pathname.startsWith("/admin") || !nextUrl.pathname.startsWith("/admin"),
+        shouldRevalidate: ({ currentUrl, nextUrl }) => !isAdminPath(currentUrl.pathname) || !isAdminPath(nextUrl.pathname),
         errorElement: <RouteError />,
         children: [
           {

@@ -13,6 +13,7 @@ import type { dashboard, salesReport, ReportGroup } from "../../server/lib/db/re
 import type { Notifications, Section } from "../../server/lib/db/notifications";
 import type { Clearable } from "../../server/lib/db/clear-history";
 import type { Subscriber } from "../../server/lib/db/newsletter";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 export type { Clearable, Notifications, Section, Subscriber };
 export type { AdminOrder, AdjustReason, AdminReview, AuditEntry, InventoryRow, ReportGroup, ShopSettings, StockMovement };
@@ -70,7 +71,7 @@ async function call<T>(url: string, init: RequestInit = {}): Promise<T> {
   if (!res.ok) {
     if (res.status === 401 && !url.endsWith("/login")) {
       // Session expired → back to the login page
-      window.location.assign(`/admin/login?next=${encodeURIComponent(location.pathname + location.search)}`);
+      window.location.assign(`${ADMIN_BASE}/login?next=${encodeURIComponent(location.pathname + location.search)}`);
     }
     throw new ApiError(data.error ?? `Request failed (${res.status})`, res.status, data.fields ?? {});
   }

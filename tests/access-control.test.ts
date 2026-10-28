@@ -3,6 +3,7 @@
  * session, and customers can only see and change their own data.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { after, before, describe, test } from "node:test";
 import { adminLogin, orderBody, registerCustomer, startServer, type TestServer } from "./helpers";
 
@@ -77,10 +78,22 @@ describe("admin API", () => {
     assert.equal(r.status, 401);
   });
 
-  test("/admin pages redirect to the login page without a session", async () => {
-    const r = await t.api("/admin/customers", { headers: { Accept: "text/html" } });
-    assert.equal(r.status, 302);
-    assert.match(r.headers.get("location") ?? "", /^\/admin\/login\?next=/);
+  test("admin pages (/manager@) redirect to the login page without a session", async () => {
+    for (const path of ["/manager@", "/manager@/customers", "/manager%40/customers"]) {
+      const r = await t.api(path, { headers: { Accept: "text/html" } });
+      assert.equal(r.status, 302, path);
+      assert.match(r.headers.get("location") ?? "", /^\/manager@\/login\?next=/, path);
+    }
+  });
+
+  test("the old /admin address doesn't lead to the admin", async () => {
+    for (const path of ["/admin", "/admin/login", "/admin/customers"]) {
+      const r = await t.api(path, { headers: { Accept: "text/html" } });
+      assert.doesNotMatch(r.headers.get("location") ?? "", /manager/, path);
+    }
+    // robots.txt is public: listing the admin there would point people to it
+    const robots = readFileSync(new URL("../public/robots.txt", import.meta.url), "utf8");
+    assert.doesNotMatch(robots, /manager|\/admin/i);
   });
 });
 
