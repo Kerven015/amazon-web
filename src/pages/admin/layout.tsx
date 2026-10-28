@@ -1,4 +1,4 @@
-import { ArrowUpRight, BarChart3, Boxes, ChevronDown, History, LayoutDashboard, LoaderCircle, LogOut, MessageSquareText, MonitorX, Package, Users } from "lucide-react";
+import { ArrowUpRight, BarChart3, Boxes, ChevronDown, History, LayoutDashboard, LoaderCircle, LogOut, Mail, MessageSquareText, MonitorX, Package, Users } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useEffect, useRef, useState } from "react";
 import { Outlet, redirect, useNavigate, type LoaderFunctionArgs } from "react-router";
@@ -59,6 +59,7 @@ const TOOLS: { href: string; key: string; Icon: typeof Package; section?: Sectio
   { href: "/admin/customers", key: "customers", Icon: Users, section: "customers" },
   { href: "/admin/inventory", key: "inventory", Icon: Boxes, section: "inventory" },
   { href: "/admin/reviews", key: "reviews", Icon: MessageSquareText, section: "reviews" },
+  { href: "/admin/newsletter", key: "newsletter", Icon: Mail },
   { href: "/admin/reports", key: "reports", Icon: BarChart3 },
   { href: "/admin/activity", key: "activity", Icon: History },
 ];

@@ -59,7 +59,7 @@ async function resetDatabase(owner: string) {
   run("scripts/migrate.ts");
   const client = new pg.Client({ connectionString: owner });
   await client.connect();
-  await client.query("TRUNCATE users, orders, login_attempts, admin_sessions, sessions, admin_audit_log, stock_movements, admin_seen RESTART IDENTITY CASCADE");
+  await client.query("TRUNCATE users, orders, login_attempts, admin_sessions, sessions, admin_audit_log, stock_movements, admin_seen, newsletter_subscribers RESTART IDENTITY CASCADE");
   await client.end();
   run("scripts/seed-db.ts");
 }

@@ -187,7 +187,7 @@
     }
   },
   "newsletter": {
-    "done": "Listeye eklendiniz — %10 indirim için gelen kutunuzu kontrol edin.",
+    "done": "Listeye eklendiniz. İlk siparişiniz için %10 indirim kodunuz: {code}",
     "emailLabel": "E-posta adresi",
     "placeholder": "E-posta adresiniz",
     "signUp": "Kaydol",
@@ -206,6 +206,14 @@
       "missingUser": "Lütfen “@” işaretinden önceki kısmı girin. “{value}” eksik.",
       "missingDomain": "Lütfen “@” işaretinden sonraki kısmı girin. “{value}” eksik.",
       "invalid": "Lütfen ad@ornek.com gibi geçerli bir e-posta adresi girin."
+    },
+    "unsubscribe": {
+      "title": "Bülten",
+      "working": "Abonelikten çıkılıyor…",
+      "done": "Abonelikten çıktınız. Artık bizden bülten almayacaksınız.",
+      "invalid": "Bu abonelikten çıkma bağlantısı geçerli değil. Lütfen en son e-postadaki bağlantıyı kullanın veya bizimle iletişime geçin.",
+      "failed": "Bir şeyler ters gitti. Lütfen biraz sonra tekrar deneyin.",
+      "backToShop": "Mağazaya dön"
     }
   },
   "collection": {
@@ -441,7 +449,12 @@
     "continueShopping": "Alışverişe devam et",
     "soldOut": "Tükendi",
     "addToBag": "Sepete ekle",
-    "remove": "Kaldır"
+    "remove": "Kaldır",
+    "signInToSave": "Favorilere eklemek için giriş yapın",
+    "signIn": "Giriş yap",
+    "signedOutTitle": "Favorilerinizi görmek için giriş yapın",
+    "signedOutBody": "Favorileriniz hesabınızda saklanır, böylece her cihazda görünür. Kaydetmeye başlamak için giriş yapın veya ücretsiz hesap oluşturun.",
+    "createAccount": "Hesap oluştur"
   },
   "price": {
     "from": "Başlangıç",
@@ -1075,7 +1088,7 @@
           },
           {
             "q": "Tarayıcımda başka neler saklanıyor?",
-            "a": "Sepetiniz, favorileriniz, son baktığınız ürünler, kayıtlı adresleriniz, stok bildirimi istekleriniz, açık/koyu tema ve gördüğünüz ipuçları tarayıcınızın yerel depolamasında tutulur; böylece sayfa yenilense de kaybolmaz. Giriş yaptığınızda sepetiniz, favorileriniz ve adresleriniz bunun yerine hesabınıza kaydedilir."
+            "a": "Sepetiniz, son baktığınız ürünler, kayıtlı adresleriniz, stok bildirimi istekleriniz, açık/koyu tema ve gördüğünüz ipuçları tarayıcınızın yerel depolamasında tutulur; böylece sayfa yenilense de kaybolmaz. Giriş yaptığınızda sepetiniz, favorileriniz ve adresleriniz bunun yerine hesabınıza kaydedilir."
           },
           {
             "q": "Google kullanıyor musunuz?",
@@ -1283,7 +1296,8 @@
       "inventory": "Stok",
       "reviews": "Yorumlar",
       "reports": "Raporlar",
-      "activity": "İşlem kaydı"
+      "activity": "İşlem kaydı",
+      "newsletter": "Bülten"
     },
     "login": {
       "pageTitle": "Yönetici girişi · {store}",
@@ -1908,6 +1922,10 @@
         },
         "activity": {
           "clear": "İşlem kaydı temizlendi"
+        },
+        "newsletter": {
+          "export": "Bülten listesi dışa aktarıldı",
+          "delete": "Bülten abonesi silindi"
         }
       },
       "removed": "{count, plural, one {# kayıt silindi} other {# kayıt silindi}}"
@@ -1946,6 +1964,33 @@
         "customers": "Eski giriş kayıtları",
         "activity": "İşlem kaydı"
       }
+    },
+    "newsletter": {
+      "title": "Bülten",
+      "intro": "Mağazada kaydolan kişiler. Listeyi e-posta hizmetinize aktarın; her satırda kişinin kendi abonelikten çıkma bağlantısı vardır ve bunu her e-postaya eklemelisiniz.",
+      "export": "CSV dışa aktar ({count})",
+      "filterLabel": "Aboneleri filtrele",
+      "filters": {
+        "subscribed": "Abone",
+        "unsubscribed": "Ayrılan",
+        "all": "Tümü"
+      },
+      "loading": "Yükleniyor",
+      "search": "E-posta ara",
+      "empty": "Burada henüz abone yok.",
+      "email": "E-posta",
+      "language": "Dil",
+      "since": "Kayıt tarihi",
+      "status": "Durum",
+      "subscribed": "Abone",
+      "unsubscribedOn": "{date} tarihinde ayrıldı",
+      "customer": "Müşteri",
+      "delete": "Sil",
+      "deleteNamed": "{email} adresini sil",
+      "confirmDelete": "{email} listeden kalıcı olarak silinsin mi? Bunu biri verilerinin silinmesini istediğinde kullanın; yalnızca e-postaları durdurmak için abonelikten çıkabilir.",
+      "deleted": "Abone silindi",
+      "failed": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "howTo": "Mağaza kendisi e-posta göndermez. CSV'yi dışa aktarıp bir e-posta hizmetine (ör. Mailchimp veya Brevo) aktarın. Dışa aktarma yalnızca hâlâ abone olanları içerir."
     }
   },
   "countries": {
@@ -1978,6 +2023,7 @@
     "set_password_first": "Önce aşağıdan bir şifre belirleyin, ardından e-postanızı değiştirebilirsiniz.",
     "too_many_orders": "İşlenmeyi bekleyen birkaç siparişiniz zaten var. Lütfen yola çıkmalarını bekleyin veya bizimle iletişime geçin.",
     "order_too_large": "Bu, tek siparişte alabileceğimizden fazla (her üründen en çok 10, toplam 50 ürün). Büyük siparişler için lütfen bizimle iletişime geçin.",
-    "too_many_addresses": "En fazla 20 adres kaydedebilirsiniz. Yeni bir adres eklemek için birini kaldırın."
+    "too_many_addresses": "En fazla 20 adres kaydedebilirsiniz. Yeni bir adres eklemek için birini kaldırın.",
+    "invalid_link": "Bu bağlantı geçerli değil."
   }
 }

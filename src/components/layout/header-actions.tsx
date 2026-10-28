@@ -87,8 +87,9 @@ export function AccountLink() {
 export function WishlistButton() {
   const t = useT("header");
   const count = useWishlist((s) => s.ids.length);
+  const signedIn = useSession((s) => s.status === "signedIn");
   const mounted = useMounted();
-  const n = mounted ? count : 0;
+  const n = mounted && signedIn ? count : 0;
   return (
     <button
       type="button"

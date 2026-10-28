@@ -12,8 +12,9 @@ import type { ShopSettings } from "../../server/lib/db/settings";
 import type { dashboard, salesReport, ReportGroup } from "../../server/lib/db/reports";
 import type { Notifications, Section } from "../../server/lib/db/notifications";
 import type { Clearable } from "../../server/lib/db/clear-history";
+import type { Subscriber } from "../../server/lib/db/newsletter";
 
-export type { Clearable, Notifications, Section };
+export type { Clearable, Notifications, Section, Subscriber };
 export type { AdminOrder, AdjustReason, AdminReview, AuditEntry, InventoryRow, ReportGroup, ShopSettings, StockMovement };
 export type Dashboard = Awaited<ReturnType<typeof dashboard>>;
 export type SalesReport = Awaited<ReturnType<typeof salesReport>>;
@@ -129,6 +130,11 @@ export const adminApi = {
   /** How many rows "Clear history" would delete in a section */
   historyCount: (what: Clearable) => call<{ count: number }>(`/api/admin/history/${what}`),
   clearHistory: (what: Clearable) => call<{ removed: number }>(`/api/admin/history/${what}/clear`, { method: "POST", body: JSON.stringify({ confirm: true }) }),
+  subscribers: (filter: { q?: string; status?: "subscribed" | "unsubscribed" | "all" } = {}) =>
+    call<{ counts: { subscribed: number; unsubscribed: number }; subscribers: Subscriber[] }>(`/api/admin/newsletter${qs(filter)}`),
+  deleteSubscriber: (id: string) => call<{ deleted: string }>(`/api/admin/newsletter/${id}`, { method: "DELETE" }),
+  /** A link the browser downloads (the session cookie goes with it) */
+  newsletterExportUrl: "/api/admin/newsletter/export",
   upload: (file: File, slug: string) =>
     call<{ src: string; blurDataURL: string }>(
       `/api/admin/upload?slug=${encodeURIComponent(slug || "untitled")}&name=${encodeURIComponent(file.name)}`,

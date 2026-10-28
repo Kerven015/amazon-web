@@ -2,7 +2,29 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { guestStorage } from "@/lib/session-state";
 
-/** Saved products. Signed in, the list lives in the account (lib/session.ts keeps it in sync). */
+/**
+ * A product a signed-out shopper tried to save. The wishlist needs an account, so they're
+ * sent to sign in; once they have, lib/session.ts saves it for them (sessionStorage = this tab only).
+ */
+const PENDING_KEY = "vendora-pending-save";
+export function setPendingSave(id: string) {
+  try {
+    sessionStorage.setItem(PENDING_KEY, id);
+  } catch {
+    /* storage blocked: they'll just save it again after signing in */
+  }
+}
+export function takePendingSave(): string | null {
+  try {
+    const id = sessionStorage.getItem(PENDING_KEY);
+    sessionStorage.removeItem(PENDING_KEY);
+    return id;
+  } catch {
+    return null;
+  }
+}
+
+/** Saved products — signed-in customers only; the list lives in the account (lib/session.ts keeps it in sync). */
 interface WishlistState {
   ids: string[];
   toggle: (id: string) => boolean; // returns true if now saved

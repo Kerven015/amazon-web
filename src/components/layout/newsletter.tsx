@@ -6,7 +6,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { siteConfig } from "@/lib/config";
 import { usePanels } from "@/lib/store/ui";
 import { cn } from "@/lib/utils";
-import { translate, useT } from "@/i18n";
+import { translate, useLocale, useT } from "@/i18n";
+import { accountApi, accountErrorMessage } from "@/lib/account-api";
 import { Link, usePathname } from "@/lib/router";
 
 const STORAGE_KEY = "vendora-newsletter";
@@ -33,19 +34,22 @@ function remember(value: "subscribed" | "dismissed") {
   }
 }
 
-/** Email field with inline validation. TODO(backend): POST to the email provider. */
+/** Email field with inline validation; the address is saved on the server (POST /api/newsletter). */
 export function NewsletterForm({ tone = "default", onDone }: { tone?: "default" | "inverse"; onDone?: () => void }) {
   const id = useId();
   const t = useT("newsletter");
+  const locale = useLocale();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
 
   if (done) {
     return (
-      <p role="status" className="inline-flex items-center gap-2 text-sm">
-        <Check className="size-4" aria-hidden="true" /> {t("done")}
+      <p role="status" className="inline-flex items-start gap-2 text-sm">
+        <Check className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+        <span>{t.rich("done", { code: <strong className="font-semibold tracking-wide">{siteConfig.welcomeCode}</strong> })}</span>
       </p>
     );
   }
@@ -53,15 +57,22 @@ export function NewsletterForm({ tone = "default", onDone }: { tone?: "default" 
   return (
     <form
       noValidate
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         setTouched(true);
         const err = validate(email);
         setError(err);
-        if (!err) {
+        if (err || busy) return;
+        setBusy(true);
+        try {
+          await accountApi.subscribeNewsletter(email.trim(), locale);
           setDone(true);
           remember("subscribed");
           onDone?.();
+        } catch (failure) {
+          setError(accountErrorMessage(failure));
+        } finally {
+          setBusy(false);
         }
       }}
       className="w-full"
@@ -95,7 +106,8 @@ export function NewsletterForm({ tone = "default", onDone }: { tone?: "default" 
         />
         <button
           type="submit"
-          className="h-12 shrink-0 whitespace-nowrap rounded-sm bg-foreground px-7 text-[13px] font-medium tracking-[0.04em] text-background transition-opacity hover:opacity-90"
+          disabled={busy}
+          className="h-12 shrink-0 disabled:opacity-60 whitespace-nowrap rounded-sm bg-foreground px-7 text-[13px] font-medium tracking-[0.04em] text-background transition-opacity hover:opacity-90"
         >
           {t("signUp")}
         </button>
@@ -265,7 +277,8 @@ export function NewsletterPopup() {
             <Dialog.Title className={cn("mt-2 pr-8 font-serif leading-tight [overflow-wrap:anywhere]", mobile ? "text-2xl" : "text-4xl")}>{t("popupTitle")}</Dialog.Title>
             <Dialog.Description className="mt-3 text-sm text-muted-foreground">{t("popupBody")}</Dialog.Description>
             <div className={mobile ? "mt-4" : "mt-6"}>
-              <NewsletterForm onDone={() => setTimeout(() => setOpen(false), 1800)} />
+              {/* Stays open after signing up so the shopper can note the code */}
+              <NewsletterForm />
             </div>
             <button type="button" onClick={dismiss} className="mt-2 inline-flex min-h-10 items-center text-xs text-muted-foreground underline underline-offset-4">
               {t("noThanks")}

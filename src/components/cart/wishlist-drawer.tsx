@@ -12,15 +12,21 @@ import { getProductsByIds } from "@/lib/api";
 import { hasPriceRange } from "@/lib/product-utils";
 import { usePanels } from "@/lib/store/ui";
 import { useWishlist } from "@/lib/store/wishlist";
+import { loginHref, useSession } from "@/lib/session";
 import type { Product } from "@/types";
 import { ProductImage } from "@/components/product/product-image";
 import { useLocale, useT } from "@/i18n";
 
-/** Same drawer pattern as the bag, listing saved items. */
+const NONE: string[] = [];
+
+/** Same drawer pattern as the bag, listing saved items (signed-in customers only). */
 export function WishlistDrawer() {
   const open = usePanels((s) => s.open === "wishlist");
   const close = usePanels((s) => s.close);
-  const ids = useWishlist((s) => s.ids);
+  const signedIn = useSession((s) => s.status === "signedIn");
+  const allIds = useWishlist((s) => s.ids);
+  // The wishlist belongs to an account; signed out, the drawer asks them to sign in
+  const ids = signedIn ? allIds : NONE;
   const remove = useWishlist((s) => s.remove);
   const addToCart = useAddToCart();
   const [items, setItems] = useState<Product[]>([]);
@@ -61,7 +67,20 @@ export function WishlistDrawer() {
           ) : undefined
         }
       >
-        {ids.length === 0 ? (
+        {!signedIn ? (
+          <div className="flex h-full flex-col items-center justify-center py-16 text-center">
+            <p className="font-serif text-3xl">{t("signedOutTitle")}</p>
+            <p className="mt-2 max-w-xs text-sm text-muted-foreground">{t("signedOutBody")}</p>
+            <Button asChild className="mt-6 w-full max-w-xs" size="lg">
+              <Link href={loginHref(typeof window === "undefined" ? "/" : window.location.pathname + window.location.search)} onClick={close}>
+                {t("signIn")}
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="mt-3 w-full max-w-xs" size="lg">
+              <Link href="/register" onClick={close}>{t("createAccount")}</Link>
+            </Button>
+          </div>
+        ) : ids.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center py-16 text-center">
             <p className="font-serif text-3xl">{t("emptyTitle")}</p>
             <p className="mt-2 max-w-xs text-sm text-muted-foreground">{t("emptyBody")}</p>

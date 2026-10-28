@@ -187,7 +187,7 @@
     }
   },
   "newsletter": {
-    "done": "You’re on the list — check your inbox for 10% off.",
+    "done": "You're on the list. Your 10% code for your first order: {code}",
     "emailLabel": "Email address",
     "placeholder": "Your email address",
     "signUp": "Sign up",
@@ -206,6 +206,14 @@
       "missingUser": "Please enter a part before the “@”. “{value}” is incomplete.",
       "missingDomain": "Please enter a part after the “@”. “{value}” is incomplete.",
       "invalid": "Please enter a valid email address, like name@example.com."
+    },
+    "unsubscribe": {
+      "title": "Newsletter",
+      "working": "Unsubscribing…",
+      "done": "You've been unsubscribed. You won't get any more newsletters from us.",
+      "invalid": "This unsubscribe link isn't valid. Please use the link from the most recent email, or contact us.",
+      "failed": "Something went wrong. Please try again in a moment.",
+      "backToShop": "Back to the shop"
     }
   },
   "collection": {
@@ -441,7 +449,12 @@
     "continueShopping": "Continue shopping",
     "soldOut": "Sold out",
     "addToBag": "Add to bag",
-    "remove": "Remove"
+    "remove": "Remove",
+    "signInToSave": "Sign in to save items to your wishlist",
+    "signIn": "Sign in",
+    "signedOutTitle": "Sign in to see your wishlist",
+    "signedOutBody": "Your wishlist is saved in your account, so it's there on every device. Sign in or create a free account to start saving.",
+    "createAccount": "Create an account"
   },
   "price": {
     "from": "From",
@@ -1075,7 +1088,7 @@
           },
           {
             "q": "What else is stored in my browser?",
-            "a": "Your bag, wishlist, recently viewed products, saved addresses, back-in-stock requests, light/dark theme and which tips you've already seen are kept in your browser's local storage, so they're still there after a reload. Once you sign in, your bag, wishlist and addresses are saved to your account instead."
+            "a": "Your bag, recently viewed products, saved addresses, back-in-stock requests, light/dark theme and which tips you've already seen are kept in your browser's local storage, so they're still there after a reload. Once you sign in, your bag, wishlist and addresses are saved to your account instead."
           },
           {
             "q": "Do you use Google?",
@@ -1283,7 +1296,8 @@
       "inventory": "Inventory",
       "reviews": "Reviews",
       "reports": "Reports",
-      "activity": "Activity log"
+      "activity": "Activity log",
+      "newsletter": "Newsletter"
     },
     "login": {
       "pageTitle": "Admin login · {store}",
@@ -1908,6 +1922,10 @@
         },
         "activity": {
           "clear": "Activity log cleared"
+        },
+        "newsletter": {
+          "export": "Newsletter list exported",
+          "delete": "Newsletter subscriber deleted"
         }
       },
       "removed": "{count, plural, one {# record deleted} other {# records deleted}}"
@@ -1946,6 +1964,33 @@
         "customers": "Old sign-in records",
         "activity": "Activity log"
       }
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "intro": "People who signed up in the shop. Export the list to your email service; every row has the person's own unsubscribe link, which you must include in each email.",
+      "export": "Export CSV ({count})",
+      "filterLabel": "Filter subscribers",
+      "filters": {
+        "subscribed": "Subscribed",
+        "unsubscribed": "Unsubscribed",
+        "all": "All"
+      },
+      "loading": "Loading",
+      "search": "Search email",
+      "empty": "No subscribers here yet.",
+      "email": "Email",
+      "language": "Language",
+      "since": "Signed up",
+      "status": "Status",
+      "subscribed": "Subscribed",
+      "unsubscribedOn": "Unsubscribed {date}",
+      "customer": "Customer",
+      "delete": "Delete",
+      "deleteNamed": "Delete {email}",
+      "confirmDelete": "Delete {email} from the list for good? Use this when someone asks you to erase their data; to just stop emails, they can unsubscribe.",
+      "deleted": "Subscriber deleted",
+      "failed": "Something went wrong. Please try again.",
+      "howTo": "The shop doesn't send emails itself. Export the CSV and import it into an email service (for example Mailchimp or Brevo). The export only includes people who are still subscribed."
     }
   },
   "countries": {
@@ -1978,6 +2023,7 @@
     "set_password_first": "Set a password first (below), then you can change your email.",
     "too_many_orders": "You already have several orders waiting to be processed. Please wait until they're on their way, or contact us.",
     "order_too_large": "That's more than we can take in one order (up to 10 of each item, 50 items in total). Please contact us for large orders.",
-    "too_many_addresses": "You've saved the maximum of 20 addresses. Remove one to add another."
+    "too_many_addresses": "You've saved the maximum of 20 addresses. Remove one to add another.",
+    "invalid_link": "This link isn't valid."
   }
 }

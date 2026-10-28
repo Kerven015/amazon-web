@@ -1,8 +1,10 @@
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
 import { useMounted } from "@/lib/hooks/use-mounted";
+import { useRouter } from "@/lib/router";
+import { isSignedIn, loginHref, useSession } from "@/lib/session";
 import { openPanel } from "@/lib/store/ui";
-import { useWishlist } from "@/lib/store/wishlist";
+import { setPendingSave, useWishlist } from "@/lib/store/wishlist";
 import { cn } from "@/lib/utils";
 import { useT } from "@/i18n";
 
@@ -30,10 +32,12 @@ export function WishlistButton({
   variant?: "floating" | "inline" | "text";
 }) {
   const mounted = useMounted();
+  const signedIn = useSession((s) => s.status === "signedIn");
   const isSaved = useWishlist((s) => s.ids.includes(productId));
-  const saved = mounted && isSaved;
+  const saved = mounted && signedIn && isSaved;
   const toggle = useWishlist((s) => s.toggle);
   const t = useT("wishlist");
+  const router = useRouter();
 
   return (
     <button
@@ -43,6 +47,14 @@ export function WishlistButton({
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        // The wishlist needs an account: offer to sign in, and save this product once they have
+        if (!isSignedIn()) {
+          setPendingSave(productId);
+          const next = window.location.pathname + window.location.search;
+          // One message at a time (a fixed id replaces it instead of stacking a new one per click)
+          toast(t("signInToSave"), { id: "wishlist-sign-in", description: title, action: { label: t("signIn"), onClick: () => router.push(loginHref(next)) } });
+          return;
+        }
         const now = toggle(productId);
         // The filled heart (and the header count) are the feedback; only the very first save
         // gets a toast, to show where saved items live.
