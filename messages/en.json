@@ -1076,7 +1076,49 @@
       },
       "privacy": {
         "title": "Privacy policy",
-        "intro": "Demo storefront — we don’t collect real data."
+        "intro": "How {store} collects and uses your personal data, and the choices you have. Last updated: 28 October 2026.",
+        "sections": [
+          {
+            "q": "Who is responsible for your data?",
+            "a": "{store} is responsible for the personal data described on this page. For any question or request about your data, email {email}."
+          },
+          {
+            "q": "What data do we collect?",
+            "a": "Account: your name, email address, password (stored only in a scrambled, one-way form we can't read) and language. If you use “Continue with Google”, also your Google account ID and email; we never see your Google password.\nOrders: what you bought (products, sizes, colours, prices), your delivery address and phone number, the delivery option, any discount code and the payment type. For card payments we keep only the last 4 digits; checkout is currently a demo and no card is charged or stored.\nSaved addresses, your bag and your wishlist (when you're signed in).\nReviews: your rating, text and the name you choose to show. Reviews are public on the product page.\nNewsletter: your email, language, the date you signed up, the internet (IP) address you used and the consent text you agreed to.\nSecurity: the internet (IP) address and browser/device type of each sign-in, and failed sign-in attempts."
+          },
+          {
+            "q": "Why do we use it?",
+            "a": "To create and run your account, process and deliver your orders and show their status (because you asked us to, under our contract with you).\nTo send the newsletter, only if you signed up (your consent, which you can withdraw at any time).\nTo keep the shop and your account safe: limiting sign-in attempts, stopping abuse and fraud (our legitimate interest).\nTo keep order records that tax and accounting law require (legal obligation).\nWe don't use your data for advertising or tracking, and we don't sell it."
+          },
+          {
+            "q": "Who do we share it with?",
+            "a": "Only with those who help us run the shop: the delivery company (your name, delivery address and phone number), the email service we use to send the newsletter (your email and language), our website hosting provider, and Google, only if you choose “Continue with Google”. We share data with authorities only when the law requires it."
+          },
+          {
+            "q": "How long do we keep it?",
+            "a": "Account: until you ask us to delete it.\nOrders: as long as tax and accounting law requires.\nSign-in sessions: until you sign out, or 1 day (30 days with “Keep me signed in”).\nFailed sign-in attempts: 1 day.\nNewsletter: until you unsubscribe. After that we keep only a note that you unsubscribed, so we never email you again, unless you ask us to delete it too.\nReviews: until you ask us to remove them."
+          },
+          {
+            "q": "What are your rights?",
+            "a": "You can ask to see the data we hold about you and get a copy, have it corrected (you can also edit your profile and addresses yourself), or have it deleted. To delete your account, email {email}; if you've placed orders, we keep only the order records the law requires. You can unsubscribe from the newsletter with the link in every email, and object to or ask us to limit how we use your data. If you're not happy with our answer, you can complain to your country's data protection authority."
+          },
+          {
+            "q": "How do we protect it?",
+            "a": "Passwords are stored only in a scrambled, one-way form. The site uses an encrypted connection (HTTPS), sign-in cookies can't be read by scripts on the page, repeated failed sign-ins are blocked, and only shop staff can open the admin, where every change is logged."
+          },
+          {
+            "q": "Cookies",
+            "a": "We use only the cookies the shop needs to work, and no advertising or tracking. See the Cookie policy (linked at the bottom of every page) for the full list."
+          },
+          {
+            "q": "Children",
+            "a": "The shop isn't meant for children under 16. If you're under 16, please don't create an account or sign up for the newsletter."
+          },
+          {
+            "q": "Changes to this policy",
+            "a": "If we change how we use your data, we'll update this page and the date at the top."
+          }
+        ]
       },
       "cookies": {
         "title": "Cookie policy",

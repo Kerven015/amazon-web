@@ -1076,7 +1076,49 @@
       },
       "privacy": {
         "title": "Gizlinlik syýasaty",
-        "intro": "Görkeziş dükany — hakyky maglumat ýygnamaýarys."
+        "intro": "{store} şahsy maglumatlaryňyzy nähili ýygnaýandygy, ulanýandygy we siziň saýlap biljek zatlaryňyz barada. Soňky täzelenme: 28-nji oktýabr 2026.",
+        "sections": [
+          {
+            "q": "Maglumatlaryňyz üçin kim jogapkär?",
+            "a": "Bu sahypada beýan edilen şahsy maglumatlar üçin {store} jogapkärdir. Maglumatlaryňyz barada islendik sorag ýa-da haýyş üçin {email} salgysyna ýazyň."
+          },
+          {
+            "q": "Haýsy maglumatlary ýygnaýarys?",
+            "a": "Hasap: adyňyz, e-poçta salgyňyz, parolyňyz (diňe biziň okap bilmeýän, yzyna öwrülmeýän şifrlenen görnüşinde saklanýar) we diliňiz. “Google bilen dowam et” ulansaňyz, Google hasabyňyzyň belgisi we e-poçtaňyz hem; Google parolyňyzy hiç haçan görmeýäris.\nSargytlar: satyn alan zatlaryňyz (harytlar, ölçegler, reňkler, bahalar), eltip bermek salgyňyz we telefon belgiňiz, eltip bermek görnüşi, arzanladyş kody we töleg görnüşi. Kart bilen tölegde diňe soňky 4 sany saklaýarys; töleg häzir demo, kartdan pul alynmaýar we kart saklanmaýar.\nÝatda saklanan salgylar, sebediňiz we halanlaryňyz (hasabyňyza girende).\nSynlar: bahaňyz, tekstiňiz we görkezmek üçin saýlan adyňyz. Synlar haryt sahypasynda hemmä açykdyr.\nHabarnama: e-poçtaňyz, diliňiz, ýazylan senäňiz, ulanan internet (IP) salgyňyz we razylyk beren tekstiňiz.\nHowpsuzlyk: her girişiň internet (IP) salgysy we brauzer/enjam görnüşi hem-de şowsuz giriş synanyşyklary."
+          },
+          {
+            "q": "Näme üçin ulanýarys?",
+            "a": "Hasabyňyzy döretmek we dolandyrmak, sargytlaryňyzy işlemek, eltip bermek we ýagdaýyny görkezmek üçin (siziň bilen baglaşan şertnamamyz esasynda).\nHabarnamany ibermek üçin, diňe ýazylan bolsaňyz (islän wagtyňyz yzyna alyp bilýän razylygyňyz bilen).\nDükany we hasabyňyzy howpsuz saklamak üçin: giriş synanyşyklaryny çäklendirmek, hyýanatçylygyň we galplygyň öňüni almak (kanuny bähbidimiz).\nSalgyt we buhgalteriýa kanunlarynyň talap edýän sargyt ýazgylaryny saklamak üçin (kanuny borç).\nMaglumatlaryňyzy mahabat ýa-da yzarlamak üçin ulanmaýarys we satmaýarys."
+          },
+          {
+            "q": "Kim bilen paýlaşýarys?",
+            "a": "Diňe dükany işletmäge kömek edýänler bilen: eltip beriji kompaniýa (adyňyz, eltip bermek salgyňyz we telefon belgiňiz), habarnamany ibermek üçin ulanýan e-poçta hyzmatymyz (e-poçtaňyz we diliňiz), web sahypany ýerleşdiriji üpjünçimiz we diňe “Google bilen dowam et” saýlasaňyz Google. Maglumatlary häkimiýetler bilen diňe kanun talap edende paýlaşýarys."
+          },
+          {
+            "q": "Näçe wagt saklaýarys?",
+            "a": "Hasap: pozmagymyzy haýyş edýänçäňiz.\nSargytlar: salgyt we buhgalteriýa kanunlarynyň talap edýän möhletinde.\nGiriş sessiýalary: çykýançaňyz ýa-da 1 gün (“Meni ulgamda galdyr” bilen 30 gün).\nŞowsuz giriş synanyşyklary: 1 gün.\nHabarnama: ýazylyşykdan çykýançaňyz. Ondan soň size gaýtadan e-poçta ibermezlik üçin diňe çykandygyňyz barada bellik saklaýarys, isleseňiz ony hem pozýarys.\nSynlar: aýyrmagymyzy haýyş edýänçäňiz."
+          },
+          {
+            "q": "Hukuklaryňyz haýsylar?",
+            "a": "Siz hakda saklaýan maglumatlarymyzy görmegi we göçürmesini almagy, düzedilmegini (profiliňizi we salgylaryňyzy özüňiz hem üýtgedip bilersiňiz) ýa-da pozulmagyny haýyş edip bilersiňiz. Hasabyňyzy pozmak üçin {email} salgysyna ýazyň; sargyt beren bolsaňyz, diňe kanunyň talap edýän sargyt ýazgylaryny saklaýarys. Habarnamadan her e-poçtadaky salgy arkaly çykyp, maglumatlaryňyzyň ulanylmagyna garşy çykyp ýa-da çäklendirilmegini haýyş edip bilersiňiz. Jogabymyzdan razy bolmasaňyz, ýurduňyzyň şahsy maglumatlary goraýan edarasyna şikaýat edip bilersiňiz."
+          },
+          {
+            "q": "Maglumatlary nädip goraýarys?",
+            "a": "Parollar diňe yzyna öwrülmeýän şifrlenen görnüşde saklanýar. Saýt şifrlenen baglanyşygy (HTTPS) ulanýar, giriş kukilerini sahypadaky skriptler okap bilmeýär, yzly-yzyna şowsuz girişler petiklenýär we dolandyryş paneline diňe dükanyň işgärleri girip bilýär; ondaky her üýtgetme ýazylýar."
+          },
+          {
+            "q": "Kukiler",
+            "a": "Diňe dükanyň işlemegi üçin zerur kukileri ulanýarys; mahabat ýa-da yzarlamak ýok. Doly sanaw üçin her sahypanyň aşagyndaky Kukiler syýasatyna serediň."
+          },
+          {
+            "q": "Çagalar",
+            "a": "Dükan 16 ýaşdan kiçi çagalar üçin niýetlenmedik. 16 ýaşdan kiçi bolsaňyz, hasap döretmäň we habarnama ýazylmaň."
+          },
+          {
+            "q": "Bu syýasatdaky üýtgeşmeler",
+            "a": "Maglumatlaryňyzy ulanyşymyzy üýtgetsek, bu sahypany we ýokardaky senäni täzeläris."
+          }
+        ]
       },
       "cookies": {
         "title": "Kukiler syýasaty",

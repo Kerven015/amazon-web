@@ -1076,7 +1076,49 @@
       },
       "privacy": {
         "title": "Gizlilik politikası",
-        "intro": "Demo mağaza — gerçek veri toplamıyoruz."
+        "intro": "{store} kişisel verilerinizi nasıl topladığını ve kullandığını, ve sahip olduğunuz seçenekleri anlatır. Son güncelleme: 28 Ekim 2026.",
+        "sections": [
+          {
+            "q": "Verilerinizden kim sorumlu?",
+            "a": "Bu sayfada açıklanan kişisel verilerden {store} sorumludur. Verilerinizle ilgili her soru veya talep için {email} adresine yazın."
+          },
+          {
+            "q": "Hangi verileri topluyoruz?",
+            "a": "Hesap: adınız, e-posta adresiniz, şifreniz (yalnızca okuyamadığımız, geri döndürülemez şifrelenmiş biçimde saklanır) ve diliniz. “Google ile devam et”i kullanırsanız Google hesap kimliğiniz ve e-postanız da; Google şifrenizi hiçbir zaman görmeyiz.\nSiparişler: satın aldıklarınız (ürünler, bedenler, renkler, fiyatlar), teslimat adresiniz ve telefon numaranız, teslimat seçeneği, varsa indirim kodu ve ödeme türü. Kartla ödemelerde yalnızca son 4 haneyi saklarız; ödeme şu an demodur, karttan para çekilmez ve kart saklanmaz.\nKayıtlı adresler, sepetiniz ve favorileriniz (giriş yaptığınızda).\nYorumlar: puanınız, metniniz ve göstermeyi seçtiğiniz ad. Yorumlar ürün sayfasında herkese açıktır.\nBülten: e-postanız, diliniz, kaydolduğunuz tarih, kullandığınız internet (IP) adresi ve onayladığınız onay metni.\nGüvenlik: her girişin internet (IP) adresi ve tarayıcı/cihaz türü ile başarısız giriş denemeleri."
+          },
+          {
+            "q": "Neden kullanıyoruz?",
+            "a": "Hesabınızı oluşturmak ve yönetmek, siparişlerinizi işlemek, teslim etmek ve durumlarını göstermek için (sizinle yaptığımız sözleşme gereği).\nBülteni göndermek için, yalnızca kaydolduysanız (istediğiniz zaman geri alabileceğiniz onayınızla).\nMağazayı ve hesabınızı güvende tutmak için: giriş denemelerini sınırlamak, kötüye kullanımı ve dolandırıcılığı önlemek (meşru menfaatimiz).\nVergi ve muhasebe mevzuatının gerektirdiği sipariş kayıtlarını tutmak için (yasal yükümlülük).\nVerilerinizi reklam veya izleme için kullanmayız ve satmayız."
+          },
+          {
+            "q": "Kimlerle paylaşıyoruz?",
+            "a": "Yalnızca mağazayı işletmemize yardım edenlerle: kargo şirketi (adınız, teslimat adresiniz ve telefon numaranız), bülteni göndermek için kullandığımız e-posta hizmeti (e-postanız ve diliniz), web sitesi barındırma sağlayıcımız ve yalnızca “Google ile devam et”i seçerseniz Google. Verileri yetkililerle yalnızca yasa gerektirdiğinde paylaşırız."
+          },
+          {
+            "q": "Ne kadar süre saklıyoruz?",
+            "a": "Hesap: silmemizi isteyene kadar.\nSiparişler: vergi ve muhasebe mevzuatının gerektirdiği süre boyunca.\nOturumlar: çıkış yapana kadar veya 1 gün (“Oturumumu açık tut” ile 30 gün).\nBaşarısız giriş denemeleri: 1 gün.\nBülten: abonelikten çıkana kadar. Sonrasında size bir daha e-posta göndermemek için yalnızca çıktığınıza dair bir not tutarız; isterseniz onu da sileriz.\nYorumlar: kaldırmamızı isteyene kadar."
+          },
+          {
+            "q": "Haklarınız nelerdir?",
+            "a": "Hakkınızda tuttuğumuz verileri görmeyi ve bir kopyasını almayı, düzeltilmesini (profilinizi ve adreslerinizi kendiniz de düzenleyebilirsiniz) veya silinmesini isteyebilirsiniz. Hesabınızı silmek için {email} adresine yazın; sipariş verdiyseniz yalnızca yasanın gerektirdiği sipariş kayıtlarını saklarız. Bültenden her e-postadaki bağlantıyla çıkabilir, verilerinizin kullanılmasına itiraz edebilir veya sınırlandırılmasını isteyebilirsiniz. Yanıtımızdan memnun kalmazsanız ülkenizin kişisel verileri koruma kurumuna şikâyette bulunabilirsiniz."
+          },
+          {
+            "q": "Verileri nasıl koruyoruz?",
+            "a": "Şifreler yalnızca geri döndürülemez şifrelenmiş biçimde saklanır. Site şifreli bağlantı (HTTPS) kullanır, giriş çerezleri sayfadaki komut dosyalarınca okunamaz, art arda başarısız girişler engellenir ve yönetim paneline yalnızca mağaza çalışanları girebilir; oradaki her değişiklik kaydedilir."
+          },
+          {
+            "q": "Çerezler",
+            "a": "Yalnızca mağazanın çalışması için gereken çerezleri kullanırız; reklam veya izleme yoktur. Tam liste için her sayfanın altındaki Çerez politikasına bakın."
+          },
+          {
+            "q": "Çocuklar",
+            "a": "Mağaza 16 yaşından küçük çocuklara yönelik değildir. 16 yaşından küçükseniz lütfen hesap oluşturmayın ve bültene kaydolmayın."
+          },
+          {
+            "q": "Bu politikadaki değişiklikler",
+            "a": "Verilerinizi kullanma şeklimizi değiştirirsek bu sayfayı ve en üstteki tarihi güncelleriz."
+          }
+        ]
       },
       "cookies": {
         "title": "Çerez politikası",
