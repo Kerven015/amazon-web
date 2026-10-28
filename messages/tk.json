@@ -1276,7 +1276,8 @@
     },
     "switcher": {
       "label": "Dolandyryş paneliniň dili (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
-      "empty": "{count, plural, one {# boş meýdan} other {# boş meýdan}}"
+      "empty": "{count, plural, one {# boş meýdan} other {# boş meýdan}}",
+      "contentLabel": "Haryt tekstiniň dili"
     },
     "banner": "Dolandyryş tertibi: üýtgeşmeler göni katalogda saklanýar",
     "topbar": {
@@ -1337,10 +1338,10 @@
       "pageAdd": "Haryt goş · Dolandyryş · {store}"
     },
     "status": {
-      "editing": "Redaktirlenýär: {language}",
-      "enRequired": "Iňlisçe hökmany. Slug, SKU, bahalar, suratlar we ammar ähli diller üçin umumy.",
-      "emptyCount": "{count, plural, one {# türkmençe meýdan boş} other {# türkmençe meýdan boş}}",
-      "allFilled": "Ähli türkmençe tekstler dolduryldy.",
+      "editing": "Haryt teksti: {language}",
+      "enRequired": "Iňlisçe hökmany. Slug, SKU, bahalar, suratlar we ammar ähli diller üçin umumy. Ýokarky setirdäki dil düwmeleri diňe dolandyryş paneliniň dilini üýtgedýär.",
+      "emptyCount": "{count, plural, one {# meýdan boş ({language})} other {# meýdan boş ({language})}}",
+      "allFilled": "Ähli tekstler dolduryldy ({language}).",
       "fixInEnglish": "{error} — doldurmak üçin EN-e geçiň"
     },
     "sections": {

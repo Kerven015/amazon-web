@@ -198,9 +198,6 @@ export function AdminLayout() {
   const t = useT("admin.topbar");
   const tc = useT("common");
   const banner = useT("admin");
-  const pathname = usePathname();
-  // The product form has the switcher in its sticky status bar; every other admin page gets it here
-  const formPage = pathname.startsWith(`${ADMIN_BASE}/products/`);
   const [leaving, setLeaving] = useState(false);
 
   /** Ends the session on the server (or every admin session), then reloads the login page */
@@ -229,7 +226,7 @@ export function AdminLayout() {
           <Logo href={ADMIN_BASE} size="sm" />
           <span className="rounded-xs bg-navy px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cream max-sm:hidden">{t("badge")}</span>
           <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-3">
-            {!formPage && <AdminLanguageSwitcher />}
+            <AdminLanguageSwitcher />
             <AdminHomeLink />
             <ManageMenu />
             <a href="/" target="_blank" rel="noopener" className="inline-flex h-9 items-center gap-1 rounded-sm px-2 text-sm hover:underline hover:underline-offset-4">

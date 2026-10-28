@@ -38,14 +38,30 @@ export function AdminI18n({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * The admin's only language control: EN | TR | TK | RU. Changes the whole admin interface
- * and the product content being edited. A radio group (arrow keys move); an amber dot marks
- * a language whose product text still has empty fields (product form only).
+ * EN | TR | TK | RU as a radio group (arrow keys move). Without `value` it's the admin's
+ * interface language (top bar). The product form passes `value`/`onChange` to pick which
+ * language of the product text is being edited — that never changes the interface. An amber
+ * dot marks a language whose product text still has empty fields.
  */
-export function AdminLanguageSwitcher({ missing, className }: { missing?: Partial<Record<Locale, number>>; className?: string }) {
+export function AdminLanguageSwitcher({
+  missing,
+  className,
+  value,
+  onChange,
+  label,
+}: {
+  missing?: Partial<Record<Locale, number>>;
+  className?: string;
+  value?: Locale;
+  onChange?: (locale: Locale) => void;
+  label?: string;
+}) {
   const t = useT("admin.switcher");
-  const locale = useAdminLocale((s) => s.locale);
-  const setLocale = useAdminLocale((s) => s.setLocale);
+  const adminLocale = useAdminLocale((s) => s.locale);
+  const setAdminLocale = useAdminLocale((s) => s.setLocale);
+  const locale = value ?? adminLocale;
+  const setLocale = onChange ?? setAdminLocale;
+  const interfaceSwitcher = !onChange;
   const refs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -61,7 +77,7 @@ export function AdminLanguageSwitcher({ missing, className }: { missing?: Partia
   return (
     <div
       role="radiogroup"
-      aria-label={t("label")}
+      aria-label={label ?? t("label")}
       data-language-switcher
       onKeyDown={onKeyDown}
       className={cn("inline-flex shrink-0 rounded-full border border-navy/15 bg-surface p-0.5", className)}
@@ -80,7 +96,7 @@ export function AdminLanguageSwitcher({ missing, className }: { missing?: Partia
             aria-checked={on}
             tabIndex={on ? 0 : -1}
             onClick={() => setLocale(l)}
-            title={`${l.toUpperCase()} (Alt+${n + 1})${count ? ` — ${t("empty", { count })}` : ""}`}
+            title={`${l.toUpperCase()}${interfaceSwitcher ? ` (Alt+${n + 1})` : ""}${count ? ` — ${t("empty", { count })}` : ""}`}
             className={cn(
               "relative inline-flex h-7 min-w-9 items-center justify-center gap-1 rounded-full px-2 text-xs font-semibold tracking-wide transition-colors sm:min-w-11 sm:gap-1.5 sm:px-3",
               on ? "bg-navy text-cream" : "text-muted-foreground hover:text-foreground",
