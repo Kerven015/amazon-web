@@ -25,6 +25,7 @@ import { sizePrice } from "@/lib/product-utils";
 import { care as careDict, colours as colourDict, materials as materialDict, origins as originDict, sizes as sizeDict, suggestName, suggestText, weaves as weaveDict } from "@/lib/term-translations";
 import { cn, discountPercent, slugify } from "@/lib/utils";
 import type { CareKind, ColorFamily, ColorRecord, Feel, L10n, L10nList, LocaleCode, NameL10n, ProductBadge, ProductRecord, SizeRecord, StockStatus, TranslatedLocale } from "@/types";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 type Lang = LocaleCode;
 /** Languages translated from English (all switcher options except EN) */
@@ -628,7 +629,7 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
           toast.warning(t("toasts.missingTranslation", { language: langName(l) }), {
             description: t("toasts.missingDetail", { fields: gaps[l].map((g) => t(`fieldNames.${g}`)).join(", ") }),
           });
-      if (mode === "another") navigate(`/admin/products/new${collection ? `?collection=${collection}` : ""}`, { replace: !editing });
+      if (mode === "another") navigate(`${ADMIN_BASE}/products/new${collection ? `?collection=${collection}` : ""}`, { replace: !editing });
       else navigate(returnTo);
     } catch (err) {
       if (err instanceof ApiError && Object.keys(err.fields).length) {

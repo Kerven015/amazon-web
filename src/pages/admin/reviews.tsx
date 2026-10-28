@@ -12,6 +12,7 @@ import { formatDate, useLocale, useT } from "@/i18n";
 import { type AdminReview, adminApi } from "@/lib/admin-api";
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 export async function adminReviewsLoader() {
   return { reviews: await adminApi.reviews() };
@@ -126,7 +127,7 @@ export default function AdminReviewsPage() {
                   <p className="mt-2 text-xs text-muted-foreground">
                     {r.author}
                     {r.email && ` · ${r.email}`} · {formatDate(r.createdAt, undefined, locale)} ·{" "}
-                    <Link href={`/admin/products/${r.productId}/edit`} className="underline underline-offset-4">{pick(r.productTitle, locale)}</Link>
+                    <Link href={`${ADMIN_BASE}/products/${r.productId}/edit`} className="underline underline-offset-4">{pick(r.productTitle, locale)}</Link>
                   </p>
                 </div>
                 <div className="flex shrink-0 gap-2">

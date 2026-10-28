@@ -46,7 +46,8 @@ export function negotiateLocale(header: string | readonly string[] | null | unde
 const RUSSIAN_READERS = new Set(["uk", "be", "kk", "uz"]);
 
 /** Paths that never get a language prefix. */
-export const UNPREFIXED = /^\/(admin|api|images|assets|favicon\.svg|robots\.txt|sitemap\.xml)(\/|$)/;
+// "manager@" = the admin panel (src/lib/admin-path.ts)
+export const UNPREFIXED = /^\/(manager@|api|images|assets|favicon\.svg|robots\.txt|sitemap\.xml)(\/|$)/;
 
 const LOCALE_PREFIX = new RegExp(`^/(${locales.join("|")})(?=/|$)(.*)$`);
 

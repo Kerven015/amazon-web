@@ -9,16 +9,18 @@ import { siteConfig } from "@/lib/config";
 import { AdminLanguageSwitcher } from "@/components/admin/admin-i18n";
 import { useT } from "@/i18n";
 import { adminError } from "@/lib/admin-errors";
+import { ADMIN_BASE, isAdminPath } from "@/lib/admin-path";
 
 /** Already signed in → straight to the admin. (The server also redirects; this covers client navigation.) */
 export async function adminLoginLoader() {
-  if (await adminApi.session()) throw redirect("/admin");
+  if (await adminApi.session()) throw redirect(ADMIN_BASE);
   return null;
 }
 
-const safeNext = (next: string | null) => (next && next.startsWith("/admin") && !next.startsWith("//") ? next : "/admin");
+/** Only admin pages on this site ("?next=" is in the URL, so anyone could put anything there) */
+const safeNext = (next: string | null) => (next && isAdminPath(next.split(/[?#]/)[0]) ? next : ADMIN_BASE);
 
-/** /admin/login — credentials are checked on the server (POST /api/admin/login). */
+/** /manager@/login — credentials are checked on the server (POST /api/admin/login). */
 export default function AdminLoginPage() {
   const id = useId();
   const t = useT("admin.login");

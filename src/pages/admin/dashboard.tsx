@@ -13,6 +13,7 @@ import { adminApi, type Dashboard } from "@/lib/admin-api";
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import type { OrderStatus } from "@/types";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 export async function adminDashboardLoader() {
   return { dashboard: await adminApi.dashboard() };
@@ -55,10 +56,10 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatTile label={t("ordersToday")} value={d.today.orders} />
           <StatTile label={t("salesToday")} value={price(d.today.total)} sub={t("salesHint")} />
-          <Link href="/admin/orders?status=placed" className="block">
+          <Link href={`${ADMIN_BASE}/orders?status=placed`} className="block">
             <StatTile label={t("toPack")} value={d.toPack} tone={d.toPack ? "warning" : undefined} sub={t("viewOrders")} />
           </Link>
-          <Link href="/admin/orders?status=packed" className="block">
+          <Link href={`${ADMIN_BASE}/orders?status=packed`} className="block">
             <StatTile label={t("toShip")} value={d.toShip} tone={d.toShip ? "warning" : undefined} sub={t("viewOrders")} />
           </Link>
         </div>
@@ -83,7 +84,7 @@ export default function AdminDashboardPage() {
           <ul className="divide-y rounded-sm border bg-card text-sm">
             {STATUSES.map((s) => (
               <li key={s}>
-                <Link href={`/admin/orders?status=${s}`} className="flex items-center justify-between px-4 py-2.5 hover:bg-muted/50">
+                <Link href={`${ADMIN_BASE}/orders?status=${s}`} className="flex items-center justify-between px-4 py-2.5 hover:bg-muted/50">
                   <Badge variant={statusMeta[s].variant}>{ts(s)}</Badge>
                   <span className="font-semibold">{d.ordersByStatus[s] ?? 0}</span>
                 </Link>
@@ -95,7 +96,7 @@ export default function AdminDashboardPage() {
         <section aria-labelledby="dash-stock">
           <div className="mb-3 flex items-baseline justify-between gap-2">
             <h2 id="dash-stock" className="text-xl">{t("stock")}</h2>
-            <Link href="/admin/inventory" className="text-sm underline underline-offset-4">{t("openInventory")}</Link>
+            <Link href={`${ADMIN_BASE}/inventory`} className="text-sm underline underline-offset-4">{t("openInventory")}</Link>
           </div>
           <div className="mb-3 grid grid-cols-2 gap-3">
             <StatTile label={t("outOfStock")} value={d.stock.out} tone={d.stock.out ? "danger" : undefined} />
@@ -108,7 +109,7 @@ export default function AdminDashboardPage() {
               {d.stock.cells.map((c) => (
                 <li key={`${c.productId}|${c.size}|${c.colour}`} className="flex items-center justify-between gap-3 px-4 py-2.5">
                   <span>
-                    <Link href={`/admin/products/${c.productId}/edit`} className="font-medium hover:underline">{pick(c.title, locale)}</Link>
+                    <Link href={`${ADMIN_BASE}/products/${c.productId}/edit`} className="font-medium hover:underline">{pick(c.title, locale)}</Link>
                     <span className="text-muted-foreground"> · {[c.size, c.colour === "default" ? "" : c.colour].filter(Boolean).join(", ")}</span>
                   </span>
                   <span className={cn("font-semibold", c.quantity <= 0 ? "text-danger" : "text-warning")}>{c.quantity}</span>
@@ -138,7 +139,7 @@ export default function AdminDashboardPage() {
         <section aria-labelledby="dash-recent">
           <div className="mb-3 flex items-baseline justify-between gap-2">
             <h2 id="dash-recent" className="text-xl">{t("recentOrders")}</h2>
-            <Link href="/admin/orders" className="text-sm underline underline-offset-4">{t("allOrders")}</Link>
+            <Link href={`${ADMIN_BASE}/orders`} className="text-sm underline underline-offset-4">{t("allOrders")}</Link>
           </div>
           {d.recentOrders.length === 0 ? (
             <EmptyState>{t("noOrders")}</EmptyState>
@@ -146,7 +147,7 @@ export default function AdminDashboardPage() {
             <ul className="divide-y rounded-sm border bg-card text-sm">
               {d.recentOrders.map((o) => (
                 <li key={o.id}>
-                  <Link href={`/admin/orders?open=${o.id}`} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 hover:bg-muted/50">
+                  <Link href={`${ADMIN_BASE}/orders?open=${o.id}`} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 hover:bg-muted/50">
                     <span>
                       <span className="font-semibold">{o.id}</span> <span className="text-muted-foreground">· {o.customerName} · {formatDate(o.createdAt, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }, locale)}</span>
                     </span>
@@ -163,7 +164,7 @@ export default function AdminDashboardPage() {
       </div>
 
       <p className="mt-8 text-xs text-muted-foreground">
-        {t("reviewsNote", { recent: d.reviews.last7Days, hidden: d.reviews.hidden })} <Link href="/admin/reviews" className="underline underline-offset-4">{t("openReviews")}</Link>
+        {t("reviewsNote", { recent: d.reviews.last7Days, hidden: d.reviews.hidden })} <Link href={`${ADMIN_BASE}/reviews`} className="underline underline-offset-4">{t("openReviews")}</Link>
       </p>
     </Container>
   );

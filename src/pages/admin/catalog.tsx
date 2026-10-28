@@ -15,6 +15,7 @@ import { siteConfig } from "@/lib/config";
 import { Link, notFound, usePathname, useRouter, useSearchParams } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import type { Product, TranslatedLocale } from "@/types";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 type MissingKey = "any" | TranslatedLocale;
 const MISSING_OPTIONS: MissingKey[] = ["any", ...translatedLocales];
@@ -154,7 +155,7 @@ export default function AdminCatalogPage() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
-  const newHref = `/admin/products/new${slug ? `?collection=${slug}` : ""}`;
+  const newHref = `${ADMIN_BASE}/products/new${slug ? `?collection=${slug}` : ""}`;
 
   const api: AdminCardApi = useMemo(
     () => ({
@@ -166,7 +167,7 @@ export default function AdminCatalogPage() {
           else next.add(id);
           return next;
         }),
-      editHref: (p) => `/admin/products/${p.id}/edit`,
+      editHref: (p) => `${ADMIN_BASE}/products/${p.id}/edit`,
       remove: (p) => setToDelete([p]),
     }),
     [selected],
@@ -181,8 +182,8 @@ export default function AdminCatalogPage() {
           products={filtered}
           title={title}
           intro={intro}
-          crumbs={[{ label: t("crumb"), href: "/admin" }, ...(slug ? [{ label: title }] : [])]}
-          allHref="/admin"
+          crumbs={[{ label: t("crumb"), href: ADMIN_BASE }, ...(slug ? [{ label: title }] : [])]}
+          allHref={ADMIN_BASE}
           search={
             <>
               <AdminSearch value={find} onChange={setFind} />

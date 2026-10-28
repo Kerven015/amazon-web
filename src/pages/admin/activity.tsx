@@ -9,6 +9,7 @@ import { toast } from "@/components/ui/toaster";
 import { formatDate, useLocale, useT } from "@/i18n";
 import { type AuditEntry, adminApi } from "@/lib/admin-api";
 import { Link } from "@/lib/router";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 const PAGE = 100;
 type Kind = "all" | "product" | "order" | "customer" | "review" | "admin";
@@ -19,7 +20,7 @@ export async function adminActivityLoader() {
 
 /** Where an entry's thing can be opened in the admin */
 const hrefFor = (e: AuditEntry) =>
-  e.entityType === "product" && e.action !== "product.delete" ? `/admin/products/${e.entityId}/edit` : e.entityType === "order" ? `/admin/orders?open=${e.entityId}` : null;
+  e.entityType === "product" && e.action !== "product.delete" ? `${ADMIN_BASE}/products/${e.entityId}/edit` : e.entityType === "order" ? `${ADMIN_BASE}/orders?open=${e.entityId}` : null;
 
 /** /admin/activity — who did what in the admin, newest first (entries can't be edited or deleted). */
 export default function AdminActivityPage() {

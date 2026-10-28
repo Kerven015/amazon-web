@@ -1,7 +1,7 @@
 # Vendora — towel marketplace UI (React + Vite)
 
 Storefront + admin panel on a small Node server with a self-hosted **PostgreSQL**
-database: products (edited at **/admin**), customer accounts (register, sign in,
+database: products (edited at **/manager@**), customer accounts (register, sign in,
 sign out), bags, wishlists, address books, reviews and orders. Shoppers can browse
 and fill a bag signed out, but must sign in to check out. Payment is still a demo
 (no card data is ever sent to the server). Built with **React 19 + Vite + React Router 7**, TypeScript, Tailwind CSS v4,
@@ -15,7 +15,7 @@ URLs, design and features are the same.
 npm install
 npm run db:migrate     # create / update the tables (see "Database" below)
 npm run db:seed        # import data/products.json into the database (safe to run twice)
-npm run dev            # store + API + admin on http://localhost:5173 (admin: /admin) — this computer only
+npm run dev            # store + API + admin on http://localhost:5173 (admin: /manager@) — this computer only
 npm run build          # type-check + production build into dist/
 npm run check:secrets  # confirm the admin password isn't in the built client code
 npm run i18n:check     # fail if a key in messages/en.json is missing or broken in tr.json / tk.json / ru.json
@@ -28,7 +28,7 @@ npm run data:seed -- --force   # ⚠ reset the seed file data/products.json to t
 `npm run dev` only answers on this computer. Reaching it from a phone, another computer or a
 port-forwarding tunnel (VS Code **Ports**, Codespaces, ngrok) must be switched on with
 `DEV_EXPOSE=1` in `.env.local` (then restart `npm run dev`). With a **Public** tunnel anyone with the
-link can open the site — including `/admin`, so use a strong `ADMIN_PASSWORD` while it's shared.
+link can open the site — including `/manager@`, so use a strong `ADMIN_PASSWORD` while it's shared.
 
 Admin login lives in `.env.local` (server-only): `ADMIN_USERNAME`, `ADMIN_PASSWORD`
 and a random `ADMIN_SESSION_SECRET` (32+ characters). See `.env.example`.
@@ -80,7 +80,7 @@ at runtime (re-running `db:seed` overwrites products that are also in the file).
 | `reviews` | product reviews; rating and review count are computed from here |
 | `login_attempts` | failed sign-ins, for the rate limit (5 per IP + email in 15 minutes) |
 
-**Admin → Customers** (`/admin/customers`) lists every customer account: who is signed in
+**Admin → Customers** (`/manager@/customers`) lists every customer account: who is signed in
 and active right now, on which devices, their orders and spend. From there you can sign a
 customer out (one device or all), block / unblock the account (blocking also signs them
 out and stops them signing in), or delete an account that has no orders.
@@ -238,7 +238,7 @@ and email (`lib/store/profile.ts`), placed orders, bag, wishlist and own reviews
 **URLs.** Every shop page lives under a language prefix: `/en/…` (default), `/tr/…`, `/tk/…`,
 `/ru/…` (e.g. `/ru/products/organic-cotton-bath-towel`). The list lives in one place:
 `locales` in `src/i18n/config.ts` (its order is the switcher order). Slugs are the same in all languages.
-`/admin` stays English-only and outside the prefix.
+`/manager@` stays English-only and outside the prefix.
 
 **First visit.** A URL without a prefix (`/`, `/collections/x`) redirects to the saved
 language (cookie `vendora_locale`) or, the first time, to the browser's `Accept-Language`:
@@ -289,7 +289,7 @@ the shop's: one EN | TR | TK | RU switcher changes the whole admin page at once 
 (titles, labels, help texts, buttons, status bar, validation errors, dialogs, toasts, empty
 states, top bar, banner, search, bulk bar, sort and filters), the product text being edited,
 the catalog (menu, cards, chips — the shop's own translations) and the live preview.
-Admin URLs keep no prefix (`/admin/…`); the choice is stored in a cookie `admin_locale` (and
+Admin URLs keep no prefix (`/manager@/…`, set in `src/lib/admin-path.ts`); the choice is stored in a cookie `admin_locale` (and
 localStorage), so it survives refresh, logout/login and moving between products. First visit:
 English. Code: `src/lib/admin-locale.ts` (store), `src/components/admin/admin-i18n.tsx`
 (`AdminI18n` provider around every admin page + `AdminLanguageSwitcher`), texts under the
@@ -306,7 +306,7 @@ placeholder. Saving with gaps works but warns which fields will show English. Er
 English-only fields, seen in another language, say to switch to EN.
 Known colour, size, material, weave, origin and care terms pre-fill their translations
 (`src/lib/term-translations.ts`). The catalog has a **Missing translations** filter: any
-language (`/admin?missing=1`) or one language (`?missing=tr`, `tk`, `ru`).
+language (`/manager@?missing=1`) or one language (`?missing=tr`, `tk`, `ru`).
 
 **Formatting.** Prices use `Intl.NumberFormat`: `$24.00` in English, `24,00 $` in Turkish,
 Turkmen and Russian (Turkmen uses Turkish number style if the browser lacks Turkmen data).
@@ -327,7 +327,7 @@ current language (`inLanguage`, `og:locale`).
 with a tooltip between 1024 and 1179px), the first row of the mobile drawer, and the
 logo does the same. It always goes to `/{current language}`, closes any open menu, panel
 or drawer, and on the home page itself smooth-scrolls to the top instead of navigating
-(`src/components/layout/home-link.tsx`). The admin top bar has its own Home → `/admin`.
+(`src/components/layout/home-link.tsx`). The admin top bar has its own Home → `/manager@`.
 When the menu doesn't fit next to the logo and icons (Turkish/Turkmen/Russian on smaller desktops),
 it moves to its own centred row under them; the header measures this live
 (`useStackedNav` in `header.tsx`), so it adapts to any language or font.
@@ -346,18 +346,18 @@ stylesheet splits subsets by `unicode-range`, so a page only downloads what it s
 (Manrope replaced Figtree, which has no Cyrillic.) Buttons grow in height rather than
 cutting off longer Turkish, Turkmen and Russian labels.
 
-## Admin panel (`/admin`)
+## Admin panel (`/manager@`)
 
-**Login** — `/admin/login`. Credentials are checked on the server (`POST /api/admin/login`) against `.env.local` with a constant-time comparison. 5 wrong attempts from one IP lock login for 5 minutes. A correct login sets an HS256-signed session (8 hours) in an `httpOnly`, `SameSite=Strict` cookie (`Secure` in production). Without a valid cookie, every `/admin` page redirects to the login page and every `/api/admin/*` call returns 401 (`server/app.ts` → `guardAdminPage` / `handleApi`). Admin pages send `noindex` (meta tag + `X-Robots-Tag`), `/admin` isn't in `/sitemap.xml`, and `robots.txt` disallows it.
+**Login** — `/manager@/login`. Credentials are checked on the server (`POST /api/admin/login`) against `.env.local` with a constant-time comparison. 5 wrong attempts from one IP lock login for 5 minutes. A correct login sets an HS256-signed session (8 hours) in an `httpOnly`, `SameSite=Strict` cookie (`Secure` in production). Without a valid cookie, every `/manager@` page redirects to the login page and every `/api/admin/*` call returns 401 (`server/app.ts` → `guardAdminPage` / `handleApi`). Admin pages send `noindex` (meta tag + `X-Robots-Tag`), `/manager@` isn't in `/sitemap.xml`, and `robots.txt` doesn't mention it (that would point people to it). The old `/admin` address is just an unknown page.
 
-**Catalog** — `/admin` (all products, including hidden) and `/admin/collections/:slug`. It's the public collection page (`CollectionView`, `ProductGrid`, `ProductCard`, filter drawer, sort, view toggle, Show more) with an admin layer:
+**Catalog** — `/manager@` (all products, including hidden) and `/manager@/collections/:slug`. It's the public collection page (`CollectionView`, `ProductGrid`, `ProductCard`, filter drawer, sort, view toggle, Show more) with an admin layer:
 - the same mega menu (`lib/navigation.ts`) pointed at admin URLs, plus a search box (name, SKU or colour),
 - Edit / Delete buttons and a checkbox on every card; clicking a card opens the edit page,
 - a bulk bar (“3 selected · Delete selected · Clear selection”) and “+ Add product”.
 
 **Delete** — confirmation dialog, then the card animates out and a toast offers Undo for 8 seconds (the server keeps deleted products for 10 minutes for this). Shoppers' bags, wishlists and recently viewed drop deleted or hidden products, with “An item in your bag is no longer available”.
 
-**Add / Edit** — `/admin/products/new` and `/admin/products/:id/edit`. Two columns with a live ProductCard preview. Fields: name, slug (auto), SKU, tagline, description, category / collections / sizes (from the Shop By menus), price and sale price per size (−X% calculated), badge, material, GSM, feel, weave, origin, features, care guide, colour rows (name, picker, filter group, image, stock per size; reorder), drag-and-drop images (JPG/PNG/WebP ≤ 5MB → WebP via sharp into `public/images/products/{slug}/`, drag to reorder, alt text), stock status and “Visible on site”. Validation uses zod (`src/lib/product-schema.ts`) in the browser and again on the server, plus unique slug/SKU. “Save”, “Save and add another”, “Cancel”, and “Delete product” on edit. You get a warning before leaving with unsaved changes.
+**Add / Edit** — `/manager@/products/new` and `/manager@/products/:id/edit`. Two columns with a live ProductCard preview. Fields: name, slug (auto), SKU, tagline, description, category / collections / sizes (from the Shop By menus), price and sale price per size (−X% calculated), badge, material, GSM, feel, weave, origin, features, care guide, colour rows (name, picker, filter group, image, stock per size; reorder), drag-and-drop images (JPG/PNG/WebP ≤ 5MB → WebP via sharp into `public/images/products/{slug}/`, drag to reorder, alt text), stock status and “Visible on site”. Validation uses zod (`src/lib/product-schema.ts`) in the browser and again on the server, plus unique slug/SKU. “Save”, “Save and add another”, “Cancel”, and “Delete product” on edit. You get a warning before leaving with unsaved changes.
 
 **After a save** the admin reloads the catalogue, and open store tabs pick up the change when you return to them or within 30 seconds (`src/lib/catalog.ts`). This replaces Next.js `revalidatePath`.
 
@@ -370,7 +370,7 @@ cutting off longer Turkish, Turkmen and Russian labels.
 - Old `/product/:id` links (cart lines, orders) redirect to the slug URL.
 - Products come from the server (`/api/products`); hidden or deleted products return the 404 page.
 - New product fields: `features[]`, `weave`, `origin`, `sizes[]` (name, cm dimensions, price, salePrice, stock per colour), `careInstructions[]`, `reviews[]`, `hidden`. Generated for the mock catalogue in `src/lib/mock-data/product-details.ts`.
-- The admin form `/admin/products/:id/edit` edits these fields.
+- The admin form `/manager@/products/:id/edit` edits these fields.
 - SEO: title `{name} | Vendora`, meta description, Open Graph, canonical and Product JSON-LD (`src/components/product/product-seo.tsx`). The app is client-rendered, so Google sees these after rendering JS. Social link previews need prerendering/SSR, and an OG image needs real photos (the built-in illustrations are data URIs).
 - The page uses the cream `#F4F0E9` / navy `#2B3B63` scope (`.theme-cream` in globals.css).
 

@@ -13,6 +13,7 @@ import { formatDate, useLocale, useT } from "@/i18n";
 import { type AdjustReason, type InventoryRow, type StockMovement, adminApi, ApiError } from "@/lib/admin-api";
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
+import { ADMIN_BASE } from "@/lib/admin-path";
 
 export async function adminInventoryLoader() {
   const [inventory, movements] = await Promise.all([adminApi.inventory(), adminApi.movements()]);
@@ -100,7 +101,7 @@ export default function AdminInventoryPage() {
               {shown.map((r) => (
                 <tr key={cellKey(r)} className={cn(r.level === "out" && "bg-danger-soft/30")}>
                   <td className="px-4 py-2.5">
-                    <Link href={`/admin/products/${r.productId}/edit`} className="font-medium hover:underline">{pick(r.title, locale)}</Link>
+                    <Link href={`${ADMIN_BASE}/products/${r.productId}/edit`} className="font-medium hover:underline">{pick(r.title, locale)}</Link>
                     {r.hidden && <span className="ml-2 text-xs text-muted-foreground">({t("hidden")})</span>}
                   </td>
                   <td className="px-4 py-2.5 text-muted-foreground">{r.sku ?? "—"}</td>
@@ -188,7 +189,7 @@ function History({ movements, onMore }: { movements: StockMovement[]; onMore: ()
             <td className="px-4 py-2.5 text-right">{m.quantityAfter}</td>
             <td className="px-4 py-2.5">
               {t(`reasons.${m.reason}`)}
-              {m.orderId && <Link href={`/admin/orders?open=${m.orderId}`} className="ml-1 underline underline-offset-4">{m.orderId}</Link>}
+              {m.orderId && <Link href={`${ADMIN_BASE}/orders?open=${m.orderId}`} className="ml-1 underline underline-offset-4">{m.orderId}</Link>}
               {m.note && <span className="block text-xs text-muted-foreground">{m.note}</span>}
             </td>
             <td className="px-4 py-2.5 text-muted-foreground">{m.actor === "customer" ? t("customer") : m.actor}</td>
