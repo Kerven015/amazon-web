@@ -1318,7 +1318,8 @@
     },
     "switcher": {
       "label": "Yönetim paneli dili (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
-      "empty": "{count, plural, one {# boş alan} other {# boş alan}}"
+      "empty": "{count, plural, one {# boş alan} other {# boş alan}}",
+      "contentLabel": "Ürün metni dili"
     },
     "banner": "Yönetim modu: değişiklikler canlı kataloğa kaydedilir",
     "topbar": {
@@ -1379,10 +1380,10 @@
       "pageAdd": "Ürün ekle · Yönetim · {store}"
     },
     "status": {
-      "editing": "Düzenleniyor: {language}",
-      "enRequired": "İngilizce zorunludur. Slug, SKU, fiyatlar, görseller ve stok tüm dillerde ortaktır.",
-      "emptyCount": "{count, plural, one {# Türkçe alan boş} other {# Türkçe alan boş}}",
-      "allFilled": "Tüm Türkçe metinler dolduruldu.",
+      "editing": "Ürün metni: {language}",
+      "enRequired": "İngilizce zorunludur. Slug, SKU, fiyatlar, görseller ve stok tüm dillerde ortaktır. Üst çubuktaki dil düğmeleri yalnızca yönetim panelinin dilini değiştirir.",
+      "emptyCount": "{count, plural, one {# alan boş ({language})} other {# alan boş ({language})}}",
+      "allFilled": "Tüm metinler dolduruldu ({language}).",
       "fixInEnglish": "{error} — doldurmak için EN'ye geçin"
     },
     "sections": {

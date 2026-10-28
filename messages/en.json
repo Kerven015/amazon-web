@@ -1318,7 +1318,8 @@
     },
     "switcher": {
       "label": "Admin language (Alt+1 / Alt+2 / Alt+3 / Alt+4)",
-      "empty": "{count, plural, one {# empty field} other {# empty fields}}"
+      "empty": "{count, plural, one {# empty field} other {# empty fields}}",
+      "contentLabel": "Product text language"
     },
     "banner": "Admin mode: changes are saved to the live catalog",
     "topbar": {
@@ -1379,10 +1380,10 @@
       "pageAdd": "Add product · Admin · {store}"
     },
     "status": {
-      "editing": "Editing: {language}",
-      "enRequired": "English is required. Slug, SKU, prices, images and stock are shared by all languages.",
-      "emptyCount": "{count, plural, one {# field in this language is empty} other {# fields in this language are empty}}",
-      "allFilled": "All text in this language is filled in.",
+      "editing": "Product text: {language}",
+      "enRequired": "English is required. Slug, SKU, prices, images and stock are shared by all languages. The language buttons in the top bar only change the admin's own language.",
+      "emptyCount": "{count, plural, one {# {language} field is empty} other {# {language} fields are empty}}",
+      "allFilled": "All {language} text is filled in.",
       "fixInEnglish": "{error} — switch to EN to fill it in"
     },
     "sections": {

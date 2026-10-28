@@ -14,7 +14,6 @@ import { AdminLanguageSwitcher } from "@/components/admin/admin-i18n";
 import { useNavText } from "@/components/layout/mega-menu";
 import { I18nProvider, locales, translate, useT } from "@/i18n";
 import { adminError } from "@/lib/admin-errors";
-import { useAdminLocale } from "@/lib/admin-locale";
 import { ApiError, adminApi } from "@/lib/admin-api";
 import { listRecords, refreshCatalog, withArtwork } from "@/lib/catalog";
 import { localizeProduct, missingTranslations, translatedLocales } from "@/lib/localize";
@@ -391,9 +390,10 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
   const editing = !!product;
   const [initial] = useState<ProductRecord>(() => (product ? withOwnColourPhotos(product) : blankProduct(collection)));
   const [d, setD] = useState<ProductRecord>(initial);
-  // One language for the whole admin: interface, the product text being edited and the preview
-  // (the admin's language — cookie admin_locale; the switcher sits in the status bar below)
-  const lang = useAdminLocale((s) => s.locale);
+  // Which language of the product text is being edited (and shown in the preview). Separate from
+  // the admin's interface language: reading the admin in Russian doesn't mean writing in Russian.
+  // Starts with English, the required one.
+  const [lang, setLang] = useState<Lang>("en");
   const t = useT("admin");
   const tf = useT("admin.fields");
   const tp = useT();
@@ -666,7 +666,7 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] xl:gap-10">
       <div className="min-w-0 space-y-6">
-        {/* ---------------- Language (the only language control on the page) ---------------- */}
+        {/* ---------------- Product text language (the interface language is in the top bar) ---------------- */}
         <div ref={sentinelRef} aria-hidden="true" className="h-0" />
         <div
           ref={barRef}
@@ -684,14 +684,14 @@ export function AdminProductForm({ product, collection, returnTo }: { product?: 
                 t("status.enRequired")
               ) : emptyHere.length ? (
                 <button type="button" onClick={goToFirstEmpty} className="text-left underline decoration-dotted underline-offset-2 hover:text-foreground" style={{ color: AMBER }}>
-                  {t("status.emptyCount", { count: emptyHere.length })}
+                  {t("status.emptyCount", { count: emptyHere.length, language: langName(lang) })}
                 </button>
               ) : (
-                t("status.allFilled")
+                t("status.allFilled", { language: langName(lang) })
               )}
             </p>
           </div>
-          <AdminLanguageSwitcher missing={emptyByLang} />
+          <AdminLanguageSwitcher value={lang} onChange={setLang} label={t("switcher.contentLabel")} missing={emptyByLang} />
         </div>
 
         {/* ---------------- Basics ---------------- */}
